@@ -1,5 +1,4 @@
-/* Created Mon Jan 18 15:47:18 PST 2016 */
-package com.palyrobotics;
+package com.palyrobotics.robot;
 
 import org.strongback.Strongback;
 
