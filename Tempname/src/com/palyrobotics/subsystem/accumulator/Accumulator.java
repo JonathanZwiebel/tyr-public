@@ -1,5 +1,7 @@
 package com.palyrobotics.subsystem.accumulator;
 
+import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
+
 public class Accumulator {
 
 	public enum State {
