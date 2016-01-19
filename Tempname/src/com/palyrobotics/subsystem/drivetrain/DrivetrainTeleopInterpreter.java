@@ -1,5 +1,5 @@
 package com.palyrobotics.subsystem.drivetrain;
 
-public class DrivetrainTeleopController {
-
+public class DrivetrainTeleopInterpreter {
+	
 }

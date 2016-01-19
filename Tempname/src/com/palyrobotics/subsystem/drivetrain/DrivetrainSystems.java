@@ -10,6 +10,8 @@ public class DrivetrainSystems {
 	private Motor rightFrontMotor = Hardware.Motors.talon(2);
 	private Motor rightBackMotor = Hardware.Motors.talon(3);
 	
-	private Motor left = Motor.compose(leftFrontMotor, leftBackMotor);
-	private Motor right = Motor.compose(rightFrontMotor, rightBackMotor);
+	public Motor leftMotor = Motor.compose(leftFrontMotor, leftBackMotor);
+	public Motor rightMotor = Motor.compose(rightFrontMotor, rightBackMotor);
+	
+	
 }
