@@ -1,8 +1,11 @@
 package com.palyrobotics.subsystem.drivetrain;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import org.strongback.command.Requirable;
 
-public class Drivetrain {
+import edu.wpi.first.wpilibj.command.Subsystem;
+import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+
+public class Drivetrain implements Requirable {
 	
 	public enum State {
 		IDLE,
@@ -42,11 +45,7 @@ public class Drivetrain {
 		
 	}
 	
-	public void driveDistance(double distance) {
-		
-	}
-
-	public void turnAngle(double angle) {
-		
+	public void setState(State state) {
+		this.state = state;
 	}
 }
