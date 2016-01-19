@@ -1,5 +1,7 @@
 package com.palyrobotics.subsystem.shooter;
 
+import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
+
 public class Shooter {
 
 	public enum State {
