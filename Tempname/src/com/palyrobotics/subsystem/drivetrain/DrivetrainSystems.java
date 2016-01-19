@@ -12,6 +12,4 @@ public class DrivetrainSystems {
 	
 	public Motor leftMotor = Motor.compose(leftFrontMotor, leftBackMotor);
 	public Motor rightMotor = Motor.compose(rightFrontMotor, rightBackMotor);
-	
-	
 }

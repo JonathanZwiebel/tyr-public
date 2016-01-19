@@ -2,7 +2,9 @@ package com.palyrobotics.subsystem.accumulator;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
-public class Accumulator {
+import org.strongback.command.Requirable;
+
+public class Accumulator implements Requirable {
 
 	public enum State {
 		IDLE,
@@ -43,22 +45,6 @@ public class Accumulator {
 	}
 	
 	public void disable() {
-		
-	}
-	
-	public void accumulate() {
-		
-	}
-
-	public void eject() {
-		
-	}
-	
-	public void hold() {
-		
-	}
-	
-	public void release() {
 		
 	}
 }

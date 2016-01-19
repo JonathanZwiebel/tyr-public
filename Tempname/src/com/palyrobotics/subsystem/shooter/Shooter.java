@@ -2,7 +2,9 @@ package com.palyrobotics.subsystem.shooter;
 
 import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
 
-public class Shooter {
+import org.strongback.command.Requirable;
+
+public class Shooter implements Requirable {
 
 	public enum State {
 		IDLE,
@@ -43,22 +45,6 @@ public class Shooter {
 	}
 	
 	public void disable() {
-		
-	}
-	
-	public void shoot() {
-		
-	}
-
-	public void retract() {
-		
-	}
-	
-	public void raise() {
-		
-	}
-	
-	public void lower() {
 		
 	}
 }

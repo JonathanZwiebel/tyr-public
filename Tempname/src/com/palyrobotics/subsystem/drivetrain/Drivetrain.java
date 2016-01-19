@@ -7,6 +7,9 @@ import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class Drivetrain implements Requirable {
 	
+	private DrivetrainSystems systems;
+	private DrivetrainTeleopInterpreter interpreter;
+	
 	public enum State {
 		IDLE,
 		DRIVING_TELEOP,
@@ -17,7 +20,7 @@ public class Drivetrain implements Requirable {
 	private State state;
 	
 	public Drivetrain() {
-		
+
 	}
 	
 	public void init() {
@@ -27,7 +30,7 @@ public class Drivetrain implements Requirable {
 	public void update() {
 		switch(state) {
 		case IDLE:
-			
+
 			break;
 		case DRIVING_TELEOP:
 			
