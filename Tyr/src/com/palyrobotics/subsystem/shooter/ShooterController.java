@@ -25,23 +25,7 @@ public class ShooterController implements Requirable {
 	}
 	
 	public void update() {
-		switch(state) {
-		case IDLE:
-			
-			break;
-		case SHOOTING:
-			
-			break;
-		case RETRACTING:
-			
-			break;
-		case RAISING:
-			
-			break;
-		case LOWERING:
-			
-			break;
-		}
+		
 	}
 	
 	public void disable() {

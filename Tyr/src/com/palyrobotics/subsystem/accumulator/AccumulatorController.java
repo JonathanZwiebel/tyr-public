@@ -25,23 +25,7 @@ public class AccumulatorController implements Requirable {
 	}
 	
 	public void update() {
-		switch(state) {
-		case IDLE:
-			
-			break;
-		case ACCUMULATING:
-			
-			break;
-		case EJECTING:
-			
-			break;
-		case HOLDING:
-			
-			break;
-		case RELEASING:
-			
-			break;
-		}
+		
 	}
 	
 	public void disable() {

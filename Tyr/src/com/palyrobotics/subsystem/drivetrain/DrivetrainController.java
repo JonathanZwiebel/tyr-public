@@ -27,20 +27,7 @@ public class DrivetrainController implements Requirable {
 	}
 	
 	public void update() {
-		switch(state) {
-		case IDLE:
-
-			break;
-		case DRIVING_TELEOP:
-			
-			break;
-		case DRIVING_DISTANCE:
-			
-			break;
-		case TURNING_ANGLE:
-			
-			break;
-		}
+		
 	}
 	
 	public void disable() {
