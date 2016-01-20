@@ -22,8 +22,8 @@ public class RobotInput {
 	public static final AngleSensor rightDriveEncoder = null;
 	public static final Gyroscope gyroscope = null;
 	public static final ThreeAxisAccelerometer accelerometer = null;
-	public static final DistanceSensor leftUltrasonic = null;
-	public static final DistanceSensor rightUltrasonic = null;
+	public static final DistanceSensor leftInfrared = null;
+	public static final DistanceSensor rightInfrared = null;
 	
 	public static final AngleSensor shooterPotentiometer = null;
 	public static final Switch shooterLimitSensor = null; // not yet determined if switch or digital HFX
