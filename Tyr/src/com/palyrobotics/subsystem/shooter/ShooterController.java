@@ -4,7 +4,7 @@ import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
 
 import org.strongback.command.Requirable;
 
-public class Shooter implements Requirable {
+public class ShooterController implements Requirable {
 
 	public enum State {
 		IDLE,
@@ -16,7 +16,7 @@ public class Shooter implements Requirable {
 	
 	private State state;
 	
-	public Shooter() {
+	public ShooterController() {
 		
 	}
 	

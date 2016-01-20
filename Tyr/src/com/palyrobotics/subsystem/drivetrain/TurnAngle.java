@@ -2,14 +2,14 @@ package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
 
-import com.palyrobotics.subsystem.drivetrain.Drivetrain.State;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController.State;
 
 public class TurnAngle extends Command {
 
-	private Drivetrain drivetrain;
+	private DrivetrainController drivetrain;
 	private double angle;
 	
-	public TurnAngle(Drivetrain drivetrain, double angle) {
+	public TurnAngle(DrivetrainController drivetrain, double angle) {
 		this.drivetrain = drivetrain;
 		this.angle = angle;
 	}

@@ -4,7 +4,7 @@ import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
 import org.strongback.command.Requirable;
 
-public class Accumulator implements Requirable {
+public class AccumulatorController implements Requirable {
 
 	public enum State {
 		IDLE,
@@ -16,7 +16,7 @@ public class Accumulator implements Requirable {
 	
 	private State state;
 	
-	public Accumulator() {
+	public AccumulatorController() {
 		
 	}
 	

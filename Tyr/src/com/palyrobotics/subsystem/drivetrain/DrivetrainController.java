@@ -5,10 +5,9 @@ import org.strongback.command.Requirable;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
-public class Drivetrain implements Requirable {
+public class DrivetrainController implements Requirable {
 	
 	private DrivetrainSystems systems;
-	private DrivetrainTeleopInterpreter interpreter;
 	
 	public enum State {
 		IDLE,
@@ -19,7 +18,7 @@ public class Drivetrain implements Requirable {
 	
 	private State state;
 	
-	public Drivetrain() {
+	public DrivetrainController() {
 
 	}
 	

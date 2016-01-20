@@ -2,14 +2,14 @@ package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
 
-import com.palyrobotics.subsystem.drivetrain.Drivetrain.*;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
 public class DriveDistance extends Command {
 
-	private Drivetrain drivetrain;
+	private DrivetrainController drivetrain;
 	private double distance;
 	
-	public DriveDistance(Drivetrain drivetrain, double distance) {
+	public DriveDistance(DrivetrainController drivetrain, double distance) {
 		this.drivetrain = drivetrain;
 		this.distance = distance;
 	}
