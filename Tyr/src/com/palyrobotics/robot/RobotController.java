@@ -9,7 +9,7 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 
-public class RobotController extends IterativeRobot implements Tyr {
+public class RobotController extends IterativeRobot {
 	private DrivetrainController drivetrain;
 	private AccumulatorController accumulator;
 	private ShooterController shooter;
