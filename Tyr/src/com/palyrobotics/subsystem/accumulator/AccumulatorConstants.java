@@ -14,4 +14,5 @@ public class AccumulatorConstants {
 
 	// TODO: Period of time the accumulator will keep expelling
 	public static final double EXPEL_TIME = DOUBLE;
+	public static final double ACCUMULATOR_SPEED = 0.5;
 }

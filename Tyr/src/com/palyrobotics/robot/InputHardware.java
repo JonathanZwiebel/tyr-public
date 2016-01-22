@@ -42,42 +42,35 @@ public class InputHardware implements InputSystems {
 	public FlightStick getDriveStick() {
 		return driveStick;
 	}
-
 	@Override
 	public FlightStick getTurnStick() {
 		return turnStick;
 	}
-
 	@Override
 	public FlightStick getOperatorStick() {
 		return operatorStick;
 	}
-
+	
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
 	}
-
 	@Override
 	public AngleSensor getRightDriveEncoder() {
 		return rightDriveEncoder;
 	}
-
 	@Override
 	public Gyroscope getGyroscope() {
 		return gyroscope;
 	}
-
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
 		return accelerometer;
 	}
-
 	@Override
 	public DistanceSensor getLeftInfrared() {
 		return leftInfrared;
 	}
-
 	@Override
 	public DistanceSensor getRightInfrared() {
 		return rightInfrared;
@@ -87,14 +80,15 @@ public class InputHardware implements InputSystems {
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
-
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
 	}
+	
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
 	}
+	
 	@Override
 	public ContinuousRange getVisionInput() {
 		return visionInput;
