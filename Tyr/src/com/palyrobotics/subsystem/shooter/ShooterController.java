@@ -4,6 +4,7 @@ import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.subsystem.shooter.shootercommands.UncheckedTeleopCommand;
 
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
@@ -19,7 +20,6 @@ public class ShooterController implements Requirable {
 	}
 	
 	public ShooterState state;
-	
 	public ShooterController(ShooterSystems systems, InputSystems input) {
 		this.systems = systems;
 		this.input = input;
