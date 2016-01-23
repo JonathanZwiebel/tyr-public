@@ -6,7 +6,7 @@ import org.strongback.command.Command;
 import org.strongback.components.ui.FlightStick;
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
-public class StartAccumulatorControl extends Command{
+public class StartAccumulatorControl extends Command {
 	AccumulatorController controller;
 	SwitchReactor reactor;
 	FlightStick joystick;
@@ -21,7 +21,6 @@ public class StartAccumulatorControl extends Command{
 	public boolean execute() {
 		//Accumulates the ball if the button is pressed
 		reactor.whileTriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBall(controller)));
-		reactor.whileUntriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new StopAccumulator(controller)));
 		//Expels the ball when the button is not pressed
 		reactor.whileTriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
 		reactor.whileUntriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new StopAccumulator(controller)));
