@@ -3,26 +3,27 @@ package com.palyrobotics.subsystem.shooter;
 import org.strongback.command.Command;
 import org.strongback.components.ui.ContinuousRange;
 
-import com.palyrobotics.robot.InputHardware;
-
 public class UncheckedTeleopCommand extends Command {
 	
 	ContinuousRange operator_pitch;
 	ShooterController controller;
+	ShooterSystems output;
 	
-	public UncheckedTeleopCommand(ShooterController controller) {
+	public UncheckedTeleopCommand(ShooterController controller, ShooterSystems output) {
 		controller.state = ShooterController.ShooterState.UNLOCKED;
+		this.controller = controller;
+		this.output = output;
 	}
 	
 	@Override
 	public void initialize() {
-		operator_pitch = InputHardware.operatorStick.getPitch();
+		operator_pitch = controller.input.getOperatorStick().getPitch();
 	}
 	
 	@Override
 	public boolean execute() {
 		double input_value = operator_pitch.read();
-		controller.systems.getMotor().setSpeed(input_value);
+		output.getMotor().setSpeed(input_value);
 		return false;
 	}
 

@@ -31,7 +31,7 @@ public class ShooterController implements Requirable {
 	
 	public void update() {
 		if(state == ShooterState.UNLOCKED) {
-			Strongback.submit(new UncheckedTeleopCommand(this));
+			Strongback.submit(new UncheckedTeleopCommand(this, systems));
 		}
 	}
 	
