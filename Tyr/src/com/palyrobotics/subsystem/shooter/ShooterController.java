@@ -3,8 +3,12 @@ package com.palyrobotics.subsystem.shooter;
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
+import com.palyrobotics.robot.InputSystems;
+
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
+	public InputSystems input;
+	
 	// This will be either a ShooterSystems object or a MockShooterSystems object
 	
 	public enum ShooterState {
@@ -16,8 +20,9 @@ public class ShooterController implements Requirable {
 	
 	public ShooterState state;
 	
-	public ShooterController(ShooterSystems systems) {
+	public ShooterController(ShooterSystems systems, InputSystems input) {
 		this.systems = systems;
+		this.input = input;
 	}
 	
 	public void init() {

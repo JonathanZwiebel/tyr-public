@@ -3,7 +3,7 @@ package com.palyrobotics.subsystem.shooter;
 import org.strongback.command.Command;
 import org.strongback.components.ui.ContinuousRange;
 
-import com.palyrobotics.robot.RobotInput;
+import com.palyrobotics.robot.InputHardware;
 
 public class UncheckedTeleopCommand extends Command {
 	
@@ -16,7 +16,7 @@ public class UncheckedTeleopCommand extends Command {
 	
 	@Override
 	public void initialize() {
-		operator_pitch = RobotInput.operatorStick.getPitch();
+		operator_pitch = InputHardware.operatorStick.getPitch();
 	}
 	
 	@Override
