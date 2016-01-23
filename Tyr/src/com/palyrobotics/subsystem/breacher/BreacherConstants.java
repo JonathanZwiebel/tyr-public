@@ -7,4 +7,7 @@ package com.palyrobotics.subsystem.breacher;
  */
 public class BreacherConstants {
 	public static final double MAX_SPEED = 1;
+	public static final double PROPORTIONAL = 1;
+	public static final double INTEGRAL = 1;
+	public static final double DERIVATIVE = 1;
 }

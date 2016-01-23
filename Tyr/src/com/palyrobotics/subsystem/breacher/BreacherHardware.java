@@ -7,9 +7,10 @@ import org.strongback.hardware.Hardware;
 /**
  * All the output hardware for the breacher
  * @author Nihar
- *
  */
-public class BreacherHardware implements BreacherSystems {
-	public Motor leftMotor = Hardware.Motors.talon(-1);
-	public Motor rightMotor = Hardware.Motors.talon(-1);
+public class BreacherHardware extends BreacherSystems {
+	public BreacherHardware() {
+		setLeftMotor(Hardware.Motors.talon(-1));
+		setRightMotor(Hardware.Motors.talon(-1));
+	}
 }
