@@ -1,6 +1,7 @@
 package com.palyrobotics.subsystem.accumulator;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
+import static com.palyrobotics.robot.RobotInput.*;
 
 import org.strongback.Strongback;
 import org.strongback.command.Command;

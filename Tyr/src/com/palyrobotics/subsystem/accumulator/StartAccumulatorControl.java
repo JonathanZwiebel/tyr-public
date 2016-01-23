@@ -11,16 +11,20 @@ public class StartAccumulatorControl extends Command{
 	SwitchReactor reactor;
 	FlightStick joystick;
 	public StartAccumulatorControl (AccumulatorController controller, FlightStick joystick) {
+		//Constructs the command using the super constructor
+		super (controller);
 		this.controller = controller;
 		reactor = Strongback.switchReactor();
 		joystick = this.joystick;
 	}
 	@Override
 	public boolean execute() {
-		reactor.onTriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBall(controller)));
-		reactor.onUntriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBall(controller)));
-		reactor.onTriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
-		reactor.onUntriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new IntakeBall(controller)));
+		//Accumulates the ball if the button is pressed
+		reactor.whileTriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBall(controller)));
+		reactor.whileUntriggered(joystick.getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new StopAccumulator(controller)));
+		//Expels the ball when the button is not pressed
+		reactor.whileTriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
+		reactor.whileUntriggered(joystick.getButton(EXPEL_BUTTON),()->Strongback.submit(new StopAccumulator(controller)));
 		return false;
 	}
 
