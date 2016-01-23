@@ -1,9 +1,9 @@
 package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.components.Motor;
-import org.strongback.hardware.Hardware;
 
-public class ShooterSystems {
-	private Motor leftMotor = Hardware.Motors.talon(4);
-	private Motor rightMotor = Hardware.Motors.talon(5);
+public abstract class ShooterSystems {	
+	protected abstract Motor getMotor();
+	protected abstract void setMotor(Motor motor);
+	// this will be either a talon (ShooterHardware) or a mock talon (MockShooterHardware)
 }
