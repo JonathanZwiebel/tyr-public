@@ -37,5 +37,4 @@ public class ExpelBall extends Command {
 		Strongback.submit(new StopAccumulator(accumulatorController));
 		return true;
 	}
-
 }
