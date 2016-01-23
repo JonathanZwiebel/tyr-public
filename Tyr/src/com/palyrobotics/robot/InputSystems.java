@@ -20,6 +20,11 @@ public interface InputSystems {
 	public DistanceSensor getLeftInfrared();
 	public DistanceSensor getRightInfrared();
 	
+	public AngleSensor getShooterPotentiometer();
+	public Switch getShooterDrawbackLimitSensor();
+	
+	public AngleSensor getBreacherPotentiometer();
+	
 	public AngleSensor getAccumulatorPotentiometer();
 	public Switch getAccumulatorFilledLimitSensor();
 	

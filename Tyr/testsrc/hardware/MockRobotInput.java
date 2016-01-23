@@ -31,6 +31,8 @@ public class MockRobotInput implements InputSystems {
 	public final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
 	public final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
+	public static final MockAngleSensor breacherPotentiometer = Mock.angleSensor();
+	
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
@@ -76,6 +78,7 @@ public class MockRobotInput implements InputSystems {
 		return accumulatorLimitSensor;
 	}
 	@Override
+<<<<<<< HEAD
 	public ContinuousRange getVisionInput() {
 		return visionInput;
 	}
@@ -91,4 +94,11 @@ public class MockRobotInput implements InputSystems {
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return null;
 	}
+=======
+	public AngleSensor getBreacherPotentiometer() {
+		return breacherPotentiometer;
+	}
+	
+	// vision to be added later
+>>>>>>> d1b0bd8... Breacher squashed
 }

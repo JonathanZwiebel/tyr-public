@@ -1,5 +1,6 @@
 package com.palyrobotics.subsystem.breacher;
 
+import org.strongback.components.AngleSensor;
 import org.strongback.components.Motor;
 
 /**
@@ -8,20 +9,12 @@ import org.strongback.components.Motor;
  *  @author Nihar
  */
 
-public abstract class BreacherSystems {
-	private Motor leftMotor;
-	public void setLeftMotor(Motor leftMotor) {
-		this.leftMotor = leftMotor;
-	}
-	public Motor getLeftMotor() {
-		return leftMotor;
-	}
+public interface BreacherSystems {
+	public void setMotor(Motor motor);
 	
-	private Motor rightMotor;
-	public Motor getRightMotor() {
-		return rightMotor;
-	}
-	public void setRightMotor(Motor rightMotor) {
-		this.rightMotor = rightMotor;
-	}
+	public void setPotentiometer(AngleSensor potentiometer);
+	
+	public AngleSensor getPotentiometer();
+	
+	public Motor getMotor();
 }

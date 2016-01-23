@@ -7,10 +7,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
+import org.strongback.SwitchReactor;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
+import com.palyrobotics.subsystem.breacher.BreacherController;
+import com.palyrobotics.subsystem.breacher.BreacherHardware;
+import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
@@ -20,7 +24,6 @@ import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
-
 public class RobotController extends IterativeRobot {
 	private DrivetrainController drivetrain;
 	private DrivetrainSystems drivetrainSystems;
@@ -28,13 +31,26 @@ public class RobotController extends IterativeRobot {
 	private AccumulatorController accumulator;
 	private AccumulatorSystems accumulatorSystems;
 	
+	private BreacherController breacher;
+	private BreacherSystems breacherSystems;
+	
 	private ShooterController shooter;
 	private ShooterSystems shooterSystems;
 	
 	private InputSystems input;
 	
+	private SwitchReactor reactor;
+	
     @Override
     public void robotInit() {
+    	try{
+        	Strongback.start();
+        	Strongback.configure().initialize();
+        }
+        catch(Throwable thrown) {
+        	System.err.println(thrown);
+        }
+    	
     	input = new InputHardware(); // when this is mock it will
 
     	try {
@@ -49,11 +65,13 @@ public class RobotController extends IterativeRobot {
     	accumulatorSystems = new AccumulatorHardware();
     	shooterSystems = new ShooterHardware(); // when this is mock it will not be shooter hardware
     	drivetrainSystems = new DrivetrainHardware();
-	
+    	breacherSystems = new BreacherHardware();
+    	
     	//Subsystem controllers
     	drivetrain = new DrivetrainController(drivetrainSystems, input);
     	accumulator = new AccumulatorController(accumulatorSystems, input);
     	shooter = new ShooterController(shooterSystems, input);
+    	breacher = new BreacherController(breacherSystems, input);
     	
     	//Begin logging
     	startLogging();
@@ -89,13 +107,15 @@ public class RobotController extends IterativeRobot {
     	drivetrain.init();
     	accumulator.init();
     	shooter.init();
+    	breacher.init();
     }
 
     @Override
     public void teleopPeriodic() {
-    	drivetrain.update();
-    	accumulator.update();
-    	shooter.update();
+//    	drivetrain.update();
+//    	accumulator.update();
+//    	shooter.update();
+    	breacher.update();
     }
 
     @Override
@@ -103,6 +123,7 @@ public class RobotController extends IterativeRobot {
     	drivetrain.disable();
     	accumulator.disable();
     	shooter.disable();
+    	breacher.disable();
         Strongback.disable();
         Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
     }

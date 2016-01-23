@@ -96,5 +96,8 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return shooterArmMinimumAngleLimitSensor;
+		
+	public AngleSensor getBreacherPotentiometer() {
+		return breacherPotentiometer;
 	}
 }
