@@ -4,14 +4,13 @@ import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.subsystem.shooter.shootercommands.UncheckedLimitedTeleopCommand;
 import com.palyrobotics.subsystem.shooter.shootercommands.UncheckedTeleopCommand;
 
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
 	public InputSystems input;
-	
-	// This will be either a ShooterSystems object or a MockShooterSystems object
-	
+		
 	public enum ShooterState {
 		IDLE,
 		UNLOCKED,
@@ -30,7 +29,7 @@ public class ShooterController implements Requirable {
 	
 	public void update() {
 		if(state == ShooterState.UNLOCKED) {
-			Strongback.submit(new UncheckedTeleopCommand(this));
+			Strongback.submit(new UncheckedLimitedTeleopCommand(this));
 		}
 	}
 	

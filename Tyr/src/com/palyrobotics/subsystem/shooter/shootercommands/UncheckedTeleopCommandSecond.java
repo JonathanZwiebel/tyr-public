@@ -7,14 +7,14 @@ import org.strongback.components.ui.ContinuousRange;
 import com.palyrobotics.robot.InputSystems;
 
 
-public class UnchckedTeleopCommandSecond extends Command {
+public class UncheckedTeleopCommandSecond extends Command {
 	ShooterController controller;
 	ContinuousRange range;
 	InputSystems input;
 	ShooterSystems output;
 
 
-	public UnchckedTeleopCommandSecond(ShooterController controller) {
+	public UncheckedTeleopCommandSecond(ShooterController controller) {
 		this.controller = controller;
 		input = controller.input;
 		output = controller.systems;
