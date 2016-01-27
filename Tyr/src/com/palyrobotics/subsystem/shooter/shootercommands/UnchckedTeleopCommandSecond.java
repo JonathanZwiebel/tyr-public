@@ -1,4 +1,4 @@
-package com.palyrobotics.subsystem.shooter;
+package com.palyrobotics.subsystem.shooter.shootercommands;
 
 import org.strongback.command.Command;
 import com.palyrobotics.subsystem.shooter.*;
@@ -7,27 +7,30 @@ import org.strongback.components.ui.ContinuousRange;
 import com.palyrobotics.robot.InputSystems;
 
 
-public class TeleopMoveArm extends Command {
+public class UnchckedTeleopCommandSecond extends Command {
 	ShooterController controller;
-	ContinuousRange angle;
+	ContinuousRange range;
 	InputSystems input;
+	ShooterSystems output;
 
 
-	public TeleopMoveArm(ShooterController controller) {
+	public UnchckedTeleopCommandSecond(ShooterController controller) {
 		this.controller = controller;
+		input = controller.input;
+		output = controller.systems;
 	}
 	
 	
 	@Override
 	public void initialize() {
-		angle = input.getOperatorStick().getPitch();
+		range = input.getOperatorStick().getPitch();
 		controller.state = ShooterController.ShooterState.UNLOCKED;	
 	}
 	
 	
 	@Override
 	public boolean execute() {
-		controller.systems.getMotor().setSpeed(angle.read());
+		output.getMotor().setSpeed(range.read());
 		return false;
 	}
 

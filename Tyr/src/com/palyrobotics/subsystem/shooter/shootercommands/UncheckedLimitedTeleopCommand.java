@@ -3,26 +3,32 @@ package com.palyrobotics.subsystem.shooter.shootercommands;
 import org.strongback.Strongback;
 import org.strongback.command.Command;
 
+import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
-public class TeleopCommand extends Command {
+public class UncheckedLimitedTeleopCommand extends Command {
 	private ShooterController con;
 	private double angle = con.input.getShooterPotentiometer().getAngle();
 	private double pitch = con.input.getOperatorStick().getPitch().read();
+	private ShooterSystems output;
+	private InputSystems input;
 	
-	public TeleopCommand(ShooterController con) {
+	public UncheckedLimitedTeleopCommand(ShooterController con) {
 		this.con = con;
+		output = con.systems;
+		input = con.input;
 	}
 	
 	
 	@Override
 	public boolean execute() {
-		if(angle < (ShooterConstants.maxAngle) && angle > (ShooterConstants.minAngle)) {
-			con.systems.getMotor().setSpeed(pitch);
+		if(angle < (ShooterConstants.MAX_ANGLE) && angle > (ShooterConstants.MIN_ANGLE)) {
+			output.getMotor().setSpeed(pitch);
 			return false;
 		}
-		else if(angle >= ShooterConstants.maxAngle){
+		else if(angle >= ShooterConstants.MAX_ANGLE){
 			if(pitch > 0){
 				con.systems.getMotor().setSpeed(0);
 			}
@@ -31,7 +37,7 @@ public class TeleopCommand extends Command {
 			}
 			return false;
 		}
-		else if(angle <= ShooterConstants.minAngle) {
+		else if(angle <= ShooterConstants.MIN_ANGLE) {
 			if(pitch < 0){
 				con.systems.getMotor().setSpeed(0);
 			}

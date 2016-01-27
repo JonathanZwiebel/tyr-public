@@ -7,7 +7,6 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
 public class UncheckedTeleopCommand extends Command {
-	
 	ContinuousRange operator_pitch;
 	ShooterController controller;
 	ShooterSystems output;
