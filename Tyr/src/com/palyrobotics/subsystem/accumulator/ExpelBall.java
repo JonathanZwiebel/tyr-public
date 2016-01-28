@@ -27,6 +27,10 @@ public class ExpelBall extends Command {
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 		accumulatorController.setState(AccumulatorState.EJECTING);
 	}
+	/*
+	 *Runs the motors for EXPEL_TIME ms
+	 *Executes every 20 ms until EXPEL_TIME ms has passed
+	 */
 	@Override
 	public boolean execute() {
 		// Runs the motors so they expel the ball for EXPEL_TIME seconds

@@ -10,9 +10,9 @@ public class StopAccumulator extends Command {
 	public StopAccumulator(AccumulatorController controller) {
 		this.controller = controller;
 	}
-
-	/**
-	 * Sets the accumulator motor power to 0 Completes imediately
+	/*
+	 * Sets the accumulator motor power to 0
+	 * Completes imediately
 	 */
 	@Override
 	public boolean execute() {
