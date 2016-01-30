@@ -3,6 +3,10 @@ package com.palyrobotics.subsystem.accumulator;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Command;
+<<<<<<< Upstream, based on yellow-master
+=======
+import org.strongback.components.ui.FlightStick;
+>>>>>>> 8076b8a Fixed accumulator formatting
 
 import com.palyrobotics.robot.InputSystems;
 
@@ -19,6 +23,10 @@ public class AccumulatorTeleop extends Command {
 		this.controller = controller;
 		this.input = input;
 		reactor = Strongback.switchReactor();
+<<<<<<< Upstream, based on yellow-master
+=======
+		this.input = input;
+>>>>>>> 8076b8a Fixed accumulator formatting
 	}
 	/**
 	 * Submits commands to Strongback based on button input
