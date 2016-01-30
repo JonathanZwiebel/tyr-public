@@ -10,10 +10,7 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorS
 public class ExpelBall extends Command {
 	private AccumulatorController accumulatorController;
 	private double begin;
-<<<<<<< Upstream, based on yellow-master
 	
-=======
->>>>>>> 8076b8a Fixed accumulator formatting
 	public ExpelBall(AccumulatorController accumulatorController) {
 		//Constructs the command using the super constructor
 		super(accumulatorController);
