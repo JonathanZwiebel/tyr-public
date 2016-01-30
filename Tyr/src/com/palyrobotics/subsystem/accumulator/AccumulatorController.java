@@ -1,59 +1,41 @@
 package com.palyrobotics.subsystem.accumulator;
 
-import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
-import static com.palyrobotics.robot.RobotInput.*;
-
 import org.strongback.Strongback;
-import org.strongback.command.Command;
 import org.strongback.command.Requirable;
-
-import com.palyrobotics.robot.RobotInput;
-import com.palyrobotics.subsystem.accumulator.AccumulatorController.State;
+import com.palyrobotics.robot.InputSystems;
 
 public class AccumulatorController implements Requirable {
-	public enum State {
+
+	public enum AccumulatorState {
 		IDLE,
 		ACCUMULATING,
 		EJECTING,
 		HOLDING,
 		RELEASING
 	}
-	private State state;
 	
+	private AccumulatorState state;
+	private InputSystems robotInput;
 	public AccumulatorSystems systems;
 	
-	private StartAccumulatorControl troutAccumulator;
-	
-	public AccumulatorController(AccumulatorSystems accumulatorSystems) {
+	public AccumulatorController(AccumulatorSystems accumulatorSystems, InputSystems robotInput) {
 		this.systems = accumulatorSystems;
+		this.robotInput = robotInput;
+	}
 	
 	public void init() {
-		state = State.IDLE;
+		state = AccumulatorState.IDLE;
 	}
 	
 	public void update() {
-		Strongback.submit(new StartAccumulatorControl(this, RobotInput.operatorStick));
-		switch (state){
-		case ACCUMULATING:
-			break;
-		case EJECTING:
-			break;
-		case HOLDING:
-			break;
-		case IDLE:
-			break;
-		case RELEASING:
-			break;
-		default:
-			break;
-		}
+		Strongback.submit(new AccumulatorTeleop(this, robotInput));
 	}
 	
 	public void disable() {
 		Strongback.submit(new StopAccumulator(this));
 	}
 	
-	public void setState(State state) {
+	public void setState(AccumulatorState state) {
 		this.state = state;
 	}
 

@@ -6,20 +6,24 @@ import org.strongback.command.Requirable;
 import org.strongback.command.Command;
 import org.strongback.components.Motor;
 
-import com.palyrobotics.robot.RobotInput;
-import com.palyrobotics.subsystem.accumulator.AccumulatorController.State;
+import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 
-public class IntakeBall extends Command{
+public class IntakeBall extends Command {
 	private AccumulatorController accumulatorController;
-	public IntakeBall(AccumulatorController accumulatorController) {
+	private InputSystems input;
+	
+	public IntakeBall(AccumulatorController accumulatorController, InputSystems input) {
 		super(accumulatorController);
 		this.accumulatorController = accumulatorController;
+		this.input = input;
 	}
-	public void initialize (){
+	
+	public void initialize() {
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
-		accumulatorController.setState(State.ACCUMULATING);
+		accumulatorController.setState(AccumulatorState.ACCUMULATING);
 	}
-	/*
+	/**
 	 * Runs the intake until the photogate is triggered
 	 * Executes every 20 ms until the photogate is triggered
 	 */
@@ -27,7 +31,7 @@ public class IntakeBall extends Command{
 	public boolean execute() {
 		if(input.getAccumulatorFilledLimitSensor().isTriggered()) {
 			accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
-			accumulatorController.setState(State.HOLDING);
+			accumulatorController.setState(AccumulatorState.HOLDING);
 			return true;
 		}
 		return false;

@@ -2,23 +2,25 @@ package com.palyrobotics.subsystem.accumulator;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
+import org.strongback.Strongback;
 import org.strongback.command.Command;
-import org.strongback.components.Motor;
 
-import com.palyrobotics.subsystem.accumulator.AccumulatorController.State;
+import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 
 public class ExpelBall extends Command {
 	private AccumulatorController accumulatorController;
+	private double begin;
+	
 	public ExpelBall(AccumulatorController accumulatorController) {
 		//Constructs the command using the super constructor
 		super(accumulatorController);
 		this.accumulatorController = accumulatorController;
 	}
 	@Override
-	public void initialize (){
+	public void initialize() {
 		this.begin = System.currentTimeMillis();
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
-		accumulatorController.setState(State.EJECTING);
+		accumulatorController.setState(AccumulatorState.EJECTING);
 	}
 	/*
 	 *Runs the motors for EXPEL_TIME ms
