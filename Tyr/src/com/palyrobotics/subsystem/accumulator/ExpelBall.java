@@ -10,7 +10,7 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorS
 public class ExpelBall extends Command {
 	private AccumulatorController accumulatorController;
 	private double begin;
-
+	
 	public ExpelBall(AccumulatorController accumulatorController) {
 		// Constructs the command using the super constructor
 		super(accumulatorController);
