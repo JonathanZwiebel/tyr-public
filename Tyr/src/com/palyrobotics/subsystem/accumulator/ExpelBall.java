@@ -37,7 +37,8 @@ public class ExpelBall extends Command {
 		if (System.currentTimeMillis() - begin < EXPEL_TIME) {
 			return false;
 		}
-		Strongback.submit(new StopAccumulator(accumulatorController));
+		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
+		accumulatorController.setState(AccumulatorState.IDLE);
 		return true;
 	}
 }
