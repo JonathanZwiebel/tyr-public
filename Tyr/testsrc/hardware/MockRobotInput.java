@@ -11,7 +11,10 @@ import com.palyrobotics.robot.*;
 
 //None of the modules should modify this class
 public class MockRobotInput implements InputSystems {
-	// When build delivers we will define these, until then, do not touch
+	
+	public static final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public static final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public static final MockFlightStick operatorStick = new MockFlightStick(0,0,0,0, 0, 0);
 	
 	public static final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
 	public static final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
@@ -28,15 +31,15 @@ public class MockRobotInput implements InputSystems {
 	
 	@Override
 	public FlightStick getDriveStick() {
-		return null;
+		return driveStick;
 	}
 	@Override
 	public FlightStick getTurnStick() {
-		return null;
+		return turnStick;
 	}
 	@Override
 	public FlightStick getOperatorStick() {
-		return null;
+		return operatorStick;
 	}
 	@Override
 	public AngleSensor getLeftDriveEncoder() {

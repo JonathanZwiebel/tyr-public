@@ -3,31 +3,34 @@ package com.palyrobotics.subsystem.shooter.shootercommands;
 import org.strongback.Strongback;
 import org.strongback.command.Command;
 
-import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
-import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
 public class UncheckedLimitedTeleopCommand extends Command {
 	private ShooterController con;
-	private double angle = con.input.getShooterPotentiometer().getAngle();
-	private double pitch = con.input.getOperatorStick().getPitch().read();
-	private ShooterSystems output;
-	private InputSystems input;
+	private double angle;
+	private double pitch;
+
 	
-	public UncheckedLimitedTeleopCommand(ShooterController con) {
-		this.con = con;
-		output = con.systems;
-		input = con.input;
+	public UncheckedLimitedTeleopCommand(ShooterController controller) {
+		con = controller;
+		angle = con.input.getShooterPotentiometer().getAngle();
+		pitch = con.input.getOperatorStick().getPitch().read();
 	}
 	
-	
+	/**
+	 * Called every 20 ms when command is active
+	 * Alters hardware and states
+	 */
 	@Override
 	public boolean execute() {
+		//When shooter is within maximum bounds accept all input
 		if(angle < (ShooterConstants.MAX_ANGLE) && angle > (ShooterConstants.MIN_ANGLE)) {
-			output.getMotor().setSpeed(pitch);
+			con.systems.getMotor().setSpeed(pitch);
 			return false;
 		}
+		//When shooter is on or past the max or min angle, 
+		//only accept input in the opposite direction
 		else if(angle >= ShooterConstants.MAX_ANGLE){
 			if(pitch > 0){
 				con.systems.getMotor().setSpeed(0);
@@ -49,11 +52,17 @@ public class UncheckedLimitedTeleopCommand extends Command {
 		return false;
 	}
 	
+	/**
+	 * Pushes a message to the logger when interuppted by another command
+	 */
 	@Override
 	public void interrupted() {
-		Strongback.logger().info("The command TeleopCommand was interrupted.");
+		Strongback.logger().info("The command UncheckedLimitedTeleopCommand was interrupted.");
 	}
 	
+	/**
+	 * Sets speed to zero when ended
+	 */
 	@Override
 	public void end() {
 		con.systems.getMotor().setSpeed(0);
