@@ -14,7 +14,13 @@ import com.palyrobotics.subsystem.shooter.*;
 import com.palyrobotics.subsystem.shooter.shootercommands.UncheckedLimitedTeleopCommand;
 
 import hardware.*;
+import rules.Repeat;
+import rules.RepeatRule;
 
+/**
+ * Testing the UncheckedLimitedTeleopCommand
+ * @author Joseph Rumelhart
+ */
 public class TestLimited {
 	private InputSystems input;
 	private ShooterSystems output;
@@ -28,6 +34,10 @@ public class TestLimited {
 	
 	@Rule
     public TestRule globalTimeout = new Timeout(3000);
+	
+	@Rule
+	public RepeatRule repeatRule = new RepeatRule();
+
 	
 	/**
 	 * Executes before each method to initialize objects.
@@ -57,6 +67,7 @@ public class TestLimited {
 	 * was in the queue. Ensures that it never returns true to terminate.
 	 */
 	@Test
+	@Repeat(times = 1000)
 	public void testDoesNotTerminate() {
 		assertFalse(ctester.step(20));
 	}
