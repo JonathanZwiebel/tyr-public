@@ -1,7 +1,6 @@
 package com.palyrobotics.subsystem.shooter.shootercommands;
 
 import com.palyrobotics.robot.InputSystems;
-import com.palyrobotics.subsystem.shooter.*;
 import org.strongback.command.Command;
 import org.strongback.command.Requirable;
 import org.strongback.Strongback;
@@ -27,27 +26,27 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 	public FullShooterTeleopCommand(ShooterController controller) {
 		super(controller);
 		this.controller = controller;
-		reactor = Strongback.switchReactor();
 		input = controller.input;
+		reactor = Strongback.switchReactor();
+	}
+	
+	@Override
+	public void initialize() {
+		controller.armController.setState(ShooterArmController.ShooterArmState.TELEOP);
 	}
 	
 	@Override
 	public boolean execute() {
-		// TODO: Break switch reactors
-		if(controller.armController.state == ShooterArmController.ShooterArmState.IDLE) {
-			Strongback.submit(new ShooterArmTeleopCommand(controller));
-		}
+		// TODO: Break switch reactors				
 		reactor.onTriggered(input.getOperatorStick().getTrigger(), ()->callFireShooter());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOADING_BUTTON), ()->callToggleLoader());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOCKING_BUTTON), ()->callToggleLock());
 		return false;
 	}
-	
 
 	public void callFireShooter() {
 		Strongback.submit(new FullShooterFireCommand(controller));
 	}
-	
 
 	public void callToggleLoader() {
 		if (!controller.loadingActuatorController.isFullyRetracted()){

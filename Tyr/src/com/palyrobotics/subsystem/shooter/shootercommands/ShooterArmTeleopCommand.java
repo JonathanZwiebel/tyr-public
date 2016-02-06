@@ -23,8 +23,8 @@ public class ShooterArmTeleopCommand extends Command {
 	public ShooterArmTeleopCommand(ShooterController controller) {
 		super(controller.armController);
 		this.controller = controller;
-		controller.armController.state = ShooterArmController.ShooterArmState.UNLOCKED;
 		motor = controller.systems.getMotor();
+		controller.armController.setState(ShooterArmController.ShooterArmState.TELEOP);
 	}
 	
 	@Override

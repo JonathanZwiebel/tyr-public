@@ -2,6 +2,7 @@ package com.palyrobotics.subsystem.shooter.shootercommands;
 
 import org.strongback.Strongback;
 import org.strongback.command.Command;
+import org.strongback.command.CommandGroup;
 
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
@@ -19,13 +20,9 @@ public class FullShooterFireCommand extends Command {
 	}
 	
 	@Override
-	// TODO: Is this just a wrapper?
 	public boolean execute() {
-		if (controller.lockingActuatorController.isLocked()) { 
-			Strongback.submit(new ShooterLockingActuatorUnlockCommand(controller));
-			return true;	
-			
-		}
-		return false;
+		CommandGroup fire = CommandGroup.runSequentially(new ShooterLockingActuatorUnlockCommand(controller));
+		Strongback.submit(fire);
+		return true;
 	}
 }

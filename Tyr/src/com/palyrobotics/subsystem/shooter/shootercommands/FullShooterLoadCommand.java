@@ -21,14 +21,8 @@ public class FullShooterLoadCommand extends Command {
 	
 	@Override
 	public boolean execute() {
-		if (!controller.lockingActuatorController.isLocked()) {
-			CommandGroup retractThenLatch = CommandGroup.runSequentially(new ShooterLoadingActuatorRetractCommand(controller),new ShooterLockingActuatorLockCommand(controller),new ShooterLoadingActuatorExtendCommand(controller)); 
-			Strongback.submit(retractThenLatch);
-			return true;
-		} else {
-			Strongback.submit(new ShooterLockingActuatorLockCommand(controller));
-			return false;
-		}
-
+		CommandGroup load = CommandGroup.runSequentially(new ShooterLockingActuatorUnlockCommand(controller), new ShooterLoadingActuatorRetractCommand(controller),new ShooterLockingActuatorLockCommand(controller),new ShooterLoadingActuatorExtendCommand(controller)); 
+		Strongback.submit(load);
+		return true;
 	}
 }
