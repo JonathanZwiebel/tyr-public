@@ -5,7 +5,6 @@ import org.junit.Before;
 
 import hardware.*;
 
-import com.palyrobotics.subsystem.shooter.*;
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
 import org.junit.Test;

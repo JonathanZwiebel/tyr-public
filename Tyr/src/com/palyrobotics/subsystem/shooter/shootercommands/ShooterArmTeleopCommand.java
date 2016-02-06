@@ -43,7 +43,7 @@ public class ShooterArmTeleopCommand extends Command {
 	
 	@Override
 	public void interrupted() {
-		Strongback.logger().info("The command UncheckedLimitedTeleopCommand was interrupted.");
+		Strongback.logger().info("The command ShooterArmTeleopCommand was interrupted.");
 	}
 	
 	@Override

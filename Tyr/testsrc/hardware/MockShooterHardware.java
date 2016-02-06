@@ -1,14 +1,8 @@
 package hardware;
 
-import org.strongback.components.AngleSensor;
 import org.strongback.components.Motor;
 import org.strongback.components.Solenoid;
-import org.strongback.components.Switch;
 import org.strongback.mock.Mock;
-import org.strongback.mock.MockMotor;
-
-import org.strongback.mock.Mock;
-
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
 public class MockShooterHardware implements ShooterSystems {
