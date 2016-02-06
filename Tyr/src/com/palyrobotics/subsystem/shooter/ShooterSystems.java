@@ -1,10 +1,11 @@
 package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.components.Motor;
-import org.strongback.components.AngleSensor;
+import org.strongback.components.Solenoid;
+import org.strongback.components.Switch;
 
 public interface ShooterSystems {	
 	public Motor getMotor();
-	public void setMotor(Motor motor);
-	public AngleSensor getArmEncoder();
+	public Solenoid getLatch();	
+	public Solenoid getPiston();
 }

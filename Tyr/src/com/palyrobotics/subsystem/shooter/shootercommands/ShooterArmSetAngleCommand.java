@@ -3,28 +3,34 @@ package com.palyrobotics.subsystem.shooter.shootercommands;
 import org.strongback.command.Command;
 import org.strongback.components.AngleSensor;
 
+import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.robot.RobotConstants;
-import com.palyrobotics.robot.RobotController;
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
-import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterArmController.ShooterArmState;
 
-
-public class UncheckedSetArmAngleCommand extends Command {
+/**
+ * @author Paly Robotics Programming Red Module
+ * 
+ * Uses PID to set the arm angle
+ */
+public class ShooterArmSetAngleCommand extends Command {
 	private ShooterController controller;
+	private InputSystems input;
 	private AngleSensor armEncoder;
 
 	private Double targetAngle;
 	private Double previousError;
 	
-	
-	public UncheckedSetArmAngleCommand(ShooterController controller, double angle) {
+	public ShooterArmSetAngleCommand(ShooterController controller, double angle) {
+		super(controller.armController);
 		controller.state = ShooterController.ShooterState.UNLOCKED;
 		this.targetAngle = angle;
 	}
 
 	@Override
 	public void initialize() {
-		this.armEncoder = controller.systems.getArmEncoder();
+		this.armEncoder = input.getArmEncoder();
 		this.previousError = 0.0;
 	}
 	
@@ -38,7 +44,7 @@ public class UncheckedSetArmAngleCommand extends Command {
 			return true;
 		} 
 		else {
-			controller.systems.getMotor().setSpeed(ShooterConstants.ARM_kD * error + ShooterConstants.ARM_kP * derivative);
+			controller.systems.getMotor().setSpeed(ShooterConstants.ARM_kP * error + ShooterConstants.ARM_kD * derivative);
 			previousError = error;
 			return false;
 		}
@@ -49,5 +55,7 @@ public class UncheckedSetArmAngleCommand extends Command {
 		System.out.println("SetArmAngleCommand interuppted");
 	}
 	
-
+	public void end() {
+		controller.armController.state = ShooterArmState.IDLE;
+	}
 }

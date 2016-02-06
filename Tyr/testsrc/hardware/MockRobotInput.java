@@ -29,6 +29,10 @@ public class MockRobotInput implements InputSystems {
 	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 	
+	public static final MockAngleSensor armEncoder = Mock.angleSensor();
+	public static final MockSwitch armPistonDetector = Mock.notTriggeredSwitch();
+	public static final MockSwitch lockDetector = Mock.notTriggeredSwitch();
+	
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
@@ -80,6 +84,18 @@ public class MockRobotInput implements InputSystems {
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorLimitSensor;
+	}
+	@Override
+	public AngleSensor getArmEncoder() {
+		return armEncoder;
+	}
+	@Override
+	public Switch getArmPistonDetector() {
+		return armPistonDetector;
+	}
+	@Override
+	public Switch getLockDetector() {
+		return lockDetector;
 	}
 	
 	// vision to be added later

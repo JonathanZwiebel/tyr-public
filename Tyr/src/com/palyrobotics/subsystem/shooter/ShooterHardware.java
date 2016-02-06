@@ -1,11 +1,13 @@
 package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.components.Motor;
-import org.strongback.components.AngleSensor;
+import org.strongback.components.Solenoid;
+import org.strongback.components.Switch;
 
 public class ShooterHardware implements ShooterSystems {
 	Motor motor = null;
-	AngleSensor armEncoder = null;
+	Solenoid latchSolenoid = null;
+	Solenoid pistonSolenoid = null;
 	
 	@Override
 	public Motor getMotor() {
@@ -13,12 +15,12 @@ public class ShooterHardware implements ShooterSystems {
 	}
 
 	@Override
-	public void setMotor(Motor motor) {
-		this.motor = motor;
+	public Solenoid getLatch() {
+		return latchSolenoid;
 	}
 	
 	@Override
-	public AngleSensor getArmEncoder() {
-		return armEncoder;
+	public Solenoid getPiston() {
+		return pistonSolenoid;
 	}
 }

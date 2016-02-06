@@ -1,4 +1,4 @@
-package com.palyrobotics;
+package shootertests;
 
 import static org.junit.Assert.*;
 

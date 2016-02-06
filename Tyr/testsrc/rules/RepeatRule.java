@@ -4,10 +4,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-/**
- * A JUnit rule that repeats commands for a given number of repetitions
- * @author Frank Appel, http://www.codeaffine.com/
- */
 public class RepeatRule implements TestRule {
 
     private static class RepeatStatement extends Statement {

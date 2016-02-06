@@ -30,5 +30,9 @@ public interface InputSystems {
 	public AngleSensor getAccumulatorPotentiometer();
 	public Switch getAccumulatorFilledLimitSensor();
 	
+	public AngleSensor getArmEncoder();
+	public Switch getArmPistonDetector();
+	public Switch getLockDetector();
+	
 	// vision to be added later
 }

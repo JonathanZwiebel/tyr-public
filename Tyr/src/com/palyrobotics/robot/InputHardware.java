@@ -31,6 +31,10 @@ public class InputHardware implements InputSystems {
 	public static final AngleSensor accumulatorPotentiometer = null;
 	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
+	public static final AngleSensor armEncoder = null;
+	public static final Switch armPistonDetector = null;
+	public static final Switch lockDetector = null;
+	
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
@@ -82,5 +86,17 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
+	}
+	@Override
+	public AngleSensor getArmEncoder() {
+		return armEncoder;
+	}
+	@Override
+	public Switch getArmPistonDetector() {
+		return null;
+	}
+	@Override
+	public Switch getLockDetector() {
+		return null;
 	}
 }

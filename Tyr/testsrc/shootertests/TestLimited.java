@@ -11,21 +11,18 @@ import org.strongback.mock.MockAngleSensor;
 
 import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.shooter.*;
-import com.palyrobotics.subsystem.shooter.shootercommands.UncheckedLimitedTeleopCommand;
+import com.palyrobotics.subsystem.shooter.shootercommands.ShooterArmTeleopCommand;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
 import hardware.*;
 import rules.Repeat;
 import rules.RepeatRule;
 
-/**
- * Testing the UncheckedLimitedTeleopCommand
- * @author Joseph Rumelhart
- */
 public class TestLimited {
 	private InputSystems input;
 	private ShooterSystems output;
 	private ShooterController con;
-	private UncheckedLimitedTeleopCommand command;
+	private ShooterArmTeleopCommand command;
 	private CommandTester ctester;
 	
 	
@@ -36,8 +33,7 @@ public class TestLimited {
     public TestRule globalTimeout = new Timeout(3000);
 	
 	@Rule
-	public RepeatRule repeatRule = new RepeatRule();
-
+	public RepeatRule repeat = new RepeatRule();
 	
 	/**
 	 * Executes before each method to initialize objects.
@@ -47,7 +43,7 @@ public class TestLimited {
 		input = new MockRobotInput();
 		output = new MockShooterHardware();
 		con = new ShooterController(output,input);
-		command = new UncheckedLimitedTeleopCommand(con);
+		command = new ShooterArmTeleopCommand(con);
 		ctester = new CommandTester(command);
 	}
 	
