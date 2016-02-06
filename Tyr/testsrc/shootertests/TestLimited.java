@@ -39,7 +39,7 @@ public class TestLimited {
 	 * Executes before each method to initialize objects.
 	 */
 	@Before
-	public void BeforeEach() {
+	public void beforeEach() {
 		input = new MockRobotInput();
 		output = new MockShooterHardware();
 		con = new ShooterController(output,input);

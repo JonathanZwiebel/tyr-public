@@ -4,7 +4,7 @@ import org.strongback.command.Requirable;
 
 public class ShooterLockingActuatorController implements Requirable {
 	ShooterController parent;
-	ShooterLockingActuatorState state;
+	public ShooterLockingActuatorState state;
 	
 	public enum ShooterLockingActuatorState {
 		IDLE,
