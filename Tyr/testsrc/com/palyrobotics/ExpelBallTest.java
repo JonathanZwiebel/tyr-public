@@ -11,6 +11,7 @@ import org.strongback.command.CommandTester;
 
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
+import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.accumulator.ExpelBall;
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
@@ -39,6 +40,13 @@ public class ExpelBallTest {
 	}
 	
 	@Test
+	public void testInitialize() {
+		controller.setState(AccumulatorState.IDLE);
+		command.initialize();
+		assertTrue(controller.getState() == AccumulatorState.EJECTING);
+	}
+	
+	@Test
 	public void testExecute() {
 		begin = System.currentTimeMillis();
 		command.initialize();
@@ -49,9 +57,11 @@ public class ExpelBallTest {
 			}
 			assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==-ACCUMULATOR_POWER);
 			assertFalse(finished);
+			assertTrue(controller.getState()==AccumulatorState.EJECTING);
 		}
 		finished = command.execute();
 		assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==0);
 		assertTrue(finished);
+		assertTrue(controller.getState()==AccumulatorState.IDLE);
 	}
 }

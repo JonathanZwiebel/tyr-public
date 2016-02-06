@@ -43,11 +43,13 @@ public class IntakeBallTest {
 		command.initialize();
 		tester.step(20);
 		assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==AccumulatorConstants.ACCUMULATOR_POWER);
+		assertTrue(AccumulatorState.ACCUMULATING==controller.getState());
 		boolean finished = tester.step(20);
 		assertFalse(finished);
 		((MockSwitch) input.getAccumulatorFilledLimitSensor()).setTriggered();
 		finished = tester.step(20);
 		assertTrue(finished);
+		assertTrue(controller.getState()==AccumulatorState.HOLDING);
 	}
 	
 	@Test
@@ -62,5 +64,12 @@ public class IntakeBallTest {
 		((MockSwitch) input.getAccumulatorFilledLimitSensor()).setTriggered();
 		finished = tester.step(20);
 		assertTrue(finished);
+	}
+	
+	@Test
+	public void testInitialize() {
+		controller.setState(AccumulatorState.IDLE);
+		command.initialize();
+		assertTrue(controller.getState()==AccumulatorState.ACCUMULATING);
 	}
 }

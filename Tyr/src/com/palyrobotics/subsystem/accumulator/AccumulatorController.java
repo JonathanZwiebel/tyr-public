@@ -12,6 +12,7 @@ public class AccumulatorController implements Requirable {
 	}
 
 	private AccumulatorState state;
+
 	private InputSystems robotInput;
 	public AccumulatorSystems systems;
 
