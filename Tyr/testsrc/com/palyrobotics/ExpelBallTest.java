@@ -1,14 +1,13 @@
 package com.palyrobotics;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.strongback.command.Command;
 import org.strongback.command.CommandTester;
-
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
@@ -43,7 +42,7 @@ public class ExpelBallTest {
 	public void testInitialize() {
 		controller.setState(AccumulatorState.IDLE);
 		command.initialize();
-		assertTrue(controller.getState() == AccumulatorState.EJECTING);
+		assertThat("Controller did not initialize",controller.getState(), equalTo(AccumulatorState.EJECTING));
 	}
 	
 	@Test
@@ -55,13 +54,13 @@ public class ExpelBallTest {
 			if (System.currentTimeMillis()-begin >= EXPEL_TIME){
 				break;
 			}
-			assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==-ACCUMULATOR_POWER);
-			assertFalse(finished);
-			assertTrue(controller.getState()==AccumulatorState.EJECTING);
+			assertThat("Motors are not running at the correct speed", controller.systems.getAccumulatorMotors().getSpeed(),equalTo(-ACCUMULATOR_POWER));
+			assertThat("Command terminates early", finished, equalTo(false));
+			assertThat("Controller is in the wrong state", controller.getState(), equalTo(AccumulatorState.EJECTING));
 		}
 		finished = command.execute();
-		assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==0);
-		assertTrue(finished);
-		assertTrue(controller.getState()==AccumulatorState.IDLE);
+		assertThat("Motors do not stop", controller.systems.getAccumulatorMotors().getSpeed(), equalTo(0));
+		assertThat("Command does not terminate",finished, equalTo(true));
+		assertThat("Controller does not idle", controller.getState(), equalTo(AccumulatorState.IDLE));
 	}
 }

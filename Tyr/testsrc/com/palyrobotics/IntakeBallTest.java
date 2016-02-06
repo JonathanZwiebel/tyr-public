@@ -1,20 +1,18 @@
 package com.palyrobotics;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.strongback.command.CommandTester;
 import org.strongback.mock.MockSwitch;
-
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.accumulator.IntakeBall;
-
 import hardware.MockAccumulatorHardware;
 import hardware.MockRobotInput;
 
@@ -42,14 +40,14 @@ public class IntakeBallTest {
 		controller.systems.getAccumulatorMotors().setSpeed(0);
 		command.initialize();
 		tester.step(20);
-		assertTrue(controller.systems.getAccumulatorMotors().getSpeed()==AccumulatorConstants.ACCUMULATOR_POWER);
-		assertTrue(AccumulatorState.ACCUMULATING==controller.getState());
+		assertThat("Motors are not running at the correct speed", controller.systems.getAccumulatorMotors().getSpeed(), equalTo(AccumulatorConstants.ACCUMULATOR_POWER));
+		assertThat("Controller is in the wrong state", AccumulatorState.ACCUMULATING, equalTo(controller.getState()));
 		boolean finished = tester.step(20);
-		assertFalse(finished);
+		assertThat("Command terminates early", finished, equalTo(false));
 		((MockSwitch) input.getAccumulatorFilledLimitSensor()).setTriggered();
 		finished = tester.step(20);
-		assertTrue(finished);
-		assertTrue(controller.getState()==AccumulatorState.HOLDING);
+		assertThat("Command does not terminate", finished, equalTo(true));
+		assertThat("Controller is the wrong state", controller.getState(), equalTo(AccumulatorState.HOLDING));
 	}
 	
 	@Test
