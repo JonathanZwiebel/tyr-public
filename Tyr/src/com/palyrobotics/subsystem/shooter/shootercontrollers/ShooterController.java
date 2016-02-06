@@ -4,6 +4,8 @@ import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
+import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterFireCommand;
+import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterLoadCommand;
 import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterTeleopCommand;
 
 public class ShooterController implements Requirable {
@@ -17,7 +19,9 @@ public class ShooterController implements Requirable {
 	
 	public enum ShooterState {
 		IDLE,
-		UNLOCKED,
+		TELEOP,
+		FIRE,
+		LOAD,
 		DISABLED
 	}
 
@@ -37,9 +41,10 @@ public class ShooterController implements Requirable {
 	}
 	
 	public void update() {
-		if(state == ShooterState.UNLOCKED) {
-			Strongback.submit(new FullShooterTeleopCommand(this));
+		if(state == ShooterState.IDLE) {
+			setState(ShooterState.TELEOP);
 		}
+		
 		armController.update();
 		lockingActuatorController.update();
 		loadingActuatorController.update();
@@ -50,5 +55,20 @@ public class ShooterController implements Requirable {
 		armController.disable();
 		lockingActuatorController.disable();
 		loadingActuatorController.disable();
+	}
+	
+	public void setState(ShooterState state) {
+		if(state != ShooterState.DISABLED) {
+			this.state = state;
+		}
+		if(state == ShooterState.TELEOP) {
+			Strongback.submit(new FullShooterTeleopCommand(this));
+		}
+		else if(state == ShooterState.FIRE) {
+			Strongback.submit(new FullShooterFireCommand(this));
+		}
+		else if(state == ShooterState.LOAD) {
+			Strongback.submit(new FullShooterLoadCommand(this));
+		}
 	}
 }
