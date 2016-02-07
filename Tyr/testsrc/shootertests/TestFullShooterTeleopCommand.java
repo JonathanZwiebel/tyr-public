@@ -87,7 +87,7 @@ public class TestFullShooterTeleopCommand {
 		}
 		
 		System.out.println("\nPotentiometer True Angle: " + controller.input.getShooterPotentiometer().getAngle());
-		assertTrue(Double.toString(controller.systems.getMotor().getSpeed()), controller.systems.getMotor().getSpeed() > 0.4f);
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() > 0.4f);
 		Strongback.disable();
 	}
 }

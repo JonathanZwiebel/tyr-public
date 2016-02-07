@@ -4,6 +4,7 @@ import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
 /**
  * @author Paly Robotics Programming Red Module
@@ -17,19 +18,28 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	public ShooterLoadingActuatorRetractCommand(ShooterController controller) {
 		super(controller.loadingActuatorController);
 		this.controller = controller;
-		this.piston = controller.systems.getPiston();
+		this.piston = controller.systems.getLoadingActuator();
 	}
 	
 	@Override
+	/**
+	 * If the loading actuator is retracted, the command will end, otherwise it will
+	 * retract
+	 */
 	public boolean execute() {		
 		if (controller.loadingActuatorController.isFullyRetracted()) {
 			return true;
 		}
 		
-		if (piston.isStopped()) {
-			piston.retract();
-		}
-		
+		piston.retract();
 		return false;
+	}
+	
+	@Override
+	/**
+	 * At the end sets the loading actuator state back to IDLE
+	 */
+	public void end() {
+		controller.loadingActuatorController.setState(ShooterLoadingActuatorState.IDLE);
 	}
 }

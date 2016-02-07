@@ -8,21 +8,29 @@ import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterFireCommand
 import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterLoadCommand;
 import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterTeleopCommand;
 
+/**
+ * The primary controller for the shooter, divided into an arm, loading actuator, and locking actuator
+ * This controller will delegate the states of the three subcontrollers as well as acting as the interface
+ * with the robot controller. 
+ * 
+ * @author Paly Robotics Programming Red Module
+ */
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
 	public InputSystems input;
 	
+	private ShooterState state;	
+	
 	public ShooterArmController armController;
 	public ShooterLockingActuatorController lockingActuatorController;
 	public ShooterLoadingActuatorController loadingActuatorController;
-	public ShooterState state;	
 	
 	public enum ShooterState {
-		IDLE,
-		TELEOP,
-		FIRE,
-		LOAD,
-		DISABLED
+		IDLE, // The initial state of the shooter
+		TELEOP, // Standard teleop controls
+		FIRE, // A fire sequence that will go from loaded to fired
+		LOAD, // A loading sequence that will retract the arm and fill the loading actuator
+		DISABLED // The disabled state
 	}
 
 	public ShooterController(ShooterSystems systems, InputSystems input) {
@@ -40,6 +48,9 @@ public class ShooterController implements Requirable {
 		loadingActuatorController.init();
 	}
 	
+	/**
+	 * Calls all of the subcontroller updates and will set the state to TELEOP if currently IDLE
+	 */
 	public void update() {
 		if(state == ShooterState.IDLE) {
 			System.out.println("Shooter Controller in IDLE auto set to TELE" );
@@ -58,7 +69,11 @@ public class ShooterController implements Requirable {
 		loadingActuatorController.disable();
 	}
 	
-	public void setState(ShooterState state) {
+	/**
+	 * Sets the shooter state, calling commands as appropriate
+	 * @param state incoing ShooterState
+	 */
+	public void setState(ShooterState state, float ... args) {
 		if(state != ShooterState.DISABLED) {
 			this.state = state;
 		}
@@ -71,5 +86,9 @@ public class ShooterController implements Requirable {
 		else if(state == ShooterState.LOAD) {
 			Strongback.submit(new FullShooterLoadCommand(this));
 		}
+	}
+	
+	public ShooterState getState() {
+		return state;
 	}
 }

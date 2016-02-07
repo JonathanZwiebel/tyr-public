@@ -12,7 +12,7 @@ import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 /**
  * @author Paly Robotics Programming Red Module
  * 
- * Uses PID to set the arm angle
+ * Uses PID to set the arm angle to an input value
  */
 public class ShooterArmSetAngleCommand extends Command {
 	private ShooterController controller;
@@ -25,26 +25,34 @@ public class ShooterArmSetAngleCommand extends Command {
 	public ShooterArmSetAngleCommand(ShooterController controller, double angle) {
 		super(controller.armController);
 		controller.armController.setState(ShooterArmController.ShooterArmState.SETANGLE);
-		this.targetAngle = angle;
+		targetAngle = angle;
+		armEncoder = input.getArmEncoder();
 	}
 
 	@Override
+	/**
+	 * Intializes this command by setting the previous error to the current error
+	 */
 	public void initialize() {
-		this.armEncoder = input.getArmEncoder();
-		this.previousError = 0.0;
+		previousError = targetAngle - armEncoder.getAngle();
 	}
 	
 	@Override
+	/**
+	 * Executes the command through a PD loop that will end when the error is within the ARM_PROPORTIONAL_ME
+	 * range and the derivative is within ARM_DERIVATE_ME of zero.
+	 */
 	public boolean execute() {
 		double angle = armEncoder.getAngle();
 		double error = targetAngle - angle;
 		double derivative = (error - previousError) / RobotConstants.UPDATES_PER_SECOND;
 
-		if(Math.abs(error) < ShooterConstants.ARM_P_ERROR && Math.abs(derivative) < ShooterConstants.ARM_D_ERROR) {
+		if(Math.abs(error) < ShooterConstants.ARM_PROPORTIONAL_ME && Math.abs(derivative) < ShooterConstants.ARM_DERIVATIVE_ME) {
 			return true;
 		} 
+		
 		else {
-			controller.systems.getMotor().setSpeed(ShooterConstants.ARM_kP * error + ShooterConstants.ARM_kD * derivative);
+			controller.systems.getArmMotor().setSpeed(ShooterConstants.ARM_kP * error + ShooterConstants.ARM_kD * derivative);
 			previousError = error;
 			return false;
 		}
@@ -52,10 +60,14 @@ public class ShooterArmSetAngleCommand extends Command {
 	
 	@Override
 	public void interrupted() { 
-		System.out.println("SetArmAngleCommand interuppted");
+		System.out.println("ShooterSetArmAngleCommand interuppted");
 	}
 	
+	/**
+	 * At the end of the PD loops, sets the state back to IDLE
+	 */
+	@Override
 	public void end() {
-		controller.armController.state = ShooterArmController.ShooterArmState.IDLE;
+		controller.armController.setState(ShooterArmController.ShooterArmState.IDLE);
 	}
 }

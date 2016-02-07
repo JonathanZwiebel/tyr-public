@@ -11,7 +11,7 @@ public class MockShooterHardware implements ShooterSystems {
 	Solenoid p = Mock.manualSolenoid();
 	
 	@Override
-	public Motor getMotor() {
+	public Motor getArmMotor() {
 		return m;
 	}
 
@@ -20,7 +20,7 @@ public class MockShooterHardware implements ShooterSystems {
 	}
 
 	@Override
-	public Solenoid getLatch() {
+	public Solenoid getLockingActuator() {
 		return l;
 	}
 
@@ -29,7 +29,7 @@ public class MockShooterHardware implements ShooterSystems {
 	}
 
 	@Override
-	public Solenoid getPiston() {
+	public Solenoid getLoadingActuator() {
 		return p;
 	}
 

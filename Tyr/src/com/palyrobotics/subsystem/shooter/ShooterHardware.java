@@ -2,25 +2,30 @@ package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.components.Motor;
 import org.strongback.components.Solenoid;
-import org.strongback.components.Switch;
+import org.strongback.components.TalonSRX;
 
+/**
+ * A representation of the hardware on Tyr
+ * 
+  * @author Paly Robotics Programming Red Module
+ */
 public class ShooterHardware implements ShooterSystems {
-	Motor motor = null;
-	Solenoid latchSolenoid = null;
-	Solenoid pistonSolenoid = null;
+	TalonSRX armMotor = null;
+	Solenoid loadingActuator = null;
+	Solenoid shootingActuator = null;
 	
 	@Override
-	public Motor getMotor() {
-		return motor;
+	public Motor getArmMotor() {
+		return armMotor;
 	}
 
 	@Override
-	public Solenoid getLatch() {
-		return latchSolenoid;
+	public Solenoid getLockingActuator() {
+		return loadingActuator;
 	}
 	
 	@Override
-	public Solenoid getPiston() {
-		return pistonSolenoid;
+	public Solenoid getLoadingActuator() {
+		return shootingActuator;
 	}
 }

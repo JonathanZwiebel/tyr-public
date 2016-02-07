@@ -8,11 +8,15 @@ import org.strongback.SwitchReactor;
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController.ShooterState;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
  * @author Paly Robotics Programming Red Module
  * 
  * This is the base command for teleop movement and should only be called once when teleop is entered
+ * This command should only be called once
  */
 public class FullShooterTeleopCommand extends Command implements Requirable {
 	ShooterController controller;
@@ -31,38 +35,65 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 	}
 	
 	@Override
+	/**
+	 * Initializes the command by setting the arm controller state to IDLE
+	 */
 	public void initialize() {
 		controller.armController.setState(ShooterArmController.ShooterArmState.TELEOP);
 	}
 	
 	@Override
+	/**
+	 * Executes on loop and will run until interrupted. Sets up all of the switch reactors which will call lambdas
+	 * for the commands
+	 */
 	public boolean execute() {
 		// TODO: Break switch reactors				
-		reactor.onTriggered(input.getOperatorStick().getTrigger(), ()->callFireShooter());
+		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON), ()->callFireSequence());
+		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON), ()->callLoadSequence());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOADING_BUTTON), ()->callToggleLoader());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOCKING_BUTTON), ()->callToggleLock());
 		return false;
 	}
 
-	public void callFireShooter() {
-		Strongback.submit(new FullShooterFireCommand(controller));
+	/**
+	 * Calls the shooter fire sequence to get to the FullShooterFireCommand
+	 */
+	public void callFireSequence() {
+		controller.setState(ShooterState.FIRE);
+	}
+	
+	/**
+	 * Calls the shooter load sequence to get to the FullShooterLoadCommand
+	 */
+	public void callLoadSequence() {
+		controller.setState(ShooterState.LOAD);
 	}
 
+	/**
+	 * Toggles the loader between loaded and extended, setting the loading actuator command to either
+	 * ShooterLoadingActuatorExtendCommand or ShooterLoadingActuatorRetractCommand
+	 */
 	public void callToggleLoader() {
-		if (!controller.loadingActuatorController.isFullyRetracted()){
-			Strongback.submit(new ShooterLoadingActuatorRetractCommand(controller));
+		if (controller.loadingActuatorController.isFullyRetracted()){
+			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.EXTEND);
 		}
 		else{
-			Strongback.submit(new ShooterLoadingActuatorExtendCommand(controller));
+			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.RETRACT);
 		}
 	}
 	
+	/**
+	 * Toggles the locking latch between locked and unlocked, setting the locking actuator command to either
+	 * ShooterLockingActuatorLockCommand or ShooterLockingActuatorUnlockCommand
+	 */
 	public void callToggleLock() {
-		if (!controller.lockingActuatorController.isLocked()){
-			Strongback.submit(new ShooterLockingActuatorLockCommand(controller));
+		if (controller.lockingActuatorController.isLocked()){
+			controller.lockingActuatorController.setState(ShooterLockingActuatorState.UNLOCK);
 		}
 		else{
-			Strongback.submit(new ShooterLockingActuatorUnlockCommand(this.controller));
+			controller.lockingActuatorController.setState(ShooterLockingActuatorState.LOCK);
+
 		}
 	}
 }

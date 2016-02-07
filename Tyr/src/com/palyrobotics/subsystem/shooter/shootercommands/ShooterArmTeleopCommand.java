@@ -5,15 +5,17 @@ import org.strongback.command.Command;
 import org.strongback.components.Motor;
 
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
 /**
  * @author Paly Robotics Programming Red Module
  *
- * Moves the arm during normal teleop states
+ * Moves the arm during normal teleop states, this command will never end
  */
 public class ShooterArmTeleopCommand extends Command {
+	private static final float DEAD_SPEED = 0;
+	private static final float DEAD_PITCH = 0;
+	
 	private ShooterController controller;
 	private Motor motor;
 	private double angle;
@@ -22,35 +24,30 @@ public class ShooterArmTeleopCommand extends Command {
 	public ShooterArmTeleopCommand(ShooterController controller) {
 		super(controller.armController);
 		this.controller = controller;
-		motor = controller.systems.getMotor();
-		System.out.println("Instantiated ShooterArmTeleopCommand: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+		motor = controller.systems.getArmMotor();
 	}
 	
 	@Override
+	/**
+	 * Moves the arm based on the pitch read from the operator stick
+	 * Will not move beyond the maximum or minimum zones
+	 */
 	public boolean execute() {
 		angle = controller.input.getShooterPotentiometer().getAngle();
 		pitch = controller.input.getOperatorStick().getPitch().read();
-		System.out.println("Read Angle: " + controller.input.getShooterPotentiometer().getAngle());
 		
-		if((angle >= ShooterConstants.MAX_ANGLE && pitch > 0) || (angle <= ShooterConstants.MIN_ANGLE && pitch < 0)) {
-			System.out.println("Invalid motor set speed");
-			motor.setSpeed(0);
+		if((angle >= ShooterConstants.MAX_ARM_ANGLE && pitch > DEAD_PITCH) || (angle <= ShooterConstants.MIN_ARM_ANGLE && pitch < DEAD_PITCH)) {
+			motor.setSpeed(DEAD_SPEED);
 		}
 		else {
-			System.out.println("Valid motor set speed: " + pitch);
 			motor.setSpeed(pitch);
 		}
+		
 		return false;
 	}
 	
 	@Override
 	public void interrupted() {
 		Strongback.logger().info("The command ShooterArmTeleopCommand was interrupted.");
-	}
-	
-	@Override
-	public void end() {
-		controller.systems.getMotor().setSpeed(0);
-		controller.armController.state = ShooterArmController.ShooterArmState.IDLE;
 	}
 }

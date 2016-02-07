@@ -77,7 +77,7 @@ public class TestShooterControl {
 	public void testUpdateAll() {
 		controller.init();
 		controller.update();
-		assertThat("Did not successfully update shooterController", controller.state, equalTo(ShooterState.TELEOP));
+		assertThat("Did not successfully update shooterController", controller.getState(), equalTo(ShooterState.TELEOP));
 		assertThat("Did not successfully update armController", controller.armController.state, equalTo(ShooterArmState.IDLE));
 		assertThat("Error in updating loadingAcutatorController", controller.lockingActuatorController.state, equalTo(ShooterLockingActuatorState.IDLE));
 		assertThat("Error in updating lockingAcutatorController", controller.loadingActuatorController.state, equalTo(ShooterLoadingActuatorState.IDLE));

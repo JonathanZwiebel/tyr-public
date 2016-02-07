@@ -5,6 +5,7 @@ import org.strongback.command.Command;
 import org.strongback.command.CommandGroup;
 
 import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController.ShooterState;
 
 /** 
  * @author Paly Robotics Programming Red Module
@@ -20,9 +21,17 @@ public class FullShooterFireCommand extends Command {
 	}
 	
 	@Override
+	/**
+	 * Will create a queue of states that should be set relating to shooter items
+	 */
 	public boolean execute() {
 		CommandGroup fire = CommandGroup.runSequentially(new ShooterLockingActuatorUnlockCommand(controller));
 		Strongback.submit(fire);
 		return true;
+	}
+	
+	@Override
+	public void end() {
+		controller.setState(ShooterState.IDLE);
 	}
 }
