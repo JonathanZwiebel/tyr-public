@@ -1,54 +1,63 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.Strongback;
+import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
-
-import java.util.*;
 
 public class DrivetrainController implements Requirable {
 	
 	protected InputSystems input;
 	protected DrivetrainSystems output;
+	private SwitchReactor toggle;
 	
-	public enum State {
+	public enum DrivetrainState {
 		IDLE,
 		DRIVING_TELEOP,
 		DRIVING_DISTANCE,
 		TURNING_ANGLE
 	}
 	
-	private State state;
+	public enum GearState {
+		LOWERING_GEAR,
+		RAISING_GEAR
+	}
+	
+	public GearState gearState;
+	
+	private DrivetrainState drivetrainState;
 	
 	public DrivetrainController(DrivetrainSystems output, InputSystems input) {
 		this.input = input;
 		this.output = output;
 	}
 	
+	/**
+	 * Sets the default DrivetrainStates, starts the compressor, and initializes toggle. 
+	 */
 	public void init() {
-
+		gearState = GearState.LOWERING_GEAR;
+		drivetrainState = DrivetrainState.IDLE;
+		output.getCompressor().start();
+		this.toggle = Strongback.switchReactor();
 	}
 	
 	public void update() {
-		if(state == State.IDLE) {
+		if(drivetrainState == DrivetrainState.IDLE) {
 			Strongback.submit(new DriveTeleop(this));
 		}
+		
+		//toggle system for raising and lowering gears.
+		toggle.onTriggered(input.getOperatorStick().getTrigger(), ()-> Strongback.submit(new ToggleGears(this, gearState)));
 	}
 	
 	public void disable() {
 		
 	}
 	
-	public void setState(State state) {
-		this.state = state;
-	}
-	
-	public Requirable[] getRequirements() {
-		Requirable requirements[] = {this};
-		return requirements;
+	public void setDrivetrainState(DrivetrainState drivetrainState) {
+		this.drivetrainState = drivetrainState;
 	}
 }

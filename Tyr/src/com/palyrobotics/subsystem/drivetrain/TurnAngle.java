@@ -1,8 +1,9 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
+import org.strongback.command.Requirable;
 
-import com.palyrobotics.subsystem.drivetrain.DrivetrainController.State;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class TurnAngle extends Command {
@@ -18,29 +19,25 @@ public class TurnAngle extends Command {
 	 * @param angle
 	 */
 	public TurnAngle(DrivetrainController drivetrain, double angle) {
-		super(drivetrain.getRequirements());
+		super(drivetrain);		
 		this.drivetrain = drivetrain;
 		this.angle = angle;
 		this.previousError = angle;
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Called at the beginning of the command, and sets state to turning as well as zeros the encoders.	
-=======
-	 * Called at the beginning of the command, and sets state to turning.
-	 * Zeros encoders.
->>>>>>> da9ef1b... Zeroed encoders.
+	 * Called at the beginning of the command, and sets DrivetrainState to 
+	 * turning as well as zeros the encoders.	
 	 */
 	@Override
 	public void initialize() {
-		drivetrain.setState(State.TURNING_ANGLE);
+		drivetrain.setDrivetrainState(DrivetrainState.TURNING_ANGLE);
 		drivetrain.input.getLeftDriveEncoder().zero(); 
 		drivetrain.input.getRightDriveEncoder().zero();
 	}
 	
 	/**
-	 * Executes 200 times a second, as long as the command is running.
+	 * Executes 50 times a second, as long as the command is running.
 	 * PID values are computed and the speed of the composed motors are set.
 	 * Returns true when completed, false to run again.
 	 */
@@ -49,7 +46,7 @@ public class TurnAngle extends Command {
 		//calculate error by using angle to distance 
 		double error =  angle - drivetrain.input.getGyroscope().getAngle();
 		
-		//finds derivative with 1/200 update rate
+		//finds derivative with 50 updates/second update rate
 		double derivative = (error - previousError) / UPDATE_RATE; 
 		
 		previousError = error;
@@ -65,7 +62,11 @@ public class TurnAngle extends Command {
 		if(derivative == 0.0 && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) { 
 			drivetrain.output.getLeftMotor().setSpeed(0.0);
 			drivetrain.output.getRightMotor().setSpeed(0.0);
-			drivetrain.setState(State.IDLE);
+			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+			return true;
+		}
+		if(drivetrain.input.getDriveStick().getTrigger().isTriggered()) {
+			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
 		return false;
@@ -73,23 +74,22 @@ public class TurnAngle extends Command {
 	
 	/**
 	 * Called when command is interrupted. 
-	 * Stops the motors and sets the State to idle.
+	 * Sets the DrivetrainState to idle to allow smooth
+	 * transition back into teleop. 		
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
-		drivetrain.setState(State.IDLE);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 	
 	/**
 	 * Called when the command has finished. 
-	 * Stops the motors and sets the State to idle.
+	 * Stops the motors and sets the DrivetrainState to idle.
 	 */
 	@Override
 	public void end() {
 		drivetrain.output.getLeftMotor().setSpeed(0.0);
 		drivetrain.output.getRightMotor().setSpeed(0.0);
-		drivetrain.setState(State.IDLE);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }

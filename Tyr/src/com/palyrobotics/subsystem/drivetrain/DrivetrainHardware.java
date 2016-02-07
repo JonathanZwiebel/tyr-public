@@ -3,6 +3,9 @@ package com.palyrobotics.subsystem.drivetrain;
 import org.strongback.components.Motor;
 import org.strongback.hardware.Hardware;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class DrivetrainHardware implements DrivetrainSystems {
@@ -15,6 +18,9 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	public Motor leftMotor = Motor.compose(leftFrontMotor, leftBackMotor);
 	public Motor rightMotor = Motor.compose(rightFrontMotor, rightBackMotor);
 	
+	public DoubleSolenoid solenoid = new DoubleSolenoid(0, 0);
+	public Compressor compressor = new Compressor();
+	
 	@Override
 	public Motor getLeftMotor() {
 		return leftMotor;
@@ -23,5 +29,15 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	@Override
 	public Motor getRightMotor() {
 		return rightMotor;
+	}
+	
+	@Override
+	public Compressor getCompressor() {
+		return compressor;
+	}
+	
+	@Override
+	public DoubleSolenoid getSolenoid() {
+		return solenoid;
 	}
 }

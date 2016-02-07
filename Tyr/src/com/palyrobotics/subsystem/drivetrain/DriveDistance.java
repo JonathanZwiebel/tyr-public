@@ -1,6 +1,7 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
+import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
@@ -19,7 +20,7 @@ public class DriveDistance extends Command {
 	 * @param distance
 	 */
 	public DriveDistance(DrivetrainController drivetrain, double distance) {
-		super(drivetrain.getRequirements());
+		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.distance = distance;
 		this.previousLeftError = distance;
@@ -29,18 +30,18 @@ public class DriveDistance extends Command {
 	
 	/**
 	 * Called at the start of the command. 
-	 * Zeros the encoders as well as sets the state to driving distance.
+	 * Zeros the encoders as well as sets the DrivetrainState to driving distance.
 	 */
 	@Override
 	public void initialize() {
-		drivetrain.setState(State.DRIVING_DISTANCE);
+		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_DISTANCE);
 		drivetrain.input.getLeftDriveEncoder().zero();
 		drivetrain.input.getRightDriveEncoder().zero();
 		
 	}
 	
 	/**
-	 * Executes once every 1/200 seconds as long as the command is running.
+	 * Executes 50 times a second as long as the command is running.
 	 * Takes the distance, computes the speeds needed, and sets the speeds
 	 * of the motors. Returns true when finished, and false to keep
 	 * executing. 
@@ -51,7 +52,7 @@ public class DriveDistance extends Command {
 		double leftError = distance - drivetrain.input.getLeftDriveEncoder().getAngle();
 		double rightError = distance - drivetrain.input.getRightDriveEncoder().getAngle();
 		
-		//Derivative computed using the 1/200 update rate and the change in error.
+		//Derivative computed using the 50 updates / second update rate and the change in error.
 		double leftDerivative = (leftError - previousLeftError)/UPDATE_RATE; 
 		double rightDerivative = (rightError - previousRightError)/UPDATE_RATE;
 		
@@ -70,7 +71,11 @@ public class DriveDistance extends Command {
 				Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR && Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR) {
 			drivetrain.output.getLeftMotor().setSpeed(0.0);
 			drivetrain.output.getRightMotor().setSpeed(0.0);
-			drivetrain.setState(State.IDLE);
+			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+			return true;
+		}
+		if(drivetrain.input.getDriveStick().getTrigger().isTriggered()) {
+			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
 		return false;
@@ -78,23 +83,22 @@ public class DriveDistance extends Command {
 	
 	/**
 	 * Called when command is interrupted.
-	 * Sets motors to 0 and sets State to idle.
+	 * Sets DrivetrainState to idle to allow 
+	 * smooth transition back to teleop.
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
-		drivetrain.setState(State.IDLE);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 	
 	/**
 	 * Called at the end of the command.
-	 * Sets motors to 0 and sets State to idle.
+	 * Sets motors to 0 and sets DrivetrainState to idle.
 	 */
 	@Override
 	public void end() {
 		drivetrain.output.getLeftMotor().setSpeed(0.0);
 		drivetrain.output.getRightMotor().setSpeed(0.0);
-		drivetrain.setState(State.IDLE);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }

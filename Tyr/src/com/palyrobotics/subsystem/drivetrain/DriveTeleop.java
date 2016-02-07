@@ -1,10 +1,7 @@
 package com.palyrobotics.subsystem.drivetrain;
 
-import java.util.*;
-
 import org.strongback.command.Command;
-
-import org.strongback.hardware.Hardware;
+import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
@@ -24,16 +21,16 @@ public class DriveTeleop extends Command {
 	 * @param drivetrain the drivetrain controller operated by this command
 	 */
 	public DriveTeleop(DrivetrainController drivetrain) {
-		super(drivetrain.getRequirements());
+		super(drivetrain);
 		this.drivetrain = drivetrain;
 	}
 	
 	/**
-	 * Called at the beginning of the command, setting the state of the referenced drivetrain to teleop driving
+	 * Called at the beginning of the command, setting the DrivetrainState of the referenced drivetrain to teleop driving
 	 */
 	@Override
 	public void initialize() {
-		drivetrain.setState(State.DRIVING_TELEOP);
+		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_TELEOP);
 	}
 	
 	/**
@@ -60,13 +57,13 @@ public class DriveTeleop extends Command {
 	}
 	
 	/**
-	 * Sets the motors to zero speed and state to IDLE when drive teleop is interrupted
+	 * Sets the motors to zero speed and DrivetrainState to IDLE when drive teleop is interrupted
 	 */
 	@Override
 	public void interrupted() {
 		drivetrain.output.getLeftMotor().setSpeed(0.0);
 		drivetrain.output.getRightMotor().setSpeed(0.0);
 		
-		drivetrain.setState(State.IDLE);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }
