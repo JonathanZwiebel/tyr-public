@@ -8,6 +8,7 @@ import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
 import static com.palyrobotics.robot.Ports.*;
+import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 
 // None of the modules should modify this class
@@ -18,8 +19,8 @@ public class InputHardware implements InputSystems {
 
 	// When build delivers we will define these, until then, do not touch
 	
-	public static final AngleSensor leftDriveEncoder = null;
-	public static final AngleSensor rightDriveEncoder = null;
+	public static final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
+	public static final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
 	public static final Gyroscope gyroscope = null;
 	public static final ThreeAxisAccelerometer accelerometer = null;
 	public static final DistanceSensor leftInfrared = null;

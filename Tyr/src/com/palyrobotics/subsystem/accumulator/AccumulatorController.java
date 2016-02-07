@@ -1,12 +1,12 @@
 package com.palyrobotics.subsystem.accumulator;
 
-import org.strongback.Strongback;
+import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
+
 import org.strongback.command.Requirable;
-import com.palyrobotics.robot.InputSystems;
 
 public class AccumulatorController implements Requirable {
 
-	public enum AccumulatorState {
+	public enum State {
 		IDLE,
 		ACCUMULATING,
 		EJECTING,
@@ -14,29 +14,21 @@ public class AccumulatorController implements Requirable {
 		RELEASING
 	}
 	
-	private AccumulatorState state;
-	private InputSystems robotInput;
-	public AccumulatorSystems systems;
+	private State state;
 	
-	public AccumulatorController(AccumulatorSystems accumulatorSystems, InputSystems robotInput) {
-		this.systems = accumulatorSystems;
-		this.robotInput = robotInput;
+	public AccumulatorController() {
+		
 	}
 	
 	public void init() {
-		state = AccumulatorState.IDLE;
+		
 	}
 	
 	public void update() {
-		Strongback.submit(new AccumulatorTeleop(this, robotInput));
+		
 	}
 	
 	public void disable() {
-		Strongback.submit(new StopAccumulator(this));
+		
 	}
-	
-	public void setState(AccumulatorState state) {
-		this.state = state;
-	}
-
 }

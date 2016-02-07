@@ -2,12 +2,17 @@ package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Requirable;
 
+import com.palyrobotics.robot.InputSystems;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
+import java.util.*;
+
 public class DrivetrainController implements Requirable {
 	
-	private DrivetrainSystems systems;
+	protected InputSystems input;
+	protected DrivetrainSystems output;
 	
 	public enum State {
 		IDLE,
@@ -18,8 +23,9 @@ public class DrivetrainController implements Requirable {
 	
 	private State state;
 	
-	public DrivetrainController() {
-
+	public DrivetrainController(DrivetrainSystems output, InputSystems input) {
+		this.input = input;
+		this.output = output;
 	}
 	
 	public void init() {
@@ -36,5 +42,10 @@ public class DrivetrainController implements Requirable {
 	
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	public Requirable[] getRequirements() {
+		Requirable requirements[] = {this};
+		return requirements;
 	}
 }

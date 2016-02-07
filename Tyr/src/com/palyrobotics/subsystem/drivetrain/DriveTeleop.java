@@ -1,23 +1,24 @@
 package com.palyrobotics.subsystem.drivetrain;
 
+import java.util.*;
+
 import org.strongback.command.Command;
+import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
-public class DriveDistance extends Command {
+public class DriveTeleop extends Command {
 
 	private DrivetrainController drivetrain;
-	private double distance;
 	
-	public DriveDistance(DrivetrainController drivetrain, double distance) {
+	public DriveTeleop(DrivetrainController drivetrain) {
 		super(drivetrain.getRequirements());
 		this.drivetrain = drivetrain;
-		this.distance = distance;
 	}
 	
 	@Override
 	public void initialize() {
-		drivetrain.setState(State.DRIVING_DISTANCE);
+		drivetrain.setState(State.DRIVING_TELEOP);
 	}
 	
 	@Override
