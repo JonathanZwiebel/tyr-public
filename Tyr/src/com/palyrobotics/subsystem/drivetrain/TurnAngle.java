@@ -14,10 +14,14 @@ public class TurnAngle extends Command {
 		this.drivetrain = drivetrain;
 		this.angle = angle;
 	}
-	
+	/**
+	 * Zero encoders and set state to turning angle
+	 */
 	@Override
 	public void initialize() {
 		drivetrain.setState(State.TURNING_ANGLE);
+		drivetrain.input.getLeftDriveEncoder().zero(); 
+		drivetrain.input.getRightDriveEncoder().zero();
 	}
 	
 	@Override
