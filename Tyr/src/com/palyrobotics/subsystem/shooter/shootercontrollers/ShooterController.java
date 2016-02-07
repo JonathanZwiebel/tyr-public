@@ -42,6 +42,7 @@ public class ShooterController implements Requirable {
 	
 	public void update() {
 		if(state == ShooterState.IDLE) {
+			System.out.println("Shooter Controller in IDLE auto set to TELE" );
 			setState(ShooterState.TELEOP);
 		}
 		

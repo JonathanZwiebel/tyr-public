@@ -6,7 +6,7 @@ import org.strongback.mock.Mock;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
 
 public class MockShooterHardware implements ShooterSystems {
-	Motor m = Mock.stoppedMotor();
+	Motor m = Mock.runningTalonSRX(0.0f);
 	Solenoid l = Mock.manualSolenoid();
 	Solenoid p = Mock.manualSolenoid();
 	

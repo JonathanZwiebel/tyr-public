@@ -25,9 +25,6 @@ public class ShooterArmController implements Requirable {
 	}
 	
 	public void update() {
-		if(state == ShooterArmState.IDLE) {
-			setState(ShooterArmState.TELEOP);
-		}
 	}
 	
 	public void disable() {
@@ -35,6 +32,7 @@ public class ShooterArmController implements Requirable {
 	}
 	
 	public void setState(ShooterArmState state) {
+		System.out.println("Arm set state called");
 		if(state != ShooterArmState.DISABLED) {
 			this.state = state;
 		}

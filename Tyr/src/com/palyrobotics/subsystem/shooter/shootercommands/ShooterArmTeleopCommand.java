@@ -19,22 +19,25 @@ public class ShooterArmTeleopCommand extends Command {
 	private double angle;
 	private double pitch;
 
-	
 	public ShooterArmTeleopCommand(ShooterController controller) {
 		super(controller.armController);
 		this.controller = controller;
 		motor = controller.systems.getMotor();
+		System.out.println("Instantiated ShooterArmTeleopCommand: " + Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 	
 	@Override
 	public boolean execute() {
 		angle = controller.input.getShooterPotentiometer().getAngle();
 		pitch = controller.input.getOperatorStick().getPitch().read();
+		System.out.println("Read Angle: " + controller.input.getShooterPotentiometer().getAngle());
 		
 		if((angle >= ShooterConstants.MAX_ANGLE && pitch > 0) || (angle <= ShooterConstants.MIN_ANGLE && pitch < 0)) {
+			System.out.println("Invalid motor set speed");
 			motor.setSpeed(0);
 		}
 		else {
+			System.out.println("Valid motor set speed: " + pitch);
 			motor.setSpeed(pitch);
 		}
 		return false;
