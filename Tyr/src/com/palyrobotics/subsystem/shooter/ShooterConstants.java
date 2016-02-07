@@ -29,12 +29,12 @@ public class ShooterConstants {
 	/**
 	 * Margin of error for proportion during PID loops
 	 */
-	public static final double ARM_PROPORTIONAL_ME = BLANK_DOUBLE;
+	public static final double ARM_PROPORTIONAL_ME = 0.05f;
 	
 	/**
 	 * Margin of error for derivative during PID loops
 	 */
-	public static final double ARM_DERIVATIVE_ME = BLANK_DOUBLE;
+	public static final double ARM_DERIVATIVE_ME = 0.005f;
 	
 	/**
 	 * Proportion constant for PID loop

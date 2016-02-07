@@ -24,7 +24,8 @@ public class ShooterArmSetAngleCommand extends Command {
 	
 	public ShooterArmSetAngleCommand(ShooterController controller, double angle) {
 		super(controller.armController);
-		controller.armController.setState(ShooterArmController.ShooterArmState.SETANGLE);
+		this.controller = controller;
+		input = controller.input;
 		targetAngle = angle;
 		armEncoder = input.getShooterArmAngleSensor();
 	}
@@ -47,6 +48,8 @@ public class ShooterArmSetAngleCommand extends Command {
 		double error = targetAngle - angle;
 		double derivative = (error - previousError) / RobotConstants.UPDATES_PER_SECOND;
 
+		System.out.println("Angle: " + angle);
+		
 		if(Math.abs(error) < ShooterConstants.ARM_PROPORTIONAL_ME && Math.abs(derivative) < ShooterConstants.ARM_DERIVATIVE_ME) {
 			return true;
 		} 

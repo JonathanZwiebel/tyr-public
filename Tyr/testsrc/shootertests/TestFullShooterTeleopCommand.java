@@ -72,7 +72,7 @@ public class TestFullShooterTeleopCommand {
 	@Test
 	@Repeat(times = 10)
 	public void testDoesNotTerminate() throws InterruptedException {
-		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_REPETITION_UNIT_TESTS; i++) {
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_STATE_CHANGE_UNIT_TESTS; i++) {
 			float start = System.currentTimeMillis();
 			controller.update();
 			float end = System.currentTimeMillis();
