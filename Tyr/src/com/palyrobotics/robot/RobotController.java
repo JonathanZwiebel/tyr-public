@@ -6,9 +6,9 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
+import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 

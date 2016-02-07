@@ -19,12 +19,12 @@ public class ShooterConstants {
 	/**
 	 * Maximum physical angle of the shooter arm
 	 */
-	public static final double MAX_ARM_ANGLE = Double.MAX_VALUE;
+	public static final double MAX_ARM_ANGLE = Double.MAX_VALUE / 2;
 	
 	/**
 	 * Minimum physical angle of the shooter arm
 	 */
-	public static final double MIN_ARM_ANGLE = Double.MIN_VALUE;
+	public static final double MIN_ARM_ANGLE = -Double.MAX_VALUE / 2;
 
 	/**
 	 * Margin of error for proportion during PID loops

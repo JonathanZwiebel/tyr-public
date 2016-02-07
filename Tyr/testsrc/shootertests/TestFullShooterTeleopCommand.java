@@ -13,7 +13,6 @@ import org.strongback.mock.MockAngleSensor;
 
 import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.shooter.*;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
 
 import hardware.*;
 import rules.Repeat;
@@ -24,6 +23,14 @@ public class TestFullShooterTeleopCommand {
 	private ShooterSystems output;
 	private ShooterController controller;
 	
+	private static final float POSITIVE_JOYSTICK_VALUE = 0.5f;
+	private static final float NEGATIVE_JOYSTICK_VALUE = -0.5f;
+	
+	private static final float NEUTRAL_MOTOR_SPEED = 0.0f;
+	
+	private static final float VALID_ARM_ANGLE = 10.0f;
+	private static final float SMALL_ARM_ANGLE = 1.0f;
+
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -42,6 +49,8 @@ public class TestFullShooterTeleopCommand {
 		input = new MockRobotInput();
 		output = new MockShooterHardware();
 		controller = new ShooterController(output,input);
+		Strongback.start();
+		controller.init();
 	}
 	
 	/**
@@ -51,16 +60,27 @@ public class TestFullShooterTeleopCommand {
 	@Test
 	public void testNullExecution() {
 		thrown.expect(NullPointerException.class);
-		((MockAngleSensor) controller.input.getShooterPotentiometer()).setAngle((Double) null);
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle((Double) null);
+		Strongback.disable();
 	}
 	
 	/**
 	 * Uses the CommandTester object to run the command as if it
 	 * was in the queue. Ensures that it never returns true to terminate.
+	 * @throws InterruptedException 
 	 */
 	@Test
-	@Repeat(times = 1000)
-	public void testDoesNotTerminate() {
+	@Repeat(times = 10)
+	public void testDoesNotTerminate() throws InterruptedException {
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_REPETITION_UNIT_TESTS; i++) {
+			float start = System.currentTimeMillis();
+			controller.update();
+			float end = System.currentTimeMillis();
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
+		}
+		Strongback.disable();
 	}
 
 	/**
@@ -69,25 +89,112 @@ public class TestFullShooterTeleopCommand {
 	 * @throws InterruptedException 
 	 */
 	@Test
-	public void testNormalJoystickInput() throws InterruptedException { 
-		Strongback.start();
-		((MockAngleSensor) controller.input.getShooterPotentiometer()).setAngle(10.0f);
-		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(0.5f);
-		controller.init();
+	public void testNormalJoystickInputSetsMotor() throws InterruptedException { 
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(VALID_ARM_ANGLE);
+		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
 		
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
 			float start = System.currentTimeMillis();
-			System.out.println("\nCycle " + i);
 			controller.update();
 			float end = System.currentTimeMillis();
-			int duration = (int) (1000000 * (end - start));
-			int extra = 20 * 1000000 - duration;
-			System.out.println("Cycle took " + duration + " | sleeping for " + extra);
-			TimeUnit.NANOSECONDS.sleep(extra);
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
 		}
 		
-		System.out.println("\nPotentiometer True Angle: " + controller.input.getShooterPotentiometer().getAngle());
-		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() > 0.4f);
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() > NEUTRAL_MOTOR_SPEED);
+		Strongback.disable();
+	}
+	
+	/**
+	 * Sets the angle to an out of range degree and changes the joystick to a different pitch. 
+	 * It should set the motor speed to the pitch
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testPositiveJoystickInputWhenAboveSetsMotorToZero() throws InterruptedException { 
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MAX_ARM_ANGLE + SMALL_ARM_ANGLE);
+		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
+		
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
+			float start = System.currentTimeMillis();
+			controller.update();
+			float end = System.currentTimeMillis();
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
+		}
+		
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() == NEUTRAL_MOTOR_SPEED);
+		Strongback.disable();
+	}
+	
+	/**
+	 * Sets the angle to an out of range degree and changes the joystick to a different pitch. 
+	 * It should set the motor speed to the pitch
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testNegativeJoystickInputWhenBelowSetsMotorToZero() throws InterruptedException { 
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MIN_ARM_ANGLE - SMALL_ARM_ANGLE);
+		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(NEGATIVE_JOYSTICK_VALUE);
+		
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
+			float start = System.currentTimeMillis();
+			controller.update();
+			float end = System.currentTimeMillis();
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
+		}
+		
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() == NEUTRAL_MOTOR_SPEED);
+		Strongback.disable();
+	}
+	
+	/**
+	 * Sets the angle to an out of range degree and changes the joystick to a different pitch. 
+	 * It should set the motor speed to the pitch
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testPositiveJoystickInputWhenBelowActsNormal() throws InterruptedException { 
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MIN_ARM_ANGLE - SMALL_ARM_ANGLE);
+		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
+		
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
+			float start = System.currentTimeMillis();
+			controller.update();
+			float end = System.currentTimeMillis();
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
+		}
+		
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() > NEUTRAL_MOTOR_SPEED);
+		Strongback.disable();
+	}
+	
+	/**
+	 * Sets the angle to an out of range degree and changes the joystick to a different pitch. 
+	 * It should set the motor speed to the 
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testNegativeJoystickInputWhenAboveActsNormal() throws InterruptedException { 
+		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MAX_ARM_ANGLE + SMALL_ARM_ANGLE);
+		((MockContinuousRange) (controller.input.getOperatorStick()).getPitch()).write(NEGATIVE_JOYSTICK_VALUE);
+		
+		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
+			float start = System.currentTimeMillis();
+			controller.update();
+			float end = System.currentTimeMillis();
+			int duration_nano = (int) (RobotConstants.NANOSECONDS_PER_MILLISECOND * (end - start));
+			int extra_nano = RobotConstants.MILLISECONDS_PER_UPDATE * RobotConstants.NANOSECONDS_PER_MILLISECOND - duration_nano;
+			TimeUnit.NANOSECONDS.sleep(extra_nano);
+		}
+		
+		assertTrue(Double.toString(controller.systems.getArmMotor().getSpeed()), controller.systems.getArmMotor().getSpeed() < NEUTRAL_MOTOR_SPEED);
 		Strongback.disable();
 	}
 }

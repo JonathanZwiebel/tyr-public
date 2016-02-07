@@ -1,10 +1,11 @@
-package com.palyrobotics.subsystem.shooter.shootercontrollers;
+package com.palyrobotics.subsystem.shooter.subcontrollers;
 
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterLoadingActuatorExtendCommand;
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterLoadingActuatorRetractCommand;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorRetractCommand;
 
 /**
  * A subcontroller for the shooter loading actuator
@@ -57,6 +58,6 @@ public class ShooterLoadingActuatorController implements Requirable {
 	}
 	
 	public boolean isFullyRetracted() {
-		 return parent.input.getArmPistonDetector().isTriggered();		 
+		 return parent.input.getShooterLockingActuatorLockedLimitSensor().isTriggered();		 
 	}
 }

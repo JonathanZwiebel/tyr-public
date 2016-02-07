@@ -1,22 +1,22 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.subcommands;
 
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
  * @author Paly Robotics Programming Red Module
  * 
- * Puts the latch on the arm
- * Makes sure the latch is put on
+ * This takes the latch off the arm
+ * Checks to make sure the latch is taken off
  */
-public class ShooterLockingActuatorLockCommand extends Command {
+public class ShooterLockingActuatorUnlockCommand extends Command {
 	private ShooterController controller;
 	private Solenoid latch;
 	
-	public ShooterLockingActuatorLockCommand(ShooterController controller) {
+	public ShooterLockingActuatorUnlockCommand(ShooterController controller) {
 		super(controller.lockingActuatorController);
 		this.controller = controller;
 		latch = controller.systems.getLockingActuator();
@@ -24,11 +24,11 @@ public class ShooterLockingActuatorLockCommand extends Command {
 
 	@Override
 	/**
-	 * If the locking actuator is locked, the command will end, otherwise it will
-	 * attempt the lock by extending
+	 * If the locking actuator is unlocked, the command will end, otherwise it will
+	 * attempt the lock by retracting
 	 */
 	public boolean execute() {
-		if (controller.lockingActuatorController.isLocked()) {
+		if (!controller.lockingActuatorController.isLocked()) {
 			return true;
 		}
 		

@@ -1,12 +1,14 @@
-package com.palyrobotics.subsystem.shooter.shootercontrollers;
+package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 import com.palyrobotics.robot.InputSystems;
-import com.palyrobotics.subsystem.shooter.ShooterSystems;
-import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterFireCommand;
-import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterLoadCommand;
-import com.palyrobotics.subsystem.shooter.shootercommands.FullShooterTeleopCommand;
+import com.palyrobotics.subsystem.shooter.commands.FullShooterFireCommand;
+import com.palyrobotics.subsystem.shooter.commands.FullShooterLoadCommand;
+import com.palyrobotics.subsystem.shooter.commands.FullShooterTeleopCommand;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController;
 
 /**
  * The primary controller for the shooter, divided into an arm, loading actuator, and locking actuator
@@ -53,7 +55,6 @@ public class ShooterController implements Requirable {
 	 */
 	public void update() {
 		if(state == ShooterState.IDLE) {
-			System.out.println("Shooter Controller in IDLE auto set to TELE" );
 			setState(ShooterState.TELEOP);
 		}
 		

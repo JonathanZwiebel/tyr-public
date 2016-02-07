@@ -19,15 +19,12 @@ public interface InputSystems {
 	public DistanceSensor getLeftInfrared();
 	public DistanceSensor getRightInfrared();
 	
-	public AngleSensor getShooterPotentiometer();
-	public Switch getShooterDrawbackLimitSensor();
-	
 	public AngleSensor getAccumulatorPotentiometer();
 	public Switch getAccumulatorFilledLimitSensor();
 	
-	public AngleSensor getArmEncoder();
-	public Switch getArmPistonDetector();
-	public Switch getLockDetector();
+	public AngleSensor getShooterArmAngleSensor();
+	public Switch getShooterLoadingActuatorRetractedLimitSensor();
+	public Switch getShooterLockingActuatorLockedLimitSensor();
 	
 	// vision to be added later
 }

@@ -1,4 +1,4 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.subcommands;
 
 import org.strongback.command.Command;
 import org.strongback.components.AngleSensor;
@@ -6,8 +6,8 @@ import org.strongback.components.AngleSensor;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.robot.RobotConstants;
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterArmController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 
 /**
  * @author Paly Robotics Programming Red Module
@@ -26,7 +26,7 @@ public class ShooterArmSetAngleCommand extends Command {
 		super(controller.armController);
 		controller.armController.setState(ShooterArmController.ShooterArmState.SETANGLE);
 		targetAngle = angle;
-		armEncoder = input.getArmEncoder();
+		armEncoder = input.getShooterArmAngleSensor();
 	}
 
 	@Override

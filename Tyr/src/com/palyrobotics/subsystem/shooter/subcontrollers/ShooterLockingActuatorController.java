@@ -1,10 +1,11 @@
-package com.palyrobotics.subsystem.shooter.shootercontrollers;
+package com.palyrobotics.subsystem.shooter.subcontrollers;
 
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterLockingActuatorLockCommand;
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterLockingActuatorUnlockCommand;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLockCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
 /**
  * A subcontroller for the shooter locking actuator
@@ -57,7 +58,7 @@ public class ShooterLockingActuatorController implements Requirable {
 	}
 	
 	public boolean isLocked() {
-		return parent.input.getLockDetector().isTriggered();
+		return parent.input.getShooterLockingActuatorLockedLimitSensor().isTriggered();
 	}
 }
  

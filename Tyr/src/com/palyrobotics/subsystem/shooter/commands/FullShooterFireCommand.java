@@ -1,11 +1,9 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.commands;
 
-import org.strongback.Strongback;
 import org.strongback.command.Command;
-import org.strongback.command.CommandGroup;
 
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController.ShooterState;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterController.ShooterState;
 
 /** 
  * @author Paly Robotics Programming Red Module
@@ -25,8 +23,7 @@ public class FullShooterFireCommand extends Command {
 	 * Will create a queue of states that should be set relating to shooter items
 	 */
 	public boolean execute() {
-		CommandGroup fire = CommandGroup.runSequentially(new ShooterLockingActuatorUnlockCommand(controller));
-		Strongback.submit(fire);
+		// TODO: Implement with queue not a commandgroup
 		return true;
 	}
 	

@@ -1,11 +1,11 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.subcommands;
 
 import org.strongback.Strongback;
 import org.strongback.command.Command;
 import org.strongback.components.Motor;
 
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterController;
 
 /**
  * @author Paly Robotics Programming Red Module
@@ -33,7 +33,7 @@ public class ShooterArmTeleopCommand extends Command {
 	 * Will not move beyond the maximum or minimum zones
 	 */
 	public boolean execute() {
-		angle = controller.input.getShooterPotentiometer().getAngle();
+		angle = controller.input.getShooterArmAngleSensor().getAngle();
 		pitch = controller.input.getOperatorStick().getPitch().read();
 		
 		if((angle >= ShooterConstants.MAX_ARM_ANGLE && pitch > DEAD_PITCH) || (angle <= ShooterConstants.MIN_ARM_ANGLE && pitch < DEAD_PITCH)) {

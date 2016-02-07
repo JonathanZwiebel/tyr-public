@@ -25,15 +25,13 @@ public class InputHardware implements InputSystems {
 	public static final DistanceSensor leftInfrared = null;
 	public static final DistanceSensor rightInfrared = null;
 	
-	public static final AngleSensor shooterPotentiometer = null;
-	public static final Switch shooterDrawbackLimitSensor = null; // not yet determined if switch or digital HFX
 	
 	public static final AngleSensor accumulatorPotentiometer = null;
 	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
-	public static final AngleSensor armEncoder = null;
-	public static final Switch armPistonDetector = null;
-	public static final Switch lockDetector = null;
+	public static final AngleSensor shooterArmAngleSensor = null;
+	public static final Switch shooterLoadingActuatorRetractedLimitSensor = null; // not yet determined if switch or digital HFX
+	public static final Switch shooterLockingActuatorLockedLimitSensor = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -72,12 +70,8 @@ public class InputHardware implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public AngleSensor getShooterPotentiometer() {
-		return shooterPotentiometer;
-	}
-	@Override
-	public Switch getShooterDrawbackLimitSensor() {
-		return shooterDrawbackLimitSensor;
+	public Switch getShooterLoadingActuatorRetractedLimitSensor() {
+		return shooterLoadingActuatorRetractedLimitSensor;
 	}
 	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
@@ -88,15 +82,11 @@ public class InputHardware implements InputSystems {
 		return accumulatorFilledLimitSensor;
 	}
 	@Override
-	public AngleSensor getArmEncoder() {
-		return armEncoder;
+	public AngleSensor getShooterArmAngleSensor() {
+		return shooterArmAngleSensor;
 	}
 	@Override
-	public Switch getArmPistonDetector() {
-		return null;
-	}
-	@Override
-	public Switch getLockDetector() {
+	public Switch getShooterLockingActuatorLockedLimitSensor() {
 		return null;
 	}
 }

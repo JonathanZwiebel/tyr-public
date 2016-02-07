@@ -1,16 +1,18 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.commands;
 
 import com.palyrobotics.robot.InputSystems;
 import org.strongback.command.Command;
 import org.strongback.command.Requirable;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
+
 import com.palyrobotics.subsystem.shooter.ShooterConstants;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterArmController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController.ShooterState;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterController.ShooterState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
  * @author Paly Robotics Programming Red Module
@@ -48,7 +50,11 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 	 * for the commands
 	 */
 	public boolean execute() {
-		// TODO: Break switch reactors				
+		// TODO: Break switch reactors	
+		if(controller.armController.state == ShooterArmState.IDLE) {
+			controller.armController.setState(ShooterArmState.TELEOP);
+		}
+		
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON), ()->callFireSequence());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON), ()->callLoadSequence());
 		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOADING_BUTTON), ()->callToggleLoader());

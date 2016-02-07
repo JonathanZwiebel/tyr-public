@@ -23,15 +23,12 @@ public class MockRobotInput implements InputSystems {
 	public static final MockDistanceSensor leftInfrared = Mock.distanceSensor();
 	public static final MockDistanceSensor rightInfrared = Mock.distanceSensor();
 	
-	public static final MockAngleSensor shooterPotentiometer = Mock.angleSensor();
-	public static final MockSwitch shooterLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
-	
 	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 	
-	public static final MockAngleSensor armEncoder = Mock.angleSensor();
-	public static final MockSwitch armPistonDetector = Mock.notTriggeredSwitch();
-	public static final MockSwitch lockDetector = Mock.notTriggeredSwitch();
+	public static final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
+	public static final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
+	public static final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -70,12 +67,8 @@ public class MockRobotInput implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public AngleSensor getShooterPotentiometer() {
-		return shooterPotentiometer;
-	}
-	@Override
-	public Switch getShooterDrawbackLimitSensor() {
-		return shooterLimitSensor;
+	public Switch getShooterLoadingActuatorRetractedLimitSensor() {
+		return shooterLoadingActuatorRetractedLimitSensor;
 	}
 	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
@@ -86,16 +79,12 @@ public class MockRobotInput implements InputSystems {
 		return accumulatorLimitSensor;
 	}
 	@Override
-	public AngleSensor getArmEncoder() {
-		return armEncoder;
+	public AngleSensor getShooterArmAngleSensor() {
+		return shooterArmAngleSensor;
 	}
 	@Override
-	public Switch getArmPistonDetector() {
-		return armPistonDetector;
-	}
-	@Override
-	public Switch getLockDetector() {
-		return lockDetector;
+	public Switch getShooterLockingActuatorLockedLimitSensor() {
+		return shooterLoadingActuatorRetractedLimitSensor;
 	}
 	
 	// vision to be added later

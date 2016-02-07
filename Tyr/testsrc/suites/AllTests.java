@@ -6,7 +6,7 @@ import shootertests.*;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	TestShooterControl.class,
+	TestShooterControllerInterfaceAndSetState.class,
 	TestFullShooterTeleopCommand.class
 })
 

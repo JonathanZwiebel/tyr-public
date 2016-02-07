@@ -1,10 +1,10 @@
-package com.palyrobotics.subsystem.shooter.shootercommands;
+package com.palyrobotics.subsystem.shooter.subcommands;
 
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterController;
-import com.palyrobotics.subsystem.shooter.shootercontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
 /**
  * @author Paly Robotics Programming Red Module

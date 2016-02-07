@@ -1,10 +1,11 @@
-package com.palyrobotics.subsystem.shooter.shootercontrollers;
+package com.palyrobotics.subsystem.shooter.subcontrollers;
 
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterArmSetAngleCommand;
-import com.palyrobotics.subsystem.shooter.shootercommands.ShooterArmTeleopCommand;
+import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterArmSetAngleCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterArmTeleopCommand;
 
 /**
  * A subcontroller for the shooter arm
@@ -35,9 +36,6 @@ public class ShooterArmController implements Requirable {
 	 * Will set the state to TELEOP if currently IDLE
 	 */
 	public void update() {
-		if(state == ShooterArmState.IDLE) {
-			setState(ShooterArmState.TELEOP);
-		}
 	}
 	
 	public void disable() {
@@ -50,7 +48,6 @@ public class ShooterArmController implements Requirable {
 	 * @param args any arguments associated with the command
 	 */
 	public void setState(ShooterArmState state, float ... args) {
-		System.out.println("Arm set state called");
 		if(state != ShooterArmState.DISABLED) {
 			this.state = state;
 		}
