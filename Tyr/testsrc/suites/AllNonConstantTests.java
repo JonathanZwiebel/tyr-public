@@ -8,11 +8,10 @@ import shootertests.*;
 @Suite.SuiteClasses({
 	TestShooterControllerInterfaceAndSetState.class,
 	TestFullShooterTeleopCommand.class,
-	TestShooterArmSetAngle.class,
-	TestShooterConstants.class
+	TestShooterArmSetAngle.class
 })
 
-public class AllTests {
+public class AllNonConstantTests {
   // the class remains empty,
   // used only as a holder for the above annotations
 }
