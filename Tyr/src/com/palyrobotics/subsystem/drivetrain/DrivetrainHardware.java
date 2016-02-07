@@ -5,7 +5,6 @@ import org.strongback.hardware.Hardware;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class DrivetrainHardware implements DrivetrainSystems {
@@ -20,7 +19,7 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	
 	public DoubleSolenoid solenoid = new DoubleSolenoid(0, 0);
 	public Compressor compressor = new Compressor();
-	
+		
 	@Override
 	public Motor getLeftMotor() {
 		return leftMotor;
