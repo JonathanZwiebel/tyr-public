@@ -1,11 +1,14 @@
 package shootertests;
 
 import static org.junit.Assert.*;
+
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.*;
+import org.strongback.Strongback;
 
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.shooter.*;
@@ -41,6 +44,7 @@ public class TestShooterControl {
 		input = new MockRobotInput();
 		output = new MockShooterHardware();
 		scon = new ShooterController(output,input);
+		Strongback.start();
 	}
 	
 	/**
@@ -76,5 +80,10 @@ public class TestShooterControl {
 		assertThat("Did not successfully update shooterController", scon.state, equalTo(ShooterState.TELEOP));
 		assertThat("Error in updating loadingAcutatorController", scon.lockingActuatorController.state, not(equalTo(ShooterLockingActuatorState.DISABLED)));
 		assertThat("Error in updating lockingAcutatorController", scon.loadingActuatorController.state, not(equalTo(ShooterLoadingActuatorState.DISABLED)));
+	}
+	
+	@After
+	public void afterEach() {
+		Strongback.disable();
 	}
 }
