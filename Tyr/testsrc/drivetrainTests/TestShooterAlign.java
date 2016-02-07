@@ -32,7 +32,7 @@ public class TestShooterAlign {
 		input = new MockRobotInput();
 		output = new MockDrivetrainHardware();
 		drivetrain = new DrivetrainController(output, input);
-		shooterAllign = new ShooterAlign(drivetrain, 90);
+		shooterAllign = new ShooterAlign(drivetrain);
 		command = new CommandTester(shooterAllign);
 	}
 
@@ -53,6 +53,7 @@ public class TestShooterAlign {
 	 */
 	@Test
 	public void testInitializedState() {
+		command.step(20);
 		shooterAllign.initialize();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.SHOOTER_ALIGN);
 	}
@@ -62,6 +63,7 @@ public class TestShooterAlign {
 	 */
 	@Test
 	public void testInterruptedState() {
+		command.step(20);
 		shooterAllign.interrupted();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
@@ -71,6 +73,7 @@ public class TestShooterAlign {
 	 */
 	@Test
 	public void testEndState() {
+		command.step(20);
 		shooterAllign.end();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}

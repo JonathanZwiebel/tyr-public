@@ -1,9 +1,11 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.Strongback;
+import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
+import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class DrivetrainController implements Requirable {
 
@@ -25,8 +27,7 @@ public class DrivetrainController implements Requirable {
 		RAISING_GEAR
 	}
 
-	public GearState gearState;
-
+	private GearState gearState;
 	private DrivetrainState drivetrainState;
 
 	public DrivetrainController(DrivetrainSystems output, InputSystems input) {
@@ -48,11 +49,12 @@ public class DrivetrainController implements Requirable {
 		if (drivetrainState == DrivetrainState.IDLE) {
 			Strongback.submit(new DriveTeleop(this));
 		}
-		if(input.getDriveStick().getTrigger().isTriggered()) {
-			Strongback.submit(new ToggleGears(this, true));
-		} else {
-			Strongback.submit(new ToggleGears(this, false));
-		}
+		
+		Strongback.switchReactor().onTriggered(input.getDriveStick().getTrigger(), () -> Strongback.submit(new ToggleGears(this)));
+		Strongback.switchReactor().onTriggered(input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON), () -> Strongback.submit(new DriveDistance(this, 50.0)));
+		Strongback.switchReactor().onTriggered(input.getDriveStick().getButton(TURNING_LEFT_BUTTON), () -> Strongback.submit(new TurnAngle(this, 10.0)));
+		Strongback.switchReactor().onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON), () -> Strongback.submit(new TurnAngle(this, -10.0)));
+		Strongback.switchReactor().onTriggered(input.getDriveStick().getButton(SHOOTER_ALIGN_BUTTON), () -> Strongback.submit(new ShooterAlign(this)));
 	}
 
 	public void disable() {
@@ -63,12 +65,15 @@ public class DrivetrainController implements Requirable {
 		this.drivetrainState = drivetrainState;
 	}
 	
+	public void setGearState(GearState gearState) {
+		this.gearState = gearState;
+	}
+	
 	public DrivetrainState getDrivetrainState() {
 		return this.drivetrainState;
 	}
 	
-	public Requirable[] getRequirements() {
-		Requirable requirements[] = {this};
-		return requirements;
+	public GearState getGearState() {
+		return this.gearState;
 	}
 }

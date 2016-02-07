@@ -2,12 +2,13 @@ package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController.GearState;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ToggleGears extends Command {
 
 	private DrivetrainController drivetrain;
-	private boolean up;
 
 	/**
 	 * Initializes command with DrivetrainController reference, as well as what
@@ -16,25 +17,24 @@ public class ToggleGears extends Command {
 	 * @param drivetrain
 	 * @param gearState
 	 */
-	public ToggleGears(DrivetrainController drivetrain, boolean up) {
+	public ToggleGears(DrivetrainController drivetrain) {
 		this.drivetrain = drivetrain;
-		this.up = up;
 	}
 
 	@Override
 	public void initialize() {
-
+		drivetrain.setGearState(drivetrain.getGearState() == GearState.RAISING_GEAR ? GearState.LOWERING_GEAR : GearState.RAISING_GEAR);
 	}
 
 	/**
 	 * Basic gear shifting function for a toggle on/off gearshift control
 	 * system.
 	 * 
-	 * @return
+	 * @return whether or not the command is completed (always true here)
 	 */
 	@Override
 	public boolean execute() {
-		if (up) {
+		if(drivetrain.getGearState() == GearState.RAISING_GEAR) {
 			drivetrain.output.getSolenoid().set(DoubleSolenoid.Value.kForward);
 		} else {
 			drivetrain.output.getSolenoid().set(DoubleSolenoid.Value.kReverse);

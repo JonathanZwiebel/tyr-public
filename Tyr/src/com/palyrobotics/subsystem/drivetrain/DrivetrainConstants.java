@@ -31,4 +31,8 @@ public class DrivetrainConstants {
 	public static final double ACCEPTABLE_DISTANCE_ERROR = 1.0;
 	public static final double ACCEPTABLE_PIXEL_ERROR = 5.0;
 
+	public static final int DRIVING_DISTANCE_BUTTON = 1;
+	public static final int TURNING_LEFT_BUTTON = 2;
+	public static final int TURNING_RIGHT_BUTTON = 3;
+	public static final int SHOOTER_ALIGN_BUTTON = 4;
 }

@@ -66,7 +66,7 @@ public class TurnAngle extends Command {
 			return true;
 		}
 		if (drivetrain.input.getDriveStick().getTrigger().isTriggered()) {
-			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+			interrupted();
 			return true;
 		}
 		return false;
@@ -78,6 +78,8 @@ public class TurnAngle extends Command {
 	 */
 	@Override
 	public void interrupted() {
+		drivetrain.output.getLeftMotor().setSpeed(0.0);
+		drivetrain.output.getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 

@@ -57,18 +57,21 @@ public class TestDriveDistance {
 
 	@Test
 	public void testInitialState() {
+		command.step(20);
 		driveDist.initialize();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.DRIVING_DISTANCE);
 	}
 	
 	@Test
 	public void testInterruptedState() {
+		command.step(20);
 		driveDist.interrupted();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
 	
 	@Test
 	public void testEndState() {
+		command.step(20);
 		driveDist.end();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}

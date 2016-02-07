@@ -1,7 +1,6 @@
 package drivetrainTests;
 
 import static org.junit.Assert.*;
-<<<<<<< HEAD
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,17 +8,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
-=======
-import org.junit.*;
->>>>>>> tests
 import org.strongback.command.CommandTester;
 
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
-<<<<<<< HEAD
-=======
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
->>>>>>> tests
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 import com.palyrobotics.subsystem.drivetrain.TurnAngle;
 
@@ -69,7 +62,6 @@ public class TestTurnAngle {
 		assertTrue(input.getLeftDriveEncoder().getAngle() == 90);
 		assertTrue(input.getRightDriveEncoder().getAngle() == -90);
 	}
-=======
 	/**
 	 * Ensures the gyroscopes have been declared properly and are not null. 
 	 */
@@ -84,8 +76,8 @@ public class TestTurnAngle {
 	 */
 	@Test
 	public void testInitializeState() {
-		turnAngle.initialize();
 		command.step(20);
+		turnAngle.initialize();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.TURNING_ANGLE);
 	}
 	
@@ -95,8 +87,8 @@ public class TestTurnAngle {
 	 */
 	@Test
 	public void testInterruptedState() {
-		turnAngle.interrupted();
 		command.step(20);
+		turnAngle.interrupted();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
 	
@@ -106,8 +98,8 @@ public class TestTurnAngle {
 	 */
 	@Test
 	public void testEnd() {
-		turnAngle.end();
 		command.step(20);
+		turnAngle.end();
 		assertTrue(output.getLeftMotor().getSpeed() == 0.0);
 		assertTrue(output.getRightMotor().getSpeed() == 0.0);
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);

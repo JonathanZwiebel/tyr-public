@@ -62,7 +62,6 @@ public class DriveTeleop extends Command {
 	public void interrupted() {
 		drivetrain.output.getLeftMotor().setSpeed(0.0);
 		drivetrain.output.getRightMotor().setSpeed(0.0);
-		
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }

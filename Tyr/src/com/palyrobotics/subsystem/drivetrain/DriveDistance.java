@@ -40,7 +40,6 @@ public class DriveDistance extends Command {
 		drivetrain.input.getLeftDriveEncoder().zero();
 		drivetrain.input.getRightDriveEncoder().zero();
 		drivetrain.input.getGyroscope().zero();
-		
 	}
 	
 	/**
@@ -65,7 +64,6 @@ public class DriveDistance extends Command {
 		//calculates target speed and limits it from -0.5 to 0.5
 		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
 		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
-		
 
 		//Calculates angle error, trying to set it to 0.
 		angleError = drivetrain.input.getGyroscope().getAngle();

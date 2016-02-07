@@ -18,6 +18,7 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
 import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
+import hardware.MockFlightStick;
 
 public class TestDriveTeleop {
 	
@@ -74,25 +75,25 @@ public class TestDriveTeleop {
 	}
 	
 	/**
+	 * 
+	 */
+	@Test
+	public void testFlightstickInput() {
+		((MockFlightStick) input.getDriveStick()).setPitch(0.5);
+		command.step(20);
+		driveTeleop.execute();
+		assertTrue(output.getLeftMotor().getSpeed() < 0);
+		assertTrue(output.getRightMotor().getSpeed() > 0);
+	}
+	
+	/**
 	 * Ensures the state is set to interrupted if the command gets interrupted. 
 	 */
 	@Test
 	public void testInterrupted() {
-		driveTeleop.interrupted();
 		command.step(20);
+		driveTeleop.interrupted();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
 	
-	/**
-	 * Makes sure that the motors have stopped at the end of the command. 
-	 * Also makes sure that the state is properly reset to idle at the end.
-	 */
-	@Test
-	public void testEnd() {
-		driveTeleop.end();
-		command.step(20);
-		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
-		assertTrue(output.getLeftMotor().getSpeed() == 0.0);
-		assertTrue(output.getRightMotor().getSpeed() == 0.0);
-	}
 }
