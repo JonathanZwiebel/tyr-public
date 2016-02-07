@@ -1,5 +1,6 @@
 package com.palyrobotics.subsystem.drivetrain;
 
+import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
@@ -29,11 +30,13 @@ public class DrivetrainController implements Requirable {
 	}
 	
 	public void init() {
-		
+
 	}
 	
 	public void update() {
-		
+		if(state == State.IDLE) {
+			Strongback.submit(new DriveTeleop(this));
+		}
 	}
 	
 	public void disable() {
