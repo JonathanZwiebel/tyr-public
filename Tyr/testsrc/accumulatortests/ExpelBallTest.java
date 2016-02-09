@@ -1,4 +1,4 @@
-package com.palyrobotics;
+package accumulatortests;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
