@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.*;
 import org.strongback.Strongback;
 
@@ -22,7 +23,9 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorC
 import hardware.MockRobotInput;
 import hardware.MockShooterHardware;
 import rules.RepeatRule;
+import suites.NonConstant;
 
+@Category(NonConstant.class)
 public class TestShooterControllerInterfaceAndSetState {
 	private InputSystems input;
 	private ShooterSystems output;

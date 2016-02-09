@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.strongback.Strongback;
 import org.strongback.mock.MockAngleSensor;
 
@@ -18,7 +19,9 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.Sh
 
 import hardware.MockRobotInput;
 import hardware.MockShooterHardware;
+import suites.NonConstant;
 
+@Category(NonConstant.class)
 public class TestShooterArmSetAngle {
 	private InputSystems input;
 	private ShooterSystems output;
@@ -136,6 +139,6 @@ public class TestShooterArmSetAngle {
 			TimeUnit.NANOSECONDS.sleep(extra_nano);
 		}
 		
-		assertEquals(controller.armController.state, ShooterArmController.ShooterArmState.SETANGLE);
+		assertEquals(ShooterArmController.ShooterArmState.SETANGLE, controller.armController.state);
 	}
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
@@ -17,7 +18,9 @@ import com.palyrobotics.subsystem.shooter.*;
 import hardware.*;
 import rules.Repeat;
 import rules.RepeatRule;
+import suites.NonConstant;
 
+@Category(NonConstant.class)
 public class TestFullShooterTeleopCommand {
 	private InputSystems input;
 	private ShooterSystems output;

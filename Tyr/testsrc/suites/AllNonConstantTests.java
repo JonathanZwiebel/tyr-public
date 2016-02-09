@@ -1,11 +1,15 @@
 package suites;
+import org.junit.experimental.categories.Categories;
+import org.junit.experimental.categories.Categories.IncludeCategory;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.*;
+import org.junit.runners.Suite.SuiteClasses;
 
 import shootertests.*;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
+@RunWith(Categories.class)
+@IncludeCategory(NonConstant.class)
+@SuiteClasses({
 	TestShooterControllerInterfaceAndSetState.class,
 	TestFullShooterTeleopCommand.class,
 	TestShooterArmSetAngle.class

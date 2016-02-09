@@ -43,6 +43,7 @@ public class RobotController extends IterativeRobot {
     	
     	//Begin logging
     	startLogging();
+    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
     }
     
     /**
@@ -90,5 +91,6 @@ public class RobotController extends IterativeRobot {
     	accumulator.disable();
     	shooter.disable();
         Strongback.disable();
+    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
     }
 }
