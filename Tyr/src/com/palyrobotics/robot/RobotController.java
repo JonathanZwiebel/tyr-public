@@ -1,5 +1,11 @@
 package com.palyrobotics.robot;
 
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
@@ -34,7 +40,34 @@ public class RobotController extends IterativeRobot {
     	drivetrain = new DrivetrainController();
     	accumulator = new AccumulatorController(accumulatorSystems, input);
     	shooter = new ShooterController(shooterSystems, input);
+    	
+    	//Begin logging
+    	startLogging();
     }
+    
+    /**
+     * Creates a new logger that operates program-wide.
+     * Sends output to both a file and to System.err.
+     * The logger is named "Central" should be used all over the program,
+     * and should be initialized through this static method.
+     * However, on any call of Logger.getLogger("Central") it will autoinitialize.
+     */
+    private static Logger startLogging() {
+    	Logger logger = Logger.getLogger("Central");
+    	ConsoleHandler console;
+    	FileHandler file = null;
+    	console = new ConsoleHandler();
+    	logger.addHandler(console);
+    	try {
+			file = new FileHandler("%t/records.log");
+		} catch (SecurityException | IOException e) {
+            logger.log(Level.WARNING, "Error in creating log file", e);
+		}
+    	logger.addHandler(file);
+    	logger.setLevel(Level.ALL);
+    	return logger;
+    }
+
 
     @Override
     public void teleopInit() {
