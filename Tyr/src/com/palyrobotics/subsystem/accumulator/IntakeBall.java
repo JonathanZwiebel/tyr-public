@@ -37,5 +37,9 @@ public class IntakeBall extends Command {
 		}
 		return false;
 	}
+	public void interrupted() {
+		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
+		accumulatorController.setState(AccumulatorState.IDLE);
+	}
 
 }

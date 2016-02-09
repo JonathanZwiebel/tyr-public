@@ -41,4 +41,10 @@ public class ExpelBall extends Command {
 		accumulatorController.setState(AccumulatorState.IDLE);
 		return true;
 	}
+	
+	public void interrupted() {
+		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
+		accumulatorController.setState(AccumulatorState.IDLE);
+	}
+	
 }

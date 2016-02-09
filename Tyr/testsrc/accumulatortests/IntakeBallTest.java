@@ -57,17 +57,17 @@ public class IntakeBallTest {
 		((MockSwitch) input.getAccumulatorFilledLimitSensor()).setNotTriggered();
 		for (int i = 1; i < 1000; i++){
 			finished = tester.step(20);
-			assertFalse(finished);
+			assertThat("Command terminated early", finished, equalTo(false));
 		}
 		((MockSwitch) input.getAccumulatorFilledLimitSensor()).setTriggered();
 		finished = tester.step(20);
-		assertTrue(finished);
+		assertThat("Command did not terminate", finished, equalTo(false));
 	}
 	
 	@Test
 	public void testInitialize() {
 		controller.setState(AccumulatorState.IDLE);
 		command.initialize();
-		assertTrue(controller.getState()==AccumulatorState.ACCUMULATING);
+		assertThat("Command did not initialize correctly", controller.getState(), equalTo(AccumulatorState.ACCUMULATING));
 	}
 }

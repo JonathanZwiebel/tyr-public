@@ -20,5 +20,4 @@ public class StopAccumulator extends Command {
 		controller.setState(AccumulatorState.IDLE);
 		return true;
 	}
-
 }
