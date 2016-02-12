@@ -75,7 +75,7 @@ public class TestDriveTeleop {
 	}
 	
 	/**
-	 * 
+	 * Tests that joystick input is being handled
 	 */
 	@Test
 	public void testFlightstickInput() {
