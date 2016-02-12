@@ -4,8 +4,6 @@ import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.GearState;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 public class ToggleGears extends Command {
 
 	private DrivetrainController drivetrain;
@@ -13,9 +11,6 @@ public class ToggleGears extends Command {
 	/**
 	 * Initializes command with DrivetrainController reference, as well as what
 	 * the current state of the gear shift is.
-	 * 
-	 * @param drivetrain
-	 * @param gearState
 	 */
 	public ToggleGears(DrivetrainController drivetrain) {
 		this.drivetrain = drivetrain;
@@ -35,9 +30,9 @@ public class ToggleGears extends Command {
 	@Override
 	public boolean execute() {
 		if(drivetrain.getGearState() == GearState.RAISING_GEAR) {
-			drivetrain.output.getSolenoid().set(DoubleSolenoid.Value.kForward);
+			drivetrain.output.getSolenoid().extend();
 		} else {
-			drivetrain.output.getSolenoid().set(DoubleSolenoid.Value.kReverse);
+			drivetrain.output.getSolenoid().retract();
 		}
 		return true;
 	}

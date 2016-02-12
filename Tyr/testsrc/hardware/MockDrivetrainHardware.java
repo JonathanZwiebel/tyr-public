@@ -1,17 +1,17 @@
 package hardware;
 
 import org.strongback.components.Motor;
+import org.strongback.components.PneumaticsModule;
+import org.strongback.components.Solenoid;
 import org.strongback.mock.Mock;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 public class MockDrivetrainHardware implements DrivetrainSystems {
 	Motor leftMotor = Mock.stoppedMotor();
 	Motor rightMotor = Mock.stoppedMotor();
-	
+	Solenoid solenoid = Mock.instantaneousSolenoid();
+	PneumaticsModule pcm = Mock.pnuematicsModule();
 	
 	@Override
 	public Motor getLeftMotor() {
@@ -24,12 +24,12 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 	}
 
 	@Override
-	public Compressor getCompressor() {
-		return null;
+	public PneumaticsModule getCompressor() {
+		return pcm;
 	}
 
 	@Override
-	public DoubleSolenoid getSolenoid() {
-		return null;
+	public Solenoid getSolenoid() {
+		return solenoid;
 	}
 }

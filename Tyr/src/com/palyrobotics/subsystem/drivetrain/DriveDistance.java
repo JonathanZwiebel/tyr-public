@@ -1,7 +1,6 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.command.Command;
-import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
@@ -17,8 +16,6 @@ public class DriveDistance extends Command {
 	/**
 	 * Initiates the command, passing in the drivetrain for input and output
 	 * and passing the target distance to travel.
-	 * @param drivetrain
-	 * @param distance
 	 */
 	public DriveDistance(DrivetrainController drivetrain, double distance) {
 		super(drivetrain);
@@ -50,7 +47,7 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		//calculates error based on target distance and distance already traveled.
+		//Calculates error based on target distance and distance already traveled.
 		double leftError = distance - drivetrain.input.getLeftDriveEncoder().getAngle();
 		double rightError = distance - drivetrain.input.getRightDriveEncoder().getAngle();
 		
@@ -61,7 +58,7 @@ public class DriveDistance extends Command {
 		previousRightError = rightError;
 		previousLeftError = leftError;
 		
-		//calculates target speed and limits it from -0.5 to 0.5
+		//Calculates target speed and limits it from -0.5 to 0.5
 		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
 		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
 
@@ -79,7 +76,7 @@ public class DriveDistance extends Command {
 		drivetrain.output.getLeftMotor().setSpeed(leftSpeed+leftAngleSpeed);
 		drivetrain.output.getRightMotor().setSpeed(rightSpeed+rightAngleSpeed);
 
-		//stops the command if the robot is slowed down within a limit, signaling the arrival at the target.
+		//Stops the command if the robot is slowed down within a limit, signaling the arrival at the target.
 		if(leftDerivative == 0.0 && rightDerivative == 0.0 && 
 				Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR && Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR) {
 			drivetrain.output.getLeftMotor().setSpeed(0.0);

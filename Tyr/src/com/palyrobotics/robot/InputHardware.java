@@ -21,7 +21,7 @@ public class InputHardware implements InputSystems {
 	
 	public static final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
 	public static final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
-	public static final Gyroscope gyroscope = null;
+	public static final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_ANALOG);
 	public static final ThreeAxisAccelerometer accelerometer = null;
 	public static final DistanceSensor leftInfrared = null;
 	public static final DistanceSensor rightInfrared = null;
