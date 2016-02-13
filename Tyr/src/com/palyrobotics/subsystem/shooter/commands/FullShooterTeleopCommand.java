@@ -15,10 +15,10 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorC
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
- * @author Paly Robotics Programming Red Module
- * 
  * This is the base command for teleop movement and should only be called once when teleop is entered
  * This command should only be called once
+ * 
+ * @author Paly Robotics Programming Red Module
  */
 public class FullShooterTeleopCommand extends Command implements Requirable {
 	ShooterController controller;
@@ -26,8 +26,8 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 	InputSystems input;
 	
 	/**
-	 * @param control the ShooterController Object
 	 * The Constructor for ShooterTeleopMovement
+	 * @param control the ShooterController Object
 	 */
 	public FullShooterTeleopCommand(ShooterController controller) {
 		super(controller);
@@ -35,30 +35,44 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		input = controller.input;
 		reactor = Strongback.switchReactor();
 	}
-	
-	@Override
+
 	/**
 	 * Initializes the command by setting the arm controller state to IDLE
 	 */
+	@Override
 	public void initialize() {
 		controller.armController.setState(ShooterArmController.ShooterArmState.TELEOP);
 	}
 	
-	@Override
 	/**
 	 * Executes on loop and will run until interrupted. Sets up all of the switch reactors which will call lambdas
 	 * for the commands
+	 * TODO: Make the loading and locking actuator buttons work only on first press
 	 */
+	@Override
 	public boolean execute() {
-		// TODO: Break switch reactors	
 		if(controller.armController.state == ShooterArmState.IDLE) {
 			controller.armController.setState(ShooterArmState.TELEOP);
 		}
 		
-		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON), ()->callFireSequence());
-		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON), ()->callLoadSequence());
-		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOADING_BUTTON), ()->callToggleLoader());
-		reactor.onTriggered(input.getOperatorStick().getButton(ShooterConstants.SHOOTER_LOCKING_BUTTON), ()->callToggleLock());
+		if(input.getOperatorStick().getButton(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON).isTriggered()) {
+			callFireSequence();
+			return true;
+		}
+		
+		if(input.getOperatorStick().getButton(ShooterConstants.LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON).isTriggered()) {
+			callLoadSequence();
+			return true;
+		}
+		
+		if(input.getOperatorStick().getButton(ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON).isTriggered()) {
+			callToggleLoader();
+		}
+		
+		if(input.getOperatorStick().getButton(ShooterConstants.LOCKING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON).isTriggered()) {
+			callLoadSequence();
+		}
+		
 		return false;
 	}
 

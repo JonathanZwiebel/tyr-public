@@ -6,9 +6,9 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterController.ShooterState;
 
 /** 
- * @author Paly Robotics Programming Red Module
+ * Shoots the ball
  * 
- * Shoots the ball 
+ * @author Paly Robotics Programming Red Module
  */
 public class FullShooterFireCommand extends Command {
 	public ShooterController controller;
@@ -18,12 +18,12 @@ public class FullShooterFireCommand extends Command {
 		this.controller = controller;
 	}
 	
-	@Override
 	/**
 	 * Will create a queue of states that should be set relating to shooter items
 	 */
+	@Override
 	public boolean execute() {
-		// TODO: Implement with queue not a commandgroup
+		// TODO: Implement with queue not a command group
 		return true;
 	}
 	

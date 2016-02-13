@@ -23,8 +23,8 @@ public interface InputSystems {
 	public Switch getAccumulatorFilledLimitSensor();
 	
 	public AngleSensor getShooterArmAngleSensor();
+	public Switch getShooterArmMaximumAngleLimitSensor();
+	public Switch getShooterArmMinimumAngleLimitSensor();
 	public Switch getShooterLoadingActuatorRetractedLimitSensor();
 	public Switch getShooterLockingActuatorLockedLimitSensor();
-	
-	// vision to be added later
 }

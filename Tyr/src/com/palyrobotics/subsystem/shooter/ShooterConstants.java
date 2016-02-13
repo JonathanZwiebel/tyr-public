@@ -19,12 +19,12 @@ public class ShooterConstants {
 	/**
 	 * Maximum physical angle of the shooter arm
 	 */
-	public static final double MAX_ARM_ANGLE = Double.MAX_VALUE / 2;
+	public static final double MAX_ARM_ANGLE = 45.0f;
 	
 	/**
 	 * Minimum physical angle of the shooter arm
 	 */
-	public static final double MIN_ARM_ANGLE = -Double.MAX_VALUE / 2;
+	public static final double MIN_ARM_ANGLE = -10.0f;
 
 	/**
 	 * Margin of error for proportion during PID loops
@@ -49,20 +49,25 @@ public class ShooterConstants {
 	/**
 	 * Button on operator stick to toggle loading actuator
 	 */
-	public static final int SHOOTER_LOADING_BUTTON = BLANK_INTEGER;
+	public static final int LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON = 3;
 	
 	/**
 	 * Button on operator stick to toggle locking actuator
 	 */
-	public static final int SHOOTER_LOCKING_BUTTON = BLANK_INTEGER;
+	public static final int LOCKING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON = 4;
 	
 	/**
 	 * Button on operator stick to call fire sequence
 	 */
-	public static final int SHOOTER_FIRE_SEQUENCE_BUTTON = BLANK_INTEGER;
+	public static final int FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON = 5;
 	
 	/**
 	 * Button on operator stick to call load sequence
 	 */
-	public static final int SHOOTER_LOAD_SEQUENCE_BUTTON = BLANK_INTEGER;
+	public static final int LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON = 6;
+	
+	/**
+	 * FVRtD value for the arm potentiometer
+	 */
+	public static final double SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = BLANK_DOUBLE;
 }

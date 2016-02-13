@@ -7,9 +7,8 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
 /**
- * @author Paly Robotics Programming Red Module
- *
  * Retracts the loading actuator to the firing state
+ * @author Paly Robotics Programming Red Module
  */
 public class ShooterLoadingActuatorRetractCommand extends Command {
 	private ShooterController controller;
@@ -21,11 +20,11 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 		this.piston = controller.systems.getLoadingActuator();
 	}
 	
-	@Override
 	/**
 	 * If the loading actuator is retracted, the command will end, otherwise it will
 	 * retract
 	 */
+	@Override
 	public boolean execute() {		
 		if (controller.loadingActuatorController.isFullyRetracted()) {
 			return true;
@@ -35,10 +34,10 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 		return false;
 	}
 	
-	@Override
 	/**
 	 * At the end sets the loading actuator state back to IDLE
 	 */
+	@Override
 	public void end() {
 		controller.loadingActuatorController.setState(ShooterLoadingActuatorState.IDLE);
 	}

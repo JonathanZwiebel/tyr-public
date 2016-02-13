@@ -10,9 +10,8 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 
 /**
- * @author Paly Robotics Programming Red Module
- * 
  * Uses PID to set the arm angle to an input value
+ * @author Paly Robotics Programming Red Module
  */
 public class ShooterArmSetAngleCommand extends Command {
 	private ShooterController controller;
@@ -30,19 +29,19 @@ public class ShooterArmSetAngleCommand extends Command {
 		armEncoder = input.getShooterArmAngleSensor();
 	}
 
-	@Override
 	/**
-	 * Intializes this command by setting the previous error to the current error
+	 * Initializes this command by setting the previous error to the current error
 	 */
+	@Override
 	public void initialize() {
 		previousError = targetAngle - armEncoder.getAngle();
 	}
 	
-	@Override
 	/**
 	 * Executes the command through a PD loop that will end when the error is within the ARM_PROPORTIONAL_ME
 	 * range and the derivative is within ARM_DERIVATE_ME of zero.
 	 */
+	@Override
 	public boolean execute() {
 		double angle = armEncoder.getAngle();
 		double error = targetAngle - angle;

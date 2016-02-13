@@ -8,9 +8,8 @@ import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 
 /**
- * @author Paly Robotics Programming Red Module
- *
  * Moves the arm during normal teleop states, this command will never end
+ * @author Paly Robotics Programming Red Module
  */
 public class ShooterArmTeleopCommand extends Command {
 	private static final float DEAD_SPEED = 0;
@@ -27,11 +26,11 @@ public class ShooterArmTeleopCommand extends Command {
 		motor = controller.systems.getArmMotor();
 	}
 	
-	@Override
 	/**
 	 * Moves the arm based on the pitch read from the operator stick
 	 * Will not move beyond the maximum or minimum zones
 	 */
+	@Override
 	public boolean execute() {
 		angle = controller.input.getShooterArmAngleSensor().getAngle();
 		pitch = controller.input.getOperatorStick().getPitch().read();

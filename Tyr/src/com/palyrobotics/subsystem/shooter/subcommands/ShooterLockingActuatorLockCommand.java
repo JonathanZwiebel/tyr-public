@@ -7,10 +7,9 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
- * @author Paly Robotics Programming Red Module
- * 
  * Puts the latch on the arm
  * Makes sure the latch is put on
+ * @author Paly Robotics Programming Red Module
  */
 public class ShooterLockingActuatorLockCommand extends Command {
 	private ShooterController controller;
@@ -22,11 +21,11 @@ public class ShooterLockingActuatorLockCommand extends Command {
 		latch = controller.systems.getLockingActuator();
 	}
 
-	@Override
 	/**
 	 * If the locking actuator is locked, the command will end, otherwise it will
 	 * attempt the lock by extending
 	 */
+	@Override
 	public boolean execute() {
 		if (controller.lockingActuatorController.isLocked()) {
 			return true;
@@ -36,10 +35,10 @@ public class ShooterLockingActuatorLockCommand extends Command {
 		return false;
 	}
 	
-	@Override
 	/**
 	 * At the end sets the loading actuator state back to IDLE
 	 */
+	@Override
 	public void end() {
 		controller.lockingActuatorController.setState(ShooterLockingActuatorState.IDLE);
 	}

@@ -7,6 +7,9 @@ import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
+
+import com.palyrobotics.subsystem.shooter.ShooterConstants;
+
 import static com.palyrobotics.robot.Ports.*;
 
 
@@ -29,7 +32,9 @@ public class InputHardware implements InputSystems {
 	public static final AngleSensor accumulatorPotentiometer = null;
 	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
-	public static final AngleSensor shooterArmAngleSensor = null;
+	public static final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
+	public static final Switch shooterArmMaximumAngleLimitSensor = null;
+	public static final Switch shooterArmMinimumAngleLimitSensor = null;
 	public static final Switch shooterLoadingActuatorRetractedLimitSensor = null; // not yet determined if switch or digital HFX
 	public static final Switch shooterLockingActuatorLockedLimitSensor = null;
 	
@@ -87,6 +92,14 @@ public class InputHardware implements InputSystems {
 	}
 	@Override
 	public Switch getShooterLockingActuatorLockedLimitSensor() {
-		return null;
+		return shooterLockingActuatorLockedLimitSensor;
+	}
+	@Override
+	public Switch getShooterArmMaximumAngleLimitSensor() {
+		return shooterArmMaximumAngleLimitSensor;
+	}
+	@Override
+	public Switch getShooterArmMinimumAngleLimitSensor() {
+		return shooterArmMinimumAngleLimitSensor;
 	}
 }

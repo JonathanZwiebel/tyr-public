@@ -20,7 +20,7 @@ public class ShooterArmController implements Requirable {
 	public enum ShooterArmState {
 		IDLE, // The default state for the shooter
 		TELEOP, // Standard teleop control
-		SETANGLE, // Using PID to set the angle
+		SET_ANGLE, // Using PID to set the angle
 		DISABLED // Disabled
 	}
 	
@@ -32,10 +32,8 @@ public class ShooterArmController implements Requirable {
 		state = ShooterArmState.IDLE;
 	}
 	
-	/**
-	 * Will set the state to TELEOP if currently IDLE
-	 */
 	public void update() {
+		
 	}
 	
 	public void disable() {
@@ -46,6 +44,7 @@ public class ShooterArmController implements Requirable {
 	 * Sets the arm state, calling commands as appropriate
 	 * @param state incoming ShooterArmState
 	 * @param args any arguments associated with the command
+	 * TODO: Handle illegal arguments
 	 */
 	public void setState(ShooterArmState state, float ... args) {
 		if(state != ShooterArmState.DISABLED) {
@@ -54,7 +53,7 @@ public class ShooterArmController implements Requirable {
 		if(state == ShooterArmState.TELEOP) {
 			Strongback.submit(new ShooterArmTeleopCommand(parent));
 		}
-		else if(state == ShooterArmState.SETANGLE) {
+		else if(state == ShooterArmState.SET_ANGLE) {
 			Strongback.submit(new ShooterArmSetAngleCommand(parent, args[0]));
 		}
 	}

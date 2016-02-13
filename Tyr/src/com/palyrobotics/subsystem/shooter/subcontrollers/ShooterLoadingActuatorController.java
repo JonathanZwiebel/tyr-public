@@ -58,6 +58,6 @@ public class ShooterLoadingActuatorController implements Requirable {
 	}
 	
 	public boolean isFullyRetracted() {
-		 return parent.input.getShooterLockingActuatorLockedLimitSensor().isTriggered();		 
+		 return parent.input.getShooterLoadingActuatorRetractedLimitSensor().isTriggered();
 	}
 }

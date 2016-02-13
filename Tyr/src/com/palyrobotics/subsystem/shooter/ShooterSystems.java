@@ -1,7 +1,7 @@
 package com.palyrobotics.subsystem.shooter;
 
-import org.strongback.components.Motor;
 import org.strongback.components.Solenoid;
+import org.strongback.components.TalonSRX;
 
 /**
  * An interface to be extended by Tyr hardware or a mock shooter that contains 
@@ -14,7 +14,7 @@ public interface ShooterSystems {
 	 * Returns the motor that will control the shooter arm
 	 * @return the motor that controls the shooter arm
 	 */
-	public Motor getArmMotor();
+	public TalonSRX getArmMotor();
 	
 	/**
 	 * Returns the solenoid that controls the locking latch on the arm

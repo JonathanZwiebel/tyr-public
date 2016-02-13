@@ -58,6 +58,8 @@ public class ShooterController implements Requirable {
 	 * Calls all of the subcontroller updates and will set the state to TELEOP if currently IDLE
 	 */
 	public void update() {
+		// Technically the setting of the shooter state should be completely delegated to the robotController
+		// TODO[Major]: Revise this by standardizing with the other command structures
 		if(state == ShooterState.IDLE) {
 			setState(ShooterState.TELEOP);
 		}
@@ -77,7 +79,7 @@ public class ShooterController implements Requirable {
 	
 	/**
 	 * Sets the shooter state, calling commands as appropriate
-	 * @param state incoing ShooterState
+	 * @param state incoming ShooterState
 	 */
 	public void setState(ShooterState state, float ... args) {
 		if(state != ShooterState.DISABLED) {
