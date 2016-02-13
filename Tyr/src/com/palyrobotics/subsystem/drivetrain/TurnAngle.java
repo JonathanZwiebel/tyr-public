@@ -14,9 +14,6 @@ public class TurnAngle extends Command {
 	/**
 	 * Starts the command running, passing the drivetrain for input and output
 	 * as well as the desired angle to turn to.
-	 * 
-	 * @param drivetrain
-	 * @param angle
 	 */
 	public TurnAngle(DrivetrainController drivetrain, double angle) {
 		super(drivetrain);
@@ -57,8 +54,7 @@ public class TurnAngle extends Command {
 		drivetrain.output.getLeftMotor().setSpeed(leftSpeed);
 		drivetrain.output.getRightMotor().setSpeed(rightSpeed);
 
-		// stops robot when target is reached and robot has slowed within
-		// tolerance range
+		// stops robot when target is reached and robot has slowed within tolerance range
 		if (derivative == 0.0 && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) {
 			drivetrain.output.getLeftMotor().setSpeed(0.0);
 			drivetrain.output.getRightMotor().setSpeed(0.0);

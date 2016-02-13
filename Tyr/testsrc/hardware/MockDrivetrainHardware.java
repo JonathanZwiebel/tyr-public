@@ -12,7 +12,6 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 	Motor leftMotor = Mock.stoppedMotor();
 	Motor rightMotor = Mock.stoppedMotor();
 	
-	
 	@Override
 	public Motor getLeftMotor() {
 		return leftMotor;
