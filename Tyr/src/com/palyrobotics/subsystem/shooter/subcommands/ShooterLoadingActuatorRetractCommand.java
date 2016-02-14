@@ -3,6 +3,7 @@ package com.palyrobotics.subsystem.shooter.subcommands;
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
+import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
@@ -26,12 +27,9 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	 */
 	@Override
 	public boolean execute() {		
-		if (controller.loadingActuatorController.isFullyRetracted()) {
-			return true;
-		}
-		
 		piston.retract();
-		return false;
+		System.out.println("Loading Retract");
+		return controller.input.getOperatorStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
 	}
 	
 	/**

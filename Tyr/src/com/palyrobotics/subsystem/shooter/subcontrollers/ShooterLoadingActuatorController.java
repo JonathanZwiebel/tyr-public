@@ -16,6 +16,7 @@ import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorRetr
 public class ShooterLoadingActuatorController implements Requirable {
 	ShooterController parent;
 	public ShooterLoadingActuatorState state;
+	private boolean isRetracted;
 	
 	public enum ShooterLoadingActuatorState {
 		IDLE, // The default state
@@ -26,6 +27,7 @@ public class ShooterLoadingActuatorController implements Requirable {
 	
 	public ShooterLoadingActuatorController(ShooterController parent) {
 		this.parent = parent;
+		isRetracted = false;
 	}
 	
 	public void init() {
@@ -33,7 +35,7 @@ public class ShooterLoadingActuatorController implements Requirable {
 	}
 	
 	public void update() {
-
+		System.out.println("Shooter Loading Actuator isRetracted: " + isRetracted);
 	}
 	
 	public void disable() {
@@ -50,14 +52,16 @@ public class ShooterLoadingActuatorController implements Requirable {
 			this.state = state;
 		}
 		if(state == ShooterLoadingActuatorState.EXTEND) {
+			isRetracted = false;
 			Strongback.submit(new ShooterLoadingActuatorExtendCommand(parent));
 		}
 		else if(state == ShooterLoadingActuatorState.RETRACT) {
+			isRetracted = true;
 			Strongback.submit(new ShooterLoadingActuatorRetractCommand(parent));
 		}
 	}
 	
 	public boolean isFullyRetracted() {
-		 return parent.input.getShooterLoadingActuatorRetractedLimitSensor().isTriggered();
+		 return isRetracted;
 	}
 }

@@ -35,8 +35,6 @@ public class InputHardware implements InputSystems {
 	public static final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	public static final Switch shooterArmMaximumAngleLimitSensor = null;
 	public static final Switch shooterArmMinimumAngleLimitSensor = null;
-	public static final Switch shooterLoadingActuatorRetractedLimitSensor = null; // not yet determined if switch or digital HFX
-	public static final Switch shooterLockingActuatorLockedLimitSensor = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -75,10 +73,6 @@ public class InputHardware implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public Switch getShooterLoadingActuatorRetractedLimitSensor() {
-		return shooterLoadingActuatorRetractedLimitSensor;
-	}
-	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
@@ -89,10 +83,6 @@ public class InputHardware implements InputSystems {
 	@Override
 	public AngleSensor getShooterArmAngleSensor() {
 		return shooterArmAngleSensor;
-	}
-	@Override
-	public Switch getShooterLockingActuatorLockedLimitSensor() {
-		return shooterLockingActuatorLockedLimitSensor;
 	}
 	@Override
 	public Switch getShooterArmMaximumAngleLimitSensor() {

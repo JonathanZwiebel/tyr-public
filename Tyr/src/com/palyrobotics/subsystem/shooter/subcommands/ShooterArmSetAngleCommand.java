@@ -62,7 +62,7 @@ public class ShooterArmSetAngleCommand extends Command {
 	
 	@Override
 	public void interrupted() { 
-		System.out.println("ShooterSetArmAngleCommand interuppted");
+		System.out.println("ShooterSetArmAngleCommand interrupted");
 	}
 	
 	/**

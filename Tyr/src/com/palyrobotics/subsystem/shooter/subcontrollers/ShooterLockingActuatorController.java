@@ -16,6 +16,7 @@ import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlo
 public class ShooterLockingActuatorController implements Requirable {
 	ShooterController parent;
 	public ShooterLockingActuatorState state;
+	private boolean isRetracted;
 	
 	public enum ShooterLockingActuatorState {
 		IDLE,
@@ -26,6 +27,7 @@ public class ShooterLockingActuatorController implements Requirable {
 	
 	public ShooterLockingActuatorController(ShooterController parent) {
 		this.parent = parent;
+		isRetracted = false;
 	}
 	
 	public void init() {
@@ -50,15 +52,17 @@ public class ShooterLockingActuatorController implements Requirable {
 			this.state = state;
 		}
 		if(state == ShooterLockingActuatorState.LOCK) {
+			isRetracted = false;
 			Strongback.submit(new ShooterLockingActuatorLockCommand(parent));
 		}
 		else if(state == ShooterLockingActuatorState.UNLOCK) {
+			isRetracted = true;
 			Strongback.submit(new ShooterLockingActuatorUnlockCommand(parent));
 		}
 	}
 	
 	public boolean isLocked() {
-		return parent.input.getShooterLockingActuatorLockedLimitSensor().isTriggered();
+		return !isRetracted;
 	}
 }
  

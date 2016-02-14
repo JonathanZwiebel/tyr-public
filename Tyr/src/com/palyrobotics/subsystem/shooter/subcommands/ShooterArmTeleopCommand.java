@@ -12,8 +12,8 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
  * @author Paly Robotics Programming Red Module
  */
 public class ShooterArmTeleopCommand extends Command {
-	private static final float DEAD_SPEED = 0;
-	private static final float DEAD_PITCH = 0;
+	private static final float DEAD_SPEED = 0.0f;
+	private static final float DEAD_PITCH = 0.0f;
 	
 	private ShooterController controller;
 	private Motor motor;
@@ -47,6 +47,6 @@ public class ShooterArmTeleopCommand extends Command {
 	
 	@Override
 	public void interrupted() {
-		Strongback.logger().info("The command ShooterArmTeleopCommand was interrupted.");
+		Strongback.logger().info("The command ShooterArmTeleopCommand was interrupted");
 	}
 }

@@ -3,6 +3,7 @@ package com.palyrobotics.subsystem.shooter.subcommands;
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
+import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
@@ -27,12 +28,9 @@ public class ShooterLockingActuatorUnlockCommand extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		if (!controller.lockingActuatorController.isLocked()) {
-			return true;
-		}
-		
-		latch.extend();
-		return false;
+		latch.retract();
+		System.out.println("Locking latch unlock");
+		return controller.input.getOperatorStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
 	}
 	
 	/**

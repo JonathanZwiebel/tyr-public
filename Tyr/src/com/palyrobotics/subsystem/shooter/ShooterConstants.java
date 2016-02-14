@@ -38,36 +38,44 @@ public class ShooterConstants {
 	
 	/**
 	 * Proportion constant for PID loop
+	 * TODO: Calibrate this value
 	 */
 	public static final double ARM_kP = BLANK_DOUBLE;
 	
 	/**
 	 * Derivative constant for PID loop
+	 * TODO: Calibrate this value
 	 */
 	public static final double ARM_kD = BLANK_DOUBLE;
 
 	/**
-	 * Button on operator stick to toggle loading actuator
+	 * Button on operator stick to terminate actuator commands
 	 */
-	public static final int LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON = 3;
+	public static final int SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON = 2;
 	
 	/**
-	 * Button on operator stick to toggle locking actuator
+	 * Button on operator stick to extend loading actuator
 	 */
-	public static final int LOCKING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON = 4;
+	public static final int LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON = 3;
 	
 	/**
-	 * Button on operator stick to call fire sequence
+	 * Button on operator stick to retract loading actuator
 	 */
-	public static final int FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON = 5;
+	public static final int LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON = 5;
 	
 	/**
-	 * Button on operator stick to call load sequence
+	 * Button on operator stick to lock the locking latch
 	 */
-	public static final int LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON = 6;
+	public static final int LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON = 4;
+	
+	/**
+	 * Button on operator stick to unlock the locking latch
+	 */
+	public static final int LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON = 6;
 	
 	/**
 	 * FVRtD value for the arm potentiometer
+	 * TODO: Measure this value
 	 */
-	public static final double SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = BLANK_DOUBLE;
+	public static final double SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 0.25f;
 }
