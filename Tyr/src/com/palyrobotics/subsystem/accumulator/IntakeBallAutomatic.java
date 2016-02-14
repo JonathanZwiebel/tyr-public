@@ -9,11 +9,11 @@ import org.strongback.components.Motor;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 
-public class IntakeBall extends Command {
+public class IntakeBallAutomatic extends Command {
 	private AccumulatorController accumulatorController;
 	private InputSystems input;
-
-	public IntakeBall(AccumulatorController accumulatorController, InputSystems input) {
+	
+	public IntakeBallAutomatic(AccumulatorController accumulatorController, InputSystems input) {
 		super(accumulatorController);
 		this.accumulatorController = accumulatorController;
 		this.input = input;

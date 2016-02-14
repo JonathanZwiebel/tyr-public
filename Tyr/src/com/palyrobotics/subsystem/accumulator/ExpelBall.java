@@ -24,7 +24,6 @@ public class ExpelBall extends Command {
 	@Override
 	public void initialize() {
 		this.begin = System.currentTimeMillis();
-		accumulatorController.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 		accumulatorController.setState(AccumulatorState.EJECTING);
 	}
 	/*

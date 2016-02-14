@@ -15,13 +15,13 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.ExpelBall;
-import com.palyrobotics.subsystem.accumulator.IntakeBall;
+import com.palyrobotics.subsystem.accumulator.IntakeBallAutomatic;
 import com.palyrobotics.subsystem.accumulator.StopAccumulator;
 
 public class accumulatorMultipleCommandsTest {
 
 	private ExpelBall expel;
-	private IntakeBall intake;
+	private IntakeBallAutomatic intake;
 	private StopAccumulator stop;
 	private AccumulatorController controller;
 	private InputHardware input;
@@ -33,7 +33,7 @@ public class accumulatorMultipleCommandsTest {
 		input = new InputHardware();
 		controller = new AccumulatorController(hardware,input);
 		stop = new StopAccumulator(controller);
-		intake = new IntakeBall(controller, input);
+		intake = new IntakeBallAutomatic(controller, input);
 		expel = new ExpelBall(controller);
 	}
 	

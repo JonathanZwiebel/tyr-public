@@ -23,6 +23,7 @@ public class AccumulatorController implements Requirable {
 
 	public void init() {
 		state = AccumulatorState.IDLE;
+		Strongback.submit(new AccumulatorTeleop(this, robotInput));
 	}
 
 	public void update() {

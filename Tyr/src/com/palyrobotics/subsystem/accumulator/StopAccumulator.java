@@ -8,9 +8,11 @@ public class StopAccumulator extends Command {
 	AccumulatorController controller;
 
 	public StopAccumulator(AccumulatorController controller) {
+		super(controller);
 		this.controller = controller;
 	}
-	/*
+
+	/**
 	 * Sets the accumulator motor power to 0
 	 * Completes imediately
 	 */

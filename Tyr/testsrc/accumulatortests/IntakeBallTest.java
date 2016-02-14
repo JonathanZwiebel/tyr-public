@@ -12,14 +12,14 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
-import com.palyrobotics.subsystem.accumulator.IntakeBall;
+import com.palyrobotics.subsystem.accumulator.IntakeBallAutomatic;
 import hardware.MockAccumulatorHardware;
 import hardware.MockRobotInput;
 
 public class IntakeBallTest {
 
 	private CommandTester tester;
-	private IntakeBall command;
+	private IntakeBallAutomatic command;
 	private AccumulatorSystems hardware;
 	private AccumulatorController controller;
 	private InputSystems input;
@@ -30,7 +30,7 @@ public class IntakeBallTest {
 		input = new MockRobotInput();
 		hardware = new MockAccumulatorHardware();
 		controller = new AccumulatorController(hardware,input);
-		command = new IntakeBall(controller,input);
+		command = new IntakeBallAutomatic(controller,input);
 		tester = new CommandTester(command);
 	}
 
