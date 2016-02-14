@@ -86,6 +86,14 @@ public class MockRobotInput implements InputSystems {
 	public Switch getShooterLockingActuatorLockedLimitSensor() {
 		return shooterLoadingActuatorRetractedLimitSensor;
 	}
+	@Override
+	public Switch getShooterArmMaximumAngleLimitSensor() {
+		return null;
+	}
+	@Override
+	public Switch getShooterArmMinimumAngleLimitSensor() {
+		return null;
+	}
 	
 	// vision to be added later
 }

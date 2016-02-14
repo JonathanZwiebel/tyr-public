@@ -62,7 +62,7 @@ public class TestShooterArmSetAngle {
 	
 	@Test
 	public void testArmSetStateChangesState() throws InterruptedException {
-		controller.armController.setState(ShooterArmState.SETANGLE, 30.0f);
+		controller.armController.setState(ShooterArmState.SET_ANGLE, 30.0f);
 		angleSensor.setAngle(INITIAL_ANGLE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_STATE_CHANGE_UNIT_TESTS; i++) {
@@ -74,12 +74,12 @@ public class TestShooterArmSetAngle {
 			TimeUnit.NANOSECONDS.sleep(extra_nano);
 		}
 		
-		assertEquals(controller.armController.state, ShooterArmController.ShooterArmState.SETANGLE);
+		assertEquals(controller.armController.state, ShooterArmController.ShooterArmState.SET_ANGLE);
 	}
 	
 	@Test
 	public void testArmSetAngleExitsOnlyWhenReached() throws InterruptedException {
-		controller.armController.setState(ShooterArmState.SETANGLE, SAMPLE_ANGLE);
+		controller.armController.setState(ShooterArmState.SET_ANGLE, SAMPLE_ANGLE);
 		angleSensor.setAngle(INITIAL_ANGLE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -91,7 +91,7 @@ public class TestShooterArmSetAngle {
 			TimeUnit.NANOSECONDS.sleep(extra_nano);
 		}
 		
-		assertEquals(controller.armController.state, ShooterArmController.ShooterArmState.SETANGLE);
+		assertEquals(controller.armController.state, ShooterArmController.ShooterArmState.SET_ANGLE);
 		angleSensor.setAngle(SAMPLE_ANGLE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -108,7 +108,7 @@ public class TestShooterArmSetAngle {
 	
 	@Test
 	public void testArmSetAngleChecksDerivativeME() throws InterruptedException {
-		controller.armController.setState(ShooterArmState.SETANGLE, SAMPLE_ANGLE);
+		controller.armController.setState(ShooterArmState.SET_ANGLE, SAMPLE_ANGLE);
 		angleSensor.setAngle(INITIAL_ANGLE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -139,6 +139,6 @@ public class TestShooterArmSetAngle {
 			TimeUnit.NANOSECONDS.sleep(extra_nano);
 		}
 		
-		assertEquals(ShooterArmController.ShooterArmState.SETANGLE, controller.armController.state);
+		assertEquals(ShooterArmController.ShooterArmState.SET_ANGLE, controller.armController.state);
 	}
 }
