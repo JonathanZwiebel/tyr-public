@@ -1,8 +1,9 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 import org.strongback.command.Requirable;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
@@ -35,9 +36,9 @@ public class DriveDistance extends Command {
 	@Override
 	public void initialize() {
 		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_DISTANCE);
-		drivetrain.input.getLeftDriveEncoder().zero();
-		drivetrain.input.getRightDriveEncoder().zero();
-		drivetrain.input.getGyroscope().zero();
+		drivetrain.getInput().getLeftDriveEncoder().zero();
+		drivetrain.getInput().getRightDriveEncoder().zero();
+		drivetrain.getInput().getGyroscope().zero();
 	}
 	
 	/**
@@ -49,8 +50,8 @@ public class DriveDistance extends Command {
 	@Override
 	public boolean execute() {
 		//Calculates error based on target distance and distance already traveled.
-		double leftError = distance - drivetrain.input.getLeftDriveEncoder().getAngle();
-		double rightError = distance - drivetrain.input.getRightDriveEncoder().getAngle();
+		double leftError = distance - drivetrain.getInput().getLeftDriveEncoder().getAngle();
+		double rightError = distance - drivetrain.getInput().getRightDriveEncoder().getAngle();
 		
 		//Derivative computed using the 50 updates / second update rate and the change in error.
 		double leftDerivative = (leftError - previousLeftError)/UPDATE_RATE; 
@@ -64,8 +65,8 @@ public class DriveDistance extends Command {
 		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
 
 		//Calculates angle error, trying to set it to 0.
-		angleError = drivetrain.input.getGyroscope().getAngle();
-		double angleDerivative = -drivetrain.input.getGyroscope().getRate();
+		angleError = drivetrain.getInput().getGyroscope().getAngle();
+		double angleDerivative = -drivetrain.getInput().getGyroscope().getRate();
 		
 		//Require two separate angle speeds because they might require different pid values.
 		//Calculates the Turnspeed to be added to the movespeed, if the angle error is above the threshold.
@@ -74,19 +75,19 @@ public class DriveDistance extends Command {
 		double leftAngleSpeed = LEFT_ANGLE_P_VALUE * angleError + LEFT_ANGLE_D_VALUE * angleDerivative;
 
 		//TODO check to see if you need to switch signs on the angle speed.
-		drivetrain.output.getLeftMotor().setSpeed(leftSpeed+leftAngleSpeed);
-		drivetrain.output.getRightMotor().setSpeed(rightSpeed+rightAngleSpeed);
+		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed+leftAngleSpeed);
+		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed+rightAngleSpeed);
 
 		//Stops the command if the robot is slowed down within a limit, signaling the arrival at the target.
 		if(leftDerivative == 0.0 && rightDerivative == 0.0 && 
 				Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR && Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR) {
-			drivetrain.output.getLeftMotor().setSpeed(0.0);
-			drivetrain.output.getRightMotor().setSpeed(0.0);
+			drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+			drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 			//Might need to add a case where the robot has reached the right distance, but not right angle. Maybe not though.
 		}
-		if(drivetrain.input.getDriveStick().getTrigger().isTriggered()) {
+		if(drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
 			interrupted();
 			return true;
 		}
@@ -100,8 +101,8 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 	
@@ -111,8 +112,8 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public void end() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }

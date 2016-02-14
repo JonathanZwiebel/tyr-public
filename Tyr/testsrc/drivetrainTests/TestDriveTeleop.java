@@ -11,9 +11,9 @@ import org.junit.rules.Timeout;
 import org.strongback.command.CommandTester;
 
 import com.palyrobotics.robot.InputSystems;
-import com.palyrobotics.subsystem.drivetrain.DriveTeleop;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveTeleop;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
 import hardware.MockDrivetrainHardware;

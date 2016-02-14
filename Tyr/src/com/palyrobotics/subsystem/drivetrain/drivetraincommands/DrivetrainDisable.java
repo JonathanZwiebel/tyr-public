@@ -1,7 +1,8 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 
 /**
@@ -25,8 +26,8 @@ public class DrivetrainDisable extends Command {
 	@Override
 	public boolean execute() {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		return true;
 	}
 }

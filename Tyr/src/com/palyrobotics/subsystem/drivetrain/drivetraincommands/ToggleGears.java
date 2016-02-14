@@ -1,7 +1,8 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.GearState;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -32,9 +33,9 @@ public class ToggleGears extends Command {
 	@Override
 	public boolean execute() {
 		if(drivetrain.getGearState() == GearState.RAISING_GEAR) {
-			drivetrain.output.getSolenoid().extend();
+			drivetrain.getOutput().getSolenoid().extend();
 		} else {
-			drivetrain.output.getSolenoid().retract();
+			drivetrain.getOutput().getSolenoid().retract();
 		}
 		return true;
 	}

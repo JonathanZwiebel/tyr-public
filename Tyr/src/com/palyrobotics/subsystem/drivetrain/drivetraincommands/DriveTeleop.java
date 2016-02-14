@@ -1,7 +1,8 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
@@ -37,20 +38,20 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public boolean execute() {		
-		double forwardSpeed = drivetrain.input.getDriveStick().getPitch().read();
-		double turnSpeed = drivetrain.input.getTurnStick().getRoll().read();
+		double forwardSpeed = drivetrain.getInput().getDriveStick().getPitch().read();
+		double turnSpeed = drivetrain.getInput().getTurnStick().getRoll().read();
 		
 		double leftTargetSpeed = -(forwardSpeed - turnSpeed);
 		double rightTargetSpeed = (forwardSpeed + turnSpeed);
 		
-		double leftError = leftTargetSpeed - drivetrain.output.getLeftMotor().getSpeed();
-		double rightError = rightTargetSpeed - drivetrain.output.getRightMotor().getSpeed();
+		double leftError = leftTargetSpeed - drivetrain.getOutput().getLeftMotor().getSpeed();
+		double rightError = rightTargetSpeed - drivetrain.getOutput().getRightMotor().getSpeed();
 		
 		double leftDiff = Math.max(Math.min(leftError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
 		double rightDiff = Math.max(Math.min(rightError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
 		
-		drivetrain.output.getLeftMotor().setSpeed(drivetrain.output.getLeftMotor().getSpeed() + leftDiff);
-		drivetrain.output.getRightMotor().setSpeed(drivetrain.output.getRightMotor().getSpeed() + rightDiff);
+		drivetrain.getOutput().getLeftMotor().setSpeed(drivetrain.getOutput().getLeftMotor().getSpeed() + leftDiff);
+		drivetrain.getOutput().getRightMotor().setSpeed(drivetrain.getOutput().getRightMotor().getSpeed() + rightDiff);
 		
 		return false;
 	}
@@ -60,8 +61,8 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }
