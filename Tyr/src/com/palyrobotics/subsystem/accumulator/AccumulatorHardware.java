@@ -10,10 +10,10 @@ public class AccumulatorHardware implements AccumulatorSystems {
 	private Motor rightMotor = Hardware.Motors.talon(CHANNEL);
 	
 	//TODO: may need to be the other way around depending on hardware.
-	private Motor acculumatorMotors = Motor.compose(leftMotor.invert(), rightMotor);
+	private Motor accumulatorMotors = Motor.compose(leftMotor.invert(), rightMotor);
 
 	@Override
 	public Motor getAccumulatorMotors() {
-		return acculumatorMotors;
+		return accumulatorMotors;
 	}
 }

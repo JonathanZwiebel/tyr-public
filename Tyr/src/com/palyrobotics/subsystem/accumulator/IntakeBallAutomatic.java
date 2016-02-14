@@ -25,8 +25,8 @@ public class IntakeBallAutomatic extends Command {
 	}
 
 	/**
-	 * Runs the intake until the photogate is triggered Executes every 20 ms
-	 * until the photogate is triggered
+	 * Runs the intake until the photogate is triggered
+	 * Executes every 20 ms until the photogate is triggered
 	 */
 	@Override
 	public boolean execute() {

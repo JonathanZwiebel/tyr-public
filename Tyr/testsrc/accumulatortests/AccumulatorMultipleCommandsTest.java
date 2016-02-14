@@ -18,7 +18,7 @@ import com.palyrobotics.subsystem.accumulator.ExpelBall;
 import com.palyrobotics.subsystem.accumulator.IntakeBallAutomatic;
 import com.palyrobotics.subsystem.accumulator.StopAccumulator;
 
-public class accumulatorMultipleCommandsTest {
+public class AccumulatorMultipleCommandsTest {
 
 	private ExpelBall expel;
 	private IntakeBallAutomatic intake;
