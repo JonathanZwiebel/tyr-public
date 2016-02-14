@@ -46,35 +46,35 @@ public class TestShooterConstants {
 	
 	@Test
 	public void testNoButtonConflicts() {
-		assertNotEquals(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON, ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON);
-		assertNotEquals(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON, ShooterConstants.SHOOTER_LOADING_BUTTON);
-		assertNotEquals(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON, ShooterConstants.SHOOTER_LOCKING_BUTTON);
-		assertNotEquals(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON, ShooterConstants.SHOOTER_LOADING_BUTTON);
-		assertNotEquals(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON, ShooterConstants.SHOOTER_LOCKING_BUTTON);
-		assertNotEquals(ShooterConstants.SHOOTER_LOADING_BUTTON, ShooterConstants.SHOOTER_LOCKING_BUTTON);
+		assertNotEquals(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON, ShooterConstants.LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON);
+		assertNotEquals(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON, ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON);
+		assertNotEquals(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON, ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON);
+		assertNotEquals(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON, ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON);
+		assertNotEquals(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON, ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON);
+		assertNotEquals(ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON, ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON);
 	}
 	
 	@Test
 	public void testShooterLoadingButtonValid() {
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOADING_BUTTON >= 0);
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOADING_BUTTON <= 12);
+		Assert.assertTrue(ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON >= 0);
+		Assert.assertTrue(ShooterConstants.LOADING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON <= 12);
 	}
 	
 	@Test
 	public void testShooterLockingButtonValid() {
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOCKING_BUTTON >= 0);
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOCKING_BUTTON <= 12);
+		Assert.assertTrue(ShooterConstants.LOCKING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON >= 0);
+		Assert.assertTrue(ShooterConstants.LOCKING_ACTUATOR_TOGGLE_OPERATOR_STICK_BUTTON <= 12);
 	}
 	
 	@Test
 	public void testShooterLoadSequenceButtonValid() {
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON >= 0);
-		Assert.assertTrue(ShooterConstants.SHOOTER_LOAD_SEQUENCE_BUTTON <= 12);
+		Assert.assertTrue(ShooterConstants.LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON >= 0);
+		Assert.assertTrue(ShooterConstants.LOAD_SEQUENCE_START_OPERATOR_STICK_BUTTON <= 12);
 	}
 	
 	@Test
 	public void testShooterFireSequenceButtonValid() {
-		Assert.assertTrue(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON >= 0);
-		Assert.assertTrue(ShooterConstants.SHOOTER_FIRE_SEQUENCE_BUTTON <= 12);
+		Assert.assertTrue(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON >= 0);
+		Assert.assertTrue(ShooterConstants.FIRE_SEQUENCE_START_OPERATOR_STICK_BUTTON <= 12);
 	}
 }
