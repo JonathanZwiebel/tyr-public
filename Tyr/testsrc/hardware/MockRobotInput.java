@@ -67,10 +67,6 @@ public class MockRobotInput implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public Switch getShooterLoadingActuatorRetractedLimitSensor() {
-		return shooterLoadingActuatorRetractedLimitSensor;
-	}
-	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
@@ -81,10 +77,6 @@ public class MockRobotInput implements InputSystems {
 	@Override
 	public AngleSensor getShooterArmAngleSensor() {
 		return shooterArmAngleSensor;
-	}
-	@Override
-	public Switch getShooterLockingActuatorLockedLimitSensor() {
-		return shooterLoadingActuatorRetractedLimitSensor;
 	}
 	@Override
 	public Switch getShooterArmMaximumAngleLimitSensor() {
