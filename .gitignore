@@ -57,3 +57,6 @@ sysProps.xml
 *.exe
 *.out
 *.app
+
+# Logging Files
+*.dat
