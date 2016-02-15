@@ -52,9 +52,10 @@ public class ShooterArmSetAngleCommand extends Command {
 		if(Math.abs(error) < ShooterConstants.ARM_PROPORTIONAL_ME && Math.abs(derivative) < ShooterConstants.ARM_DERIVATIVE_ME) {
 			return true;
 		} 
-		
 		else {
-			controller.systems.getArmMotor().setSpeed(ShooterConstants.ARM_kP * error + ShooterConstants.ARM_kD * derivative);
+			double rawSpeed = ShooterConstants.ARM_kP * error + ShooterConstants.ARM_kD * derivative;
+			double limitedSpeed = Math.min(Math.max(rawSpeed, -ShooterConstants.SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT), ShooterConstants.SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT);
+			controller.systems.getArmMotor().setSpeed(limitedSpeed);
 			previousError = error;
 			return false;
 		}
