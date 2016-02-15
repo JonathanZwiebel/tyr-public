@@ -60,10 +60,10 @@ public class RobotController extends IterativeRobot {
     	console = new ConsoleHandler();
     	logger.addHandler(console);
     	try {
-			file = new FileHandler("%t/records.log");
-		} catch (SecurityException | IOException e) {
-            logger.log(Level.WARNING, "Error in creating log file", e);
-		}
+    		file = new FileHandler("%t/records.log");
+    	} catch (SecurityException | IOException e) {
+    		logger.log(Level.WARNING, "Error in creating log file", e);
+    	}
     	logger.addHandler(file);
     	logger.setLevel(Level.ALL);
     	return logger;
@@ -91,6 +91,6 @@ public class RobotController extends IterativeRobot {
     	accumulator.disable();
     	shooter.disable();
         Strongback.disable();
-    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
+        Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
     }
 }
