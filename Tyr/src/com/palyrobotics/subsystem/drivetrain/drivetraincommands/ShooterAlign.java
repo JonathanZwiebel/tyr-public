@@ -3,6 +3,7 @@ package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 import org.strongback.command.Command;
+import org.strongback.components.ui.ContinuousRange;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
@@ -11,10 +12,11 @@ public class ShooterAlign extends Command {
 
 	private DrivetrainController drivetrain;
 	private double previousError;
-	private double cameraError = 0.0;
+	private double cameraError;
 
-	public ShooterAlign(DrivetrainController drivetrain) {
+	public ShooterAlign(DrivetrainController drivetrain, ContinuousRange visionInput) {
 		this.drivetrain = drivetrain;
+		this.cameraError = visionInput.read();
 		this.previousError = cameraError;
 	}
 
@@ -53,14 +55,10 @@ public class ShooterAlign extends Command {
 		// stops robot when the target is reached and robot has slowed within
 		// tolerance range
 		if (derivative == 0.0 && Math.abs(cameraError) < ACCEPTABLE_PIXEL_ERROR) {
-			drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
-			drivetrain.getOutput().getRightMotor().setSpeed(0.0);
-			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
 		// stops the command if the driver triggers the turnstick.
 		if (drivetrain.getInput().getTurnStick().getTrigger().isTriggered()) {
-			interrupted();
 			return true;
 		}
 		return false;
@@ -72,8 +70,6 @@ public class ShooterAlign extends Command {
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
-		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 

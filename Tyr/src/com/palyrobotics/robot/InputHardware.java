@@ -4,6 +4,7 @@ import org.strongback.components.AngleSensor;
 import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
+import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
@@ -31,6 +32,8 @@ public class InputHardware implements InputSystems {
 	
 	public static final AngleSensor accumulatorPotentiometer = null;
 	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
+	
+	public ContinuousRange visionInput = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -83,5 +86,10 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
+	}
+	
+	@Override
+	public ContinuousRange getVisionInput() {
+		return visionInput;
 	}
 }

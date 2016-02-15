@@ -43,7 +43,6 @@ public class DrivetrainController implements Requirable {
 	 */
 	public void init() {
 		drivetrainState = DrivetrainState.IDLE;
-		output.getCompressor().automaticMode().on();
 
 		reactor.onTriggered(input.getDriveStick().getTrigger(), () -> Strongback.submit(new ToggleGears(this)));
 		reactor.onTriggered(input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON),
@@ -53,7 +52,7 @@ public class DrivetrainController implements Requirable {
 		reactor.onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
 		reactor.onTriggered(input.getDriveStick().getButton(SHOOTER_ALIGN_BUTTON),
-				() -> Strongback.submit(new ShooterAlign(this)));
+				() -> Strongback.submit(new ShooterAlign(this, input.getVisionInput())));
 	}
 
 	public void update() {

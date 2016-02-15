@@ -18,7 +18,6 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	// TODO: Make sure Direction.EXTENDING is a proper initialization.
 	public Solenoid solenoid = Hardware.Solenoids.doubleSolenoid(DOUBLESOLENOID_PORT_A, DOUBLESOLENOID_PORT_B,
 			Direction.EXTENDING);
-	public PneumaticsModule compressor = Hardware.pneumaticsModule(PCM_PORT);
 
 	@Override
 	public Motor getLeftMotor() {
@@ -28,11 +27,6 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	@Override
 	public Motor getRightMotor() {
 		return rightMotor;
-	}
-
-	@Override
-	public PneumaticsModule getCompressor() {
-		return compressor;
 	}
 
 	@Override

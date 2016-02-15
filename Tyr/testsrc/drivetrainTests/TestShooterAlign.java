@@ -32,7 +32,7 @@ public class TestShooterAlign {
 		input = new MockRobotInput();
 		output = new MockDrivetrainHardware();
 		drivetrain = new DrivetrainController(output, input);
-		shooterAllign = new ShooterAlign(drivetrain);
+		shooterAllign = new ShooterAlign(drivetrain, input.getVisionInput());
 		command = new CommandTester(shooterAllign);
 	}
 

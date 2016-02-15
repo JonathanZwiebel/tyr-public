@@ -11,7 +11,7 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 	Motor leftMotor = Mock.stoppedMotor();
 	Motor rightMotor = Mock.stoppedMotor();
 	public Solenoid solenoid = Mock.manualSolenoid();
-	public PneumaticsModule compressor = Mock.pnuematicsModule();
+	public PneumaticsModule PCM = Mock.pnuematicsModule();
 	
 	@Override
 	public Motor getLeftMotor() {
@@ -21,11 +21,6 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 	@Override
 	public Motor getRightMotor() {
 		return rightMotor;
-	}
-
-	@Override
-	public PneumaticsModule getCompressor() {
-		return compressor;
 	}
 
 	@Override

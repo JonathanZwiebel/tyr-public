@@ -5,6 +5,7 @@ import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.Switch;
 import org.strongback.components.ThreeAxisAccelerometer;
+import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.mock.*;
 import com.palyrobotics.robot.*;
@@ -28,6 +29,8 @@ public class MockRobotInput implements InputSystems {
 	
 	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
+	
+	public ContinuousRange visionInput = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -80,6 +83,10 @@ public class MockRobotInput implements InputSystems {
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorLimitSensor;
+	}
+	@Override
+	public ContinuousRange getVisionInput() {
+		return visionInput;
 	}
 	
 	// vision to be added later

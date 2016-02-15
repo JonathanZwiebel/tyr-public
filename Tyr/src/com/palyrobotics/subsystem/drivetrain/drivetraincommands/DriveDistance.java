@@ -82,11 +82,9 @@ public class DriveDistance extends Command {
 		// signaling the arrival at the target.
 		if (leftDerivative == 0.0 && rightDerivative == 0.0 && Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR
 				&& Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR) {
-			end();
 			return true;
 		}
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
-			end();
 			return true;
 		}
 		return false;

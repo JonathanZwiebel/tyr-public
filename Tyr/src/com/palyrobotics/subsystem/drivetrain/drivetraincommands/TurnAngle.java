@@ -59,13 +59,9 @@ public class TurnAngle extends Command {
 		// stops robot when target is reached and robot has slowed within
 		// tolerance range
 		if (derivative == 0.0 && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) {
-			drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
-			drivetrain.getOutput().getRightMotor().setSpeed(0.0);
-			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
-			end();
 			return true;
 		}
 		return false;
