@@ -43,24 +43,10 @@ public class MockRobotInput implements InputSystems {
 	public static final MockDistanceSensor rightInfrared = Mock.distanceSensor();
 
 	public static final MockAngleSensor shooterPotentiometer = Mock.angleSensor();
-	public static final MockSwitch shooterLimitSensor = Mock.notTriggeredSwitch(); // not
-																					// yet
-																					// determined
-																					// if
-																					// switch
-																					// or
-																					// digital
-																					// HFX
+	public static final MockSwitch shooterLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch of digital HFX
 
 	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
-	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not
-																						// yet
-																						// determined
-																						// if
-																						// switch
-																						// or
-																						// digital
-																						// HFX
+	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 
 >>>>>>> 6e7dc8a... reformatted code
 	public static final MockAngleSensor breacherPotentiometer = Mock.angleSensor();

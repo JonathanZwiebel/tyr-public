@@ -10,7 +10,7 @@ import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 public class RaiseArmAuto extends Command {
 	private BreacherController controller;
-	private double begin;
+	private double startTime;
 
 	public RaiseArmAuto(BreacherController controller) {
 		super(controller);
@@ -18,7 +18,7 @@ public class RaiseArmAuto extends Command {
 	}
 
 	public void intialize() {
-		begin = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		controller.setState(BreacherState.OPENING);
 	}
 
@@ -27,9 +27,8 @@ public class RaiseArmAuto extends Command {
 	 * Uses a timer system to raise the arm.
 	 */
 	public boolean execute() {
-		// uses a timer system to raise the arm for a certain period of time. we
-		// should use the potentiometer when ready.
-		if (System.currentTimeMillis() - begin < BreacherConstants.OPEN_TIME) {
+		// uses a timer system to raise the arm for a certain period of time. we should use the potentiometer when ready
+		if (System.currentTimeMillis() - startTime < BreacherConstants.OPEN_TIME) {
 			controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
 			return false;
 		}

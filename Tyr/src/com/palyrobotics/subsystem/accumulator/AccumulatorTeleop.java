@@ -28,14 +28,11 @@ public class AccumulatorTeleop extends Command {
 	@Override
 	public boolean execute() {
 		// Accumulates the ball if the button is pressed
-		reactor.onTriggered(input.getOperatorStick().getButton(ACCUMULATE_BUTTON),
-				() -> Strongback.submit(new IntakeBall(controller, input)));
+		reactor.onTriggered(input.getOperatorStick().getButton(ACCUMULATE_BUTTON), () -> Strongback.submit(new IntakeBall(controller, input)));
 
 		// Expels the ball when the expel button is pressed
-		reactor.onTriggered(input.getOperatorStick().getButton(EXPEL_BUTTON),
-				() -> Strongback.submit(new ExpelBall(controller)));
-		reactor.onTriggered(input.getOperatorStick().getButton(STOP_BUTTON),
-				() -> Strongback.submit(new StopAccumulator(controller)));
+		reactor.onTriggered(input.getOperatorStick().getButton(EXPEL_BUTTON), () -> Strongback.submit(new ExpelBall(controller)));
+		reactor.onTriggered(input.getOperatorStick().getButton(STOP_BUTTON), () -> Strongback.submit(new StopAccumulator(controller)));
 		return true;
 	}
 

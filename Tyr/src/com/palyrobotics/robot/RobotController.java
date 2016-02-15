@@ -99,7 +99,6 @@ public class RobotController extends IterativeRobot {
     	return logger;
     }
 
-
     @Override
     public void teleopInit() {
     	drivetrain.init();

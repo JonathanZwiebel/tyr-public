@@ -41,8 +41,7 @@ public class ShooterController implements Requirable {
 
 =======
 
-	// This will be either a ShooterSystems object or a MockShooterSystems
-	// object
+	// This will be either a ShooterSystems object or a MockShooterSystems object
 
 	public enum ShooterState {
 		IDLE, UNLOCKED, SHOOTSEQUENCE, DISABLED

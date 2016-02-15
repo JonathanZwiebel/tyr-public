@@ -27,27 +27,39 @@ public class ToggleTeleop extends Command {
 
 	@Override
 	public boolean execute() {
-		if (input.getOperatorStick().getButton(4).isTriggered() && !lastRaise) {
+		
+		if(input.getOperatorStick().getButton(4).isTriggered() && !lastRaise) {
 			lastRaise = true;
-			if (controller.getState() == BreacherState.IDLE) {
+			
+			if(controller.getState() == BreacherState.IDLE) {
 				controller.setState(BreacherState.OPENING);
 				controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
-			} else {
+			} 
+			
+			else {
 				controller.setState(BreacherState.IDLE);
 				controller.getBreacher().getMotor().setSpeed(0);
 			}
-		} else if (input.getOperatorStick().getButton(5).isTriggered() && !lastLower) {
+			
+		} 
+		
+		else if(input.getOperatorStick().getButton(5).isTriggered() && !lastLower) {
 			lastLower = true;
-			if (controller.getState() == BreacherState.IDLE) {
+			
+			if(controller.getState() == BreacherState.IDLE) {
 				controller.setState(BreacherState.CLOSING);
 				controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
-			} else {
+			} 
+			
+			else {
 				controller.setState(BreacherState.IDLE);
 				controller.getBreacher().getMotor().setSpeed(0);
 			}
 		}
+		
 		lastLower = false;
 		lastRaise = false;
+		
 		return true;
 	}
 

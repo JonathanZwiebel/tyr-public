@@ -28,8 +28,7 @@ public class BreacherController implements Requirable {
 	private SwitchReactor reactor;
 
 	/**
-	 * Current operation being run by the breacher Locked when it shouldn't read
-	 * commands
+	 * Current operation being run by the breacher Locked when it shouldn't read commands
 	 */
 	protected BreacherState state = BreacherState.START_TELEOP;
 

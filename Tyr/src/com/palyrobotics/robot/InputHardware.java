@@ -36,7 +36,6 @@ public class InputHardware implements InputSystems {
 	
 	public final ContinuousRange visionInput = null;
 	
-
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
