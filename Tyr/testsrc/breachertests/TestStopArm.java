@@ -1,4 +1,5 @@
 package breachertests;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class TestStopArm {
 	private InputSystems input;
 	private BreacherController controller;
 	private CommandTester command;
-	
+
 	@Before
 	public void beforeAll() {
 		hardware = new MockBreacherHardware();

@@ -14,7 +14,6 @@ import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
-
 // None of the modules should modify this class
 public class InputHardware implements InputSystems {
 	public final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
@@ -37,50 +36,72 @@ public class InputHardware implements InputSystems {
 	
 	public final ContinuousRange visionInput = null;
 	
+
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
 	}
+
 	@Override
 	public FlightStick getTurnStick() {
 		return turnStick;
 	}
+
 	@Override
 	public FlightStick getOperatorStick() {
 		return operatorStick;
 	}
+
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
 	}
+
 	@Override
 	public AngleSensor getRightDriveEncoder() {
 		return rightDriveEncoder;
 	}
+
 	@Override
 	public Gyroscope getGyroscope() {
 		return gyroscope;
 	}
+
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
 		return accelerometer;
 	}
+
 	@Override
 	public DistanceSensor getLeftInfrared() {
 		return leftInfrared;
 	}
+
 	@Override
 	public DistanceSensor getRightInfrared() {
 		return rightInfrared;
 	}
+
+	@Override
+	public AngleSensor getShooterPotentiometer() {
+		return shooterPotentiometer;
+	}
+
+	@Override
+	public Switch getShooterDrawbackLimitSensor() {
+		return shooterDrawbackLimitSensor;
+	}
+
 	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
+
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
 	}
+
 	@Override
 	public ContinuousRange getVisionInput() {
 		return visionInput;
@@ -96,7 +117,7 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return shooterArmMinimumAngleLimitSensor;
-		
+	}
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
 	}

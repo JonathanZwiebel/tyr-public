@@ -27,23 +27,21 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class RobotController extends IterativeRobot {
 	private DrivetrainController drivetrain;
 	private DrivetrainSystems drivetrainSystems;
-	
+
 	private AccumulatorController accumulator;
 	private AccumulatorSystems accumulatorSystems;
-	
+
 	private BreacherController breacher;
 	private BreacherSystems breacherSystems;
-	
+
 	private ShooterController shooter;
 	private ShooterSystems shooterSystems;
-	
+
 	private InputSystems input;
-	
-	private SwitchReactor reactor;
 	
     @Override
     public void robotInit() {
-    	try{
+    	try {
         	Strongback.start();
         	Strongback.configure().initialize();
         }
@@ -112,9 +110,9 @@ public class RobotController extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
-//    	drivetrain.update();
-//    	accumulator.update();
-//    	shooter.update();
+    	drivetrain.update();
+    	accumulator.update();
+    	shooter.update();
     	breacher.update();
     }
 

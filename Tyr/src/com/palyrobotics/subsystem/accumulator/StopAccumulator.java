@@ -6,13 +6,13 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorS
 
 public class StopAccumulator extends Command {
 	AccumulatorController controller;
-	
+
 	public StopAccumulator(AccumulatorController controller) {
 		this.controller = controller;
 	}
+
 	/**
-	 * Sets the accumulator motor power to 0
-	 * Completes imediately
+	 * Sets the accumulator motor power to 0 Completes imediately
 	 */
 	@Override
 	public boolean execute() {

@@ -23,6 +23,7 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorC
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
 	public InputSystems input;
+<<<<<<< HEAD
 	
 	private ShooterState state;	
 	
@@ -38,6 +39,18 @@ public class ShooterController implements Requirable {
 		DISABLED // The disabled state
 	}
 
+=======
+
+	// This will be either a ShooterSystems object or a MockShooterSystems
+	// object
+
+	public enum ShooterState {
+		IDLE, UNLOCKED, SHOOTSEQUENCE, DISABLED
+	}
+
+	public ShooterState state;
+
+>>>>>>> 6e7dc8a... reformatted code
 	public ShooterController(ShooterSystems systems, InputSystems input) {
 		this.systems = systems;
 		this.input = input;
@@ -45,7 +58,7 @@ public class ShooterController implements Requirable {
 		lockingActuatorController = new ShooterLockingActuatorController(this);
 		loadingActuatorController = new ShooterLoadingActuatorController(this);
 	}
-	
+
 	public void init() {
 		state = ShooterState.IDLE;
 		armController.init();
@@ -53,6 +66,7 @@ public class ShooterController implements Requirable {
 		loadingActuatorController.init();   	
 		Logger.getLogger("Central").log(Level.INFO, "The ShooterController was initialized.");
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * Calls all of the subcontroller updates and will set the state to TELEOP if currently IDLE
@@ -62,13 +76,19 @@ public class ShooterController implements Requirable {
 		// TODO[Major]: Revise this by standardizing with the other command structures
 		if(state == ShooterState.IDLE) {
 			setState(ShooterState.TELEOP);
+=======
+
+	public void update() {
+		if (state == ShooterState.UNLOCKED) {
+			Strongback.submit(new UncheckedTeleopCommand(this));
+>>>>>>> 6e7dc8a... reformatted code
 		}
 		
 		armController.update();
 		lockingActuatorController.update();
 		loadingActuatorController.update();
 	}
-	
+
 	public void disable() {
 		state = ShooterState.DISABLED;
 		armController.disable();

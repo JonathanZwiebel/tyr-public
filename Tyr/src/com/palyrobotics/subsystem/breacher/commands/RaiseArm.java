@@ -8,17 +8,23 @@ import com.palyrobotics.subsystem.breacher.BreacherController.BreacherState;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 public class RaiseArm extends Command {
-	
+
 	private BreacherController controller;
-	
+
 	public RaiseArm(BreacherController controller) {
-		super (controller);
+		super(controller);
 		this.controller = controller;
 	}
+
 	public void initialize() {
 		controller.setState(BreacherState.OPENING);
 	}
+
 	@Override
+	/**
+	 * Raises the arm slightly. The RaiseArm command is meant to be called
+	 * repeatedly.
+	 */
 	public boolean execute() {
 		controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
 		return true;

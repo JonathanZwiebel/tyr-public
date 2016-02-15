@@ -3,6 +3,7 @@ package com.palyrobotics.subsystem.shooter;
 import org.strongback.components.Solenoid;
 import org.strongback.components.TalonSRX;
 
+<<<<<<< HEAD
 /**
  * An interface to be extended by Tyr hardware or a mock shooter that contains 
  * the output mechanism on the shooter
@@ -29,4 +30,12 @@ public interface ShooterSystems {
 	 * @return the solenoid that controls the locking actuator
 	 */
 	public Solenoid getLoadingActuator();
+=======
+public interface ShooterSystems {
+	public Motor getMotor();
+
+	public void setMotor(Motor motor);
+	// this will be either a talon (ShooterHardware) or a mock talon
+	// (MockShooterHardware)
+>>>>>>> 6e7dc8a... reformatted code
 }

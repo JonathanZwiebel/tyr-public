@@ -12,6 +12,7 @@ import com.palyrobotics.robot.*;
 
 //None of the modules should modify this class
 public class MockRobotInput implements InputSystems {
+<<<<<<< HEAD
 	public final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick operatorStick = new MockFlightStick(0,0,0,0, 0, 0);
@@ -31,52 +32,107 @@ public class MockRobotInput implements InputSystems {
 	public final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
 	public final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
+=======
+	// When build delivers we will define these, until then, do not touch
+
+	public static final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
+	public static final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
+	public static final MockGyroscope gyroscope = Mock.gyroscope();
+	public static final MockThreeAxisAccelerometer accelerometer = Mock.accelerometer3Axis();
+	public static final MockDistanceSensor leftInfrared = Mock.distanceSensor();
+	public static final MockDistanceSensor rightInfrared = Mock.distanceSensor();
+
+	public static final MockAngleSensor shooterPotentiometer = Mock.angleSensor();
+	public static final MockSwitch shooterLimitSensor = Mock.notTriggeredSwitch(); // not
+																					// yet
+																					// determined
+																					// if
+																					// switch
+																					// or
+																					// digital
+																					// HFX
+
+	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
+	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not
+																						// yet
+																						// determined
+																						// if
+																						// switch
+																						// or
+																						// digital
+																						// HFX
+
+>>>>>>> 6e7dc8a... reformatted code
 	public static final MockAngleSensor breacherPotentiometer = Mock.angleSensor();
-	
+
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
 	}
+
 	@Override
 	public FlightStick getTurnStick() {
 		return turnStick;
 	}
+
 	@Override
 	public FlightStick getOperatorStick() {
 		return operatorStick;
 	}
+
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
 	}
+
 	@Override
 	public AngleSensor getRightDriveEncoder() {
 		return rightDriveEncoder;
 	}
+
 	@Override
 	public Gyroscope getGyroscope() {
 		return gyroscope;
 	}
+
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
 		return accelerometer;
 	}
+
 	@Override
 	public DistanceSensor getLeftInfrared() {
 		return leftInfrared;
 	}
+
 	@Override
 	public DistanceSensor getRightInfrared() {
 		return rightInfrared;
 	}
+
 	@Override
+<<<<<<< HEAD
+=======
+	public AngleSensor getShooterPotentiometer() {
+		return shooterPotentiometer;
+	}
+
+	@Override
+	public Switch getShooterDrawbackLimitSensor() {
+		return shooterLimitSensor;
+	}
+
+	@Override
+>>>>>>> 6e7dc8a... reformatted code
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
+
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorLimitSensor;
 	}
+
 	@Override
 <<<<<<< HEAD
 	public ContinuousRange getVisionInput() {
@@ -98,7 +154,7 @@ public class MockRobotInput implements InputSystems {
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
 	}
-	
+
 	// vision to be added later
 >>>>>>> d1b0bd8... Breacher squashed
 }

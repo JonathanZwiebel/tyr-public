@@ -22,7 +22,7 @@ public class TestLowerArmAuto {
 	private InputSystems input;
 	private BreacherController controller;
 	private CommandTester command;
-	
+
 	@Before
 	public void beforeAll() {
 		hardware = new MockBreacherHardware();

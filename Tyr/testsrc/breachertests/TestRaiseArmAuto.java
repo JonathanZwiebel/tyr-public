@@ -1,4 +1,5 @@
 package breachertests;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class TestRaiseArmAuto {
 	private InputSystems input;
 	private BreacherController controller;
 	private CommandTester command;
-	
+
 	@Before
 	public void beforeAll() {
 		hardware = new MockBreacherHardware();
@@ -33,10 +34,9 @@ public class TestRaiseArmAuto {
 	@Test
 	public void testRaiseArmAuto() {
 		command.step(20);
-		if(System.currentTimeMillis()-20<BreacherConstants.OPEN_TIME) {
+		if (System.currentTimeMillis() - 20 < BreacherConstants.OPEN_TIME) {
 			assertTrue(BreacherConstants.RAISE_SPEED == controller.getBreacher().getMotor().getSpeed());
-		}
-		else {
+		} else {
 			assertTrue(controller.getBreacher().getMotor().getSpeed() == 0);
 		}
 	}
