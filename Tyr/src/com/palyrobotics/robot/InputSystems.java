@@ -1,6 +1,5 @@
 package com.palyrobotics.robot;
 
-
 import org.strongback.components.AngleSensor;
 import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
@@ -21,12 +20,11 @@ public interface InputSystems {
 	public DistanceSensor getLeftInfrared();
 	public DistanceSensor getRightInfrared();
 	
-	public AngleSensor getShooterPotentiometer();
-	public Switch getShooterDrawbackLimitSensor();
-	
 	public AngleSensor getAccumulatorPotentiometer();
 	public Switch getAccumulatorFilledLimitSensor();
 	
 	public ContinuousRange getVisionInput();
-	// vision to be added later
+	public AngleSensor getShooterArmAngleSensor();
+	public Switch getShooterArmMaximumAngleLimitSensor();
+	public Switch getShooterArmMinimumAngleLimitSensor();
 }

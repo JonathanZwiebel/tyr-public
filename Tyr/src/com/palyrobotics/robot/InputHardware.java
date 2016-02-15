@@ -8,6 +8,9 @@ import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
+
+import com.palyrobotics.subsystem.shooter.ShooterConstants;
+
 import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
@@ -27,13 +30,14 @@ public class InputHardware implements InputSystems {
 	public static final DistanceSensor leftInfrared = null;
 	public static final DistanceSensor rightInfrared = null;
 	
-	public static final AngleSensor shooterPotentiometer = null;
-	public static final Switch shooterDrawbackLimitSensor = null; // not yet determined if switch or digital HFX
 	
 	public static final AngleSensor accumulatorPotentiometer = null;
 	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
 	public ContinuousRange visionInput = null;
+	public static final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
+	public static final Switch shooterArmMaximumAngleLimitSensor = null;
+	public static final Switch shooterArmMinimumAngleLimitSensor = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -72,14 +76,6 @@ public class InputHardware implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public AngleSensor getShooterPotentiometer() {
-		return shooterPotentiometer;
-	}
-	@Override
-	public Switch getShooterDrawbackLimitSensor() {
-		return shooterDrawbackLimitSensor;
-	}
-	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
@@ -87,9 +83,20 @@ public class InputHardware implements InputSystems {
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
 	}
-	
 	@Override
 	public ContinuousRange getVisionInput() {
 		return visionInput;
+	}
+	@Override
+	public AngleSensor getShooterArmAngleSensor() {
+		return shooterArmAngleSensor;
+	}
+	@Override
+	public Switch getShooterArmMaximumAngleLimitSensor() {
+		return shooterArmMaximumAngleLimitSensor;
+	}
+	@Override
+	public Switch getShooterArmMinimumAngleLimitSensor() {
+		return shooterArmMinimumAngleLimitSensor;
 	}
 }

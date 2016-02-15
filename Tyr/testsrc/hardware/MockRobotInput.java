@@ -24,13 +24,13 @@ public class MockRobotInput implements InputSystems {
 	public static final MockDistanceSensor leftInfrared = Mock.distanceSensor();
 	public static final MockDistanceSensor rightInfrared = Mock.distanceSensor();
 	
-	public static final MockAngleSensor shooterPotentiometer = Mock.angleSensor();
-	public static final MockSwitch shooterLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
-	
 	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 	
 	public ContinuousRange visionInput = null;
+	public static final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
+	public static final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
+	public static final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -69,14 +69,6 @@ public class MockRobotInput implements InputSystems {
 		return rightInfrared;
 	}
 	@Override
-	public AngleSensor getShooterPotentiometer() {
-		return shooterPotentiometer;
-	}
-	@Override
-	public Switch getShooterDrawbackLimitSensor() {
-		return shooterLimitSensor;
-	}
-	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
@@ -88,6 +80,16 @@ public class MockRobotInput implements InputSystems {
 	public ContinuousRange getVisionInput() {
 		return visionInput;
 	}
-	
-	// vision to be added later
+	@Override
+	public AngleSensor getShooterArmAngleSensor() {
+		return shooterArmAngleSensor;
+	}
+	@Override
+	public Switch getShooterArmMaximumAngleLimitSensor() {
+		return null;
+	}
+	@Override
+	public Switch getShooterArmMinimumAngleLimitSensor() {
+		return null;
+	}
 }

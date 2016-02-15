@@ -5,7 +5,6 @@ public class Ports {
 	public static final int TURN_STICK_PORT = 2;
 	public static final int OPERATOR_STICK_PORT = 0;
 	
-	// Do not implement this until the merge occurs
 	public static final int DRIVE_LEFT_ENCODER_A = 4;
 	public static final int DRIVE_LEFT_ENCODER_B = 5;
 	
@@ -21,5 +20,12 @@ public class Ports {
 	
 	public static final int DOUBLESOLENOID_PORT_A = 0;
 	public static final int DOUBLESOLENOID_PORT_B = 1;
-	public static final int PCM_PORT = 0;
+	public static final int SHOOTER_ARM_TALON_SRX_CHANNEL = 7;
+	
+	public static final int SHOOTER_ARM_POTENTIOMETER_CHANNEL = 1;
+	
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_CHANNEL = 4;
+	public static final int SHOOTER_LOADING_ACUTATOR_RETRACT_CHANNEL = 5;
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_CHANNEL = 2;
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_CHANNEL = 3;
 }
