@@ -5,13 +5,19 @@ import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveDistance;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveTeleop;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DrivetrainDisable;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.ShooterAlign;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.ToggleGears;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.TurnAngle;
+
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class DrivetrainController implements Requirable {
 
-	protected InputSystems input;
-	protected DrivetrainSystems output;
-	
+	private InputSystems input;
+	private DrivetrainSystems output;
 	private SwitchReactor reactor;
 
 	public enum DrivetrainState {
@@ -19,37 +25,35 @@ public class DrivetrainController implements Requirable {
 		DRIVING_TELEOP, 
 		DRIVING_DISTANCE, 
 		TURNING_ANGLE, 
-		SHOOTER_ALIGN
+		SHOOTER_ALIGN, 
+		DISABLED
 	}
 
-	public enum GearState {
-		LOWERING_GEAR, 
-		RAISING_GEAR
-	}
-
-	private GearState gearState;
 	private DrivetrainState drivetrainState;
 
 	public DrivetrainController(DrivetrainSystems output, InputSystems input) {
-		this.input = input;
-		this.output = output;
+		this.setInput(input);
+		this.setOutput(output);
 		this.reactor = Strongback.switchReactor();
 	}
 
 	/**
 	 * Sets the default DrivetrainStates, starts the compressor, and initializes
-	 * toggle.
+	 * the switch reactors for different commands.
 	 */
 	public void init() {
-		gearState = GearState.LOWERING_GEAR;
 		drivetrainState = DrivetrainState.IDLE;
 		output.getCompressor().automaticMode().on();
-		
+
 		reactor.onTriggered(input.getDriveStick().getTrigger(), () -> Strongback.submit(new ToggleGears(this)));
-		reactor.onTriggered(input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON), () -> Strongback.submit(new DriveDistance(this, STANDARD_DRIVE_DISTANCE)));
-		reactor.onTriggered(input.getDriveStick().getButton(TURNING_LEFT_BUTTON), () -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON), () -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(SHOOTER_ALIGN_BUTTON), () -> Strongback.submit(new ShooterAlign(this)));
+		reactor.onTriggered(input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON),
+				() -> Strongback.submit(new DriveDistance(this, STANDARD_DRIVE_DISTANCE)));
+		reactor.onTriggered(input.getDriveStick().getButton(TURNING_LEFT_BUTTON),
+				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
+		reactor.onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON),
+				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
+		reactor.onTriggered(input.getDriveStick().getButton(SHOOTER_ALIGN_BUTTON),
+				() -> Strongback.submit(new ShooterAlign(this)));
 	}
 
 	public void update() {
@@ -65,16 +69,24 @@ public class DrivetrainController implements Requirable {
 	public void setDrivetrainState(DrivetrainState drivetrainState) {
 		this.drivetrainState = drivetrainState;
 	}
-	
-	public void setGearState(GearState gearState) {
-		this.gearState = gearState;
-	}
-	
+
 	public DrivetrainState getDrivetrainState() {
 		return this.drivetrainState;
 	}
-	
-	public GearState getGearState() {
-		return this.gearState;
+
+	public InputSystems getInput() {
+		return input;
+	}
+
+	public void setInput(InputSystems input) {
+		this.input = input;
+	}
+
+	public DrivetrainSystems getOutput() {
+		return output;
+	}
+
+	public void setOutput(DrivetrainSystems output) {
+		this.output = output;
 	}
 }

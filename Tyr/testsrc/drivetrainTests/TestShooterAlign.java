@@ -13,8 +13,8 @@ import org.strongback.command.CommandTester;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.ShooterAlign;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
-import com.palyrobotics.subsystem.drivetrain.ShooterAlign;
 
 import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;

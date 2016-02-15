@@ -1,7 +1,8 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
@@ -24,12 +25,12 @@ public class TurnAngle extends Command {
 
 	/**
 	 * Called at the beginning of the command, and sets DrivetrainState to
-	 * turning as well as zeros the gyroscope. 
+	 * turning as well as zeros the gyroscope.
 	 */
 	@Override
 	public void initialize() {
 		drivetrain.setDrivetrainState(DrivetrainState.TURNING_ANGLE);
-		drivetrain.input.getGyroscope().zero();
+		drivetrain.getInput().getGyroscope().zero();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class TurnAngle extends Command {
 	@Override
 	public boolean execute() {
 		// calculate error by using angle to distance
-		double error = angle - drivetrain.input.getGyroscope().getAngle();
+		double error = angle - drivetrain.getInput().getGyroscope().getAngle();
 
 		// finds derivative with 50 updates/second update rate
 		double derivative = (error - previousError) / UPDATE_RATE;
@@ -49,20 +50,22 @@ public class TurnAngle extends Command {
 
 		// min and max restrict the speeds between -0.5 and 0.5
 		double leftSpeed = Math.max(Math.min(LEFT_ANGLE_P_VALUE * error + LEFT_ANGLE_D_VALUE * derivative, 0.5), -0.5);
-		double rightSpeed = Math.max(Math.min(RIGHT_ANGLE_P_VALUE * error + RIGHT_ANGLE_D_VALUE * derivative, 0.5), -0.5);
+		double rightSpeed = Math.max(Math.min(RIGHT_ANGLE_P_VALUE * error + RIGHT_ANGLE_D_VALUE * derivative, 0.5),
+				-0.5);
 
-		drivetrain.output.getLeftMotor().setSpeed(leftSpeed);
-		drivetrain.output.getRightMotor().setSpeed(rightSpeed);
+		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed);
+		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 
-		// stops robot when target is reached and robot has slowed within tolerance range
+		// stops robot when target is reached and robot has slowed within
+		// tolerance range
 		if (derivative == 0.0 && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) {
-			drivetrain.output.getLeftMotor().setSpeed(0.0);
-			drivetrain.output.getRightMotor().setSpeed(0.0);
+			drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+			drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
-		if (drivetrain.input.getDriveStick().getTrigger().isTriggered()) {
-			interrupted();
+		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
+			end();
 			return true;
 		}
 		return false;
@@ -74,8 +77,6 @@ public class TurnAngle extends Command {
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 
@@ -85,8 +86,8 @@ public class TurnAngle extends Command {
 	 */
 	@Override
 	public void end() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 }

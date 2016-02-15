@@ -1,9 +1,10 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 
 public class ShooterAlign extends Command {
@@ -31,7 +32,7 @@ public class ShooterAlign extends Command {
 	 * Takes in the pixels of error between the camera and the goal and faces
 	 * the robot toward the goal for a shot.
 	 * 
-	 * @return true to end the command, and false to continue looping. 
+	 * @return true to end the command, and false to continue looping.
 	 */
 	@Override
 	public boolean execute() {
@@ -41,21 +42,24 @@ public class ShooterAlign extends Command {
 		previousError = cameraError;
 
 		// min and max restrict the speeds between -0.5 and 0.5
-		double leftSpeed = Math.max(Math.min(LEFT_SHOOTER_P_VALUE * cameraError + LEFT_SHOOTER_D_VALUE * derivative, 0.5), -0.5);
-		double rightSpeed = Math.max(Math.min(RIGHT_SHOOTER_P_VALUE * cameraError + RIGHT_SHOOTER_D_VALUE * derivative, 0.5), -0.5);
+		double leftSpeed = Math
+				.max(Math.min(LEFT_SHOOTER_P_VALUE * cameraError + LEFT_SHOOTER_D_VALUE * derivative, 0.5), -0.5);
+		double rightSpeed = Math
+				.max(Math.min(RIGHT_SHOOTER_P_VALUE * cameraError + RIGHT_SHOOTER_D_VALUE * derivative, 0.5), -0.5);
 
-		drivetrain.output.getLeftMotor().setSpeed(leftSpeed);
-		drivetrain.output.getRightMotor().setSpeed(rightSpeed);
+		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed);
+		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 
-		// stops robot when the target is reached and robot has slowed within tolerance range
+		// stops robot when the target is reached and robot has slowed within
+		// tolerance range
 		if (derivative == 0.0 && Math.abs(cameraError) < ACCEPTABLE_PIXEL_ERROR) {
-			drivetrain.output.getLeftMotor().setSpeed(0.0);
-			drivetrain.output.getRightMotor().setSpeed(0.0);
+			drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+			drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 			drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 			return true;
 		}
 		// stops the command if the driver triggers the turnstick.
-		if (drivetrain.input.getTurnStick().getTrigger().isTriggered()) {
+		if (drivetrain.getInput().getTurnStick().getTrigger().isTriggered()) {
 			interrupted();
 			return true;
 		}
@@ -68,8 +72,8 @@ public class ShooterAlign extends Command {
 	 */
 	@Override
 	public void interrupted() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 
@@ -80,8 +84,8 @@ public class ShooterAlign extends Command {
 	 */
 	@Override
 	public void end() {
-		drivetrain.output.getLeftMotor().setSpeed(0.0);
-		drivetrain.output.getRightMotor().setSpeed(0.0);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
 

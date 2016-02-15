@@ -1,37 +1,40 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 import org.strongback.components.*;
+import static com.palyrobotics.robot.Ports.*;
 import org.strongback.components.Solenoid.Direction;
 import org.strongback.hardware.Hardware;
 
 public class DrivetrainHardware implements DrivetrainSystems {
-	private Motor leftFrontMotor = Hardware.Motors.talonSRX(1);
-	private Motor leftBackMotor = Hardware.Motors.talonSRX(3);
-	
-	private Motor rightFrontMotor = Hardware.Motors.talonSRX(2);
-	private Motor rightBackMotor = Hardware.Motors.talonSRX(4);
-	
+	private Motor leftFrontMotor = Hardware.Motors.talonSRX(LEFT_FRONT_TALON_PORT);
+	private Motor leftBackMotor = Hardware.Motors.talonSRX(LEFT_BACK_TALON_PORT);
+
+	private Motor rightFrontMotor = Hardware.Motors.talonSRX(RIGHT_FRONT_TALON_PORT);
+	private Motor rightBackMotor = Hardware.Motors.talonSRX(RIGHT_BACK_TALON_PORT);
+
 	public Motor leftMotor = Motor.compose(leftFrontMotor, leftBackMotor);
 	public Motor rightMotor = Motor.compose(rightFrontMotor, rightBackMotor);
-	
-	public Solenoid solenoid = Hardware.Solenoids.doubleSolenoid(0, 1, Direction.STOPPED);
-	public PneumaticsModule compressor = Hardware.pneumaticsModule(1);
-		
+
+	// TODO: Make sure Direction.EXTENDING is a proper initialization.
+	public Solenoid solenoid = Hardware.Solenoids.doubleSolenoid(DOUBLESOLENOID_PORT_A, DOUBLESOLENOID_PORT_B,
+			Direction.EXTENDING);
+	public PneumaticsModule compressor = Hardware.pneumaticsModule(PCM_PORT);
+
 	@Override
 	public Motor getLeftMotor() {
 		return leftMotor;
 	}
-	
+
 	@Override
 	public Motor getRightMotor() {
 		return rightMotor;
 	}
-	
+
 	@Override
 	public PneumaticsModule getCompressor() {
 		return compressor;
 	}
-	
+
 	@Override
 	public Solenoid getSolenoid() {
 		return solenoid;

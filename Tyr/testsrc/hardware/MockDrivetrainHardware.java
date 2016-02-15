@@ -10,8 +10,8 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 public class MockDrivetrainHardware implements DrivetrainSystems {
 	Motor leftMotor = Mock.stoppedMotor();
 	Motor rightMotor = Mock.stoppedMotor();
-	Solenoid solenoid = Mock.instantaneousSolenoid();
-	PneumaticsModule pcm = Mock.pnuematicsModule();
+	public Solenoid solenoid = Mock.manualSolenoid();
+	public PneumaticsModule compressor = Mock.pnuematicsModule();
 	
 	@Override
 	public Motor getLeftMotor() {
@@ -25,7 +25,7 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 
 	@Override
 	public PneumaticsModule getCompressor() {
-		return pcm;
+		return compressor;
 	}
 
 	@Override

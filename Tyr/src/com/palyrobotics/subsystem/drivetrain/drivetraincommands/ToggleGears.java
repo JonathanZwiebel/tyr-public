@@ -1,8 +1,8 @@
-package com.palyrobotics.subsystem.drivetrain;
+package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import org.strongback.command.Command;
 
-import com.palyrobotics.subsystem.drivetrain.DrivetrainController.GearState;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 
 public class ToggleGears extends Command {
 
@@ -18,7 +18,7 @@ public class ToggleGears extends Command {
 
 	@Override
 	public void initialize() {
-		drivetrain.setGearState(drivetrain.getGearState() == GearState.RAISING_GEAR ? GearState.LOWERING_GEAR : GearState.RAISING_GEAR);
+
 	}
 
 	/**
@@ -29,10 +29,10 @@ public class ToggleGears extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		if(drivetrain.getGearState() == GearState.RAISING_GEAR) {
-			drivetrain.output.getSolenoid().extend();
+		if (drivetrain.getOutput().getSolenoid().isRetracting()) {
+			drivetrain.getOutput().getSolenoid().extend();
 		} else {
-			drivetrain.output.getSolenoid().retract();
+			drivetrain.getOutput().getSolenoid().retract();
 		}
 		return true;
 	}
