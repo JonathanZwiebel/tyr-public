@@ -4,9 +4,17 @@ import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 
-public class StopAccumulator extends Command {
+/**
+ * Command that stops the accumulator
+ */
+public class StopAccumulator extends Command{
+	
 	AccumulatorController controller;
-
+	
+	/**
+	 * Constructor for the StopAccumulatorCommand
+	 * @param controller the AccumulatorController object
+	 */
 	public StopAccumulator(AccumulatorController controller) {
 		super(controller);
 		this.controller = controller;
