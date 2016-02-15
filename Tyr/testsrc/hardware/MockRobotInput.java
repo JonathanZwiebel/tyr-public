@@ -12,25 +12,24 @@ import com.palyrobotics.robot.*;
 
 //None of the modules should modify this class
 public class MockRobotInput implements InputSystems {
+	public final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockFlightStick operatorStick = new MockFlightStick(0,0,0,0, 0, 0);
 	
-	public static final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
-	public static final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
-	public static final MockFlightStick operatorStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
+	public final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
+	public final MockGyroscope gyroscope = Mock.gyroscope();
+	public final MockThreeAxisAccelerometer accelerometer = Mock.accelerometer3Axis();
+	public final MockDistanceSensor leftInfrared = Mock.distanceSensor();
+	public final MockDistanceSensor rightInfrared = Mock.distanceSensor();
 	
-	public static final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
-	public static final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
-	public static final MockGyroscope gyroscope = Mock.gyroscope();
-	public static final MockThreeAxisAccelerometer accelerometer = Mock.accelerometer3Axis();
-	public static final MockDistanceSensor leftInfrared = Mock.distanceSensor();
-	public static final MockDistanceSensor rightInfrared = Mock.distanceSensor();
+	public final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
+	public final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 	
-	public static final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
-	public static final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
-	
-	public ContinuousRange visionInput = null;
-	public static final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
-	public static final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
-	public static final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
+	public final ContinuousRange visionInput = null;
+	public final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
+	public final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
+	public final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
 	@Override
 	public FlightStick getDriveStick() {

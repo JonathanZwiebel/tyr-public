@@ -17,27 +17,25 @@ import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 // None of the modules should modify this class
 public class InputHardware implements InputSystems {
-	public static final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
-	public static final FlightStick turnStick = Hardware.HumanInterfaceDevices.logitechAttack3D(TURN_STICK_PORT);
-	public static final FlightStick operatorStick = Hardware.HumanInterfaceDevices.logitechAttack3D(OPERATOR_STICK_PORT);
+	public final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
+	public final FlightStick turnStick = Hardware.HumanInterfaceDevices.logitechAttack3D(TURN_STICK_PORT);
+	public final FlightStick operatorStick = Hardware.HumanInterfaceDevices.logitechAttack3D(OPERATOR_STICK_PORT);
 
-	// When build delivers we will define these, until then, do not touch
+	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
+	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
+	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_ANALOG);
+	public final ThreeAxisAccelerometer accelerometer = null;
+	public final DistanceSensor leftInfrared = null;
+	public final DistanceSensor rightInfrared = null;
 	
-	public static final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
-	public static final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
-	public static final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_ANALOG);
-	public static final ThreeAxisAccelerometer accelerometer = null;
-	public static final DistanceSensor leftInfrared = null;
-	public static final DistanceSensor rightInfrared = null;
+	public final AngleSensor accumulatorPotentiometer = null;
+	public final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
+	public final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
+	public final Switch shooterArmMaximumAngleLimitSensor = null;
+	public final Switch shooterArmMinimumAngleLimitSensor = null;
 	
-	public static final AngleSensor accumulatorPotentiometer = null;
-	public static final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
-	
-	public ContinuousRange visionInput = null;
-	public static final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
-	public static final Switch shooterArmMaximumAngleLimitSensor = null;
-	public static final Switch shooterArmMinimumAngleLimitSensor = null;
+	public final ContinuousRange visionInput = null;
 	
 	@Override
 	public FlightStick getDriveStick() {
