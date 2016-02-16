@@ -1,6 +1,7 @@
 package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+import static com.palyrobotics.robot.RobotConstants.*;
 
 import org.strongback.command.Command;
 import org.strongback.components.ui.ContinuousRange;
@@ -15,6 +16,7 @@ public class ShooterAlign extends Command {
 	private double cameraError;
 
 	public ShooterAlign(DrivetrainController drivetrain, ContinuousRange visionInput) {
+		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.cameraError = visionInput.read();
 		this.previousError = cameraError;
@@ -39,7 +41,7 @@ public class ShooterAlign extends Command {
 	@Override
 	public boolean execute() {
 		// finds derivative with 50 updates/second update rate
-		double derivative = (cameraError - previousError) / UPDATE_RATE;
+		double derivative = (cameraError - previousError) * UPDATES_PER_SECOND;
 
 		previousError = cameraError;
 

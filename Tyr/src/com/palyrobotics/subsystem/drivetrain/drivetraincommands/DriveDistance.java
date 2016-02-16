@@ -5,6 +5,7 @@ import org.strongback.command.Command;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+import static com.palyrobotics.robot.RobotConstants.*;
 
 public class DriveDistance extends Command {
 
@@ -54,8 +55,8 @@ public class DriveDistance extends Command {
 
 		// Derivative computed using the 50 updates / second update rate and the
 		// change in error.
-		double leftDerivative = (leftError - previousLeftError) / UPDATE_RATE;
-		double rightDerivative = (rightError - previousRightError) / UPDATE_RATE;
+		double leftDerivative = (leftError - previousLeftError) * UPDATES_PER_SECOND;
+		double rightDerivative = (rightError - previousRightError) * UPDATES_PER_SECOND;
 
 		previousRightError = rightError;
 		previousLeftError = leftError;

@@ -5,6 +5,7 @@ import org.strongback.command.Command;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+import static com.palyrobotics.robot.RobotConstants.*;
 
 public class TurnAngle extends Command {
 
@@ -44,7 +45,7 @@ public class TurnAngle extends Command {
 		double error = angle - drivetrain.getInput().getGyroscope().getAngle();
 
 		// finds derivative with 50 updates/second update rate
-		double derivative = (error - previousError) / UPDATE_RATE;
+		double derivative = (error - previousError) * UPDATES_PER_SECOND;
 
 		previousError = error;
 
