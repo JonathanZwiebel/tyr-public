@@ -1,5 +1,6 @@
 package com.palyrobotics.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
 public class RobotConstants {
 	public final static String NAME = "Tyr";
 	
@@ -10,4 +11,8 @@ public class RobotConstants {
 	public final static int CYCLE_COUNT_FOR_REPETITION_UNIT_TESTS = 1;
 	public final static int CYCLE_COUNT_FOR_STATE_CHANGE_UNIT_TESTS = 5;
 	public final static int CYCLE_COUNT_FOR_BASIC_UNIT_TESTS = 50;
+	
+	public static final int BAUDRATE = 9600;
+	public static final SerialPort.Port PORT = SerialPort.Port.kMXP; 
+	
 }

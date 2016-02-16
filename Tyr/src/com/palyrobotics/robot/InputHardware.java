@@ -9,6 +9,7 @@ import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
 
+import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
@@ -38,6 +39,8 @@ public class InputHardware implements InputSystems {
 	
 	public final ContinuousRange visionInput = null;
 	
+	public static SerialPort serialPort = new SerialPort(RobotConstants.BAUDRATE,RobotConstants.PORT);
+
 	@Override
 	public FlightStick getDriveStick() {
 		return driveStick;
@@ -102,5 +105,29 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return shooterArmMinimumAngleLimitSensor;
+	}
+	/**
+	 * @return Returns and Integer array with element 0 being x offset, and element 1 being y offset
+	 */
+	@Override
+	public int[] getShooterDisplacement() {
+		String rawData = serialPort.readString();
+		if (rawData.length() != 0) {
+			try {
+				String[] splitData = rawData.split("\n")[0].split("\t"); // make sure we get the most recent data
+				
+				int[] displacements = new int[2]; 
+				displacements[0] = Integer.valueOf(splitData[0]);
+				displacements[1] = Integer.valueOf(splitData[1].replace("\n",""));
+				
+				return displacements;  
+			} catch (Exception e) { 
+				System.out.println("Serial Error: Corrupted Data");
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 }

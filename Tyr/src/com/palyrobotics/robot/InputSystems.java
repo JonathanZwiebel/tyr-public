@@ -29,4 +29,6 @@ public interface InputSystems {
 	public AngleSensor getShooterArmAngleSensor();
 	public Switch getShooterArmMaximumAngleLimitSensor();
 	public Switch getShooterArmMinimumAngleLimitSensor();
+
+	public int[] getShooterDisplacement();
 }
