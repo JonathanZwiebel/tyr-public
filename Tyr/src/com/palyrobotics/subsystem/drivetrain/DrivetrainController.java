@@ -16,7 +16,6 @@ import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 public class DrivetrainController implements Requirable {
 
-<<<<<<< HEAD
 	private InputSystems input;
 	private DrivetrainSystems output;
 	private SwitchReactor reactor;
@@ -88,33 +87,5 @@ public class DrivetrainController implements Requirable {
 
 	public void setOutput(DrivetrainSystems output) {
 		this.output = output;
-=======
-	private DrivetrainSystems systems;
-
-	public enum State {
-		IDLE, DRIVING_TELEOP, DRIVING_DISTANCE, TURNING_ANGLE
-	}
-
-	private State state;
-
-	public DrivetrainController() {
-
-	}
-
-	public void init() {
-
-	}
-
-	public void update() {
-
-	}
-
-	public void disable() {
-
-	}
-
-	public void setState(State state) {
-		this.state = state;
->>>>>>> 6e7dc8a... reformatted code
 	}
 }

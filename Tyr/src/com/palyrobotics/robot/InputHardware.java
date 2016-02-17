@@ -30,6 +30,8 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor accumulatorPotentiometer = null;
 	public final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
 	
+	public final AngleSensor breacherPotentiometer = null;
+	
 	public final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	public final Switch shooterArmMaximumAngleLimitSensor = null;
 	public final Switch shooterArmMinimumAngleLimitSensor = null;
@@ -82,16 +84,6 @@ public class InputHardware implements InputSystems {
 	}
 
 	@Override
-	public AngleSensor getShooterPotentiometer() {
-		return shooterPotentiometer;
-	}
-
-	@Override
-	public Switch getShooterDrawbackLimitSensor() {
-		return shooterDrawbackLimitSensor;
-	}
-
-	@Override
 	public AngleSensor getAccumulatorPotentiometer() {
 		return accumulatorPotentiometer;
 	}
@@ -100,7 +92,9 @@ public class InputHardware implements InputSystems {
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorFilledLimitSensor;
 	}
-
+	public AngleSensor getBreacherPotentiometer() {
+		return breacherPotentiometer;
+	}
 	@Override
 	public ContinuousRange getVisionInput() {
 		return visionInput;
@@ -116,8 +110,5 @@ public class InputHardware implements InputSystems {
 	@Override
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return shooterArmMinimumAngleLimitSensor;
-	}
-	public AngleSensor getBreacherPotentiometer() {
-		return breacherPotentiometer;
 	}
 }
