@@ -28,4 +28,7 @@ public class Ports {
 	public static final int SHOOTER_LOADING_ACUTATOR_RETRACT_CHANNEL = 5;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_CHANNEL = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_CHANNEL = 3;
+	
+	public static final int BREACHER_PORT = 5;
+	public static final int BREACHER_POTENTIOMETER_PORT = 0;
 }

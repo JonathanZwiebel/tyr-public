@@ -5,7 +5,8 @@ import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.breacher.BreacherConstants;
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.BreacherState;
+import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 public class RaiseArmAuto extends Command {
@@ -17,9 +18,10 @@ public class RaiseArmAuto extends Command {
 		this.controller = controller;
 	}
 
-	public void intialize() {
+	@Override
+	public void initialize() {
 		startTime = System.currentTimeMillis();
-		controller.setState(BreacherState.OPENING);
+		controller.setMicroState(Micro.OPENING);
 	}
 
 	@Override
@@ -27,6 +29,11 @@ public class RaiseArmAuto extends Command {
 	 * Uses a timer system to raise the arm.
 	 */
 	public boolean execute() {
+		// stops the command if the desired angle is reached
+		if (controller.getInput().getBreacherPotentiometer().getAngle() > OPEN_BREACHER_ANGLE) {
+			return true;
+		}
+		
 		// uses a timer system to raise the arm for a certain period of time. we should use the potentiometer when ready
 		if (System.currentTimeMillis() - startTime < BreacherConstants.OPEN_TIME) {
 			controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
@@ -36,8 +43,14 @@ public class RaiseArmAuto extends Command {
 		return true;
 	}
 
+	@Override
 	public void end() {
-		controller.setState(BreacherState.IDLE);
+		controller.setMicroState(Micro.IDLE);
+	}
+	
+	@Override
+	public void interrupted() {
+		controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
 	}
 
 }

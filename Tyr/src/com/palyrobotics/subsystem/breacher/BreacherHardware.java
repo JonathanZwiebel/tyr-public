@@ -1,6 +1,6 @@
 package com.palyrobotics.subsystem.breacher;
 
-import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
+import static com.palyrobotics.robot.Ports.*;
 
 import org.strongback.components.AngleSensor;
 import org.strongback.components.Motor;
@@ -20,7 +20,7 @@ public class BreacherHardware implements BreacherSystems {
 	public BreacherHardware() {
 		setMotor(Hardware.Motors.talonSRX(BREACHER_PORT));
 		// need to set dpp thing
-		setPotentiometer(Hardware.AngleSensors.potentiometer(POTENTIOMETER_PORT, 1));
+		setPotentiometer(Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_PORT, 1));
 	}
 
 	@Override

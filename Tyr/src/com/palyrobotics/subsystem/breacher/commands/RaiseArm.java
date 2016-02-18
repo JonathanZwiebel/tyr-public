@@ -3,7 +3,7 @@ package com.palyrobotics.subsystem.breacher.commands;
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.BreacherState;
+import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
@@ -16,8 +16,9 @@ public class RaiseArm extends Command {
 		this.controller = controller;
 	}
 
+	@Override
 	public void initialize() {
-		controller.setState(BreacherState.OPENING);
+		controller.setMicroState(Micro.OPENING);
 	}
 
 	@Override
@@ -26,8 +27,24 @@ public class RaiseArm extends Command {
 	 * repeatedly.
 	 */
 	public boolean execute() {
+		//Safety feature
+		if(controller.getInput().getOperatorStick().getButton(CANCEL_BUTTON).isTriggered()) {
+			controller.getBreacher().getMotor().setSpeed(0);
+			return true;
+		}
+		
 		controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
 		return true;
+	}
+	
+	@Override
+	public void end() {
+		controller.setMicroState(Micro.IDLE);
+	}
+	
+	@Override
+	public void interrupted() {
+		controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
 	}
 
 }

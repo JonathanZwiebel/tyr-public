@@ -3,9 +3,8 @@ package com.palyrobotics.subsystem.breacher;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
-import org.strongback.control.PIDController;
-
 import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.subsystem.breacher.commands.JoystickControl;
 import com.palyrobotics.subsystem.breacher.commands.LowerArm;
 import com.palyrobotics.subsystem.breacher.commands.RaiseArm;
 import com.palyrobotics.subsystem.breacher.commands.StopArm;
@@ -16,7 +15,7 @@ import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
  * Operates the breacher subystem Has a state for the current operation being
  * executed Has a queue of the commands for this subystem
  * 
- * @author Nihar
+ * @author Eric
  */
 public class BreacherController implements Requirable {
 
@@ -30,10 +29,16 @@ public class BreacherController implements Requirable {
 	/**
 	 * Current operation being run by the breacher Locked when it shouldn't read commands
 	 */
-	protected BreacherState state = BreacherState.START_TELEOP;
+	protected Macro macroState;
+	
+	protected Micro microState;
 
-	public enum BreacherState {
-		IDLE, LOCKED, OPENING, CLOSING, START_TELEOP
+	public enum Macro {
+		TELEOP, AUTO, DISABLED
+	}
+	
+	public enum Micro {
+		BOUNCING, IDLE, OPENING, CLOSING, SETTING, JOYSTICK
 	}
 
 	public BreacherController(BreacherSystems breacher, InputSystems input) {
@@ -43,21 +48,52 @@ public class BreacherController implements Requirable {
 	}
 
 	/**
-	 * Changes the breacher's state
+	 * Changes the breacher's macro or general state
+	 * This state is for general things such as teleop, autonomous, etc.
 	 * 
 	 * @param state the state to change to
 	 *            
 	 * @return true if state change acknowledged
 	 */
-	public boolean setState(BreacherState state) {
-		this.state = state;
+	public boolean setMacroState(Macro state) {
+		this.macroState = state;
 		return true;
 	}
 
-	public BreacherState getState() {
-		return state;
+	/**
+	 * Gets the breacher's general state
+	 * 
+	 * @return the macro state
+	 */
+	public Macro getMacroState() {
+		return macroState;
 	}
 
+	/**
+	 * Changes the breacher's micro or specific state
+	 * This state is for more specific things, such as raising or lowering.
+	 * 
+	 * @param state the desired state
+	 * @return if it completed
+	 */
+	public boolean setMicroState(Micro state) {
+		this.microState = state;
+		return true;
+	}
+	
+	/**
+	 * Gets the breacher's specific state
+	 * 
+	 * @return the micro state
+	 */
+	public Micro getMicroState() {
+		return microState;
+	}
+	
+	/**
+	 * Initializes this breacher controller.
+	 * The buttons and their respective actions are defined here.
+	 */
 	public void init() {
 		// when button 1 of the operator stick is pressed, raise the arm.
 		reactor.whileTriggered(input.getOperatorStick().getButton(1), () -> Strongback.submit(new RaiseArm(this)));
@@ -72,10 +108,29 @@ public class BreacherController implements Requirable {
 		reactor.onUntriggered(input.getOperatorStick().getButton(2), () -> Strongback.submit(new StopArm(this)));
 	}
 
+	/**
+	 * Updates the breacher controller.
+	 * 
+	 * Stops the breacher from moving too far in either direction.
+	 */
 	public void update() {
-		if (state == BreacherState.LOCKED) {
-			return;
+		
+		if(input.getBreacherPotentiometer().getAngle() < MIN_POTENTIOMETER_ANGLE) {
+			setMicroState(Micro.BOUNCING);
+			breacher.getMotor().setSpeed(BOUNCE_SPEED);
+			setMicroState(Micro.IDLE);
 		}
+		
+		if(input.getBreacherPotentiometer().getAngle() > MAX_POTENTIOMETER_ANGLE) {
+			setMicroState(Micro.BOUNCING);
+			breacher.getMotor().setSpeed(-BOUNCE_SPEED);
+			setMicroState(Micro.IDLE);
+		}
+		
+		if((getMicroState() == Micro.IDLE || getMicroState() == Micro.JOYSTICK) && getMacroState() == Macro.TELEOP) {
+			Strongback.submit(new JoystickControl(this, input));
+		}
+		
 	}
 
 	public BreacherSystems getBreacher() {
@@ -91,7 +146,7 @@ public class BreacherController implements Requirable {
 	}
 
 	public void disable() {
-
+		breacher.getMotor().setSpeed(0);
 	}
 
 }

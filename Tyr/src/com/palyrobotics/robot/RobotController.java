@@ -13,6 +13,7 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
+import com.palyrobotics.subsystem.breacher.BreacherController.Macro;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -71,6 +72,8 @@ public class RobotController extends IterativeRobot {
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	
+    	breacher.setMacroState(Macro.DISABLED);
+    	
     	//Begin logging
     	startLogging();
     	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
@@ -100,11 +103,18 @@ public class RobotController extends IterativeRobot {
     }
 
     @Override
-    public void teleopInit() {
+    public void autonomousInit() {
     	drivetrain.init();
     	accumulator.init();
     	shooter.init();
     	breacher.init();
+    	
+    	breacher.setMacroState(Macro.AUTO);
+    }
+    
+    @Override
+    public void teleopInit() {
+    	breacher.setMacroState(Macro.TELEOP);
     }
 
     @Override
@@ -121,6 +131,9 @@ public class RobotController extends IterativeRobot {
     	accumulator.disable();
     	shooter.disable();
     	breacher.disable();
+    	
+    	breacher.setMacroState(Macro.DISABLED);
+    	
         Strongback.disable();
         Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
     }
