@@ -43,8 +43,6 @@ public class IntakeBallAutomatic extends Command {
 	@Override
 	public boolean execute() {
 		if (input.getAccumulatorFilledLimitSensor().isTriggered()) {
-			accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
-			accumulatorController.setState(AccumulatorState.HOLDING);
 			return true;
 		}
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
@@ -59,6 +57,11 @@ public class IntakeBallAutomatic extends Command {
 	public void interrupted() {
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
 		accumulatorController.setState(AccumulatorState.IDLE);
+	}
+	
+	public void end() {
+		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
+		accumulatorController.setState(AccumulatorState.HOLDING);
 	}
 
 }

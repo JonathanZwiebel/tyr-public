@@ -43,10 +43,9 @@ public class ExpelBall extends Command {
 	public boolean execute() {
 		// Runs the motors so they expel the ball for EXPEL_TIME seconds
 		if (System.currentTimeMillis() - begin < EXPEL_TIME) {
+			accumulatorController.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 			return false;
 		}
-		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
-		accumulatorController.setState(AccumulatorState.IDLE);
 		return true;
 	}
 	
@@ -56,6 +55,11 @@ public class ExpelBall extends Command {
 	 * @see org.strongback.command.Command#interrupted()
 	 */
 	public void interrupted() {
+		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
+		accumulatorController.setState(AccumulatorState.IDLE);
+	}
+	
+	public void end() {
 		accumulatorController.systems.getAccumulatorMotors().setSpeed(0);
 		accumulatorController.setState(AccumulatorState.IDLE);
 	}

@@ -27,7 +27,6 @@ public class AccumulatorController implements Requirable {
 	}
 
 	public void update() {
-		Strongback.submit(new AccumulatorTeleop(this, robotInput));
 	}
 
 	public void disable() {
@@ -36,5 +35,9 @@ public class AccumulatorController implements Requirable {
 
 	public void setState(AccumulatorState state) {
 		this.state = state;
+	}
+	
+	public AccumulatorState getState() {
+		return state;
 	}
 }

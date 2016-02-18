@@ -28,7 +28,7 @@ public class IntakeBallTime extends Command{
 	@Override
 	public void initialize() {
 		this.begin = System.currentTimeMillis();
-		controller.setState(AccumulatorState.EJECTING);
+		controller.setState(AccumulatorState.ACCUMULATING);
 	}
 	
 	/**
@@ -44,8 +44,6 @@ public class IntakeBallTime extends Command{
 			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 			return false;
 		}
-		controller.systems.getAccumulatorMotors().setSpeed(0);
-		controller.setState(AccumulatorState.IDLE);
 		return true;
 	}
 	
@@ -55,6 +53,11 @@ public class IntakeBallTime extends Command{
 	 * @see org.strongback.command.Command#interrupted()
 	 */
 	public void interrupted() {
+		controller.systems.getAccumulatorMotors().setSpeed(0);
+		controller.setState(AccumulatorState.IDLE);
+	}
+	
+	public void end() {
 		controller.systems.getAccumulatorMotors().setSpeed(0);
 		controller.setState(AccumulatorState.IDLE);
 	}
