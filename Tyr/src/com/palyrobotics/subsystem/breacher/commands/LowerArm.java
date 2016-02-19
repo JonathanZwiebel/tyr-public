@@ -29,7 +29,7 @@ public class LowerArm extends Command {
 	public boolean execute() {
 		
 		//Safety feature
-		if(controller.getInput().getOperatorStick().getButton(CANCEL_BUTTON).isTriggered()) {
+		if(controller.getInput().getShooterStick().getButton(CANCEL_BUTTON).isTriggered()) {
 			controller.getBreacher().getMotor().setSpeed(0);
 			return true;
 		}

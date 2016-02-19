@@ -2,7 +2,6 @@ package com.palyrobotics.subsystem.accumulator;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
-import org.strongback.Strongback;
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;

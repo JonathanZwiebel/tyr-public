@@ -29,7 +29,7 @@ public class JoystickControl extends Command {
 	 * @return true, this command stops immediately
 	 */
 	public boolean execute() {
-		controller.getBreacher().getMotor().setSpeed(-input.getOperatorStick().getPitch().read());
+		controller.getBreacher().getMotor().setSpeed(-input.getSecondaryStick().getPitch().read());
 		return true;
 	}
 	
@@ -43,5 +43,4 @@ public class JoystickControl extends Command {
 	public void interrupted() {
 		controller.getBreacher().getMotor().setSpeed(0);
 	}
-
 }

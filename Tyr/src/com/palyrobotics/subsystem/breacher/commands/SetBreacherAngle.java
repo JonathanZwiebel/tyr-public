@@ -46,7 +46,7 @@ public class SetBreacherAngle extends Command {
 	public boolean execute() {
 		
 		//Safety feature
-		if(breacher.getInput().getOperatorStick().getButton(CANCEL_BUTTON).isTriggered()) {
+		if(breacher.getInput().getShooterStick().getButton(CANCEL_BUTTON).isTriggered()) {
 			breacher.getBreacher().getMotor().setSpeed(0);
 			return true;
 		}

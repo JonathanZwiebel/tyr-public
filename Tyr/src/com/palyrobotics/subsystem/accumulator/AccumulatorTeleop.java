@@ -3,7 +3,6 @@ package com.palyrobotics.subsystem.accumulator;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Command;
-import org.strongback.components.ui.FlightStick;
 
 import com.palyrobotics.robot.InputSystems;
 
@@ -40,10 +39,10 @@ public class AccumulatorTeleop extends Command {
 	@Override
 	public boolean execute() {
 		//Accumulates the ball if the button is pressed
-		reactor.onTriggered(input.getOperatorStick().getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBallAutomatic(controller, input)));
+		reactor.onTriggered(input.getSecondaryStick().getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBallAutomatic(controller, input)));
 		//Expels the ball when the expel button is pressed
-		reactor.onTriggered(input.getOperatorStick().getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
-		reactor.onTriggered(input.getOperatorStick().getButton(STOP_BUTTON), ()->Strongback.submit(new StopAccumulator(controller)));
+		reactor.onTriggered(input.getSecondaryStick().getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
+		reactor.onTriggered(input.getSecondaryStick().getButton(STOP_BUTTON), ()->Strongback.submit(new StopAccumulator(controller)));
 		return true;
 	}
 

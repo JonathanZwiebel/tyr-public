@@ -11,7 +11,8 @@ import org.strongback.components.ui.FlightStick;
 public interface InputSystems {
 	public FlightStick getDriveStick();
 	public FlightStick getTurnStick();
-	public FlightStick getOperatorStick();
+	public FlightStick getShooterStick();
+	public FlightStick getSecondaryStick();
 	
 	public AngleSensor getLeftDriveEncoder();
 	public AngleSensor getRightDriveEncoder();
@@ -20,7 +21,6 @@ public interface InputSystems {
 	public DistanceSensor getLeftInfrared();
 	public DistanceSensor getRightInfrared();
 
-	public AngleSensor getAccumulatorPotentiometer();
 	public Switch getAccumulatorFilledLimitSensor();
 	
 	public AngleSensor getBreacherPotentiometer();
@@ -29,6 +29,4 @@ public interface InputSystems {
 	public AngleSensor getShooterArmAngleSensor();
 	public Switch getShooterArmMaximumAngleLimitSensor();
 	public Switch getShooterArmMinimumAngleLimitSensor();
-
-	// vision to be added later
 }

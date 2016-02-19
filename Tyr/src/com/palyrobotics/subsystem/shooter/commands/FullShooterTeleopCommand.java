@@ -57,18 +57,18 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 			controller.armController.setState(ShooterArmState.TELEOP);
 		}
 		if(controller.loadingActuatorController.state == ShooterLoadingActuatorController.ShooterLoadingActuatorState.IDLE) {
-			if(input.getOperatorStick().getButton(ShooterConstants.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
+			if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
 				Strongback.submit(new ShooterLoadingActuatorExtendCommand(controller));
 			}
-			if(input.getOperatorStick().getButton(ShooterConstants.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
+			if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
 				Strongback.submit(new ShooterLoadingActuatorRetractCommand(controller));
 			}
 		}
 		if(controller.lockingActuatorController.state == ShooterLockingActuatorController.ShooterLockingActuatorState.IDLE) {
-			if(input.getOperatorStick().getButton(ShooterConstants.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+			if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 				Strongback.submit(new ShooterLockingActuatorLockCommand(controller));
 			}
-			if(input.getOperatorStick().getButton(ShooterConstants.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+			if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 				Strongback.submit(new ShooterLockingActuatorUnlockCommand(controller));
 			}
 		}

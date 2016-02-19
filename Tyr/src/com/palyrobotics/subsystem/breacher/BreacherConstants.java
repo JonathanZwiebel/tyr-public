@@ -7,7 +7,7 @@ package com.palyrobotics.subsystem.breacher;
  *
  */
 public class BreacherConstants {
-public static final double MAX_SPEED = 0.5;
+	public static final double MAX_SPEED = 0.5;
 	
 	public static final double PROPORTIONAL = 0.1;
 	public static final double INTEGRAL = 1;
@@ -36,7 +36,8 @@ public static final double MAX_SPEED = 0.5;
 			
 	public static final int CANCEL_BUTTON = 10;
 	
-	
 	public static final int RAISE_BUTTON = 1;
 	public static final int LOWER_BUTTON = 2;
+	
+	public static final int BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 720;
 }

@@ -1,7 +1,6 @@
 package com.palyrobotics.subsystem.accumulator;
 
 public class AccumulatorConstants {
-
 	//Speed at which the accumulator is run
 	public static final double ACCUMULATOR_POWER = 1;
 	//Buttons for intaking and expelling balls

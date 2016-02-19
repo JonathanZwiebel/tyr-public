@@ -96,16 +96,16 @@ public class BreacherController implements Requirable {
 	 */
 	public void init() {
 		// when button 1 of the operator stick is pressed, raise the arm.
-		reactor.whileTriggered(input.getOperatorStick().getButton(1), () -> Strongback.submit(new RaiseArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
 
 		// when button 1 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getOperatorStick().getButton(1), () -> Strongback.submit(new StopArm(this)));
+		reactor.onUntriggered(input.getSecondaryStick().getButton(RAISE_BUTTON), () -> Strongback.submit(new StopArm(this)));
 
 		// when button 2 of the operator stick is pressed, lower the arm.
-		reactor.whileTriggered(input.getOperatorStick().getButton(2), () -> Strongback.submit(new LowerArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(LOWER_BUTTON), () -> Strongback.submit(new LowerArm(this)));
 
 		// when button 2 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getOperatorStick().getButton(2), () -> Strongback.submit(new StopArm(this)));
+		reactor.onUntriggered(input.getSecondaryStick().getButton(LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
 	}
 
 	/**

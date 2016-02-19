@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
-import org.strongback.SwitchReactor;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;

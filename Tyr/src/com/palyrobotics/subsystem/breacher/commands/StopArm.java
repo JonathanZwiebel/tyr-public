@@ -1,7 +1,6 @@
 package com.palyrobotics.subsystem.breacher.commands;
 
 import org.strongback.command.Command;
-import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.Micro;

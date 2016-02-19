@@ -28,7 +28,7 @@ public class ShooterLoadingActuatorExtendCommand extends Command {
 	public boolean execute() {				
 		piston.extend();
 		System.out.println("Loader Extend");
-		return controller.input.getOperatorStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
+		return controller.input.getShooterStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
 	}
 	
 	/**

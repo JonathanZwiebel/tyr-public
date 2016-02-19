@@ -1,7 +1,6 @@
 package com.palyrobotics.subsystem.accumulator;
 
 import org.strongback.Strongback;
-import org.strongback.command.Command;
 import org.strongback.command.Requirable;
 import com.palyrobotics.robot.InputSystems;
 

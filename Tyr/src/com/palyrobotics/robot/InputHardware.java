@@ -9,30 +9,30 @@ import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
 
-import com.palyrobotics.subsystem.shooter.ShooterConstants;
 
 import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
+import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
-// None of the modules should modify this class
 public class InputHardware implements InputSystems {
 	public final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
 	public final FlightStick turnStick = Hardware.HumanInterfaceDevices.logitechAttack3D(TURN_STICK_PORT);
-	public final FlightStick operatorStick = Hardware.HumanInterfaceDevices.logitechAttack3D(OPERATOR_STICK_PORT);
+	public final FlightStick secondaryStick = Hardware.HumanInterfaceDevices.logitechAttack3D(SECONDARY_STICK_PORT);
+	public final FlightStick shooterStick = Hardware.HumanInterfaceDevices.logitechAttack3D(SHOOTER_STICK_PORT);
 
 	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
 	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
-	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_ANALOG);
+	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_BUS);
 	public final ThreeAxisAccelerometer accelerometer = null;
-	public final DistanceSensor leftInfrared = null;
-	public final DistanceSensor rightInfrared = null;
+	public final DistanceSensor leftUltrasonic = null;
+	public final DistanceSensor rightUltrasonic = null;
 	
-	public final AngleSensor accumulatorPotentiometer = null;
-	public final Switch accumulatorFilledLimitSensor = null; // not yet determined if switch or digital HFX
+	public final Switch accumulatorFilledLimitSensor = null;
 	
-	public final AngleSensor breacherPotentiometer = null;
+	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	
-	public final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, ShooterConstants.SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
+	public final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	public final Switch shooterArmMaximumAngleLimitSensor = null;
 	public final Switch shooterArmMinimumAngleLimitSensor = null;
 	
@@ -47,10 +47,13 @@ public class InputHardware implements InputSystems {
 		return turnStick;
 	}
 	@Override
-	public FlightStick getOperatorStick() {
-		return operatorStick;
+	public FlightStick getShooterStick() {
+		return shooterStick;
 	}
-	
+	@Override 
+	public FlightStick getSecondaryStick() {
+		return secondaryStick;
+	}
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
@@ -69,16 +72,11 @@ public class InputHardware implements InputSystems {
 	}
 	@Override
 	public DistanceSensor getLeftInfrared() {
-		return leftInfrared;
+		return leftUltrasonic;
 	}
 	@Override
 	public DistanceSensor getRightInfrared() {
-		return rightInfrared;
-	}
-
-	@Override
-	public AngleSensor getAccumulatorPotentiometer() {
-		return accumulatorPotentiometer;
+		return rightUltrasonic;
 	}
 	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
