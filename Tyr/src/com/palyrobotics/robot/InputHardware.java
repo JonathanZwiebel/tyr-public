@@ -107,7 +107,7 @@ public class InputHardware implements InputSystems {
 		return shooterArmMinimumAngleLimitSensor;
 	}
 	/**
-	 * @return Returns and Integer array with element 0 being x offset, and element 1 being y offset
+	 * @return Returns and Interger array with element 0 being x offset, and element 1 being y offset
 	 */
 	@Override
 	public int[] getShooterDisplacement() {
