@@ -10,28 +10,14 @@ import com.palyrobotics.subsystem.breacher.BreacherSystems;
 
 public class MockBreacherHardware implements BreacherSystems {
 
-	private MockMotor motor = Mock.stoppedMotor();
+	private Motor motor = Mock.stoppedMotor();
 
-	private MockAngleSensor potentiometer = Mock.angleSensor();
-
-	@Override
 	public void setMotor(Motor motor) {
-
+		this.motor = motor;
 	}
 
 	@Override
 	public Motor getMotor() {
 		return motor;
 	}
-
-	@Override
-	public void setPotentiometer(AngleSensor potentiometer) {
-
-	}
-
-	@Override
-	public AngleSensor getPotentiometer() {
-		return potentiometer;
-	}
-
 }
