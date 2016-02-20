@@ -36,7 +36,7 @@ public class StopAccumulatorTest {
 		command = new StopAccumulator(controller);
 		command.execute();
 		double speed = hardware.getAccumulatorMotors().getSpeed();
-		assertThat("Motors are not set to 0", speed, equalTo(0));
+		assertThat("Motors are not set to 0", speed, equalTo(0.0));
 		
 	}
 	@Test

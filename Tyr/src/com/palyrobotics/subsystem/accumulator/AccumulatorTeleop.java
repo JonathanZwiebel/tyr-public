@@ -14,7 +14,6 @@ import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
  */
 public class AccumulatorTeleop extends Command {
 	AccumulatorController controller;
-	SwitchReactor reactor;
 	InputSystems input;
 	
 	/**
@@ -26,7 +25,6 @@ public class AccumulatorTeleop extends Command {
 		//Constructs the command using the super constructor
 		super (controller);
 		this.controller = controller;
-		reactor = Strongback.switchReactor();
 		this.input = input;
 	}
 	
@@ -38,9 +36,15 @@ public class AccumulatorTeleop extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		reactor.onTriggered(input.getSecondaryStick().getButton(ACCUMULATE_BUTTON),()->Strongback.submit(new IntakeBallTime(controller)));
-		reactor.onTriggered(input.getSecondaryStick().getButton(EXPEL_BUTTON),()->Strongback.submit(new ExpelBall(controller)));
-		reactor.onTriggered(input.getSecondaryStick().getButton(STOP_BUTTON), ()->Strongback.submit(new StopAccumulator(controller)));
+		if(input.getSecondaryStick().getButton(ACCUMULATE_BUTTON).isTriggered()) {
+			controller.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
+		}
+		else if(input.getSecondaryStick().getButton(EXPEL_BUTTON).isTriggered()){
+			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
+		}
+		else {
+			controller.systems.getAccumulatorMotors().setSpeed(0.0);
+		}
 		return true;
 	}
 
