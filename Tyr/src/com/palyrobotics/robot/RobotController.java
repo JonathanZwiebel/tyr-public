@@ -49,20 +49,11 @@ public class RobotController extends IterativeRobot {
         catch(Throwable thrown) {
         	System.err.println(thrown);
         }
-    	
-    	input = new InputHardware(); // when this is mock it will
 
-    	try {
-    		Strongback.start();
-    	}
-    	catch(Throwable thrown) {
-    		System.out.println("Strongback failed");
-    	}
-
-    	input = new InputHardware(); // when this is mock it will
-    	//Hardware systems
+    	// Hardware system
+    	input = new InputHardware(); 
     	accumulatorSystems = new AccumulatorHardware();
-    	shooterSystems = new ShooterHardware(); // when this is mock it will not be shooter hardware
+    	shooterSystems = new ShooterHardware();
     	drivetrainSystems = new DrivetrainHardware();
     	breacherSystems = new BreacherHardware();
     	
@@ -71,8 +62,6 @@ public class RobotController extends IterativeRobot {
     	accumulator = new AccumulatorController(accumulatorSystems, input);
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
-    	
-    	breacher.setMacroState(Macro.DISABLED);
     	
     	//Begin logging
     	startLogging();
@@ -110,6 +99,7 @@ public class RobotController extends IterativeRobot {
     	breacher.init();
     	
     	breacher.setMacroState(Macro.AUTO);
+    	breacher.setMicroState(Micro.IDLE);
     }
     
     @Override

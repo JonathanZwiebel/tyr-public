@@ -8,19 +8,19 @@ public class Ports {
 	public static final int SECONDARY_STICK_PORT = 3;
 	
 	// Digital Input Output - roboRIO
-	public static final int DRIVE_LEFT_ENCODER_A = 4;
-	public static final int DRIVE_LEFT_ENCODER_B = 5;
-	public static final int DRIVE_RIGHT_ENCODER_A = 0;
-	public static final int DRIVE_RIGHT_ENCODER_B = 1;
+	public static final int DRIVE_LEFT_ENCODER_A = 0;
+	public static final int DRIVE_LEFT_ENCODER_B = 1;
+	public static final int DRIVE_RIGHT_ENCODER_A = 2;
+	public static final int DRIVE_RIGHT_ENCODER_B = 3;
 	
 	// Bus - Serial Peripheral Interface
 	public static final int GYROSCOPE_BUS = 0;
 	
 	// Device ID - Controller Area Network
-	public static final int LEFT_FRONT_TALON_CHANNEL = 2;
-	public static final int LEFT_BACK_TALON_CHANNEL = 4;
-	public static final int RIGHT_FRONT_TALON_CHANNEL = 1;
-	public static final int RIGHT_BACK_TALON_CHANNEL = 3;
+	public static final int LEFT_FRONT_TALON_CHANNEL = 1;
+	public static final int LEFT_BACK_TALON_CHANNEL = 3;
+	public static final int RIGHT_FRONT_TALON_CHANNEL = 2;
+	public static final int RIGHT_BACK_TALON_CHANNEL = 4;
 	public static final int SHOOTER_ARM_TALON_CHANNEL = 7;
 	public static final int BREACHER_TALON_CHANNEL = 8;
 	public static final int ACCUMULATOR_LEFT_TALON_CHANNEL = 5;

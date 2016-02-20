@@ -5,7 +5,6 @@ import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.Switch;
 import org.strongback.components.ThreeAxisAccelerometer;
-import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 
 public interface InputSystems {
@@ -25,7 +24,6 @@ public interface InputSystems {
 	
 	public AngleSensor getBreacherPotentiometer();
 
-	public ContinuousRange getVisionInput();
 	public AngleSensor getShooterArmAngleSensor();
 	public Switch getShooterArmMaximumAngleLimitSensor();
 	public Switch getShooterArmMinimumAngleLimitSensor();

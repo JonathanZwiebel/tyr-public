@@ -4,7 +4,6 @@ import org.strongback.components.AngleSensor;
 import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
-import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
@@ -36,8 +35,6 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor shooterArmAngleSensor = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	public final Switch shooterArmMaximumAngleLimitSensor = null;
 	public final Switch shooterArmMinimumAngleLimitSensor = null;
-	
-	public final ContinuousRange visionInput = null;
 	
 	public static SerialPort serialPort = new SerialPort(RobotConstants.BAUDRATE,RobotConstants.PORT);
 
@@ -88,11 +85,6 @@ public class InputHardware implements InputSystems {
 	
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
-	}
-	
-	@Override
-	public ContinuousRange getVisionInput() {
-		return visionInput;
 	}
 	@Override
 	public AngleSensor getShooterArmAngleSensor() {

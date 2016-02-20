@@ -40,6 +40,8 @@ public class DrivetrainController implements Requirable {
 	/**
 	 * Sets the default DrivetrainStates, starts the compressor, and initializes
 	 * the switch reactors for different commands.
+	 * 
+	 * TODO: Add align with new vision input that is passed in array form
 	 */
 	public void init() {
 		drivetrainState = DrivetrainState.IDLE;
@@ -51,8 +53,6 @@ public class DrivetrainController implements Requirable {
 				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
 		reactor.onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(SHOOTER_ALIGN_BUTTON),
-				() -> Strongback.submit(new ShooterAlign(this, input.getVisionInput())));
 	}
 
 	public void update() {

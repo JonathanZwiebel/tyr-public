@@ -3,6 +3,8 @@ package com.palyrobotics.robot;
 import edu.wpi.first.wpilibj.SerialPort;
 public class RobotConstants {
 	public final static String NAME = "Tyr";
+	public final static float LENGTH_INCHES = 32.0f;
+	public final static float WIDTH_INCHES = 20.0f;
 	
 	public final static int MILLISECONDS_PER_UPDATE = 20;
 	public final static float UPDATES_PER_SECOND = 1000 / (float) MILLISECONDS_PER_UPDATE;
