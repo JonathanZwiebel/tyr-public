@@ -13,6 +13,7 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.Macro;
+import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -114,6 +115,7 @@ public class RobotController extends IterativeRobot {
     @Override
     public void teleopInit() {
     	breacher.setMacroState(Macro.TELEOP);
+    	breacher.setMicroState(Micro.IDLE);
     }
 
     @Override

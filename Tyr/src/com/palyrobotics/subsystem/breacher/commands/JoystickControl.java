@@ -29,18 +29,16 @@ public class JoystickControl extends Command {
 	 * @return true, this command stops immediately
 	 */
 	public boolean execute() {
-		controller.getBreacher().getMotor().setSpeed(-input.getSecondaryStick().getPitch().read());
+		controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
 		return true;
 	}
 	
 	@Override 
 	public void end() {
-		controller.getBreacher().getMotor().setSpeed(0);
 		controller.setMicroState(Micro.JOYSTICK);
 	}
 	
 	@Override
 	public void interrupted() {
-		controller.getBreacher().getMotor().setSpeed(0);
 	}
 }

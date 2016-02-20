@@ -32,7 +32,7 @@ public class Ports {
 	public static final int GEAR_ACTUATOR_EXTEND_CHANNEL = 0;
 	public static final int GEAR_ACTUATOR_RETRACT_CHANNEL = 1;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_CHANNEL = 4;
-	public static final int SHOOTER_LOADING_ACUTATOR_RETRACT_CHANNEL = 5;
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_CHANNEL = 5;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_CHANNEL = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_CHANNEL = 3;
 }
