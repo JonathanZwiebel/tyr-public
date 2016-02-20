@@ -1,5 +1,7 @@
 package com.palyrobotics.robot;
 
+import edu.wpi.first.wpilibj.SPI.Port;
+
 public class Ports {
 	// Universal Serial Bus - Drivestick
 	public static final int DRIVE_STICK_PORT = 0;
@@ -14,7 +16,7 @@ public class Ports {
 	public static final int DRIVE_RIGHT_ENCODER_B = 3;
 	
 	// Bus - Serial Peripheral Interface
-	public static final int GYROSCOPE_BUS = 0;
+	public static final Port GYROSCOPE_BUS = Port.kOnboardCS0;
 	
 	// Device ID - Controller Area Network
 	public static final int LEFT_FRONT_TALON_CHANNEL = 1;

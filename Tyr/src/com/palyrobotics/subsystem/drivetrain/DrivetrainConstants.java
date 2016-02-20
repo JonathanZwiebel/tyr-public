@@ -1,10 +1,13 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 public class DrivetrainConstants {
-	public static final double LEFT_DPP = 0.18446;
+	public static final double LEFT_DPP = -0.18446;
 	public static final double RIGHT_DPP = 0.18150;
 
 	public static final double MAX_TELEOP_ACCELERATION = 1.0;
+	
+	// The teleoperated orientation, with 1.0 meaning shooter forwards, and -1.0 meaning breacher forwards
+	public static double TELEOP_ORIENTATION = 1.0;
 
 	// TODO: Assign PD values.
 	// PD values for driving distance
@@ -32,6 +35,8 @@ public class DrivetrainConstants {
 	public static final double STANDARD_DRIVE_DISTANCE = 50.0;
 	public static final double STANDARD_TURN_ANGLE = 90.0;
 
+	public static final int SHOOTER_ORIENTATION_BUTTON = 10;
+	public static final int BREACHER_ORIENTATION_BUTTON = 11;
 	public static final int DRIVING_DISTANCE_BUTTON = 6;
 	public static final int TURNING_LEFT_BUTTON = 2;
 	public static final int TURNING_RIGHT_BUTTON = 3;
