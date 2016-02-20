@@ -22,7 +22,9 @@ public class Ports {
 	public static final int RIGHT_FRONT_TALON_CHANNEL = 1;
 	public static final int RIGHT_BACK_TALON_CHANNEL = 3;
 	public static final int SHOOTER_ARM_TALON_CHANNEL = 7;
-	public static final int BREACHER_TALON_CHANNEL = 5;
+	public static final int BREACHER_TALON_CHANNEL = 8;
+	public static final int ACCUMULATOR_LEFT_TALON_CHANNEL = 5;
+	public static final int ACCUMULATOR_RIGHT_TALON_CHANNEL = 6;
 	
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;
