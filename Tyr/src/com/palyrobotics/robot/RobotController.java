@@ -22,6 +22,9 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
+import com.palyrobotics.subsystem.grabber.GrabberController;
+import com.palyrobotics.subsystem.grabber.GrabberHardware;
+import com.palyrobotics.subsystem.grabber.GrabberSystems;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -38,6 +41,9 @@ public class RobotController extends IterativeRobot {
 	private ShooterController shooter;
 	private ShooterSystems shooterSystems;
 
+	private GrabberController grabber;
+	private GrabberSystems grabberSystems;
+	
 	private InputSystems input;
 	
     @Override
@@ -56,12 +62,14 @@ public class RobotController extends IterativeRobot {
     	shooterSystems = new ShooterHardware();
     	drivetrainSystems = new DrivetrainHardware();
     	breacherSystems = new BreacherHardware();
+    	grabberSystems = new GrabberHardware();
     	
     	//Subsystem controllers
     	drivetrain = new DrivetrainController(drivetrainSystems, input);
     	accumulator = new AccumulatorController(accumulatorSystems, input);
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
+    	grabber = new GrabberController(grabberSystems, input);
     	
     	//Begin logging
     	//startLogging();
@@ -98,6 +106,7 @@ public class RobotController extends IterativeRobot {
     	accumulator.init();
     	shooter.init();
     	breacher.init();
+    	grabber.init();
     	
     	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
@@ -120,6 +129,7 @@ public class RobotController extends IterativeRobot {
     	accumulator.update();
     	shooter.update();
     	breacher.update();
+    	grabber.update();
     	
     	System.out.println("Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	System.out.println("Right Encoder: " + input.getRightDriveEncoder().getAngle());
@@ -144,6 +154,7 @@ public class RobotController extends IterativeRobot {
     	breacher.disable();
     	
     	breacher.setMacroState(MacroBreacherState.DISABLED);
+    	grabber.disable();
     	
         Strongback.disable();
         Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
