@@ -100,22 +100,33 @@ public class InputHardware implements InputSystems {
 		return shooterArmMinimumAngleLimitSensor;
 	}
 	/**
-	 * @return Returns and Interger array with element 0 being x offset, and element 1 being y offset
+	 * Reads and parses vision data from the serial port.
+	 *
+	 * @return 	int array [x, y, w, h]
+	 * 			where: 	x is the target's horizontal displacement from image center
+	 * 					y is the target's vertical displacement from image center
+	 * 					w is the width of the target's bounding box
+	 * 					h is the height of the target's bounding box
+	 *
+	 * Note: all units are in camera pixels
 	 */
 	@Override
 	public int[] getShooterDisplacement() {
 		String rawData = serialPort.readString();
+		// Expected string format: 	x\ty\tw\th\r\n
 		if (rawData.length() != 0) {
 			try {
-				String[] splitData = rawData.split("\n")[0].split("\t"); // make sure we get the most recent data
+				String[] splitData = rawData.split("\r\n")[0].split("\t"); // make sure we get the most recent data
 				
-				int[] displacements = new int[2]; 
+				int[] displacements = new int[4];
 				displacements[0] = Integer.valueOf(splitData[0]);
-				displacements[1] = Integer.valueOf(splitData[1].replace("\n",""));
+				displacements[1] = Integer.valueOf(splitData[1]);
+				displacements[2] = Integer.valueOf(splitData[2]);
+				displacements[3] = Integer.valueOf(splitData[3].replace("\r\n","")); // strip \r\n from end of line
 				
 				return displacements;  
-			} catch (Exception e) { 
-				System.out.println("Serial Error: Corrupted Data");
+			} catch (Exception e) {  // malformatted string
+				System.out.println("SERIAL ERROR: Malformatted Data");
 				e.printStackTrace();
 				return null;
 			}
