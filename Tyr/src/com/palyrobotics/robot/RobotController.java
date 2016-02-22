@@ -12,8 +12,8 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.Macro;
-import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+import com.palyrobotics.subsystem.breacher.BreacherController.MacroBreacherState;
+import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -98,8 +98,8 @@ public class RobotController extends IterativeRobot {
     	shooter.init();
     	breacher.init();
     	
-    	breacher.setMacroState(Macro.AUTO);
-    	breacher.setMicroState(Micro.IDLE);
+    	breacher.setMacroState(MacroBreacherState.AUTO);
+    	breacher.setMicroState(MicroBreacherState.IDLE);
     }
     
     @Override
@@ -108,9 +108,9 @@ public class RobotController extends IterativeRobot {
     	accumulator.init();
     	shooter.init();
     	breacher.init();
-    	
-    	breacher.setMacroState(Macro.TELEOP);
-    	breacher.setMicroState(Micro.IDLE);
+
+    	breacher.setMacroState(MacroBreacherState.TELEOP);
+    	breacher.setMicroState(MicroBreacherState.IDLE);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class RobotController extends IterativeRobot {
     	shooter.disable();
     	breacher.disable();
     	
-    	breacher.setMacroState(Macro.DISABLED);
+    	breacher.setMacroState(MacroBreacherState.DISABLED);
     	
         Strongback.disable();
         Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");

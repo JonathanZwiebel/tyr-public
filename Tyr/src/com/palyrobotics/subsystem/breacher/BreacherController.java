@@ -12,10 +12,9 @@ import com.palyrobotics.subsystem.breacher.commands.StopArm;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 /**
- * Operates the breacher subystem Has a state for the current operation being
- * executed Has a queue of the commands for this subystem
- * 
- * @author Eric
+ * Operates the breacher subystem
+ * Has a state for the current control scheme (Teleop, auto, disabled)
+ * Another state representing the current action performed
  */
 public class BreacherController implements Requirable {
 
@@ -27,19 +26,20 @@ public class BreacherController implements Requirable {
 	private SwitchReactor reactor;
 
 	/**
-	 * Current operation being run by the breacher Locked when it shouldn't read commands
+	 * Current control scheme of the breacher subsystem
 	 */
-	protected Macro macroState;
-	
-	protected Micro microState;
-
-	public enum Macro {
+	public enum MacroBreacherState {
 		TELEOP, AUTO, DISABLED
 	}
+	protected MacroBreacherState macroBreacherState;
 	
-	public enum Micro {
-		BOUNCING, IDLE, OPENING, CLOSING, SETTING, JOYSTICK
+	/**
+	 * Current operation being performed
+	 */
+	public enum MicroBreacherState {
+		BOUNCING, IDLE, OPENING, CLOSING, SETTING_ANGLE, JOYSTICK_CONTROL
 	}
+	protected MicroBreacherState microBreacherState;
 
 	public BreacherController(BreacherSystems breacher, InputSystems input) {
 		this.setBreacher(breacher);
@@ -55,8 +55,8 @@ public class BreacherController implements Requirable {
 	 *            
 	 * @return true if state change acknowledged
 	 */
-	public boolean setMacroState(Macro state) {
-		this.macroState = state;
+	public boolean setMacroState(MacroBreacherState state) {
+		this.macroBreacherState = state;
 		return true;
 	}
 
@@ -65,8 +65,8 @@ public class BreacherController implements Requirable {
 	 * 
 	 * @return the macro state
 	 */
-	public Macro getMacroState() {
-		return macroState;
+	public MacroBreacherState getMacroState() {
+		return macroBreacherState;
 	}
 
 	/**
@@ -74,10 +74,10 @@ public class BreacherController implements Requirable {
 	 * This state is for more specific things, such as raising or lowering.
 	 * 
 	 * @param state the desired state
-	 * @return if it completed
+	 * @return True when state change occurred
 	 */
-	public boolean setMicroState(Micro state) {
-		this.microState = state;
+	public boolean setMicroState(MicroBreacherState state) {
+		this.microBreacherState = state;
 		return true;
 	}
 	
@@ -86,8 +86,8 @@ public class BreacherController implements Requirable {
 	 * 
 	 * @return the micro state
 	 */
-	public Micro getMicroState() {
-		return microState;
+	public MicroBreacherState getMicroState() {
+		return microBreacherState;
 	}
 	
 	/**
@@ -116,18 +116,18 @@ public class BreacherController implements Requirable {
 	public void update() {
 		
 		if(input.getBreacherPotentiometer().getAngle() < MIN_POTENTIOMETER_ANGLE) {
-			setMicroState(Micro.BOUNCING);
+			setMicroState(MicroBreacherState.BOUNCING);
 			breacher.getMotor().setSpeed(BOUNCE_SPEED);
-			setMicroState(Micro.IDLE);
+			setMicroState(MicroBreacherState.IDLE);
 		}
 		
 		if(input.getBreacherPotentiometer().getAngle() > MAX_POTENTIOMETER_ANGLE) {
-			setMicroState(Micro.BOUNCING);
+			setMicroState(MicroBreacherState.BOUNCING);
 			breacher.getMotor().setSpeed(-BOUNCE_SPEED);
-			setMicroState(Micro.IDLE);
+			setMicroState(MicroBreacherState.IDLE);
 		}
 		
-		if((getMicroState() == Micro.IDLE || getMicroState() == Micro.JOYSTICK) && getMacroState() == Macro.TELEOP) {
+		if((getMicroState() == MicroBreacherState.IDLE || getMicroState() == MicroBreacherState.JOYSTICK_CONTROL) && getMacroState() == MacroBreacherState.TELEOP) {
 			Strongback.submit(new JoystickControl(this, input));
 		}
 		

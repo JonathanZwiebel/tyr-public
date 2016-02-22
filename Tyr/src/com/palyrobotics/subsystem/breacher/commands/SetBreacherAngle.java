@@ -5,7 +5,7 @@ import org.strongback.command.Command;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
 public class SetBreacherAngle extends Command {
 
@@ -36,7 +36,7 @@ public class SetBreacherAngle extends Command {
 
 	@Override
 	public void initialize() {
-		breacher.setMicroState(Micro.SETTING);
+		breacher.setMicroState(MicroBreacherState.SETTING_ANGLE);
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class SetBreacherAngle extends Command {
 		breacher.getBreacher().getMotor().setSpeed(speed);
 
 		if(Math.abs(error) < ACCEPTABLE_POTENTIOMETER_ERROR && Math.abs(derivative) < ACCEPTABLE_DERIVATIVE_ERROR) {
-			breacher.setMicroState(Micro.IDLE);
+			breacher.setMicroState(MicroBreacherState.IDLE);
 			return true;
 		}
 
@@ -75,7 +75,7 @@ public class SetBreacherAngle extends Command {
 	
 	@Override
 	public void end() {
-		breacher.setMicroState(Micro.IDLE);
+		breacher.setMicroState(MicroBreacherState.IDLE);
 		breacher.getBreacher().getMotor().setSpeed(0);
 	}
 	

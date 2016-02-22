@@ -4,7 +4,7 @@ import org.strongback.command.Command;
 
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
 public class JoystickControl extends Command {
 
@@ -19,7 +19,7 @@ public class JoystickControl extends Command {
 	
 	@Override
 	public void initialize() {
-		controller.setMicroState(Micro.JOYSTICK);
+		controller.setMicroState(MicroBreacherState.JOYSTICK_CONTROL);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class JoystickControl extends Command {
 	
 	@Override 
 	public void end() {
-		controller.setMicroState(Micro.JOYSTICK);
+		controller.setMicroState(MicroBreacherState.JOYSTICK_CONTROL);
 	}
 	
 	@Override

@@ -4,7 +4,7 @@ import org.strongback.command.Command;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
 public class LowerArmAuto extends Command {
 	private BreacherController controller;
@@ -17,7 +17,7 @@ public class LowerArmAuto extends Command {
 
 	@Override
 	public void initialize() {
-		controller.setMicroState(Micro.CLOSING);
+		controller.setMicroState(MicroBreacherState.CLOSING);
 		begin = System.currentTimeMillis();
 	}
 
@@ -45,7 +45,7 @@ public class LowerArmAuto extends Command {
 
 	@Override
 	public void end() {
-		controller.setMicroState(Micro.IDLE);
+		controller.setMicroState(MicroBreacherState.IDLE);
 	}
 	
 	@Override

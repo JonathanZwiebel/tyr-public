@@ -3,7 +3,7 @@ package com.palyrobotics.subsystem.breacher.commands;
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.breacher.BreacherController;
-import com.palyrobotics.subsystem.breacher.BreacherController.Micro;
+import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
@@ -18,7 +18,7 @@ public class RaiseArm extends Command {
 
 	@Override
 	public void initialize() {
-		controller.setMicroState(Micro.OPENING);
+		controller.setMicroState(MicroBreacherState.OPENING);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class RaiseArm extends Command {
 	
 	@Override
 	public void end() {
-		controller.setMicroState(Micro.IDLE);
+		controller.setMicroState(MicroBreacherState.IDLE);
 	}
 	
 	@Override
