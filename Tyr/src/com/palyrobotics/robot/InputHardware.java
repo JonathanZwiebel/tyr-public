@@ -102,7 +102,7 @@ public class InputHardware implements InputSystems {
 	/**
 	 * Reads and parses vision data from the serial port.
 	 *
-	 * @return 	int array [x, y, w, h]
+	 * @return 	int array with 4 elements: 		[x, y, w, h]
 	 * 			where: 	x is the target's horizontal displacement from image center
 	 * 					y is the target's vertical displacement from image center
 	 * 					w is the width of the target's bounding box
@@ -112,7 +112,11 @@ public class InputHardware implements InputSystems {
 	 */
 	@Override
 	public int[] getShooterDisplacement() {
-		String rawData = serialPort.readString();
+		String rawData = serialPort.readString(); // read raw data from the serial port
+		return getShooterDisplacement(rawData);
+	}
+	@Override
+	public int[] getShooterDisplacement(String rawData) {
 		// Expected string format: 	x\ty\tw\th\r\n
 		if (rawData.length() != 0) {
 			try {
