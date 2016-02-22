@@ -14,7 +14,8 @@ import com.palyrobotics.robot.*;
 public class MockRobotInput implements InputSystems {
 	public final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
-	public final MockFlightStick operatorStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockFlightStick shooterStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockFlightStick secondaryStick = new MockFlightStick(0,0,0,0, 0, 0);
 	
 	public final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
 	public final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
@@ -41,11 +42,7 @@ public class MockRobotInput implements InputSystems {
 	public FlightStick getTurnStick() {
 		return turnStick;
 	}
-	@Override
-	public FlightStick getOperatorStick() {
-		return operatorStick;
-	}
-
+	
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
@@ -72,10 +69,6 @@ public class MockRobotInput implements InputSystems {
 	}
 
 	@Override
-	public AngleSensor getAccumulatorPotentiometer() {
-		return accumulatorPotentiometer;
-	}
-	@Override
 	public Switch getAccumulatorFilledLimitSensor() {
 		return accumulatorLimitSensor;
 	}
@@ -99,6 +92,14 @@ public class MockRobotInput implements InputSystems {
 	@Override
 	public Switch getShooterArmMinimumAngleLimitSensor() {
 		return null;
+	}
+	@Override
+	public FlightStick getShooterStick() {
+		return shooterStick;
+	}
+	@Override
+	public FlightStick getSecondaryStick() {
+		return secondaryStick;
 	}
 
 	// vision to be added later

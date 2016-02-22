@@ -61,7 +61,8 @@ public class TestDriveTeleop {
 	public void testFlightsticks() {
 		assertNotNull(input.getDriveStick());
 		assertNotNull(input.getTurnStick());
-		assertNotNull(input.getOperatorStick());
+		assertNotNull(input.getShooterStick());
+		assertNotNull(input.getSecondaryStick());
 	}
 	
 	/**
