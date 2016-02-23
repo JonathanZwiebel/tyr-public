@@ -104,6 +104,11 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void teleopInit() {
+    	drivetrain.init();
+    	accumulator.init();
+    	shooter.init();
+    	breacher.init();
+    	
     	breacher.setMacroState(Macro.TELEOP);
     	breacher.setMicroState(Micro.IDLE);
     }
