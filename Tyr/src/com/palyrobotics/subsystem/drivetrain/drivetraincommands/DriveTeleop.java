@@ -6,7 +6,6 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
-import static com.palyrobotics.robot.RobotConstants.*;
 
 /**
  * The class representing the teleop driving command

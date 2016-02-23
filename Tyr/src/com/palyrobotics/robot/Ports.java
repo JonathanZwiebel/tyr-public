@@ -39,4 +39,7 @@ public class Ports {
 	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_CHANNEL = 5;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_CHANNEL = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_CHANNEL = 3;
+	
+	public static final int LEFT_RANGEFINDER_PORT = 3;
+	public static final int RIGHT_RANGEFINDER_PORT = 2;
 }

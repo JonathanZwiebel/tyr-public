@@ -11,6 +11,7 @@ import org.strongback.hardware.Hardware;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
+import static com.palyrobotics.robot.RobotConstants.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
@@ -24,9 +25,9 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A, DRIVE_LEFT_ENCODER_B, LEFT_DPP);
 	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A, DRIVE_RIGHT_ENCODER_B, RIGHT_DPP);
 	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_BUS);
-	public final ThreeAxisAccelerometer accelerometer = null;
-	public final DistanceSensor leftUltrasonic = null;
-	public final DistanceSensor rightUltrasonic = null;
+	public final ThreeAxisAccelerometer accelerometer = Hardware.Accelerometers.builtIn();
+	public final DistanceSensor leftUltrasonic = Hardware.DistanceSensors.analogUltrasonic(LEFT_RANGEFINDER_PORT, VOLTS_TO_INCHES);
+	public final DistanceSensor rightUltrasonic = Hardware.DistanceSensors.analogUltrasonic(RIGHT_RANGEFINDER_PORT, VOLTS_TO_INCHES);
 	
 	public final Switch accumulatorFilledLimitSensor = null;
 	

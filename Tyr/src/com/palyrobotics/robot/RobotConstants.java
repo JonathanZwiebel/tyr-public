@@ -17,4 +17,6 @@ public class RobotConstants {
 	public static final int BAUDRATE = 9600;
 	public static final SerialPort.Port PORT = SerialPort.Port.kMXP; 
 	
+	public static final double VOLTS_TO_INCHES = 0.1;
+	
 }

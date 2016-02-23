@@ -66,7 +66,7 @@ public class DriveDistance extends Command {
 		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
 
 		// Calculates angle error, trying to set it to 0.
-		angleError = drivetrain.getInput().getGyroscope().getAngle();
+		angleError = 0 - drivetrain.getInput().getGyroscope().getAngle();
 		double angleDerivative = -drivetrain.getInput().getGyroscope().getRate();
 
 		// Require two separate angle speeds because they might require
