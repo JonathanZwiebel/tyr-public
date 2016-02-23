@@ -15,18 +15,22 @@ public interface InputSystems {
 	
 	public AngleSensor getLeftDriveEncoder();
 	public AngleSensor getRightDriveEncoder();
+	
 	public Gyroscope getGyroscope();
-	public ThreeAxisAccelerometer getAccelerometer();
-	public DistanceSensor getLeftInfrared();
-	public DistanceSensor getRightInfrared();
-
-	public Switch getAccumulatorFilledLimitSensor();
+	
+	public DistanceSensor getLeftUltrasonic();
+	public DistanceSensor getRightUltrasonic();
 	
 	public AngleSensor getBreacherPotentiometer();
 
-	public AngleSensor getShooterArmAngleSensor();
-	public Switch getShooterArmMaximumAngleLimitSensor();
-	public Switch getShooterArmMinimumAngleLimitSensor();
+	public AngleSensor getShooterArmPotentiometer();
 
+	public Switch getAccumulatorFilledLimitSensor(); // Not present on robot
+	
+	public Switch getShooterArmMaximumAngleLimitSensor(); // Not present on robot
+	public Switch getShooterArmMinimumAngleLimitSensor(); // Not present on robot
+	
+	public ThreeAxisAccelerometer getAccelerometer();
+	
 	public int[] getShooterDisplacement();
 }

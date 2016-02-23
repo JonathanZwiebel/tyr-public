@@ -11,7 +11,7 @@ import org.strongback.hardware.Hardware;
  * @author Nihar
  */
 public class BreacherHardware implements BreacherSystems {
-	private Motor motor = Hardware.Motors.talonSRX(BREACHER_TALON_CHANNEL);
+	private Motor motor = Hardware.Motors.talonSRX(BREACHER_TALON_DEVICE_ID);
 
 	public BreacherHardware() {
 	}

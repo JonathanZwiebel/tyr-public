@@ -26,7 +26,7 @@ public class ShooterArmSetAngleCommand extends Command {
 		this.controller = controller;
 		input = controller.input;
 		targetAngle = angle;
-		armEncoder = input.getShooterArmAngleSensor();
+		armEncoder = input.getShooterArmPotentiometer();
 	}
 
 	/**

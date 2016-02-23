@@ -41,4 +41,6 @@ public class DrivetrainConstants {
 	public static final int TURNING_LEFT_BUTTON = 2;
 	public static final int TURNING_RIGHT_BUTTON = 3;
 	public static final int SHOOTER_ALIGN_BUTTON = 4;
+	
+	public static final float ULTRASONIC_VOLTS_TO_INCHES = 0.1f;
 }

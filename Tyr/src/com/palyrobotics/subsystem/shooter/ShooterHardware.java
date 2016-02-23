@@ -13,9 +13,9 @@ import com.palyrobotics.robot.Ports;
   * @author Paly Robotics Programming Red Module
  */
 public class ShooterHardware implements ShooterSystems {
-	TalonSRX armMotor = Hardware.Motors.talonSRX(Ports.SHOOTER_ARM_TALON_CHANNEL);
-	Solenoid loadingActuator = Hardware.Solenoids.doubleSolenoid(Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_CHANNEL, Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_CHANNEL, Direction.STOPPED);
-	Solenoid lockingActuator = Hardware.Solenoids.doubleSolenoid(Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_CHANNEL, Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_CHANNEL, Direction.STOPPED);
+	TalonSRX armMotor = Hardware.Motors.talonSRX(Ports.SHOOTER_ARM_TALON_DEVICE_ID);
+	Solenoid loadingActuator = Hardware.Solenoids.doubleSolenoid(Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE, Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE, Direction.STOPPED);
+	Solenoid lockingActuator = Hardware.Solenoids.doubleSolenoid(Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE, Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE, Direction.STOPPED);
 	
 	@Override
 	public TalonSRX getArmMotor() {
