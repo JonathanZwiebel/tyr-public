@@ -15,6 +15,8 @@ import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLock
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 /**
  * This is the base command for teleop movement and should only be called once when teleop is entered
@@ -56,21 +58,17 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		if(controller.armController.state == ShooterArmState.IDLE) {
 			controller.armController.setState(ShooterArmState.TELEOP);
 		}
-		if(controller.loadingActuatorController.state == ShooterLoadingActuatorController.ShooterLoadingActuatorState.IDLE) {
-			if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
-				Strongback.submit(new ShooterLoadingActuatorExtendCommand(controller));
-			}
-			if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
-				Strongback.submit(new ShooterLoadingActuatorRetractCommand(controller));
-			}
+		if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
+			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.EXTEND);
 		}
-		if(controller.lockingActuatorController.state == ShooterLockingActuatorController.ShooterLockingActuatorState.IDLE) {
-			if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
-				Strongback.submit(new ShooterLockingActuatorLockCommand(controller));
-			}
-			if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
-				Strongback.submit(new ShooterLockingActuatorUnlockCommand(controller));
-			}
+		else if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
+			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.RETRACT);
+		}
+		if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+			controller.lockingActuatorController.setState(ShooterLockingActuatorState.LOCK);
+		}
+		else if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+			controller.lockingActuatorController.setState(ShooterLockingActuatorState.UNLOCK);
 		}
  		return false;
 	}

@@ -64,8 +64,8 @@ public class RobotController extends IterativeRobot {
     	breacher = new BreacherController(breacherSystems, input);
     	
     	//Begin logging
-    	startLogging();
-    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
+    	//startLogging();
+    	//Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
     }
     
     /**
@@ -75,6 +75,7 @@ public class RobotController extends IterativeRobot {
      * and should be initialized through this static method.
      * However, on any call of Logger.getLogger("Central") it will autoinitialize.
      */
+    /*
     private static Logger startLogging() {
     	Logger logger = Logger.getLogger("Central");
     	ConsoleHandler console;
@@ -90,7 +91,7 @@ public class RobotController extends IterativeRobot {
     	logger.setLevel(Level.ALL);
     	return logger;
     }
-
+	*/
     @Override
     public void autonomousInit() {
     	drivetrain.init();
@@ -119,6 +120,20 @@ public class RobotController extends IterativeRobot {
     	accumulator.update();
     	shooter.update();
     	breacher.update();
+    	
+    	System.out.println("Left Encoder: " + input.getLeftDriveEncoder().getAngle());
+    	System.out.println("Right Encoder: " + input.getRightDriveEncoder().getAngle());
+
+    	System.out.println("Breacher Potentiometer: " + input.getBreacherPotentiometer().getAngle());	
+    	System.out.println("Shooter Potentiometer: " + input.getShooterArmPotentiometer().getAngle());
+
+    	System.out.println("Left Ultrasonic Inches: " + input.getLeftUltrasonic().getDistanceInInches());
+    	System.out.println("Right Ultrasonic Inches: " + input.getLeftUltrasonic().getDistanceInInches());
+    	
+    	System.out.println("Gyroscope: " + input.getGyroscope().getAngle());
+    	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection());
+    	System.out.println("Accelerometer Y: " + input.getAccelerometer().getXDirection());
+    	System.out.println("Accelerometer Z: " + input.getAccelerometer().getXDirection());    	
     }
 
     @Override
@@ -134,3 +149,4 @@ public class RobotController extends IterativeRobot {
         Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
     }
 }
+ 
