@@ -30,7 +30,7 @@ public class ShooterLockingActuatorLockCommand extends Command {
 	public boolean execute() {
 		latch.extend();
 		System.out.println("Locking latch lock");
-		return controller.input.getShooterStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
+		return true;
 	}
 	
 	/**

@@ -11,7 +11,6 @@ import org.strongback.hardware.Hardware;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
-import static com.palyrobotics.robot.RobotConstants.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
@@ -115,7 +114,7 @@ public class InputHardware implements InputSystems {
 		String rawData = serialPort.readString(); // read raw data from the serial port
 		return getShooterDisplacement(rawData);
 	}
-	@Override
+
 	public int[] getShooterDisplacement(String rawData) {
 		// Expected string format: 	x\ty\tw\th\r\n
 		if (rawData.length() != 0) {

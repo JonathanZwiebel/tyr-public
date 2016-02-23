@@ -29,7 +29,7 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	public boolean execute() {		
 		piston.retract();
 		System.out.println("Loading Retract");
-		return controller.input.getShooterStick().getButton(ShooterConstants.SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON).isTriggered();
+		return true;
 	}
 	
 	/**
