@@ -1,10 +1,5 @@
 package com.palyrobotics.robot;
 
-import java.io.IOException;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.strongback.Strongback;
 
@@ -49,11 +44,11 @@ public class RobotController extends IterativeRobot {
     @Override
     public void robotInit() {
     	try {
+        	Strongback.configure().recordNoData().recordNoEvents().initialize();
         	Strongback.start();
-        	Strongback.configure().initialize();
         }
-        catch(Throwable thrown) {
-        	System.err.println(thrown);
+        catch(Exception e) {
+        	e.printStackTrace();
         }
 
     	// Hardware system
@@ -118,7 +113,8 @@ public class RobotController extends IterativeRobot {
     	accumulator.init();
     	shooter.init();
     	breacher.init();
-
+    	grabber.init();
+        
     	breacher.setMacroState(MacroBreacherState.TELEOP);
     	breacher.setMicroState(MicroBreacherState.IDLE);
     }
@@ -141,9 +137,9 @@ public class RobotController extends IterativeRobot {
     	System.out.println("Right Ultrasonic Inches: " + input.getLeftUltrasonic().getDistanceInInches());
     	
     	System.out.println("Gyroscope: " + input.getGyroscope().getAngle());
-    	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection());
-    	System.out.println("Accelerometer Y: " + input.getAccelerometer().getXDirection());
-    	System.out.println("Accelerometer Z: " + input.getAccelerometer().getXDirection());    	
+    	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
+    	System.out.println("Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
+    	System.out.println("Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());    	
     }
 
     @Override
@@ -155,9 +151,12 @@ public class RobotController extends IterativeRobot {
     	
     	breacher.setMacroState(MacroBreacherState.DISABLED);
     	grabber.disable();
-    	
-        Strongback.disable();
-        Logger.getLogger("Central").log(Level.INFO, "The RobotController was disabled.");
+    	try {
+    	Strongback.disable();
+    	}
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
 }
  

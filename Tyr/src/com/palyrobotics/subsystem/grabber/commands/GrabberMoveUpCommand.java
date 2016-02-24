@@ -9,6 +9,7 @@ public class GrabberMoveUpCommand extends Command{
 	private GrabberController controller;
 	
 	public GrabberMoveUpCommand(GrabberController control) {
+		super(control);
 		this.controller = control;
 	}
 	
@@ -16,8 +17,8 @@ public class GrabberMoveUpCommand extends Command{
 	public boolean execute() {
 
 		//going up
-		controller.getInput().getServo().set(1);
-		return false;
+		controller.getOutput().getServo().set(0.6);
+		return true;
 	}
 
 }

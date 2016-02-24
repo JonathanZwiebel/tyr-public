@@ -28,8 +28,8 @@ public class Ports {
 	public static final int BREACHER_TALON_DEVICE_ID =5;
 	
 	// Pulse Width Modulation - roboRIO
-	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 9;
-	public static final int ACCUMULATOR_RIGHT_VICTOR_CHANNEL = 8;
+	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
+	public static final int ACCUMULATOR_RIGHT_VICTOR_CHANNEL = 1;
 	
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;
