@@ -4,6 +4,7 @@ import org.strongback.command.Command;
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
@@ -46,7 +47,7 @@ public class SetBreacherAngle extends Command {
 	public boolean execute() {
 		
 		//Safety feature
-		if(breacher.getInput().getShooterStick().getButton(CANCEL_BUTTON).isTriggered()) {
+		if(breacher.getInput().getShooterStick().getButton(Buttons.BREACHER_CANCEL_BUTTON).isTriggered()) {
 			breacher.getBreacher().getMotor().setSpeed(0);
 			return true;
 		}

@@ -1,12 +1,12 @@
 package com.palyrobotics.subsystem.shooter.commands;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import org.strongback.command.Command;
 import org.strongback.command.Requirable;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 
-import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.*;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
@@ -58,16 +58,16 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		if(controller.armController.state == ShooterArmState.IDLE) {
 			controller.armController.setState(ShooterArmState.TELEOP);
 		}
-		if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
+		if(input.getShooterStick().getButton(Buttons.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.EXTEND);
 		}
-		else if(input.getShooterStick().getButton(ShooterConstants.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
+		else if(input.getShooterStick().getButton(Buttons.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.RETRACT);
 		}
-		if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+		if(input.getShooterStick().getButton(Buttons.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.lockingActuatorController.setState(ShooterLockingActuatorState.LOCK);
 		}
-		else if(input.getShooterStick().getButton(ShooterConstants.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+		else if(input.getShooterStick().getButton(Buttons.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.lockingActuatorController.setState(ShooterLockingActuatorState.UNLOCK);
 		}
  		return false;

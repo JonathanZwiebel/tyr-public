@@ -49,31 +49,6 @@ public class ShooterConstants {
 	public static final double ARM_kD = BLANK_DOUBLE;
 
 	/**
-	 * Button on operator stick to terminate actuator commands
-	 */
-	public static final int SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON = 2;
-	
-	/**
-	 * Button on operator stick to extend loading actuator
-	 */
-	public static final int LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON = 3;
-	
-	/**
-	 * Button on operator stick to retract loading actuator
-	 */
-	public static final int LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON = 5;
-	
-	/**
-	 * Button on operator stick to lock the locking latch
-	 */
-	public static final int LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON = 4;
-	
-	/**
-	 * Button on operator stick to unlock the locking latch
-	 */
-	public static final int LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON = 6;
-	
-	/**
 	 * FVRtD value for the arm potentiometer
 	 * TODO: Measure this value
 	 */

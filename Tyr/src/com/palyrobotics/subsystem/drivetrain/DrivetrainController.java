@@ -4,6 +4,7 @@ import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.*;
 
@@ -42,15 +43,15 @@ public class DrivetrainController implements Requirable {
 		drivetrainState = DrivetrainState.IDLE;
 
 		reactor.onTriggered(input.getDriveStick().getTrigger(), () -> Strongback.submit(new ToggleGears(this)));
-		reactor.onTriggered(input.getDriveStick().getButton(SHOOTER_ORIENTATION_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_SHOOTER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = 1.0);
-		reactor.onTriggered(input.getDriveStick().getButton(BREACHER_ORIENTATION_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_BREACHER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = -1.0);
-		reactor.onTriggered(input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_DRIVE_DISTANCE_BUTTON),
 				() -> Strongback.submit(new DriveDistance(this, STANDARD_DRIVE_DISTANCE)));
-		reactor.onTriggered(input.getDriveStick().getButton(TURNING_LEFT_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_TURN_LEFT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(TURNING_RIGHT_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_TURN_RIGHT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
 	}
 

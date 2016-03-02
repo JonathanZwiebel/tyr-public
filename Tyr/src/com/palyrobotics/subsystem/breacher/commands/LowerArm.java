@@ -2,6 +2,7 @@ package com.palyrobotics.subsystem.breacher.commands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 
@@ -29,7 +30,7 @@ public class LowerArm extends Command {
 	public boolean execute() {
 		
 		//Safety feature
-		if(controller.getInput().getShooterStick().getButton(CANCEL_BUTTON).isTriggered()) {
+		if(controller.getInput().getShooterStick().getButton(Buttons.BREACHER_CANCEL_BUTTON).isTriggered()) {
 			controller.getBreacher().getMotor().setSpeed(0);
 			return true;
 		}

@@ -4,6 +4,7 @@ import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Command;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
@@ -36,10 +37,10 @@ public class AccumulatorTeleop extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		if(input.getSecondaryStick().getButton(ACCUMULATE_BUTTON).isTriggered()) {
+		if(input.getSecondaryStick().getButton(Buttons.ACCUMULATOR_INTAKE_BUTTON).isTriggered()) {
 			controller.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
 		}
-		else if(input.getSecondaryStick().getButton(EXPEL_BUTTON).isTriggered()){
+		else if(input.getSecondaryStick().getButton(Buttons.ACCUMULATOR_EXPEL_BUTTON).isTriggered()){
 			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 		}
 		else {

@@ -3,6 +3,8 @@ package com.palyrobotics.subsystem.breacher;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
+
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.breacher.commands.JoystickControl;
 import com.palyrobotics.subsystem.breacher.commands.LowerArm;
@@ -96,16 +98,16 @@ public class BreacherController implements Requirable {
 	 */
 	public void init() {
 		// when button 1 of the operator stick is pressed, raise the arm.
-		reactor.whileTriggered(input.getSecondaryStick().getButton(RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
 
 		// when button 1 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getSecondaryStick().getButton(RAISE_BUTTON), () -> Strongback.submit(new StopArm(this)));
+		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new StopArm(this)));
 
 		// when button 2 of the operator stick is pressed, lower the arm.
-		reactor.whileTriggered(input.getSecondaryStick().getButton(LOWER_BUTTON), () -> Strongback.submit(new LowerArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new LowerArm(this)));
 
 		// when button 2 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getSecondaryStick().getButton(LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
+		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
 	}
 
 	/**

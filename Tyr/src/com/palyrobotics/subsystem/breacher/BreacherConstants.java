@@ -32,12 +32,5 @@ public class BreacherConstants {
 	public static final double ACCEPTABLE_POTENTIOMETER_ERROR = 1;
 	public static final double ACCEPTABLE_DERIVATIVE_ERROR = 0.2;
 	
-	public static final double SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 24;
-			
-	public static final int CANCEL_BUTTON = 10;
-	
-	public static final int RAISE_BUTTON = 1;
-	public static final int LOWER_BUTTON = 2;
-	
 	public static final int BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 4200;
 }

@@ -35,12 +35,5 @@ public class DrivetrainConstants {
 	public static final double STANDARD_DRIVE_DISTANCE = 50.0;
 	public static final double STANDARD_TURN_ANGLE = 90.0;
 
-	public static final int SHOOTER_ORIENTATION_BUTTON = 10;
-	public static final int BREACHER_ORIENTATION_BUTTON = 11;
-	public static final int DRIVING_DISTANCE_BUTTON = 6;
-	public static final int TURNING_LEFT_BUTTON = 2;
-	public static final int TURNING_RIGHT_BUTTON = 3;
-	public static final int SHOOTER_ALIGN_BUTTON = 4;
-	
 	public static final float ULTRASONIC_VOLTS_TO_INCHES = 0.1f;
 }

@@ -27,8 +27,8 @@ public class GrabberController implements Requirable {
 	}
 	
 	public void init(){
-		reactor.onTriggered(robotInput.getSecondaryStick().getButton(GrabberConstants.UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
-		reactor.onTriggered(robotInput.getSecondaryStick().getButton(GrabberConstants.DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
+		reactor.onTriggered(robotInput.getSecondaryStick().getButton(Buttons.GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
+		reactor.onTriggered(robotInput.getSecondaryStick().getButton(Buttons.GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
 		state = GrabberState.IDLE;
 	}
 	
