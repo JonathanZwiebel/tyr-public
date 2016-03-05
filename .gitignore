@@ -15,6 +15,7 @@
 /build/
 */resources/
 *.txt
+!ROBOT_INFORMATION.txt
 .metadata/*
 /bin
 */Debug/
