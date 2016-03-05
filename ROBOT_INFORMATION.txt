@@ -3,10 +3,10 @@ Complementary Testing Branch - NONE
 
 This document contains the list of features in the code that must be removed before it can be run on the robot. Before making a testing branch, you should implement the changes here. Modify this list as stuff is added to the robot.
 
-When creating a testing branch please make the changes in the followin order:
+When creating a testing branch please make the changes in the following order:
 
 
-Untested Features:
+Untested Features: [MAKE SURE YOU DON'T CALL THESE]
 	There are some untested commands on this master branch that do not create any conflicts but must be run on a robot before they are integrated with the full control system. The commands are as follows:
 		IntakeBallAutomatic
 		StopAccumulator
@@ -26,7 +26,7 @@ Untested Features:
 		ShooterArmSetAngleCommand
 
 
-Ports and Device IDs:
+Ports and Device IDs: [MAKE SURE YOU SET THESE]
 	Ports on the master branch should always match Tyr. In order to test, ports may need to be modified to match testing robots. Currently know: TalonSRX Device IDs are different and mix left and right wheels. PCM ports are completely different between the robots.
 	For Tyr:
 		LF Drive Device ID - 1
@@ -43,30 +43,37 @@ Ports and Device IDs:
 		Locking Retract Valve    - 1
 
 	For Lord Deric:
-		Drivetrain - 1 through 4
-		Breacher/Shooter - 7/8, undetermined which is which 
-		Drivetrain Valves - 0 and 1
-		Loading Valves    - 2/3 or 4/5 unknown
-		Locking Valves    - 2/3 or 4/5 unknown
+		LF Drive Device ID - 1
+		RF Drive Device ID - 2
+		LB Drive Device ID - 3
+		RB Drive Device ID - 4
+		Breacher Device ID - 8
+		Shooter  Device ID - 7
+		Drivetrain Extend Valve  - 0
+		Drivetrain Retract Valve - 1
+		Loading Extend Valve	 - 4
+		Loading Retract Valve    - 5
+		Locking Extend Valve     - 2
+		Locking Retract Valve    - 3
 
 
-Rangefinders:
+Rangefinders [REMOVE ALL REFERENCES]:
 	As of branch creation, there are no functiona versions on any robot, but these may be added. If they are not on the robot, they should be removed from the 
 
-Accumulator Limit Sensor:
+Accumulator Limit Sensor [REMOVE ALL REFERENCES]:
 	This does not currently exist on the robot. The sensor must be removed from RobotHardware and RobotSystems. The automatically stopping accumulator commands must be removed and their corresponding swtich reactors / if statements should be removed as well.
 
-Max and Min Arm Limit Sensors:
+Max and Min Arm Limit Sensors [REMOVE ALL REFERENCES]:
 	These do not currently exist on the robot. The sensors must be removed from RobotHardware nad RobotSystems. The zeroing method should be removed along with any items in ShooterController that call it. 
 
-Breacher Bounce:
+Breacher Bounce [CALIBRATE OR REMOVE]:
 	If the breaching potentiometer has not been calibrated, the breacher bounce if statements in the breacher update cycle should be removed, placing no restrictions on the breacher position.
 
-Shooter Stop:
+Shooter Stop [CALIBRATE OR REMOVE]:
 	If the shooter potentiometer has not been calibrated, the speed limitation of the shooter should be removed, placing no restrictions on the shooter speed.
 
-Xbox Controller:
+Xbox Controller [DO NOT USE]:
 	This current branch has no support for Xbox controls of any form.
 
-Calibrations:
+Calibrations [SET THE CONSTANTS TO MATCH YOUR ROBOT]:
 	The shooter potentiometer, breacher potentiometer, and drivetrain encoders need to have their fullVoltageRangeToDegrees, voltageOffset, and distancePerPulses set, depending on the robot. The values in this master are placeholds and invalid for both robots.
