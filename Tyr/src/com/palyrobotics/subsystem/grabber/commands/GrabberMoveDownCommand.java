@@ -3,6 +3,7 @@ package com.palyrobotics.subsystem.grabber.commands;
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.grabber.GrabberController;
+import com.palyrobotics.subsystem.grabber.GrabberConstants;
 
 public class GrabberMoveDownCommand extends Command{
 	
@@ -15,9 +16,7 @@ public class GrabberMoveDownCommand extends Command{
 	
 	@Override
 	public boolean execute() {
-
-		//going up
-		controller.getOutput().getServo().set(0.4);
+		controller.getOutput().getServo().set(GrabberConstants.LOWER_POSITION_VOLTAGE);
 		return true;
 	}
 }

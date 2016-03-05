@@ -30,6 +30,8 @@ public class Ports {
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
 	public static final int ACCUMULATOR_RIGHT_VICTOR_CHANNEL = 1;
+	public static final int GRABBER_SERVO_VICTOR_CHANNEL = 3;
+
 	
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;
@@ -42,10 +44,8 @@ public class Ports {
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE = 0;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 5;
 	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 2;
-	
-	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 6; // bad
-	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 1; // bad
-	
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 6;
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 1;
 	public static final int CAMERA_LIGHT_VALVE = 3; //sketchy
 
 	// Serial

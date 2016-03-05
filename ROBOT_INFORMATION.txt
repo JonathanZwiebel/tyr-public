@@ -6,6 +6,26 @@ This document contains the list of features in the code that must be removed bef
 When creating a testing branch please make the changes in the followin order:
 
 
+Untested Features:
+	There are some untested commands on this master branch that do not create any conflicts but must be run on a robot before they are integrated with the full control system. The commands are as follows:
+		IntakeBallAutomatic
+		StopAccumulator
+		BreacherPortcullis
+		LowerArm
+		LowerArmAuto
+		RaiseArm
+		RaiseArmAuto
+		SetBreacherAngle
+		StopArm
+		OriginalDriveDistance
+		OriginalriveTeleop
+		ShooterAlign
+		TurnAngle
+		FullShooterLoadCommand
+		FullShooterFireCommand
+		ShooterArmSetAngleCommand
+
+
 Ports and Device IDs:
 	Ports on the master branch should always match Tyr. In order to test, ports may need to be modified to match testing robots. Currently know: TalonSRX Device IDs are different and mix left and right wheels. PCM ports are completely different between the robots.
 	For Tyr:
