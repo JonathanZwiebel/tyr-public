@@ -84,12 +84,6 @@ public class ShooterController implements Requirable {
 		if(state == ShooterState.TELEOP) {
 			Strongback.submit(new FullShooterTeleopCommand(this));
 		}
-		else if(state == ShooterState.FIRE) {
-			Strongback.submit(new FullShooterFireCommand(this));
-		}
-		else if(state == ShooterState.LOAD) {
-			Strongback.submit(new FullShooterLoadCommand(this));
-		}
 	}
 	
 	public ShooterState getState() {
