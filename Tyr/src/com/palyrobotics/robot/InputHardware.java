@@ -33,8 +33,6 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	
 	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
-	public final Switch shooterArmMaximumAngleLimitSensor = null;
-	public final Switch shooterArmMinimumAngleLimitSensor = null;
 	
 	public static SerialPort serialPort = new SerialPort(RobotConstants.BAUDRATE, VISION_PORT);
 
@@ -89,14 +87,6 @@ public class InputHardware implements InputSystems {
 	@Override
 	public AngleSensor getShooterArmPotentiometer() {
 		return shooterPotentiometer;
-	}
-	@Override
-	public Switch getShooterArmMaximumAngleLimitSensor() {
-		return shooterArmMaximumAngleLimitSensor;
-	}
-	@Override
-	public Switch getShooterArmMinimumAngleLimitSensor() {
-		return shooterArmMinimumAngleLimitSensor;
 	}
 	/**
 	 * Reads and parses vision data from the serial port.

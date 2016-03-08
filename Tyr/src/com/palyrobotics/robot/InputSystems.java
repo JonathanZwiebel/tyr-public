@@ -27,9 +27,6 @@ public interface InputSystems {
 
 	public Switch getAccumulatorFilledLimitSensor(); // Not present on robot
 	
-	public Switch getShooterArmMaximumAngleLimitSensor(); // Not present on robot
-	public Switch getShooterArmMinimumAngleLimitSensor(); // Not present on robot
-	
 	public ThreeAxisAccelerometer getAccelerometer();
 	
 	public int[] getShooterDisplacement();
