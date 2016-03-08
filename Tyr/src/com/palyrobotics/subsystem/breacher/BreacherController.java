@@ -120,12 +120,14 @@ public class BreacherController implements Requirable {
 		if(input.getBreacherPotentiometer().getAngle() < MIN_POTENTIOMETER_ANGLE) {
 			setMicroState(MicroBreacherState.BOUNCING);
 			breacher.getMotor().setSpeed(BOUNCE_SPEED);
-			setMicroState(MicroBreacherState.IDLE);
 		}
 		
-		if(input.getBreacherPotentiometer().getAngle() > MAX_POTENTIOMETER_ANGLE) {
+		else if(input.getBreacherPotentiometer().getAngle() > MAX_POTENTIOMETER_ANGLE) {
 			setMicroState(MicroBreacherState.BOUNCING);
 			breacher.getMotor().setSpeed(-BOUNCE_SPEED);
+		}
+		
+		else {
 			setMicroState(MicroBreacherState.IDLE);
 		}
 		
