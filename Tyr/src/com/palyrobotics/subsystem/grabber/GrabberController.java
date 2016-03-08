@@ -3,10 +3,11 @@ package com.palyrobotics.subsystem.grabber;
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
-
+import static com.palyrobotics.robot.Buttons.*;
 import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
+import com.palyrobotics.subsystem.grabber.commands.TeleopControl;
 
 public class GrabberController implements Requirable {
 	private GrabberSystems output;
@@ -27,13 +28,21 @@ public class GrabberController implements Requirable {
 	}
 	
 	public void init(){
-		reactor.onTriggered(robotInput.getSecondaryStick().getButton(Buttons.GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
-		reactor.onTriggered(robotInput.getSecondaryStick().getButton(Buttons.GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
 		state = GrabberState.IDLE;
+		
+		if(!RobotController.usingXBox()) {
+			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
+			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
+		}
 	}
 	
 	public void update(){
 		state = GrabberState.TELEOP;
+		
+		if(RobotController.usingXBox()) {
+			Strongback.submit(new TeleopControl(this, robotInput));
+		}
+		
 	}
 
 	public GrabberSystems getOutput() {

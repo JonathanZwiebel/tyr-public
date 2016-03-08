@@ -5,6 +5,7 @@ import org.strongback.command.Command;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
+import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 public class JoystickControl extends Command {
 
@@ -12,9 +13,21 @@ public class JoystickControl extends Command {
 	
 	private InputSystems input;
 	
+	private double idlePoint;
+	
+	private double error;
+	
+	private double current;
+	
+	private double previous;
+	
 	public JoystickControl(BreacherController controller, InputSystems input) {
+		super(controller);
 		this.controller = controller;
 		this.input = input;
+		idlePoint = input.getBreacherPotentiometer().getAngle();
+		current = idlePoint;
+		previous = current;
 	}
 	
 	@Override
@@ -29,16 +42,39 @@ public class JoystickControl extends Command {
 	 * @return true, this command stops immediately
 	 */
 	public boolean execute() {
-		controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
-		return true;
+		
+		//As long as there is no joystick input, keep the breacher arm in position.
+		if(Math.abs(input.getSecondaryStick().getPitch().read()) < 0.03) {
+			
+			error = idlePoint - input.getBreacherPotentiometer().getAngle();
+			
+			current = input.getBreacherPotentiometer().getAngle();
+			
+			double derivative = (current - previous) * UPDATES_PER_SECOND;
+			
+			double speed = Math.max(Math.min((PROPORTIONAL * error + DERIVATIVE * derivative), 0.3), -0.3);
+			
+			if(Math.abs(error) < 5) {
+				controller.getBreacher().getMotor().setSpeed(0);
+			}
+			else {
+				controller.getBreacher().getMotor().setSpeed(speed);
+			}
+			
+			previous = current;
+			
+			return false;
+		}
+		
+		//Moves the breacher according to joystick input
+		else {
+			controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
+			return true;
+		}
 	}
 	
 	@Override 
 	public void end() {
 		controller.setMicroState(MicroBreacherState.JOYSTICK_CONTROL);
-	}
-	
-	@Override
-	public void interrupted() {
 	}
 }
