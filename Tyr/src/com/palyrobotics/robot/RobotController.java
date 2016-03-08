@@ -103,9 +103,6 @@ public class RobotController extends IterativeRobot {
 
     	System.out.println("Breacher Potentiometer: " + input.getBreacherPotentiometer().getAngle());	
     	System.out.println("Shooter Potentiometer: " + input.getShooterArmPotentiometer().getAngle());
-
-    	System.out.println("Left Ultrasonic Inches: " + input.getLeftUltrasonic().getDistanceInInches());
-    	System.out.println("Right Ultrasonic Inches: " + input.getLeftUltrasonic().getDistanceInInches());
     	
     	System.out.println("Gyroscope: " + input.getGyroscope().getAngle());
     	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());

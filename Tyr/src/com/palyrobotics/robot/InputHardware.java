@@ -1,11 +1,9 @@
 package com.palyrobotics.robot;
 
 import org.strongback.components.AngleSensor;
-import org.strongback.components.DistanceSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
-import org.strongback.components.Switch;
 import org.strongback.hardware.Hardware;
 
 import edu.wpi.first.wpilibj.SerialPort;
@@ -25,8 +23,6 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A_CHANNEL, DRIVE_RIGHT_ENCODER_B_CHANNEL, RIGHT_DPP);
 	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_PORT);
 	public final ThreeAxisAccelerometer accelerometer = Hardware.Accelerometers.builtIn();
-	public final DistanceSensor leftUltrasonic = Hardware.DistanceSensors.analogUltrasonic(LEFT_RANGEFINDER_CHANNEL, ULTRASONIC_VOLTS_TO_INCHES);
-	public final DistanceSensor rightUltrasonic = Hardware.DistanceSensors.analogUltrasonic(RIGHT_RANGEFINDER_CHANNEL, ULTRASONIC_VOLTS_TO_INCHES);
 	
 	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	
@@ -65,14 +61,6 @@ public class InputHardware implements InputSystems {
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
 		return accelerometer;
-	}
-	@Override
-	public DistanceSensor getLeftUltrasonic() {
-		return leftUltrasonic;
-	}
-	@Override
-	public DistanceSensor getRightUltrasonic() {
-		return rightUltrasonic;
 	}
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
