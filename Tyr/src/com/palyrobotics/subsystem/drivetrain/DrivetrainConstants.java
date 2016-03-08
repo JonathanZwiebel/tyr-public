@@ -1,9 +1,6 @@
 package com.palyrobotics.subsystem.drivetrain;
 
 public class DrivetrainConstants {
-	public static final double LEFT_DPP = -0.179115;
-	public static final double RIGHT_DPP = 0.179517;
-
 	public static final double MAX_TELEOP_ACCELERATION = 1.0;
 	
 	// The teleoperated orientation, with 1.0 meaning shooter forwards, and -1.0 meaning breacher forwards

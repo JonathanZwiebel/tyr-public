@@ -58,3 +58,18 @@ Ports and Device IDs: [MAKE SURE YOU SET THESE]
 
 Calibrations [SET THE CONSTANTS TO MATCH YOUR ROBOT]:
 	The shooter potentiometer, breacher potentiometer, and drivetrain encoders need to have their fullVoltageRangeToDegrees, voltageOffset, and distancePerPulses set, depending on the robot. The values in this master are placeholds and invalid for both robots.
+	For Tyr:
+		Shooter Full Voltage Range to Degrees - NOT CALIBRATED
+		Shooter Degree Offset - NOT CALIBRATED
+		Breacher Full Voltage Range to Degrees - NOT CALIBRATED
+		Breacher Degree Offset - NOT CALIBRATED
+		Left Drive DPP - NOT CALIBRATED
+		Right Drive DPP - NOT CALIBRATED
+
+	For Lord Deric:
+		Shooter Full Voltage Range to Degrees - 2400
+		Shoooter Degree Offset - -175
+		Breacher Full Voltage Range to Degrees - 3600
+		Breacher Degree Offset - -3425
+		Left Drive DPP - -0.179115
+		Right Drive DPP - 0.179115

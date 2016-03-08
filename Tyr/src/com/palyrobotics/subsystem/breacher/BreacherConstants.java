@@ -31,6 +31,4 @@ public class BreacherConstants {
 	
 	public static final double ACCEPTABLE_POTENTIOMETER_ERROR = 1;
 	public static final double ACCEPTABLE_DERIVATIVE_ERROR = 0.2;
-	
-	public static final int BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 4200;
 }

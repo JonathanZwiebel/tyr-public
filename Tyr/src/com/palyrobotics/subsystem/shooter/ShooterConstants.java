@@ -52,7 +52,5 @@ public class ShooterConstants {
 	 * FVRtD value for the arm potentiometer
 	 * TODO: Measure this value
 	 */
-	public static final double SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 0.25f;
-	
 	public static final double SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT = 0.4f;
 }

@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
-import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
-import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
+import static com.palyrobotics.robot.SensorConstants.*;
 
 public class InputHardware implements InputSystems {
 	public final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
@@ -19,14 +18,13 @@ public class InputHardware implements InputSystems {
 	public final FlightStick secondaryStick = Hardware.HumanInterfaceDevices.logitechAttack3D(SECONDARY_STICK_PORT);
 	public final FlightStick shooterStick = Hardware.HumanInterfaceDevices.logitechAttack3D(SHOOTER_STICK_PORT);
 
-	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A_CHANNEL, DRIVE_LEFT_ENCODER_B_CHANNEL, LEFT_DPP);
-	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A_CHANNEL, DRIVE_RIGHT_ENCODER_B_CHANNEL, RIGHT_DPP);
+	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A_CHANNEL, DRIVE_LEFT_ENCODER_B_CHANNEL, SensorConstants.LEFT_DRIVETRAIN_DPP);
+	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A_CHANNEL, DRIVE_RIGHT_ENCODER_B_CHANNEL, SensorConstants.RIGHT_DRIVETRAIN_DPP);
 	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_PORT);
 	public final ThreeAxisAccelerometer accelerometer = Hardware.Accelerometers.builtIn();
 	
-	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
-	
-	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
+	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, BREACHER_POTENTIOMETER_DEGREE_OFFSET);
+	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, SHOOTER_POTENTIOMETER_DEGREE_OFFSET);
 	
 	public static SerialPort serialPort = new SerialPort(RobotConstants.BAUDRATE, VISION_PORT);
 
