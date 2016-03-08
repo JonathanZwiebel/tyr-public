@@ -28,8 +28,6 @@ public class InputHardware implements InputSystems {
 	public final DistanceSensor leftUltrasonic = Hardware.DistanceSensors.analogUltrasonic(LEFT_RANGEFINDER_CHANNEL, ULTRASONIC_VOLTS_TO_INCHES);
 	public final DistanceSensor rightUltrasonic = Hardware.DistanceSensors.analogUltrasonic(RIGHT_RANGEFINDER_CHANNEL, ULTRASONIC_VOLTS_TO_INCHES);
 	
-	public final Switch accumulatorFilledLimitSensor = null;
-	
 	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
 	
 	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_ARM_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES);
@@ -76,11 +74,6 @@ public class InputHardware implements InputSystems {
 	public DistanceSensor getRightUltrasonic() {
 		return rightUltrasonic;
 	}
-	@Override
-	public Switch getAccumulatorFilledLimitSensor() {
-		return accumulatorFilledLimitSensor;
-	}
-	
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
 	}

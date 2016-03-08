@@ -25,8 +25,6 @@ public interface InputSystems {
 
 	public AngleSensor getShooterArmPotentiometer();
 
-	public Switch getAccumulatorFilledLimitSensor(); // Not present on robot
-	
 	public ThreeAxisAccelerometer getAccelerometer();
 	
 	public int[] getShooterDisplacement();
