@@ -1,3 +1,4 @@
+
 package com.palyrobotics.robot;
 
 import org.strongback.components.AngleSensor;
@@ -5,6 +6,10 @@ import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.hardware.Hardware;
+
+import com.palyrobotics.xbox.MockFlightStick;
+import com.palyrobotics.xbox.XBox;
+import com.palyrobotics.xbox.XBoxController;
 
 import edu.wpi.first.wpilibj.SerialPort;
 
@@ -26,6 +31,11 @@ public class InputHardware implements InputSystems {
 	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, BREACHER_POTENTIOMETER_DEGREE_OFFSET);
 	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, SHOOTER_POTENTIOMETER_DEGREE_OFFSET);
 	
+	public final XBoxController xbox = XBox.getXBox(XBOX_PORT);
+	
+	public final MockFlightStick mockLeftStick = new MockFlightStick(0, 0, 0, 0, 0, 0);
+	public final MockFlightStick mockRightStick = new MockFlightStick(0, 0, 0, 0, 0, 0);
+	
 	public static SerialPort serialPort = new SerialPort(RobotConstants.BAUDRATE, VISION_PORT);
 
 	@Override
@@ -38,10 +48,16 @@ public class InputHardware implements InputSystems {
 	}
 	@Override
 	public FlightStick getShooterStick() {
+		if(RobotController.usingXBox()) {
+			return mockLeftStick;
+		}
 		return shooterStick;
 	}
 	@Override 
 	public FlightStick getSecondaryStick() {
+		if(RobotController.usingXBox()) {
+			return mockRightStick;
+		}
 		return secondaryStick;
 	}
 	@Override
@@ -67,6 +83,12 @@ public class InputHardware implements InputSystems {
 	public AngleSensor getShooterArmPotentiometer() {
 		return shooterPotentiometer;
 	}
+
+	@Override
+	public XBoxController getXBox() {
+		return xbox;
+	}
+
 	/**
 	 * Reads and parses vision data from the serial port.
 	 *

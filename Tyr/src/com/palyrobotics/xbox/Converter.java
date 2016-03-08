@@ -1,6 +1,5 @@
 package com.palyrobotics.xbox;
 
-import static com.palyrobotics.robot.Ports.*;
 import static com.palyrobotics.robot.Buttons.*;
 
 public class Converter {

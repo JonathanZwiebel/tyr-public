@@ -1,6 +1,5 @@
 package com.palyrobotics.robot;
 
-
 import org.strongback.Strongback;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
@@ -20,8 +19,12 @@ import com.palyrobotics.subsystem.shooter.ShooterSystems;
 import com.palyrobotics.subsystem.grabber.GrabberController;
 import com.palyrobotics.subsystem.grabber.GrabberHardware;
 import com.palyrobotics.subsystem.grabber.GrabberSystems;
+import com.palyrobotics.xbox.Converter;
+import com.palyrobotics.xbox.MockFlightStick;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotController extends IterativeRobot {
 	private DrivetrainController drivetrain;
@@ -41,6 +44,10 @@ public class RobotController extends IterativeRobot {
 	
 	private InputSystems input;
 	
+	private SendableChooser chooser;
+	
+	private static boolean usingXBox = true;
+	
     @Override
     public void robotInit() {
     	try {
@@ -51,8 +58,18 @@ public class RobotController extends IterativeRobot {
         	e.printStackTrace();
         }
 
-    	// Hardware system
+    	//Input and SendableChooser
     	input = new InputHardware(); 
+    	
+    	chooser = new SendableChooser();
+	    	
+	    //Uses a SendableChooser to determine if an XBox is being used.
+	    chooser.addDefault("XBox", input.getXBox());
+	    chooser.addObject("Joysticks", null);
+	    	
+	    SmartDashboard.putData("Control Scheme", chooser);
+	    
+	    //Hardware system
     	accumulatorSystems = new AccumulatorHardware();
     	shooterSystems = new ShooterHardware();
     	drivetrainSystems = new DrivetrainHardware();
@@ -66,6 +83,11 @@ public class RobotController extends IterativeRobot {
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
     }
+    
+    public static boolean usingXBox() {
+    	return usingXBox;
+    }
+    
     @Override
     public void autonomousInit() {
     	drivetrain.init();
@@ -80,7 +102,7 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void teleopInit() {
-    	drivetrain.init();
+       	drivetrain.init();
     	accumulator.init();
     	shooter.init();
     	breacher.init();
@@ -88,10 +110,24 @@ public class RobotController extends IterativeRobot {
         
     	breacher.setMacroState(MacroBreacherState.TELEOP);
     	breacher.setMicroState(MicroBreacherState.IDLE);
+    	
+    	if(chooser.getSelected().equals(null)) {
+    		usingXBox = false;
+    	}
+    	
+    	else {
+    		usingXBox = true;
+    	}
     }
 
     @Override
     public void teleopPeriodic() {
+    	
+    	//If we are using an xbox, convert the input from the xbox to two mockjoysticks so that it can be used with all the commands
+    	if(usingXBox) {
+    		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
+    	}
+    	
     	drivetrain.update();
     	accumulator.update();
     	shooter.update();
@@ -100,9 +136,6 @@ public class RobotController extends IterativeRobot {
     	
     	System.out.println("Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	System.out.println("Right Encoder: " + input.getRightDriveEncoder().getAngle());
-
-    	System.out.println("Breacher Potentiometer: " + input.getBreacherPotentiometer().getAngle());	
-    	System.out.println("Shooter Potentiometer: " + input.getShooterArmPotentiometer().getAngle());
     	
     	System.out.println("Gyroscope: " + input.getGyroscope().getAngle());
     	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
@@ -115,10 +148,10 @@ public class RobotController extends IterativeRobot {
     	drivetrain.disable();
     	accumulator.disable();
     	shooter.disable();
+    	breacher.setMacroState(MacroBreacherState.DISABLED);
     	breacher.disable();
     	grabber.disable();
     	
-    	breacher.setMacroState(MacroBreacherState.DISABLED);
     	try {
     	Strongback.disable();
     	}
@@ -127,4 +160,3 @@ public class RobotController extends IterativeRobot {
     	}
     }
 }
- 
