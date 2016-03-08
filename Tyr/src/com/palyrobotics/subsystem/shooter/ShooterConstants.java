@@ -14,8 +14,8 @@ public class ShooterConstants {
 	/**
 	 * Placeholder value for double constants
 	 */
-	public static final double BLANK_DOUBLE = 0.0f;
 	
+	public static final double BLANK_DOUBLE = 0.0f;
 	/**
 	 * Maximum physical angle of the shooter arm
 	 */
@@ -47,10 +47,6 @@ public class ShooterConstants {
 	 * TODO: Calibrate this value
 	 */
 	public static final double ARM_kD = BLANK_DOUBLE;
-
-	/**
-	 * FVRtD value for the arm potentiometer
-	 * TODO: Measure this value
-	 */
+	
 	public static final double SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT = 0.4f;
 }

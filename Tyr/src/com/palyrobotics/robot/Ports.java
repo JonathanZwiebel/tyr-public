@@ -9,6 +9,7 @@ public class Ports {
 	public static final int TURN_STICK_PORT = 1;
 	public static final int SHOOTER_STICK_PORT = 2;
 	public static final int SECONDARY_STICK_PORT = 3;
+	public static final int XBOX_PORT = 4;
 	
 	// Digital Input Output - roboRIO
 	public static final int DRIVE_LEFT_ENCODER_A_CHANNEL = 0;
@@ -30,8 +31,7 @@ public class Ports {
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
 	public static final int ACCUMULATOR_RIGHT_VICTOR_CHANNEL = 1;
-	public static final int GRABBER_SERVO_VICTOR_CHANNEL = 3;
-
+	public static final int GRABBER_SERVO_VICTOR_CHANNEL = 2;
 	
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;
@@ -47,5 +47,5 @@ public class Ports {
 	public static final int CAMERA_LIGHT_VALVE = 3;
 
 	// Serial
-	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP; 
+	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP;
 }

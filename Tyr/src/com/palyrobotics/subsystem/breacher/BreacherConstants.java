@@ -9,9 +9,9 @@ package com.palyrobotics.subsystem.breacher;
 public class BreacherConstants {
 	public static final double MAX_SPEED = 0.5;
 	
-	public static final double PROPORTIONAL = 0.1;
+	public static final double PROPORTIONAL = 0.02;
 	public static final double INTEGRAL = 1;
-	public static final double DERIVATIVE = 0.1;
+	public static final double DERIVATIVE = -0.001;
 	
 	public static final double UPDATES_PER_SECOND = 50;
 	
@@ -30,5 +30,5 @@ public class BreacherConstants {
 	public static final double BOUNCE_SPEED = 0.3;
 	
 	public static final double ACCEPTABLE_POTENTIOMETER_ERROR = 1;
-	public static final double ACCEPTABLE_DERIVATIVE_ERROR = 0.2;
+	public static final double ACCEPTABLE_DERIVATIVE_ERROR = 10;
 }
