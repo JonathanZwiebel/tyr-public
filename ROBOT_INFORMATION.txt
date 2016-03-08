@@ -47,33 +47,14 @@ Ports and Device IDs: [MAKE SURE YOU SET THESE]
 		RF Drive Device ID - 2
 		LB Drive Device ID - 3
 		RB Drive Device ID - 4
-		Breacher Device ID - 8
-		Shooter  Device ID - 7
+		Breacher Device ID - 6
+		Shooter  Device ID - 5
 		Drivetrain Extend Valve  - 0
 		Drivetrain Retract Valve - 1
 		Loading Extend Valve	 - 4
 		Loading Retract Valve    - 5
 		Locking Extend Valve     - 2
 		Locking Retract Valve    - 3
-
-
-Rangefinders [REMOVE ALL REFERENCES]:
-	As of branch creation, there are no functiona versions on any robot, but these may be added. If they are not on the robot, they should be removed from the 
-
-Accumulator Limit Sensor [REMOVE ALL REFERENCES]:
-	This does not currently exist on the robot. The sensor must be removed from RobotHardware and RobotSystems. The automatically stopping accumulator commands must be removed and their corresponding swtich reactors / if statements should be removed as well.
-
-Max and Min Arm Limit Sensors [REMOVE ALL REFERENCES]:
-	These do not currently exist on the robot. The sensors must be removed from RobotHardware nad RobotSystems. The zeroing method should be removed along with any items in ShooterController that call it. 
-
-Breacher Bounce [CALIBRATE OR REMOVE]:
-	If the breaching potentiometer has not been calibrated, the breacher bounce if statements in the breacher update cycle should be removed, placing no restrictions on the breacher position.
-
-Shooter Stop [CALIBRATE OR REMOVE]:
-	If the shooter potentiometer has not been calibrated, the speed limitation of the shooter should be removed, placing no restrictions on the shooter speed.
-
-Xbox Controller [DO NOT USE]:
-	This current branch has no support for Xbox controls of any form.
 
 Calibrations [SET THE CONSTANTS TO MATCH YOUR ROBOT]:
 	The shooter potentiometer, breacher potentiometer, and drivetrain encoders need to have their fullVoltageRangeToDegrees, voltageOffset, and distancePerPulses set, depending on the robot. The values in this master are placeholds and invalid for both robots.

@@ -25,7 +25,7 @@ public class Ports {
 	public static final int RIGHT_FRONT_TALON_DEVICE_ID = 2;
 	public static final int RIGHT_BACK_TALON_DEVICE_ID = 4;
 	public static final int SHOOTER_ARM_TALON_DEVICE_ID = 8;
-	public static final int BREACHER_TALON_DEVICE_ID =5;
+	public static final int BREACHER_TALON_DEVICE_ID = 5;
 	
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
@@ -36,8 +36,6 @@ public class Ports {
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;
 	public static final int SHOOTER_ARM_POTENTIOMETER_CHANNEL = 1;
-	public static final int RIGHT_RANGEFINDER_CHANNEL = 2;
-	public static final int LEFT_RANGEFINDER_CHANNEL = 3;
 	
 	// Valve - Pneumatics Control Module
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE = 7;
@@ -46,7 +44,7 @@ public class Ports {
 	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 6;
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 1;
-	public static final int CAMERA_LIGHT_VALVE = 3; //sketchy
+	public static final int CAMERA_LIGHT_VALVE = 3;
 
 	// Serial
 	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP; 
