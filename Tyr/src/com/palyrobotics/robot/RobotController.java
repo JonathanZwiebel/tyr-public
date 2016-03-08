@@ -65,7 +65,7 @@ public class RobotController extends IterativeRobot {
 	    	
 	    //Uses a SendableChooser to determine if an XBox is being used.
 	    chooser.addDefault("XBox", input.getXBox());
-	    chooser.addObject("Joysticks", null);
+	    chooser.addObject("Joysticks", 1);
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
 	    
@@ -111,7 +111,7 @@ public class RobotController extends IterativeRobot {
     	breacher.setMacroState(MacroBreacherState.TELEOP);
     	breacher.setMicroState(MicroBreacherState.IDLE);
     	
-    	if(chooser.getSelected().equals(null)) {
+    	if(chooser.getSelected().equals(1)) {
     		usingXBox = false;
     	}
     	
