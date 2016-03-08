@@ -61,13 +61,13 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		if(input.getShooterStick().getButton(Buttons.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.EXTEND);
 		}
-		else if(input.getShooterStick().getButton(Buttons.LOADING_ACUTATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
+		else if(input.getShooterStick().getButton(Buttons.LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.RETRACT);
 		}
-		if(input.getShooterStick().getButton(Buttons.LOCKING_ACUTATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+		if(input.getShooterStick().getButton(Buttons.LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.lockingActuatorController.setState(ShooterLockingActuatorState.LOCK);
 		}
-		else if(input.getShooterStick().getButton(Buttons.LOCKING_ACUTATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
+		else if(input.getShooterStick().getButton(Buttons.LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.lockingActuatorController.setState(ShooterLockingActuatorState.UNLOCK);
 		}
  		return false;

@@ -1,9 +1,7 @@
 package com.palyrobotics.xbox;
 
 import static com.palyrobotics.robot.Ports.*;
-import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
-import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
-import static com.palyrobotics.subsystem.shooter.ShooterConstants.*;
+import static com.palyrobotics.robot.Buttons.*;
 
 public class Converter {
 	
@@ -59,13 +57,13 @@ public class Converter {
 		leftStick.setButton(LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON, xbox.getRightBumper().isTriggered());
 		
 		//Maps y to the stop button of the right joystick
-		rightStick.setButton(STOP_BUTTON, xbox.getY().isTriggered());
+		rightStick.setButton(ACCUMULATOR_STOP_BUTTON, xbox.getY().isTriggered());
 		
 		//Maps x to the accumulator expel button of the right joystick
-		rightStick.setButton(EXPEL_BUTTON, xbox.getX().isTriggered());
+		rightStick.setButton(ACCUMULATOR_EXPEL_BUTTON, xbox.getX().isTriggered());
 		
 		//Maps the left bumper to the accumulator accumulate button of the right joystick
-		rightStick.setButton(ACCUMULATE_BUTTON, xbox.getLeftBumper().isTriggered());
+		rightStick.setButton(ACCUMULATOR_INTAKE_BUTTON, xbox.getLeftBumper().isTriggered());
 		
 		//Maps the right stick of the xbox to the right joystick
 		rightStick.setPitch(xbox.getRightY().read() * xbox.getRightY().read() * xbox.getRightY().read());
