@@ -116,9 +116,8 @@ public class BreacherController implements Requirable {
 	 * Stops the breacher from moving too far in either direction.
 	 */
 	public void update() {		
-		setMicroState(MicroBreacherState.IDLE);
 		
-		if((getMicroState() == MicroBreacherState.IDLE || getMicroState() == MicroBreacherState.JOYSTICK_CONTROL) && getMacroState() == MacroBreacherState.TELEOP) {
+		if((getMicroState() == MicroBreacherState.IDLE )) {
 			Strongback.submit(new JoystickControl(this, input));
 		}
 		

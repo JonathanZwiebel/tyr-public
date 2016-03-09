@@ -69,7 +69,7 @@ public class JoystickControl extends Command {
 		//Moves the breacher according to joystick input
 		else {
 			controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
-			return true;
+			return false;
 		}
 	}
 	

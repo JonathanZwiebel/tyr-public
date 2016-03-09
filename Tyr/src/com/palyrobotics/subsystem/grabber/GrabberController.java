@@ -30,6 +30,10 @@ public class GrabberController implements Requirable {
 	public void init(){
 		state = GrabberState.IDLE;
 		
+		if(RobotController.usingXBox()) {
+			Strongback.submit(new TeleopControl(this, robotInput));
+		}
+		
 		if(!RobotController.usingXBox()) {
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
@@ -38,11 +42,6 @@ public class GrabberController implements Requirable {
 	
 	public void update(){
 		state = GrabberState.TELEOP;
-		
-		if(RobotController.usingXBox()) {
-			Strongback.submit(new TeleopControl(this, robotInput));
-		}
-		
 	}
 
 	public GrabberSystems getOutput() {
