@@ -44,7 +44,7 @@ public class AccumulatorTeleop extends Command {
 		else {
 			controller.systems.getAccumulatorMotors().setSpeed(0.0);
 		}
-		return true;
+		return false;
 	}
 
 }
