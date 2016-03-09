@@ -4,6 +4,7 @@ import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
 import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterArmHoldCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterArmSetAngleCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterArmTeleopCommand;
 
@@ -21,6 +22,7 @@ public class ShooterArmController implements Requirable {
 		IDLE, // The default state for the shooter
 		TELEOP, // Standard teleop control
 		SET_ANGLE, // Using PID to set the angle
+		HOLD, // uisng PID to set the velocity to 0
 		DISABLED // Disabled
 	}
 	
@@ -55,6 +57,9 @@ public class ShooterArmController implements Requirable {
 		}
 		else if(state == ShooterArmState.SET_ANGLE) {
 			Strongback.submit(new ShooterArmSetAngleCommand(parent, args[0]));
+		}
+		else if(state == ShooterArmState.HOLD) {
+			Strongback.submit(new ShooterArmHoldCommand(parent));
 		}
 	}
 }

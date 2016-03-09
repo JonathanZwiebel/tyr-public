@@ -115,23 +115,8 @@ public class BreacherController implements Requirable {
 	 * 
 	 * Stops the breacher from moving too far in either direction.
 	 */
-	public void update() {
-		
-		if(input.getBreacherPotentiometer().getAngle() < MIN_POTENTIOMETER_ANGLE) {
-			setMicroState(MicroBreacherState.BOUNCING);
-			breacher.getMotor().setSpeed(BOUNCE_SPEED);
-		}
-		
-		else if(input.getBreacherPotentiometer().getAngle() > MAX_POTENTIOMETER_ANGLE) {
-			setMicroState(MicroBreacherState.BOUNCING);
-			breacher.getMotor().setSpeed(-BOUNCE_SPEED);
-		}
-		
-		else {
-			setMicroState(MicroBreacherState.IDLE);
-		}
-		
-		if((getMicroState() == MicroBreacherState.IDLE || getMicroState() == MicroBreacherState.JOYSTICK_CONTROL) && getMacroState() == MacroBreacherState.TELEOP) {
+	public void update() {		
+		if((getMicroState() == MicroBreacherState.IDLE )) {
 			Strongback.submit(new JoystickControl(this, input));
 		}
 		

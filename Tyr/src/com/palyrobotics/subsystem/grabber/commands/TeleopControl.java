@@ -19,8 +19,8 @@ public class TeleopControl extends Command {
 	@Override
 	public boolean execute() {
 		//Moves the grabber between 0.4(up) and 0.6(down) according to joystick input
-		grabber.getOutput().getServo().set(Math.max(0.4, 0.6 - input.getShooterStick().getYaw().read()));
-		return true;
+		grabber.getOutput().getServo().set(Math.max(0.4, 0.8 - input.getShooterStick().getYaw().read()));
+		return false;
 	}
 
 }

@@ -13,9 +13,9 @@ public class ShooterArmHoldCommand extends Command {
 	private double previousError;
 	private double previousAngle;
 	
-	public ShooterArmHoldCommand(ShooterController controller, InputSystems input) {
+	public ShooterArmHoldCommand(ShooterController controller) {
 		this.controller = controller;
-		this.input = input;
+		this.input = controller.input;
 	}
 
 	public void init() {
