@@ -25,8 +25,8 @@ public class Ports {
 	public static final int LEFT_BACK_TALON_DEVICE_ID = 3;
 	public static final int RIGHT_FRONT_TALON_DEVICE_ID = 2;
 	public static final int RIGHT_BACK_TALON_DEVICE_ID = 4;
-	public static final int SHOOTER_ARM_TALON_DEVICE_ID = 8;
-	public static final int BREACHER_TALON_DEVICE_ID = 5;
+	public static final int SHOOTER_ARM_TALON_DEVICE_ID = 7;
+	public static final int BREACHER_TALON_DEVICE_ID = 8;
 	
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
@@ -38,13 +38,13 @@ public class Ports {
 	public static final int SHOOTER_ARM_POTENTIOMETER_CHANNEL = 1;
 	
 	// Valve - Pneumatics Control Module
-	public static final int GEAR_ACTUATOR_EXTEND_VALVE = 7;
+	public static final int GEAR_ACTUATOR_EXTEND_VALVE = 1;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE = 0;
-	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 5;
-	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 2;
-	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 6;
-	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 1;
-	public static final int CAMERA_LIGHT_VALVE = 3;
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 4;
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 5;
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 2;
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 3;
+	public static final int CAMERA_LIGHT_VALVE = 6;
 
 	// Serial
 	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP;

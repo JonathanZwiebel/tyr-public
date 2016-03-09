@@ -35,12 +35,7 @@ public class ShooterArmTeleopCommand extends Command {
 		angle = controller.input.getShooterArmPotentiometer().getAngle();
 		pitch = controller.input.getShooterStick().getPitch().read();
 		
-		if((angle >= ShooterConstants.MAX_ARM_ANGLE && pitch > DEAD_PITCH) || (angle <= ShooterConstants.MIN_ARM_ANGLE && pitch < DEAD_PITCH)) {
-			motor.setSpeed(DEAD_SPEED);
-		}
-		else {
-			motor.setSpeed(pitch);
-		}
+		motor.setSpeed(pitch);
 		
 		return false;
 	}
