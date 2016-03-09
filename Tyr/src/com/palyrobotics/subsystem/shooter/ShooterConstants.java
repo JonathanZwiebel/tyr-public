@@ -38,15 +38,16 @@ public class ShooterConstants {
 	
 	/**
 	 * Proportion constant for PID loop
-	 * TODO: Calibrate this value
 	 */
-	public static final double ARM_kP = BLANK_DOUBLE;
+	public static final double ARM_kP = 0.01f;
 	
 	/**
 	 * Derivative constant for PID loop
-	 * TODO: Calibrate this value
 	 */
-	public static final double ARM_kD = BLANK_DOUBLE;
-	
+	public static final double ARM_kD = 0.01f;
+
+	/**
+	 * Maximum speed that the shooter arm will move in a set angle
+	 */
 	public static final double SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT = 0.4f;
 }
