@@ -1,6 +1,7 @@
 package com.palyrobotics.robot;
 
 import org.strongback.Strongback;
+import org.strongback.command.CommandGroup;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
@@ -8,11 +9,14 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MacroBreacherState;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
+import com.palyrobotics.subsystem.breacher.commands.LowerArm;
+import com.palyrobotics.subsystem.breacher.commands.RaiseArm;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveDistance;
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveTrainAuto;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
@@ -99,7 +103,13 @@ public class RobotController extends IterativeRobot {
     	
     	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
-    	Strongback.submit(new DriveTrainAuto(drivetrain));
+    	
+    	//Cheval de Frise
+		Strongback.submit(CommandGroup.runSequentially(new RaiseArm(breacher), new DriveDistance(drivetrain, -130, .4), new LowerArm(breacher), new DriveDistance(drivetrain, -50, .5)));
+
+    	
+    	//Low Bar
+    	//Strongback.submit(new DriveTrainAuto(drivetrain));
     }
     
     @Override
