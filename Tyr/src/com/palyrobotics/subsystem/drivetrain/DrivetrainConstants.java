@@ -31,6 +31,7 @@ public class DrivetrainConstants {
 
 	public static final double STANDARD_DRIVE_DISTANCE = 50.0;
 	public static final double STANDARD_TURN_ANGLE = 90.0;
-
-	public static final float ULTRASONIC_VOLTS_TO_INCHES = 0.1f;
+	
+	public static final float PRECISION_TURNING_SCALING_FACTOR = 0.3f;
+	public static final float THROTTLE_FORWARD_SCALING_FACTOR = 10.0f;
 }

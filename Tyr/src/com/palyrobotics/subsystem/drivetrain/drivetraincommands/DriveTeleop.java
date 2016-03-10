@@ -14,6 +14,15 @@ public class DriveTeleop extends Command {
 
 	/** The drivetrain controller reference of this driving command **/
 	private DrivetrainController drivetrain;
+	
+	/** 
+	 * Multiplicative scaling value for drivetrain speed
+	 */
+	private float scaling;
+	
+	/**
+	 * Maximum drivetrain speed
+	 */
 
 	/**
 	 * Initializes command with the given drivetrain controller reference
@@ -21,9 +30,10 @@ public class DriveTeleop extends Command {
 	 * @param drivetrain
 	 *            the drivetrain controller operated by this command
 	 */
-	public DriveTeleop(DrivetrainController drivetrain) {
+	public DriveTeleop(DrivetrainController drivetrain, float scaling) {
 		super(drivetrain);
 		this.drivetrain = drivetrain;
+		this.scaling = scaling;
 	}
 
 	/**
@@ -56,8 +66,8 @@ public class DriveTeleop extends Command {
 		double leftDiff = Math.max(Math.min(leftError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
 		double rightDiff = Math.max(Math.min(rightError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
 
-		drivetrain.getOutput().getLeftMotor().setSpeed(leftCurrentOutput + leftDiff);
-		drivetrain.getOutput().getRightMotor().setSpeed(rightCurrentOutput + rightDiff);
+		drivetrain.getOutput().getLeftMotor().setSpeed(scaling * (leftCurrentOutput + leftDiff));
+		drivetrain.getOutput().getRightMotor().setSpeed(scaling * (rightCurrentOutput + rightDiff));
 
 		return false;
 	}

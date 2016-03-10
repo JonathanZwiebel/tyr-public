@@ -42,22 +42,29 @@ public class DrivetrainController implements Requirable {
 	public void init() {
 		drivetrainState = DrivetrainState.IDLE;
 
-		reactor.onTriggered(input.getDriveStick().getTrigger(), () -> Strongback.submit(new ToggleGears(this)));
-		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_SHOOTER_ORIENTATION_BUTTON),
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_HIGH_GEAR_BUTTON),
+				() -> Strongback.submit(new HighGear(this)));
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_LOW_GEAR_BUTTON),
+				() -> Strongback.submit(new LowGear(this)));
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_FORWARD_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = 1.0);
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_BREACHER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = -1.0);
-		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_DRIVE_DISTANCE_BUTTON),
-				() -> Strongback.submit(new DriveDistance(this, STANDARD_DRIVE_DISTANCE)));
-		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_TURN_LEFT_BUTTON),
+		reactor.onTriggered(input.getTurnStick().getButton(Buttons.DRIVETRAIN_TURN_LEFT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_TURN_RIGHT_BUTTON),
+		reactor.onTriggered(input.getTurnStick().getButton(Buttons.DRIVETRAIN_TURN_RIGHT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
 	}
 
 	public void update() {
 		if (drivetrainState == DrivetrainState.IDLE) {
-			Strongback.submit(new DriveTeleop(this));
+			if(input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
+				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));
+			}
+			else if(input.getDriveStick().getButton(Buttons.DRIVETRAIN_THROTTLE_FORWARD_BUTTON).isTriggered()) {
+				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.THROTTLE_FORWARD_SCALING_FACTOR));
+			}
+			Strongback.submit(new DriveTeleop(this, 1.0f));
 		}
 	}
 
