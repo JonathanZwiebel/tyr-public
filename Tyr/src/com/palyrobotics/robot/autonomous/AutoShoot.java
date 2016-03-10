@@ -17,6 +17,7 @@ public class AutoShoot extends CommandGroup {
 		sequentially(
 				new GrabberMoveDownCommand(grabber),
 				new BreachLowBar(drivetrain),
+				new TurnAngle(drivetrain, 45),
 				simultaneously (
 						Command.create(1.5, () -> {
 							shooter.systems.getArmMotor().setSpeed(.3);
