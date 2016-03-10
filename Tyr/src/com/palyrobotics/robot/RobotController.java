@@ -2,6 +2,7 @@ package com.palyrobotics.robot;
 
 import org.strongback.Strongback;
 
+import com.palyrobotics.robot.autonomous.AutoShoot;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
@@ -98,6 +99,9 @@ public class RobotController extends IterativeRobot {
     	
     	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
+    	
+    	//Auto Shoot
+    	Strongback.submit(new AutoShoot(drivetrain, shooter));
     	
     	//Cheval de Frise
     	//Strongback.submit(new BreachChival(breacher, drivetrain));
