@@ -58,6 +58,10 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		if(controller.armController.state == ShooterArmState.IDLE) {
 			controller.armController.setState(ShooterArmState.TELEOP);
 		}
+		if(input.getShooterStick().getButton(Buttons.SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON).isTriggered()) {
+			controller.armController.setState(ShooterArmState.HOLD);
+		}
+		
 		if(input.getShooterStick().getButton(Buttons.LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.loadingActuatorController.setState(ShooterLoadingActuatorState.EXTEND);
 		}

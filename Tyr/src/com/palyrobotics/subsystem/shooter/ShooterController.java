@@ -3,6 +3,8 @@ package com.palyrobotics.subsystem.shooter;
 
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
+
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.shooter.commands.FullShooterFireCommand;
 import com.palyrobotics.subsystem.shooter.commands.FullShooterLoadCommand;
@@ -33,6 +35,7 @@ public class ShooterController implements Requirable {
 		TELEOP, // Standard teleop controls
 		FIRE, // A fire sequence that will go from loaded to fired
 		LOAD, // A loading sequence that will retract the arm and fill the loading actuator
+		HOLD,
 		DISABLED // The disabled state
 	}
 
@@ -57,7 +60,11 @@ public class ShooterController implements Requirable {
 	public void update() {
 		// Technically the setting of the shooter state should be completely delegated to the robotController
 		// TODO[Major]: Revise this by standardizing with the other command structures
-		if(state == ShooterState.IDLE) {
+		
+		if(state != ShooterState.HOLD && input.getShooterStick().getButton(Buttons.SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON).isTriggered()) {
+			setState(ShooterState.HOLD);
+		}
+		else if(state == ShooterState.IDLE) {
 			setState(ShooterState.TELEOP);
 		}
 		
