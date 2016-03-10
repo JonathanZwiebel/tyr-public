@@ -6,22 +6,27 @@ import org.strongback.command.CommandGroup;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.TurnAngle;
+import com.palyrobotics.subsystem.grabber.GrabberController;
+import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
-public class AutoShoot extends Command {
-	private DrivetrainController drivetrain;
-	private ShooterController shooter;
+public class AutoShoot extends CommandGroup {
 	
-	public AutoShoot(DrivetrainController drive, ShooterController shooter) {
-		this.drivetrain = drive;
-		this.shooter = shooter;
-	}
-
-	@Override
-	public boolean execute() {
-		Strongback.submit(CommandGroup.runSequentially(new BreachLowBar(drivetrain), new TurnAngle(drivetrain, 45), new ShooterLockingActuatorUnlockCommand(shooter)));
-		return true;
-	}
-
+	public AutoShoot(DrivetrainController drivetrain, ShooterController shooter, GrabberController grabber) {
+		sequentially(
+				new GrabberMoveDownCommand(grabber),
+				new BreachLowBar(drivetrain),
+				simultaneously (
+						Command.create(1.5, () -> {
+							shooter.systems.getArmMotor().setSpeed(.3);
+							
+						}),
+						sequentially(
+								Command.pause(1),
+								new ShooterLockingActuatorUnlockCommand(shooter)
+						)
+				)
+			);
+		}
 }
