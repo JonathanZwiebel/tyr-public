@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
@@ -27,7 +30,7 @@ public class ShooterLoadingActuatorExtendCommand extends Command {
 	@Override
 	public boolean execute() {				
 		piston.extend();
-		System.out.println("Loader Extend");
+		Logger.getLogger("Central").log(Level.INFO, "Loader Extend");
 		return true;
 	}
 	

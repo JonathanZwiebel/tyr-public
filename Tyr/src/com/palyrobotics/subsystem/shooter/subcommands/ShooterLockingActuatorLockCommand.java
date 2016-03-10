@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
@@ -29,7 +32,7 @@ public class ShooterLockingActuatorLockCommand extends Command {
 	@Override
 	public boolean execute() {
 		latch.extend();
-		System.out.println("Locking latch lock");
+		Logger.getLogger("Central").log(Level.INFO, "Locking latch lock");
 		return true;
 	}
 	

@@ -1,5 +1,11 @@
 package com.palyrobotics.robot;
 
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
@@ -96,6 +102,33 @@ public class RobotController extends IterativeRobot {
     	if(robotChooser.getSelected().equals("Deric")) {
     		setDericConstants();
     	}
+    	//Begin logging
+    	startLogging();
+    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
+    }
+    
+    /**
+     * Creates a new logger that operates program-wide.
+     * Sends output to both a file and to System.err.
+     * The logger is named "Central" should be used all over the program,
+     * and should be initialized through this static method.
+     * However, on any call of Logger.getLogger("Central") it will autoinitialize.
+     */
+    
+    private static Logger startLogging() {
+    	Logger logger = Logger.getLogger("Central");
+    	ConsoleHandler console;
+    	FileHandler file = null;
+    	console = new ConsoleHandler();
+    	logger.addHandler(console);
+    	try {
+    		file = new FileHandler("%t/records.log");
+    	} catch (SecurityException | IOException e) {
+    		logger.log(Level.WARNING, "Error in creating log file", e);
+    	}
+    	logger.addHandler(file);
+    	logger.setLevel(Level.ALL);
+    	return logger;
     }
     
     public static boolean usingXBox() {
@@ -145,13 +178,13 @@ public class RobotController extends IterativeRobot {
     	breacher.update();
     	grabber.update();
     	
-    	System.out.println("Left Encoder: " + input.getLeftDriveEncoder().getAngle());
-    	System.out.println("Right Encoder: " + input.getRightDriveEncoder().getAngle());
-    	
-    	System.out.println("Gyroscope: " + input.getGyroscope().getAngle());
-    	System.out.println("Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
-    	System.out.println("Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
-    	System.out.println("Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());    	
+    	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
+    	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
+
+    	Logger.getLogger("Central").log(Level.INFO, "Gyroscope: " + input.getGyroscope().getAngle());
+    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
+    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
+    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcontrollers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
@@ -35,7 +38,7 @@ public class ShooterLoadingActuatorController implements Requirable {
 	}
 	
 	public void update() {
-		System.out.println("Shooter Loading Actuator isRetracted: " + isRetracted);
+		Logger.getLogger("Central").log(Level.INFO, "Shooter Loading Actuator isRetracted: " + isRetracted);
 	}
 	
 	public void disable() {

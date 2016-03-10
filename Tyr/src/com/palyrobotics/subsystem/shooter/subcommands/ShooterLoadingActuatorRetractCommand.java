@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
@@ -28,7 +31,7 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	@Override
 	public boolean execute() {		
 		piston.retract();
-		System.out.println("Loading Retract");
+		Logger.getLogger("Central").log(Level.INFO, "Loading Retract");
 		return true;
 	}
 	

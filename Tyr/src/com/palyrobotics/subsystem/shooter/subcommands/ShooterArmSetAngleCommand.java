@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 import org.strongback.components.AngleSensor;
 
@@ -47,7 +50,7 @@ public class ShooterArmSetAngleCommand extends Command {
 		double error = targetAngle - angle;
 		double derivative = (error - previousError) / RobotConstants.UPDATES_PER_SECOND;
 
-		System.out.println("Angle: " + angle);
+		Logger.getLogger("Central").log(Level.INFO, "Angle: " + angle);
 		
 		if(Math.abs(error) < ShooterConstants.ARM_PROPORTIONAL_ME && Math.abs(derivative) < ShooterConstants.ARM_DERIVATIVE_ME) {
 			return true;
@@ -63,7 +66,7 @@ public class ShooterArmSetAngleCommand extends Command {
 	
 	@Override
 	public void interrupted() { 
-		System.out.println("ShooterSetArmAngleCommand interrupted");
+    	Logger.getLogger("Central").log(Level.WARNING, "ShooterSetArmAngleCommand interrupted");
 	}
 	
 	/**

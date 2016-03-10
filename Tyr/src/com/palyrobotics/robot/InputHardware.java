@@ -14,6 +14,10 @@ import com.palyrobotics.xbox.XBoxController;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.palyrobotics.robot.SensorConstants.*;
 
 public class InputHardware implements InputSystems {
@@ -119,7 +123,7 @@ public class InputHardware implements InputSystems {
 				
 				return displacements;  
 			} catch (Exception e) {  // malformatted string
-				System.out.println("SERIAL ERROR: Malformatted Data");
+		    	Logger.getLogger("Central").log(Level.WARNING, "SERIAL ERROR: Malformatted Data");
 				e.printStackTrace();
 				return null;
 			}
