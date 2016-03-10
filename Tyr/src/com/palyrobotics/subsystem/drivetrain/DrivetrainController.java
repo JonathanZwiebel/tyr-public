@@ -15,8 +15,8 @@ public class DrivetrainController implements Requirable {
 	private InputSystems input;
 	private DrivetrainSystems output;
 	private SwitchReactor reactor;
-
 	public enum DrivetrainState {
+		AUTO,
 		IDLE, 
 		DRIVING_TELEOP, 
 		DRIVING_DISTANCE, 

@@ -14,6 +14,7 @@ public class OriginalDriveDistance extends Command{
 	private double distance;
 	private double previousLeftError;
 	private double previousRightError;
+	private double speedLimit;
 	
 	public OriginalDriveDistance(DrivetrainController drivetrain, double distance) {
 		super(drivetrain);
@@ -21,6 +22,16 @@ public class OriginalDriveDistance extends Command{
 		this.distance = distance;
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
+		this.speedLimit = 0.5;
+	}
+	
+	public OriginalDriveDistance(DrivetrainController drivetrain, double distance, double speedLimit) {
+		super(drivetrain);
+		this.drivetrain = drivetrain;
+		this.distance = distance;
+		this.previousLeftError = distance;
+		this.previousRightError = distance;
+		this.speedLimit = speedLimit;
 	}
 	
 	/**
@@ -54,8 +65,8 @@ public class OriginalDriveDistance extends Command{
 		previousLeftError = leftError;
 
 		// Calculates target speed and limits it from -0.5 to 0.5
-		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
-		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
+		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, speedLimit), -speedLimit);
+		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, speedLimit), -speedLimit);
 		
 		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed);
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);

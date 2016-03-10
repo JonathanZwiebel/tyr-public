@@ -13,6 +13,7 @@ import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
+import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveTrainAuto;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
@@ -98,6 +99,7 @@ public class RobotController extends IterativeRobot {
     	
     	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
+    	Strongback.submit(new DriveTrainAuto(drivetrain));
     }
     
     @Override

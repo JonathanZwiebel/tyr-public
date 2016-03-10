@@ -14,6 +14,7 @@ public class DriveDistance extends Command {
 	private double previousRightError;
 	private double previousLeftError;
 	private double angleError;
+	private double speedLimit;
 
 	/**
 	 * Initiates the command, passing in the drivetrain for input and output and
@@ -26,6 +27,18 @@ public class DriveDistance extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
+		this.speedLimit = 0.5;
+	}
+	
+	 
+	public DriveDistance(DrivetrainController drivetrain, double distance, double speedLimit) {
+		super(drivetrain);
+		this.drivetrain = drivetrain;
+		this.distance = distance;
+		this.previousLeftError = distance;
+		this.previousRightError = distance;
+		this.angleError = 0.0;
+		this.speedLimit = speedLimit;
 	}
 
 	/**
@@ -49,8 +62,10 @@ public class DriveDistance extends Command {
 	public boolean execute() {
 		// Calculates error based on target distance and distance already
 		// traveled.
-
-		double leftError = distance - drivetrain.getInput().getLeftDriveEncoder().getAngle();
+		System.out.println("Left Encoder:" + drivetrain.getInput().getLeftDriveEncoder().getAngle());
+		System.out.println("Right Encoder:" + drivetrain.getInput().getRightDriveEncoder().getAngle());
+			//Left Encoder is RETURNING NEGATIVE VALUES: TODO CHECK THIS IN TYR
+		double leftError = distance - -drivetrain.getInput().getLeftDriveEncoder().getAngle();
 		double rightError = distance - drivetrain.getInput().getRightDriveEncoder().getAngle();
 
 		// Derivative computed using the 50 updates / second update rate and the
@@ -62,8 +77,8 @@ public class DriveDistance extends Command {
 		previousLeftError = leftError;
 
 		// Calculates target speed and limits it from -0.5 to 0.5
-		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
-		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
+		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, speedLimit), -speedLimit);
+		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, speedLimit), -speedLimit);
 
 		// Calculates angle error, trying to set it to 0.
 		angleError = 0 - drivetrain.getInput().getGyroscope().getAngle();
@@ -78,7 +93,8 @@ public class DriveDistance extends Command {
 
 		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed + leftAngleSpeed);
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed + rightAngleSpeed);
-
+		System.out.println("Left Error:" + leftError);
+		System.out.println("Right Error" + rightError);
 		// Stops the command if the robot is slowed down within a limit,
 		// signaling the arrival at the target.
 		if (leftDerivative == 0.0 && rightDerivative == 0.0 && Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR
