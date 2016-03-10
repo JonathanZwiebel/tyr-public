@@ -57,7 +57,12 @@ public class DrivetrainController implements Requirable {
 
 	public void update() {
 		if (drivetrainState == DrivetrainState.IDLE) {
-			Strongback.submit(new DriveTeleop(this));
+			if(input.getDriveStick().getButton(6).isTriggered()) {
+				Strongback.submit(new DriveTeleop(this, 1.0f));
+			}
+			else {
+				Strongback.submit(new DriveTeleop(this, 0.5f));
+			}
 		}
 	}
 

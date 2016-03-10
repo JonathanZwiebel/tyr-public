@@ -5,6 +5,8 @@ public class DrivetrainConstants {
 	
 	// The teleoperated orientation, with 1.0 meaning shooter forwards, and -1.0 meaning breacher forwards
 	public static double TELEOP_ORIENTATION = 1.0;
+	
+	public static final float PRECISION_SCALING = 0.5f;
 
 	// TODO: Assign PD values.
 	// PD values for driving distance
