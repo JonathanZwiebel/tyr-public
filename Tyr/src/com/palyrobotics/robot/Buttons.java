@@ -25,6 +25,6 @@ public class Buttons {
 	public static final int LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON = 5;
 	public static final int LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON = 4;
 	public static final int LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON = 6;
-	
-	
+	public static final int SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON = 7;
+	public static final int SHOOTER_ARM_CANCEL_OPEARTOR_STICK_BUTTON = 1;
 }
