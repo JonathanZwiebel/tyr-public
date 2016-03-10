@@ -19,6 +19,8 @@ public class XBox {
                 () -> joystick.getRawButton(1),//buttona
                 () -> joystick.getRawButton(2),//buttonb
                 () -> joystick.getRawButton(3),//buttonx
-                () -> joystick.getRawButton(4));//buttony
+                () -> joystick.getRawButton(4), //buttony
+                () -> joystick.getRawButton(9), //left stick
+                () -> joystick.getRawButton(10)); // right stick
 	}
 }

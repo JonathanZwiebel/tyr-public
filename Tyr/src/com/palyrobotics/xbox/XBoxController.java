@@ -29,6 +29,10 @@ public interface XBoxController extends InputDevice {
 	Switch getX();
 	
 	Switch getY();
+	
+	Switch getLeftStickPressed();
+	
+	Switch getRightStickPressed();
 
 	ContinuousRange getLeftX();
 
@@ -41,7 +45,8 @@ public interface XBoxController extends InputDevice {
 	//Overloaded method for creating an XBox. This differs from the other method in that the triggers are ContinuousRanges instead of Switches.
 	public static XBoxController create(IntToDoubleFunction axisToValue, IntToBooleanFunction buttonNumberToSwitch,
             IntToIntFunction padToValue, ContinuousRange leftX, ContinuousRange leftY, ContinuousRange rightX,
-            ContinuousRange rightY, ContinuousRange leftTrigger, ContinuousRange rightTrigger, Switch leftBumper, Switch rightBumper, Switch a, Switch b, Switch x, Switch y) {
+            ContinuousRange rightY, ContinuousRange leftTrigger, ContinuousRange rightTrigger, Switch leftBumper, Switch rightBumper, Switch a, Switch b, Switch x, Switch y,
+            Switch leftStickPressed, Switch rightStickPressed) {
         return new XBoxController() {
             @Override
             public ContinuousRange getAxis(int axis) {
@@ -129,6 +134,14 @@ public interface XBoxController extends InputDevice {
 			public Switch getRightTriggerSwitch() {
 				return null;
 			}
+			
+			public Switch getLeftStickPressed() {
+				return leftStickPressed;
+			}
+			
+			public Switch getRightStickPressed() {
+				return rightStickPressed;
+			}
             
         };
 	}
@@ -136,7 +149,8 @@ public interface XBoxController extends InputDevice {
 	//Overloaded method for creating an XBox. This differs from the other method in that the triggers are Switches instead of ContinuousRanges.
 	public static XBoxController create(IntToDoubleFunction axisToValue, IntToBooleanFunction buttonNumberToSwitch,
             IntToIntFunction padToValue, ContinuousRange leftX, ContinuousRange leftY, ContinuousRange rightX,
-            ContinuousRange rightY, Switch leftTrigger, Switch rightTrigger, Switch leftBumper, Switch rightBumper, Switch a, Switch b, Switch x, Switch y) {
+            ContinuousRange rightY, Switch leftTrigger, Switch rightTrigger, Switch leftBumper, Switch rightBumper, Switch a, Switch b, Switch x, Switch y,
+            Switch leftStickPressed, Switch rightStickPressed) {
         return new XBoxController() {
             @Override
             public ContinuousRange getAxis(int axis) {
@@ -223,6 +237,16 @@ public interface XBoxController extends InputDevice {
 			@Override
 			public Switch getRightTriggerSwitch() {
 				return rightTrigger;
+			}
+			
+			@Override
+			public Switch getLeftStickPressed() {
+				return leftStickPressed;
+			}
+			
+			@Override 
+			public Switch getRightStickPressed() {
+				return rightStickPressed;
 			}
             
         };
