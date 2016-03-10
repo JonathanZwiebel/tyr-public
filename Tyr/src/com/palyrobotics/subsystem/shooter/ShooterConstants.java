@@ -50,4 +50,9 @@ public class ShooterConstants {
 	 * Maximum speed that the shooter arm will move in a set angle
 	 */
 	public static final double SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT = 0.4f;
+	
+	/**
+	 * Scaling factor for teleop arm
+	 */
+	public static final double SHOOTER_ARM_TELEOP_SCALING_FACTOR = 0.4;
 }

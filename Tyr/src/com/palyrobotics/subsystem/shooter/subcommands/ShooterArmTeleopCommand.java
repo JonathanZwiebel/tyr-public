@@ -12,12 +12,8 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
  * @author Paly Robotics Programming Red Module
  */
 public class ShooterArmTeleopCommand extends Command {
-	private static final float DEAD_SPEED = 0.0f;
-	private static final float DEAD_PITCH = 0.0f;
-	
 	private ShooterController controller;
 	private Motor motor;
-	private double angle;
 	private double pitch;
 
 	public ShooterArmTeleopCommand(ShooterController controller) {
@@ -32,15 +28,9 @@ public class ShooterArmTeleopCommand extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		angle = controller.input.getShooterArmPotentiometer().getAngle();
 		pitch = controller.input.getShooterStick().getPitch().read();
 		
-		if((angle >= ShooterConstants.MAX_ARM_ANGLE && pitch > DEAD_PITCH) || (angle <= ShooterConstants.MIN_ARM_ANGLE && pitch < DEAD_PITCH)) {
-			motor.setSpeed(DEAD_SPEED);
-		}
-		else {
-			motor.setSpeed(pitch);
-		}
+		motor.setSpeed(pitch * ShooterConstants.SHOOTER_ARM_TELEOP_SCALING_FACTOR);
 		
 		return false;
 	}
