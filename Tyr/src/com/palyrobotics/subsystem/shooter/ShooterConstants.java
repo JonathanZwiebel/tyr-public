@@ -54,5 +54,5 @@ public class ShooterConstants {
 	/**
 	 * Scaling factor for teleop arm
 	 */
-	public static final double SHOOTER_ARM_TELEOP_SCALING_FACTOR = 0.4;
+	public static final double SHOOTER_ARM_TELEOP_SCALING_FACTOR = 0.6;
 }
