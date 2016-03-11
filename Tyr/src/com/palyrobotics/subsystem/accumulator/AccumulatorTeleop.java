@@ -36,10 +36,10 @@ public class AccumulatorTeleop extends Command {
 	@Override
 	public boolean execute() {
 		if(input.getSecondaryStick().getButton(Buttons.ACCUMULATOR_INTAKE_BUTTON).isTriggered()) {
-			controller.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
+			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
 		}
 		else if(input.getSecondaryStick().getButton(Buttons.ACCUMULATOR_EXPEL_BUTTON).isTriggered()){
-			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
+			controller.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
 		}
 		else {
 			controller.systems.getAccumulatorMotors().setSpeed(0.0);

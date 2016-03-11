@@ -54,9 +54,7 @@ public class Converter {
 		
 		//Maps the right bumper to the unlock actuator button of the left joystick
 		leftStick.setButton(LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON, xbox.getRightBumper().isTriggered());
-		
-		leftStick.setButton(SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON, xbox.getLeftStickPressed().isTriggered());
-		
+				
 		//Maps y to the stop button of the right joystick
 		rightStick.setButton(ACCUMULATOR_STOP_BUTTON, xbox.getY().isTriggered());
 		
@@ -65,6 +63,9 @@ public class Converter {
 		
 		//Maps the left bumper to the accumulator accumulate button of the right joystick
 		rightStick.setButton(ACCUMULATOR_INTAKE_BUTTON, xbox.getLeftBumper().isTriggered());
+		
+		leftStick.setButton(SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON, xbox.getLeftStickPressed().isTriggered());
+		rightStick.setButton(BREACHER_HOLD_BUTTON, xbox.getRightStickPressed().isTriggered());
 		
 		//Maps the right stick of the xbox to the right joystick
 		rightStick.setPitch(xbox.getRightY().read() * xbox.getRightY().read() * xbox.getRightY().read());

@@ -42,7 +42,7 @@ public class ExpelBall extends Command {
 	public boolean execute() {
 		// Runs the motors so they expel the ball for EXPEL_TIME seconds
 		if (System.currentTimeMillis() - begin < EXPEL_TIME) {
-			accumulatorController.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
+			accumulatorController.systems.getAccumulatorMotors().setSpeed(ACCUMULATOR_POWER);
 			return false;
 		}
 		return true;

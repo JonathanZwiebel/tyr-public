@@ -2,6 +2,7 @@ package com.palyrobotics.subsystem.breacher.commands;
 
 import org.strongback.command.Command;
 
+import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
@@ -44,7 +45,7 @@ public class JoystickControl extends Command {
 	public boolean execute() {
 		
 		//As long as there is no joystick input, keep the breacher arm in position.
-		if(Math.abs(input.getSecondaryStick().getPitch().read()) < 0.03) {
+		if(input.getSecondaryStick().getButton(Buttons.BREACHER_HOLD_BUTTON).isTriggered()) {
 			
 			error = idlePoint - input.getBreacherPotentiometer().getAngle();
 			

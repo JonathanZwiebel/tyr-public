@@ -40,10 +40,10 @@ public class Ports {
 	// Valve - Pneumatics Control Module
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE = 7;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE = 0;
-	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 5;
-	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 2;
-	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 6;
-	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 1;
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 2; //good
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 5; //good
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 1; 
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 6;
 	public static final int CAMERA_LIGHT_VALVE = 3;
 
 	// Serial

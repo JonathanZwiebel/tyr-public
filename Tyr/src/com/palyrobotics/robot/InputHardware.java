@@ -14,7 +14,6 @@ import com.palyrobotics.xbox.XBoxController;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
-import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 import static com.palyrobotics.robot.SensorConstants.*;
 
 public class InputHardware implements InputSystems {
