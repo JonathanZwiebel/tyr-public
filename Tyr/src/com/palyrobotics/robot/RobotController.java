@@ -95,9 +95,6 @@ public class RobotController extends IterativeRobot {
     	shooter.init();
     	breacher.init();
     	grabber.init();
-    	
-    	breacher.setMacroState(MacroBreacherState.AUTO);
-    	breacher.setMicroState(MicroBreacherState.IDLE);
     }
     
     @Override
