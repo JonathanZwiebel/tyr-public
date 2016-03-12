@@ -28,7 +28,7 @@ public class DrivetrainDisable extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		drivetrain.setDrivetrainState(DrivetrainState.DISABLED);
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		return true;

@@ -65,6 +65,8 @@ public class DriveDistance extends Command {
 		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
 		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
 
+		System.out.println("Left encoder: " + drivetrain.getInput().getLeftDriveEncoder().getAngle());
+		System.out.println("Right encoder: " + drivetrain.getInput().getRightDriveEncoder().getAngle());
 		// Calculates angle error, trying to set it to 0.
 		angleError = 0 - drivetrain.getInput().getGyroscope().getAngle();
 		double angleDerivative = -drivetrain.getInput().getGyroscope().getRate();
@@ -81,11 +83,13 @@ public class DriveDistance extends Command {
 
 		// Stops the command if the robot is slowed down within a limit,
 		// signaling the arrival at the target.
-		if (leftDerivative == 0.0 && rightDerivative == 0.0 && Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR
+		if (Math.abs(leftDerivative) < 0.3 && Math.abs(rightDerivative) < 0.3 && Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR
 				&& Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR) {
+			System.out.println("conditions met. ");
 			return true;
 		}
-		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
+		if (drivetrain.getInput().getDriveStick().getButton(10).isTriggered()) {
+			System.out.println("force out");
 			return true;
 		}
 		return false;
@@ -98,6 +102,7 @@ public class DriveDistance extends Command {
 	@Override
 	public void interrupted() {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		System.out.println("Drive distance interrupted. ");
 	}
 
 	/**

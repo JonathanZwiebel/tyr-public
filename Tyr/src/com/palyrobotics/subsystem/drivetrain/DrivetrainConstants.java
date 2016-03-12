@@ -8,15 +8,15 @@ public class DrivetrainConstants {
 
 	// TODO: Assign PD values.
 	// PD values for driving distance
-	public static final double RIGHT_P_VALUE = 0.09;
-	public static final double LEFT_P_VALUE = -0.1;
-	public static final double RIGHT_D_VALUE = 0.003;
-	public static final double LEFT_D_VALUE = -0.003;
+	public static final double RIGHT_P_VALUE = -0.09;
+	public static final double LEFT_P_VALUE = 0.1;
+	public static final double RIGHT_D_VALUE = -0.003;
+	public static final double LEFT_D_VALUE = 0.003;
 
 	// PD values for turning angle.
-	public static final double RIGHT_ANGLE_P_VALUE = 0.09;
+	public static final double RIGHT_ANGLE_P_VALUE = -0.09;
 	public static final double LEFT_ANGLE_P_VALUE = 0.1;
-	public static final double RIGHT_ANGLE_D_VALUE = 0.003;
+	public static final double RIGHT_ANGLE_D_VALUE = -0.003;
 	public static final double LEFT_ANGLE_D_VALUE = 0.003;
 
 	// PD values for shooter allign.

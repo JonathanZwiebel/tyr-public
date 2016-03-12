@@ -138,6 +138,7 @@ public class RobotController extends IterativeRobot {
     @Override
     public void autonomousInit() {
     	drivetrain.init();
+    	//Strongback.submit(new DriveDistance(drivetrain, 117.0));
     	accumulator.init();
     	shooter.init();
     	breacher.init();
@@ -246,5 +247,9 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC;
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_DERIC;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_DERIC;
+    }
+    	
+    @Override
+    public void disabledPeriodic() {
     }
 }
