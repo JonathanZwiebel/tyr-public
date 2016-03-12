@@ -13,7 +13,7 @@ public class JoystickControl extends Command {
 	private BreacherController controller;
 	
 	private InputSystems input;
-	
+	;
 	private double idlePoint;
 	
 	private double error;
@@ -44,6 +44,8 @@ public class JoystickControl extends Command {
 	 */
 	public boolean execute() {
 		
+		System.out.println("Breacher potentiometer: " + input.getBreacherPotentiometer().getAngle());
+		
 		//As long as there is no joystick input, keep the breacher arm in position.
 		if(input.getSecondaryStick().getButton(Buttons.BREACHER_HOLD_BUTTON).isTriggered()) {
 			
@@ -51,7 +53,8 @@ public class JoystickControl extends Command {
 			
 			current = input.getBreacherPotentiometer().getAngle();
 			
-			double derivative = (current - previous) * UPDATES_PER_SECOND;
+			//derivative is change in error
+			double derivative = (error - previous) * UPDATES_PER_SECOND;
 			
 			double speed = Math.max(Math.min((PROPORTIONAL * error + DERIVATIVE * derivative), 0.3), -0.3);
 			
@@ -62,7 +65,10 @@ public class JoystickControl extends Command {
 				controller.getBreacher().getMotor().setSpeed(speed);
 			}
 			
-			previous = current;
+			System.out.println("Speed: " + speed);
+			
+			//previous is the previous error
+			previous = error;
 			
 			return false;
 		}
@@ -70,6 +76,9 @@ public class JoystickControl extends Command {
 		//Moves the breacher according to joystick input
 		else {
 			controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
+			
+			//Set the idlepoint to the latest point
+			idlePoint = input.getBreacherPotentiometer().getAngle();
 			return false;
 		}
 	}

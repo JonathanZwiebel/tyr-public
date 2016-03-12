@@ -14,6 +14,7 @@ public class Converter {
 		/**
 		 * XBox Mappings
 		 * 
+		 * Right Joystick Button -> breacher hold button
 		 * Left XBox Joystick -> leftStick
 		 * Right XBox Joystick -> rightStick
 		 * Left Bumper -> accumulate ball
