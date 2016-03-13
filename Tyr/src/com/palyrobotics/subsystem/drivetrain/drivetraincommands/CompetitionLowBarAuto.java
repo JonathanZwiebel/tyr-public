@@ -7,7 +7,7 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 import static com.palyrobotics.robot.RobotConstants.*;
 
-public class DriveDistance extends Command {
+public class CompetitionLowBarAuto extends Command {
 
 	private DrivetrainController drivetrain;
 	private double distance;
@@ -15,22 +15,24 @@ public class DriveDistance extends Command {
 	private double previousRightError;
 	private double previousLeftError;
 	private double angleError;
+	private double startTime;
+	private double endTime;
 
 	/**
 	 * Initiates the command, passing in the drivetrain for input and output and
 	 * passing the target distance to travel.
 	 */
-	public DriveDistance(DrivetrainController drivetrain, double distance) {
+	public CompetitionLowBarAuto(DrivetrainController drivetrain, double distance) {
 		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.distance = distance;
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
-		this.speedLimit = 0.5;
+		this.speedLimit = 0.5; // Default speed limit
 	}
-	
-	public DriveDistance(DrivetrainController drivetrain, double distance, double speedLimit) {
+
+	public CompetitionLowBarAuto(DrivetrainController drivetrain, double distance, double speedLimit) {
 		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.distance = distance;
@@ -39,7 +41,6 @@ public class DriveDistance extends Command {
 		this.angleError = 0.0;
 		this.speedLimit = speedLimit;
 	}
-
 	/**
 	 * Called at the start of the command. Zeros the encoders as well as sets
 	 * the DrivetrainState to driving distance. It also sets the gyroscope to 0.
@@ -50,6 +51,7 @@ public class DriveDistance extends Command {
 		drivetrain.getInput().getLeftDriveEncoder().zero();
 		drivetrain.getInput().getRightDriveEncoder().zero();
 		drivetrain.getInput().getGyroscope().zero();
+		startTime = System.currentTimeMillis();
 	}
 
 	/**
@@ -89,8 +91,7 @@ public class DriveDistance extends Command {
 		// error is above the threshold.
 		double rightAngleSpeed = RIGHT_ANGLE_P_VALUE * angleError + RIGHT_ANGLE_D_VALUE * angleDerivative;
 		double leftAngleSpeed = LEFT_ANGLE_P_VALUE * angleError + LEFT_ANGLE_D_VALUE * angleDerivative;
-		System.out.println("Angle Error: " + angleError + " | Gyro Derivative: " + angleDerivative);
-		
+
 		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed + leftAngleSpeed);
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed + rightAngleSpeed);
 
@@ -101,8 +102,12 @@ public class DriveDistance extends Command {
 			System.out.println("conditions met. ");
 			return true;
 		}
-		if (drivetrain.getInput().getDriveStick().getButton(10).isTriggered()) {
+		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
 			System.out.println("force out");
+			return true;
+		}
+		endTime = System.currentTimeMillis();
+		if(endTime - startTime > 5000) {
 			return true;
 		}
 		return false;

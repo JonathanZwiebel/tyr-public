@@ -138,7 +138,6 @@ public class RobotController extends IterativeRobot {
     @Override
     public void autonomousInit() {
     	drivetrain.init();
-    	//Strongback.submit(new DriveDistance(drivetrain, 117.0));
     	accumulator.init();
     	shooter.init();
     	breacher.init();
@@ -168,7 +167,6 @@ public class RobotController extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
-    	
     	//If we are using an xbox, convert the input from the xbox to two mockjoysticks so that it can be used with all the commands
     	if(usingXBox) {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
