@@ -20,9 +20,9 @@ public class GrabberTeleop extends Command {
 	@Override
 	public boolean execute() {
 		grabber.getOutput().getRightServo().set(GrabberConstants.LOWER_POSITION_VOLTAGE
-				+ GrabberConstants.UPPER_POSITION_VOLTAGE * input.getShooterStick().getYaw().read());
-		grabber.getOutput().getLeftServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE
-				+ GrabberConstants.UPPER_POSITION_VOLTAGE * input.getShooterStick().getYaw().read());
+				+ GrabberConstants.TRIGGER_SCALING_FACTOR * input.getShooterStick().getYaw().read());
+		grabber.getOutput().getLeftServo().set(GrabberConstants.LOWER_POSITION_VOLTAGE
+				+ GrabberConstants.TRIGGER_SCALING_FACTOR * input.getShooterStick().getYaw().read());
 		return false;
 	}
 
