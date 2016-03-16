@@ -7,16 +7,17 @@ import com.palyrobotics.subsystem.grabber.GrabberController;
 
 public class GrabberMoveUpCommand extends Command{
 
-	private GrabberController controller;
+	private GrabberController grabber;
 	
-	public GrabberMoveUpCommand(GrabberController control) {
-		super(control);
-		this.controller = control;
+	public GrabberMoveUpCommand(GrabberController grabber) {
+		super(grabber);
+		this.grabber = grabber;
 	}
 	
 	@Override
 	public boolean execute() {
-		controller.getOutput().getServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE);
+		grabber.getOutput().getLeftServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE);
+		grabber.getOutput().getRightServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE);
 		return true;
 	}
 

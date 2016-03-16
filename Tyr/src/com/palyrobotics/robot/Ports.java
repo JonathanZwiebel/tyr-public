@@ -45,7 +45,8 @@ public class Ports {
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
 	public static final int ACCUMULATOR_RIGHT_VICTOR_CHANNEL = 1;
-	public static final int GRABBER_SERVO_VICTOR_CHANNEL = 2;
+	public static final int RIGHT_GRABBER_SERVO_VICTOR_CHANNEL = 2;
+	public static final int LEFT_GRABBER_SERVO_VICTOR_CHANNEL = 3;
 	
 	// Analog Output - roboRIO
 	public static final int BREACHER_POTENTIOMETER_CHANNEL = 0;

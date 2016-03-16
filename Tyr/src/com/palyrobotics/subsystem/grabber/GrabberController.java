@@ -7,7 +7,7 @@ import static com.palyrobotics.robot.Buttons.*;
 import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
-import com.palyrobotics.subsystem.grabber.commands.TeleopControl;
+import com.palyrobotics.subsystem.grabber.commands.GrabberTeleop;
 
 public class GrabberController implements Requirable {
 	private GrabberSystems output;
@@ -31,7 +31,7 @@ public class GrabberController implements Requirable {
 		state = GrabberState.IDLE;
 		
 		if(RobotController.usingXBox()) {
-			Strongback.submit(new TeleopControl(this, robotInput));
+			Strongback.submit(new GrabberTeleop(this, robotInput));
 		}
 		
 		if(!RobotController.usingXBox()) {
