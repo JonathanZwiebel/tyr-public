@@ -45,6 +45,7 @@ public class RobotController extends IterativeRobot {
 	private InputSystems input;
 	
 	private SendableChooser chooser;
+	private SendableChooser robotChooser;
 	
 	private static boolean usingXBox = true;
 	
@@ -62,10 +63,14 @@ public class RobotController extends IterativeRobot {
     	input = new InputHardware(); 
     	
     	chooser = new SendableChooser();
+    	robotChooser = new SendableChooser();
 	    	
 	    //Uses a SendableChooser to determine if an XBox is being used.
 	    chooser.addDefault("XBox", input.getXBox());
 	    chooser.addObject("Joysticks", 1);
+	    
+	    robotChooser.addDefault("Tyr", "Tyr");
+	    robotChooser.addObject("Deric", "Deric");
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
 	    
@@ -82,6 +87,14 @@ public class RobotController extends IterativeRobot {
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
+    	
+    	if(robotChooser.getSelected().equals("Tyr")) {
+    		setTyrConstants();
+    	}
+    	
+    	if(robotChooser.getSelected().equals("Deric")) {
+    		setDericConstants();
+    	}
     }
     
     public static boolean usingXBox() {
@@ -114,6 +127,10 @@ public class RobotController extends IterativeRobot {
     	
     	else {
     		usingXBox = true;
+    	}
+    	
+    	if(robotChooser.getSelected().equals("Tyr")) {
+    		
     	}
     }
 
@@ -155,5 +172,37 @@ public class RobotController extends IterativeRobot {
     	catch (Exception e) {
     		e.printStackTrace();
     	}
+    }
+    
+    public void setTyrConstants() {
+    	RobotConstants.NAME = "Tyr";
+    	Ports.LEFT_BACK_TALON_DEVICE_ID = Ports.LEFT_BACK_TALON_DEVICE_ID_TYR;
+    	Ports.LEFT_FRONT_TALON_DEVICE_ID = Ports.LEFT_FRONT_TALON_DEVICE_ID_TYR;
+    	Ports.RIGHT_BACK_TALON_DEVICE_ID = Ports.RIGHT_BACK_TALON_DEVICE_ID_TYR;
+    	Ports.RIGHT_FRONT_TALON_DEVICE_ID = Ports.RIGHT_FRONT_TALON_DEVICE_ID_TYR;
+    	Ports.SHOOTER_ARM_TALON_DEVICE_ID = Ports.SHOOTER_ARM_TALON_DEVICE_ID_TYR;
+    	Ports.BREACHER_TALON_DEVICE_ID = Ports.BREACHER_TALON_DEVICE_ID_TYR;
+    	Ports.GEAR_ACTUATOR_EXTEND_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_TYR;
+    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_TYR;
+    	Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR;
+    	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR;
+    	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR;
+    	Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE  = Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_TYR;
+    }
+    
+    public void setDericConstants() {
+    	RobotConstants.NAME = "Deric";	
+    	Ports.LEFT_BACK_TALON_DEVICE_ID = Ports.LEFT_BACK_TALON_DEVICE_ID_DERIC;
+    	Ports.LEFT_FRONT_TALON_DEVICE_ID = Ports.LEFT_FRONT_TALON_DEVICE_ID_DERIC;
+    	Ports.RIGHT_BACK_TALON_DEVICE_ID = Ports.RIGHT_BACK_TALON_DEVICE_ID_DERIC;
+    	Ports.RIGHT_FRONT_TALON_DEVICE_ID = Ports.RIGHT_FRONT_TALON_DEVICE_ID_DERIC;
+    	Ports.SHOOTER_ARM_TALON_DEVICE_ID = Ports.SHOOTER_ARM_TALON_DEVICE_ID_DERIC;
+    	Ports.BREACHER_TALON_DEVICE_ID = Ports.BREACHER_TALON_DEVICE_ID_DERIC;
+      	Ports.GEAR_ACTUATOR_EXTEND_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_DERIC;
+    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_DERIC;
+    	Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC;
+    	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC;
+    	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC;
+    	Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE  = Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC;
     }
 }

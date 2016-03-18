@@ -21,12 +21,26 @@ public class Ports {
 	public static final Port GYROSCOPE_PORT = Port.kOnboardCS0;
 	
 	// Device ID - Controller Area Network
-	public static final int LEFT_FRONT_TALON_DEVICE_ID = 1;
-	public static final int LEFT_BACK_TALON_DEVICE_ID = 3;
-	public static final int RIGHT_FRONT_TALON_DEVICE_ID = 2;
-	public static final int RIGHT_BACK_TALON_DEVICE_ID = 4;
-	public static final int SHOOTER_ARM_TALON_DEVICE_ID = 8;
-	public static final int BREACHER_TALON_DEVICE_ID = 5;
+	public static int LEFT_FRONT_TALON_DEVICE_ID;
+	public static int LEFT_BACK_TALON_DEVICE_ID;
+	public static int RIGHT_FRONT_TALON_DEVICE_ID;
+	public static int RIGHT_BACK_TALON_DEVICE_ID;
+	public static int SHOOTER_ARM_TALON_DEVICE_ID;
+	public static int BREACHER_TALON_DEVICE_ID;
+	
+	public static final int LEFT_FRONT_TALON_DEVICE_ID_TYR = 1;
+	public static final int LEFT_BACK_TALON_DEVICE_ID_TYR = 3;
+	public static final int RIGHT_FRONT_TALON_DEVICE_ID_TYR = 2;
+	public static final int RIGHT_BACK_TALON_DEVICE_ID_TYR = 4;
+	public static final int SHOOTER_ARM_TALON_DEVICE_ID_TYR = 8;
+	public static final int BREACHER_TALON_DEVICE_ID_TYR = 5;	
+	
+	public static final int LEFT_FRONT_TALON_DEVICE_ID_DERIC = 1;
+	public static final int LEFT_BACK_TALON_DEVICE_ID_DERIC = 3;
+	public static final int RIGHT_FRONT_TALON_DEVICE_ID_DERIC = 2;
+	public static final int RIGHT_BACK_TALON_DEVICE_ID_DERIC = 4;
+	public static final int SHOOTER_ARM_TALON_DEVICE_ID_DERIC = 7;
+	public static final int BREACHER_TALON_DEVICE_ID_DERIC = 8;
 	
 	// Pulse Width Modulation - roboRIO
 	public static final int ACCUMULATOR_LEFT_VICTOR_CHANNEL = 0;
@@ -38,14 +52,27 @@ public class Ports {
 	public static final int SHOOTER_ARM_POTENTIOMETER_CHANNEL = 1;
 	
 	// Valve - Pneumatics Control Module
-	public static final int GEAR_ACTUATOR_EXTEND_VALVE = 7;
-	public static final int GEAR_ACTUATOR_RETRACT_VALVE = 0;
-	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = 2; //good
-	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = 5; //good
-	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = 1; 
-	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE = 6;
-	public static final int CAMERA_LIGHT_VALVE = 3;
+	public static int GEAR_ACTUATOR_EXTEND_VALVE;
+	public static int GEAR_ACTUATOR_RETRACT_VALVE;
+	public static int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE;
+	public static int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE;
+	public static int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE; 
+	public static int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE;
+	
+	public static final int GEAR_ACTUATOR_EXTEND_VALVE_TYR = 7;
+	public static final int GEAR_ACTUATOR_RETRACT_VALVE_TYR = 0;
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR = 2;
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR = 5;
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR = 1; 
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_TYR = 6;
 
+	public static final int GEAR_ACTUATOR_EXTEND_VALVE_DERIC = 0;
+	public static final int GEAR_ACTUATOR_RETRACT_VALVE_DERIC = 1;
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC = 4;
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC = 5;
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC = 2; 
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC = 3;
+	
 	// Serial
 	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP;
 }

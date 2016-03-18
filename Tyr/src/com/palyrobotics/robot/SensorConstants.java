@@ -1,7 +1,7 @@
 package com.palyrobotics.robot;
 
 public class SensorConstants {
-	//Temporarily set to one to allow deploying and callibration
+	//Temporarily set to one to allow deploying and calibration
 	public static final float BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = 1;
 	public static final float BREACHER_POTENTIOMETER_DEGREE_OFFSET = 1;
 	

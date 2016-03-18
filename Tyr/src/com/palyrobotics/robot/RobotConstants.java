@@ -1,7 +1,7 @@
 package com.palyrobotics.robot;
 
 public class RobotConstants {
-	public final static String NAME = "Tyr";
+	public static String NAME;
 	public final static float LENGTH_INCHES = 32.0f;
 	public final static float WIDTH_INCHES = 20.0f;
 	
