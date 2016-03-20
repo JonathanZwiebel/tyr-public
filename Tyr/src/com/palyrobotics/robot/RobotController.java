@@ -7,7 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
+import org.strongback.hardware.Hardware;
 
+import static com.palyrobotics.robot.SensorConstants.*;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
@@ -16,6 +18,7 @@ import com.palyrobotics.subsystem.breacher.BreacherController.MacroBreacherState
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
+import com.palyrobotics.subsystem.breacher.commands.CalibrateBreacher;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
@@ -29,6 +32,8 @@ import com.palyrobotics.xbox.Converter;
 import com.palyrobotics.xbox.MockFlightStick;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -50,10 +55,14 @@ public class RobotController extends IterativeRobot {
 	
 	private InputSystems input;
 	
+	private Preferences prefs;
+	
 	private SendableChooser chooser;
 	private SendableChooser robotChooser;
 	
 	private static boolean usingXBox = true;
+	
+	public static float breacherOffset;
 	
     @Override
     public void robotInit() {
@@ -79,7 +88,7 @@ public class RobotController extends IterativeRobot {
 	    robotChooser.addObject("Deric", "Deric");
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
-	    SmartDashboard.putData("Robot Chooer", robotChooser);
+	    SmartDashboard.putData("Robot Chooser", robotChooser);
 	    
 	    if(robotChooser.getSelected().equals("Tyr")) {
     		setTyrConstants();
@@ -88,6 +97,23 @@ public class RobotController extends IterativeRobot {
     	if(robotChooser.getSelected().equals("Deric")) {
     		setDericConstants();
     	}
+	    
+	    SmartDashboard.putString("label", "Shooter Potentiometer");
+	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
+	    
+	    SmartDashboard.putString("label", "Breacher Potentiometer");
+	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
+	  
+	    SmartDashboard.putData("Calibrate Breacher", new CalibrateBreacher(SmartDashboard.getNumber("Breacher Potentiometer")));
+	    
+	    SmartDashboard.putString("label", "Compressor status");
+	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
+	    
+	    SmartDashboard.putString("label", "Left Encoder");
+	    SmartDashboard.putNumber("Left Encoder", input.getLeftDriveEncoder().getAngle());
+	    
+	    SmartDashboard.putString("label", "Right Encoder");
+	    SmartDashboard.putNumber("Right Encoder", input.getRightDriveEncoder().getAngle());
 	    
 	    //Hardware system
     	accumulatorSystems = new AccumulatorHardware();
@@ -102,7 +128,6 @@ public class RobotController extends IterativeRobot {
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
-    	
     	
     	//Begin logging
     	startLogging();

@@ -7,8 +7,9 @@ public class Buttons {
 	public static final int ACCUMULATOR_STOP_BUTTON = 6;
 	public static final int BREACHER_CANCEL_BUTTON = 10;
 	public static final int BREACHER_RAISE_BUTTON = 1;
-	public static final int BREACHER_HOLD_BUTTON = 12;
+	public static final int BREACHER_HOLD_BUTTON = 9;
 	public static final int BREACHER_LOWER_BUTTON = 2;
+	public static final int BREACHER_CALIBRATE_BUTTON = 8;
 	public static final int GRABBER_UP_BUTTON = 11;
 	public static final int GRABBER_DOWN_BUTTON = 12;
 	
