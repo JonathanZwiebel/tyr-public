@@ -40,6 +40,10 @@ public class GrabberController implements Requirable {
 		}
 	}
 	
+	public GrabberState getGrabberState() {
+		return state;
+	}
+	
 	public void update(){
 		state = GrabberState.TELEOP;
 	}

@@ -11,6 +11,7 @@ import org.strongback.hardware.Hardware;
 
 import static com.palyrobotics.robot.SensorConstants.*;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
+import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
@@ -19,13 +20,20 @@ import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.breacher.commands.CalibrateBreacher;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainConstants;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
+import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 import com.palyrobotics.subsystem.shooter.ShooterController;
+import com.palyrobotics.subsystem.shooter.ShooterController.ShooterState;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
+import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 import com.palyrobotics.subsystem.grabber.GrabberController;
+import com.palyrobotics.subsystem.grabber.GrabberController.GrabberState;
 import com.palyrobotics.subsystem.grabber.GrabberHardware;
 import com.palyrobotics.subsystem.grabber.GrabberSystems;
 import com.palyrobotics.xbox.Converter;
@@ -55,14 +63,10 @@ public class RobotController extends IterativeRobot {
 	
 	private InputSystems input;
 	
-	private Preferences prefs;
-	
 	private SendableChooser chooser;
 	private SendableChooser robotChooser;
 	
 	private static boolean usingXBox = true;
-	
-	public static float breacherOffset;
 	
     @Override
     public void robotInit() {
@@ -79,8 +83,8 @@ public class RobotController extends IterativeRobot {
     	
     	chooser = new SendableChooser();
     	robotChooser = new SendableChooser();
-	    	
-	    //Uses a SendableChooser to determine if an XBox is being used.
+	   
+    	//Uses a SendableChooser to determine if an XBox is being used.
 	    chooser.addDefault("XBox", input.getXBox());
 	    chooser.addObject("Joysticks", 1);
 	    
@@ -97,23 +101,6 @@ public class RobotController extends IterativeRobot {
     	if(robotChooser.getSelected().equals("Deric")) {
     		setDericConstants();
     	}
-	    
-	    SmartDashboard.putString("label", "Shooter Potentiometer");
-	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
-	    
-	    SmartDashboard.putString("label", "Breacher Potentiometer");
-	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
-	  
-	    SmartDashboard.putData("Calibrate Breacher", new CalibrateBreacher(SmartDashboard.getNumber("Breacher Potentiometer")));
-	    
-	    SmartDashboard.putString("label", "Compressor status");
-	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
-	    
-	    SmartDashboard.putString("label", "Left Encoder");
-	    SmartDashboard.putNumber("Left Encoder", input.getLeftDriveEncoder().getAngle());
-	    
-	    SmartDashboard.putString("label", "Right Encoder");
-	    SmartDashboard.putNumber("Right Encoder", input.getRightDriveEncoder().getAngle());
 	    
 	    //Hardware system
     	accumulatorSystems = new AccumulatorHardware();
@@ -199,6 +186,8 @@ public class RobotController extends IterativeRobot {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
     	}
     	
+    	updateDashboard();
+    	
     	drivetrain.update();
     	accumulator.update();
     	shooter.update();
@@ -277,5 +266,199 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
+    public void updateDashboard() {
+    	DrivetrainState driveState = drivetrain.getDrivetrainState();
+    	AccumulatorState accumulatorState = accumulator.getState();
+    	BreacherState breacherState = breacher.getBreacherState();
+    	GrabberState grabberState = grabber.getGrabberState();
+    	ShooterState shooterControllerState = shooter.getState();
+    	ShooterArmState shooterArmState = shooter.armController.state;
+    	ShooterLoadingActuatorState shooterLoadingActuatorState = shooter.loadingActuatorController.state;
+    	ShooterLockingActuatorState shooterLockingActuatorState = shooter.lockingActuatorController.state;
+    	
+ 	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
+ 	    
+ 	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
+ 	  
+ 	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
+ 	    
+ 	    SmartDashboard.putNumber("Left Encoder", input.getLeftDriveEncoder().getAngle());
+ 	    
+ 	    SmartDashboard.putNumber("Right Encoder", input.getRightDriveEncoder().getAngle());
+ 	    
+ 	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
+ 	    
+ 	    SmartDashboard.putNumber("Grabber", grabberSystems.getServo().get());
+ 	    
+ 	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
+ 	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");
+ 	    }
+ 	    
+ 	    else {
+ 	    	SmartDashboard.putString("Drivetrain Orientation", "Breacher Forward");
+ 	    }
+ 	    
+ 	    if(drivetrain.getOutput().getSolenoid().isRetracting()) {
+ 	    	SmartDashboard.putString("Drivetrain Gear", "Low Gear");
+ 	    }
+ 	    
+ 	    else {
+ 	    	SmartDashboard.putString("Drivetrain Gear", "High Gear");
+ 	    }
+ 	    
+ 	    switch(grabberState) {
+			case IDLE:
+				SmartDashboard.putString("Grabber State", "Idle");
+				break;
+			case TELEOP:
+				SmartDashboard.putString("Grabber State", "Teleop");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(breacherState) {
+			case BOUNCING:
+				SmartDashboard.putString("Breacher State", "Bouncing");
+				break;
+			case CLOSING:
+				SmartDashboard.putString("Breacher State", "Closing");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Breacher State", "Idle");
+				break;
+			case JOYSTICK_CONTROL:
+				SmartDashboard.putString("Breacher State", "Teleop");
+				break;
+			case OPENING:
+				SmartDashboard.putString("Breacher State", "Opening");
+				break;
+			case SETTING_ANGLE:
+				SmartDashboard.putString("Breacher State", "Setting Angle");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(accumulatorState) {
+			case ACCUMULATING:
+				SmartDashboard.putString("Accumulator State", "Accumulating");
+				break;
+			case EJECTING:
+				SmartDashboard.putString("Accumulator State", "Ejecting");
+				break;
+			case HOLDING:
+				SmartDashboard.putString("Accumulator State", "Holding");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Accumulator State", "Idle");
+				break;
+			case RELEASING:
+				SmartDashboard.putString("Accumulator State", "Releasing");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(driveState) {
+			case DISABLED:
+				SmartDashboard.putString("Drivetrain State", "Disabled");
+				break;
+			case DRIVING_DISTANCE:
+				SmartDashboard.putString("Drivetrain State", "Driving Distance");
+				break;
+			case DRIVING_TELEOP:
+				SmartDashboard.putString("Drivetrain State", "Driving Teleop");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Drivetrain State", "Idle");
+				break;
+			case SHOOTER_ALIGN:
+				SmartDashboard.putString("Drivetrain State", "Shooter Align");
+				break;
+			case TURNING_ANGLE:
+				SmartDashboard.putString("Drivetrain State", "Turning Angle");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(shooterControllerState) {
+			case DISABLED:
+				SmartDashboard.putString("Shooter Controller State", "Disabled");
+				break;
+			case FIRE:
+				SmartDashboard.putString("Shooter Controller State", "Fire");
+				break;
+			case HOLD:
+				SmartDashboard.putString("Shooter Controller State", "Hold");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Shooter Controller State", "Idle");
+				break;
+			case LOAD:
+				SmartDashboard.putString("Shooter Controller State", "Load");
+				break;
+			case TELEOP:
+				SmartDashboard.putString("Shooter Controller State", "Teleop");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(shooterArmState) {
+			case DISABLED:
+				SmartDashboard.putString("Shooter Arm State", "Disabled");
+				break;
+			case HOLD:
+				SmartDashboard.putString("Shooter Arm State", "Hold");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Shooter Arm State", "Idle");
+				break;
+			case SET_ANGLE:
+				SmartDashboard.putString("Shooter Arm State", "Set Angle");
+				break;
+			case TELEOP:
+				SmartDashboard.putString("Shooter Arm State", "Teleop");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(shooterLoadingActuatorState) {
+			case DISABLED:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Disabled");
+				break;
+			case EXTEND:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Extend");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Idle");
+				break;
+			case RETRACT:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Retract");
+				break;
+			default:
+				break;
+ 	    }
+ 	    
+ 	    switch(shooterLockingActuatorState) {
+			case DISABLED:
+				SmartDashboard.putString("Shooter Locking Actuator State", "Disabled");
+				break;
+			case IDLE:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Idle");
+				break;
+			case LOCK:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Lock");
+				break;
+			case UNLOCK:
+				SmartDashboard.putString("Shooter Loading Actuator State", "Unlock");
+				break;
+			default:
+				break;
+ 	    }
+>>>>>>> 8844f1f... Implemented all states, sensor values, drivetrain gear, and teleop orientation
     }
 }
