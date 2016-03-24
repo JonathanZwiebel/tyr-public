@@ -15,6 +15,8 @@ import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.shooter.*;
 
 import hardware.*;
+import hardware.mocks.MockContinuousRange;
+import hardware.subsystems.MockShooterHardware;
 import rules.Repeat;
 import rules.RepeatRule;
 import suites.NonConstant;

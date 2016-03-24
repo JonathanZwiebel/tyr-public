@@ -11,8 +11,8 @@ import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.breacher.commands.LowerArmAuto;
 
-import hardware.MockBreacherHardware;
 import hardware.MockRobotInput;
+import hardware.subsystems.MockBreacherHardware;
 
 public class TestLowerArmAuto {
 	private LowerArmAuto lower;

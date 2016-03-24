@@ -9,8 +9,9 @@ import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.accumulator.StopAccumulator;
-import hardware.MockAccumulatorHardware;
+
 import hardware.MockRobotInput;
+import hardware.subsystems.MockAccumulatorHardware;
 
 public class StopAccumulatorTest {
 	

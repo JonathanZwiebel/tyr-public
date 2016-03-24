@@ -1,4 +1,4 @@
-package hardware;
+package hardware.subsystems;
 
 import org.strongback.components.Motor;
 import org.strongback.mock.Mock;

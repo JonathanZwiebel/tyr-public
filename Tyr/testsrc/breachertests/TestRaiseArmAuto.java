@@ -12,8 +12,8 @@ import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.breacher.commands.RaiseArmAuto;
 
-import hardware.MockBreacherHardware;
 import hardware.MockRobotInput;
+import hardware.subsystems.MockBreacherHardware;
 
 public class TestRaiseArmAuto {
 	private RaiseArmAuto raise;

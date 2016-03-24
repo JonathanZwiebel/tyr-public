@@ -12,8 +12,9 @@ import org.strongback.mock.MockAngleSensor;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
-import hardware.MockBreacherHardware;
+
 import hardware.MockRobotInput;
+import hardware.subsystems.MockBreacherHardware;
 
 public class TestBounce {
 	private Motor motor;

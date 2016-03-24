@@ -12,8 +12,8 @@ import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.breacher.commands.SetBreacherAngle;
 
-import hardware.MockBreacherHardware;
 import hardware.MockRobotInput;
+import hardware.subsystems.MockBreacherHardware;
 
 public class TestSetBreacherAngle {
 	private SetBreacherAngle set;

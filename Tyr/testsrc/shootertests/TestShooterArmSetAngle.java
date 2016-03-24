@@ -18,7 +18,7 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
 
 import hardware.MockRobotInput;
-import hardware.MockShooterHardware;
+import hardware.subsystems.MockShooterHardware;
 import suites.NonConstant;
 
 @Category(NonConstant.class)

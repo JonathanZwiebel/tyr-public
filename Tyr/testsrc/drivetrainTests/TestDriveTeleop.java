@@ -16,9 +16,9 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainStat
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.DriveTeleop;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
-import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
-import hardware.MockFlightStick;
+import hardware.mocks.MockFlightStick;
+import hardware.subsystems.MockDrivetrainHardware;
 
 public class TestDriveTeleop {
 	

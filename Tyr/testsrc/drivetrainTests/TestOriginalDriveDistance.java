@@ -23,8 +23,8 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
 import static com.palyrobotics.robot.RobotConstants.*;
 
-import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
+import hardware.subsystems.MockDrivetrainHardware;
 
 public class TestOriginalDriveDistance {
 

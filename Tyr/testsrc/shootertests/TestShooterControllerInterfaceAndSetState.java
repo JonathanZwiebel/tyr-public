@@ -21,7 +21,7 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorC
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
 import hardware.MockRobotInput;
-import hardware.MockShooterHardware;
+import hardware.subsystems.MockShooterHardware;
 import rules.RepeatRule;
 import suites.NonConstant;
 

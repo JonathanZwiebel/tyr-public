@@ -14,12 +14,16 @@ import org.strongback.mock.MockThreeAxisAccelerometer;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.xbox.XBoxController;
 
+import hardware.mocks.MockFlightStick;
+import hardware.mocks.MockXBoxController;
+
 //None of the modules should modify this class
 public class MockRobotInput implements InputSystems {
 	public final MockFlightStick driveStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick turnStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick shooterStick = new MockFlightStick(0,0,0,0, 0, 0);
 	public final MockFlightStick secondaryStick = new MockFlightStick(0,0,0,0, 0, 0);
+	public final MockXBoxController xbox = new MockXBoxController(0, 0, 0, 0, 0, 0, 0, 0);
 	
 	public final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
 	public final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
@@ -30,7 +34,7 @@ public class MockRobotInput implements InputSystems {
 	
 	public final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
-	
+		
 	public final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
 	public final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
 	public final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
@@ -82,7 +86,7 @@ public class MockRobotInput implements InputSystems {
 	
 	@Override
 	public XBoxController getXBox() {
-		return null;
+		return xbox;
 	}
 	
 	@Override

@@ -16,8 +16,8 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainStat
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.TurnAngle;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
-import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
+import hardware.subsystems.MockDrivetrainHardware;
 
 public class TestTurnAngle {
 	private InputSystems input;

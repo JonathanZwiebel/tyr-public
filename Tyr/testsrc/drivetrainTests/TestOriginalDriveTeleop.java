@@ -17,12 +17,13 @@ import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
-import hardware.MockFlightStick;
+
 import static org.hamcrest.CoreMatchers.*;
 import static com.palyrobotics.robot.RobotConstants.*;
 
-import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
+import hardware.mocks.MockFlightStick;
+import hardware.subsystems.MockDrivetrainHardware;
 
 public class TestOriginalDriveTeleop {
 	

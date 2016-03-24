@@ -1,4 +1,4 @@
-package hardware;
+package hardware.subsystems;
 
 import org.strongback.components.Solenoid;
 import org.strongback.components.TalonSRX;

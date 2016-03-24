@@ -1,4 +1,4 @@
-package hardware;
+package hardware.mocks;
 
 import org.strongback.components.ui.ContinuousRange;
 
