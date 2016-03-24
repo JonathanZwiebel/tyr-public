@@ -3,7 +3,6 @@ package hardware;
 import org.strongback.components.AngleSensor;
 import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
-import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.mock.Mock;
 import org.strongback.mock.MockAngleSensor;
@@ -32,12 +31,11 @@ public class MockRobotInput implements InputSystems {
 	public final MockAngleSensor accumulatorPotentiometer = Mock.angleSensor();
 	public final MockSwitch accumulatorLimitSensor = Mock.notTriggeredSwitch(); // not yet determined if switch or digital HFX
 	
-	public final ContinuousRange visionInput = null;
 	public final MockAngleSensor shooterArmAngleSensor = Mock.angleSensor();
 	public final MockSwitch shooterLoadingActuatorRetractedLimitSensor = Mock.notTriggeredSwitch();
 	public final MockSwitch shooterLockingActuatorLockedLimitSensor = Mock.notTriggeredSwitch();
 	
-	public static final MockAngleSensor breacherPotentiometer = Mock.angleSensor();
+	public final MockAngleSensor breacherPotentiometer = Mock.angleSensor();
 
 	@Override
 	public FlightStick getDriveStick() {
@@ -52,44 +50,49 @@ public class MockRobotInput implements InputSystems {
 	public AngleSensor getLeftDriveEncoder() {
 		return leftDriveEncoder;
 	}
+	
 	@Override
 	public AngleSensor getRightDriveEncoder() {
 		return rightDriveEncoder;
 	}
+	
 	@Override
 	public Gyroscope getGyroscope() {
 		return gyroscope;
 	}
+	
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
 		return accelerometer;
 	}
+	
 	public AngleSensor getBreacherPotentiometer() {
 		return breacherPotentiometer;
 	}
+	
 	@Override
 	public FlightStick getShooterStick() {
 		return shooterStick;
 	}
+	
 	@Override
 	public FlightStick getSecondaryStick() {
 		return secondaryStick;
 	}
+	
 	@Override
 	public XBoxController getXBox() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public AngleSensor getShooterArmPotentiometer() {
-		// TODO Auto-generated method stub
-		return null;
+		return shooterArmAngleSensor;
 	}
+	
 	@Override
 	public int[] getShooterDisplacement() {
-		// TODO Auto-generated method stub
-		return null;
+		int[] a = {0,0};
+		return a;
 	}
-
-	// vision to be added later
 }

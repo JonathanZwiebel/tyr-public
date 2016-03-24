@@ -9,8 +9,10 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 public class MockAccumulatorHardware implements AccumulatorSystems {
 	private MockMotor leftMotor = Mock.stoppedMotor();
 	private MockMotor rightMotor = Mock.stoppedMotor();
-	//TODO: may need to be the other way around depending on hardware.
 	private Motor accumulatorMotors = Motor.compose(leftMotor.invert(), rightMotor);
+	public void setMotor(Motor motor) {
+		this.accumulatorMotors = motor;
+	}
 	@Override
 	public Motor getAccumulatorMotors() {
 		return accumulatorMotors;
