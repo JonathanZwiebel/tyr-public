@@ -81,6 +81,14 @@ public class RobotController extends IterativeRobot {
 	    SmartDashboard.putData("Control Scheme", chooser);
 	    SmartDashboard.putData("Robot Chooer", robotChooser);
 	    
+	    if(robotChooser.getSelected().equals("Tyr")) {
+    		setTyrConstants();
+    	}
+    	
+    	if(robotChooser.getSelected().equals("Deric")) {
+    		setDericConstants();
+    	}
+	    
 	    //Hardware system
     	accumulatorSystems = new AccumulatorHardware();
     	shooterSystems = new ShooterHardware();
@@ -95,13 +103,7 @@ public class RobotController extends IterativeRobot {
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
     	
-    	if(robotChooser.getSelected().equals("Tyr")) {
-    		setTyrConstants();
-    	}
     	
-    	if(robotChooser.getSelected().equals("Deric")) {
-    		setDericConstants();
-    	}
     	//Begin logging
     	startLogging();
     	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
@@ -235,7 +237,7 @@ public class RobotController extends IterativeRobot {
     	Ports.SHOOTER_ARM_TALON_DEVICE_ID = Ports.SHOOTER_ARM_TALON_DEVICE_ID_DERIC;
     	Ports.BREACHER_TALON_DEVICE_ID = Ports.BREACHER_TALON_DEVICE_ID_DERIC;
       	Ports.GEAR_ACTUATOR_EXTEND_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_DERIC;
-    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_DERIC;
+    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_RETRACT_VALVE_DERIC;
     	Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC;
     	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC;
     	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC;
