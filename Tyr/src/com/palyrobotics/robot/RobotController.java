@@ -147,6 +147,7 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void teleopInit() {
+    	Strongback.killAllCommands();
        	drivetrain.init();
     	accumulator.init();
     	shooter.init();
