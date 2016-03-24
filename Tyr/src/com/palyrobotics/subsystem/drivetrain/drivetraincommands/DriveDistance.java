@@ -11,6 +11,7 @@ public class DriveDistance extends Command {
 
 	private DrivetrainController drivetrain;
 	private double distance;
+	private double speedLimit;
 	private double previousRightError;
 	private double previousLeftError;
 	private double angleError;
@@ -26,6 +27,17 @@ public class DriveDistance extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
+		this.speedLimit = 0.5;
+	}
+	
+	public DriveDistance(DrivetrainController drivetrain, double distance, double speedLimit) {
+		super(drivetrain);
+		this.drivetrain = drivetrain;
+		this.distance = distance;
+		this.previousLeftError = distance;
+		this.previousRightError = distance;
+		this.angleError = 0.0;
+		this.speedLimit = speedLimit;
 	}
 
 	/**
@@ -62,8 +74,8 @@ public class DriveDistance extends Command {
 		previousLeftError = leftError;
 
 		// Calculates target speed and limits it from -0.5 to 0.5
-		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, 0.5), -0.5);
-		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, 0.5), -0.5);
+		double leftSpeed = Math.max(Math.min(LEFT_P_VALUE * leftError + LEFT_D_VALUE * leftDerivative, speedLimit), -speedLimit);
+		double rightSpeed = Math.max(Math.min(RIGHT_P_VALUE * rightError + RIGHT_D_VALUE * rightDerivative, speedLimit), -speedLimit);
 
 		System.out.println("Left encoder: " + drivetrain.getInput().getLeftDriveEncoder().getAngle());
 		System.out.println("Right encoder: " + drivetrain.getInput().getRightDriveEncoder().getAngle());
