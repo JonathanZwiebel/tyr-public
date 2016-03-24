@@ -6,9 +6,7 @@ import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.strongback.components.AngleSensor;
 import org.strongback.components.Motor;
-import org.strongback.mock.Mock;
 import org.strongback.mock.MockAngleSensor;
 
 import com.palyrobotics.robot.InputSystems;

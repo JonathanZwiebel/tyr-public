@@ -1,7 +1,6 @@
 package hardware;
 
 import org.strongback.components.Motor;
-import org.strongback.hardware.Hardware;
 import org.strongback.mock.Mock;
 import org.strongback.mock.MockMotor;
 

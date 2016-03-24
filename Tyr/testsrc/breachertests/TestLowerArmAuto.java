@@ -7,10 +7,8 @@ import org.junit.Test;
 import org.strongback.command.CommandTester;
 
 import com.palyrobotics.robot.InputSystems;
-import com.palyrobotics.subsystem.breacher.BreacherConstants;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
-import com.palyrobotics.subsystem.breacher.commands.LowerArm;
 import com.palyrobotics.subsystem.breacher.commands.LowerArmAuto;
 
 import hardware.MockBreacherHardware;

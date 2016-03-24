@@ -34,7 +34,7 @@ public class TestOriginalDriveTeleop {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3);
 	
 	@Before
 	public void beforeEach() {
@@ -56,7 +56,7 @@ public class TestOriginalDriveTeleop {
 		thrown.expect(NullPointerException.class);
 		((MockFlightStick) input.getDriveStick()).setThrottle((Double) null);
 		((MockFlightStick) input.getTurnStick()).setThrottle((Double) null);
-		((MockFlightStick) input.getOperatorStick()).setThrottle((Double) null);
+		((MockFlightStick) input.getXBox()).setThrottle((Double) null);
 	}
 	
 	@Test

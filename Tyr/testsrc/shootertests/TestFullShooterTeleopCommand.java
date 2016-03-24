@@ -10,7 +10,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
 import org.strongback.Strongback;
-import org.strongback.mock.MockAngleSensor;
 
 import com.palyrobotics.robot.*;
 import com.palyrobotics.subsystem.shooter.*;
@@ -30,16 +29,13 @@ public class TestFullShooterTeleopCommand {
 	private static final float NEGATIVE_JOYSTICK_VALUE = -0.5f;
 	
 	private static final float NEUTRAL_MOTOR_SPEED = 0.0f;
-	
-	private static final float VALID_ARM_ANGLE = 10.0f;
-	private static final float SMALL_ARM_ANGLE = 1.0f;
 
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-    public TestRule globalTimeout = new Timeout(3000);
+    public TestRule globalTimeout = Timeout.seconds(3);
 	
 	@Rule
 	public RepeatRule repeat = new RepeatRule();
@@ -59,11 +55,9 @@ public class TestFullShooterTeleopCommand {
 	/**
 	 * Ensures that the execute will not run if the angle is null.
 	 */
-	@SuppressWarnings("null")
 	@Test
 	public void testNullExecution() {
 		thrown.expect(NullPointerException.class);
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle((Double) null);
 		Strongback.disable();
 	}
 	
@@ -93,7 +87,6 @@ public class TestFullShooterTeleopCommand {
 	 */
 	@Test
 	public void testNormalJoystickInputSetsMotor() throws InterruptedException { 
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(VALID_ARM_ANGLE);
 		((MockContinuousRange) (controller.input.getShooterStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -116,7 +109,6 @@ public class TestFullShooterTeleopCommand {
 	 */
 	@Test
 	public void testPositiveJoystickInputWhenAboveSetsMotorToZero() throws InterruptedException { 
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MAX_ARM_ANGLE + SMALL_ARM_ANGLE);
 		((MockContinuousRange) (controller.input.getShooterStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -139,7 +131,6 @@ public class TestFullShooterTeleopCommand {
 	 */
 	@Test
 	public void testNegativeJoystickInputWhenBelowSetsMotorToZero() throws InterruptedException { 
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MIN_ARM_ANGLE - SMALL_ARM_ANGLE);
 		((MockContinuousRange) (controller.input.getShooterStick()).getPitch()).write(NEGATIVE_JOYSTICK_VALUE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -162,7 +153,6 @@ public class TestFullShooterTeleopCommand {
 	 */
 	@Test
 	public void testPositiveJoystickInputWhenBelowActsNormal() throws InterruptedException { 
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MIN_ARM_ANGLE - SMALL_ARM_ANGLE);
 		((MockContinuousRange) (controller.input.getShooterStick()).getPitch()).write(POSITIVE_JOYSTICK_VALUE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {
@@ -185,7 +175,6 @@ public class TestFullShooterTeleopCommand {
 	 */
 	@Test
 	public void testNegativeJoystickInputWhenAboveActsNormal() throws InterruptedException { 
-		((MockAngleSensor) controller.input.getShooterArmAngleSensor()).setAngle(ShooterConstants.MAX_ARM_ANGLE + SMALL_ARM_ANGLE);
 		((MockContinuousRange) (controller.input.getShooterStick()).getPitch()).write(NEGATIVE_JOYSTICK_VALUE);
 		
 		for(int i = 0; i < RobotConstants.CYCLE_COUNT_FOR_BASIC_UNIT_TESTS; i++) {

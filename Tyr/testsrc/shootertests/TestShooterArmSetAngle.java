@@ -41,7 +41,7 @@ public class TestShooterArmSetAngle {
 		input = new MockRobotInput();
 		output = new MockShooterHardware();
 		controller = new ShooterController(output,input);
-		angleSensor = (MockAngleSensor) controller.input.getShooterArmAngleSensor();
+		angleSensor = (MockAngleSensor) controller.input.getShooterArmPotentiometer();
 		Strongback.start();
 		controller.init();
 		

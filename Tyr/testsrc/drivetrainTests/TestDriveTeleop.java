@@ -36,7 +36,7 @@ public class TestDriveTeleop {
 		input = new MockRobotInput();
 		output = new MockDrivetrainHardware();
 		drivetrain = new DrivetrainController(output, input);
-		driveTeleop = new DriveTeleop(drivetrain);
+		driveTeleop = new DriveTeleop(drivetrain, 0);
 		command = new CommandTester(driveTeleop);
 	}
 	
@@ -44,7 +44,7 @@ public class TestDriveTeleop {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3);
 		
 	/**
 	 * Ensures the command does not terminate by returning true. 

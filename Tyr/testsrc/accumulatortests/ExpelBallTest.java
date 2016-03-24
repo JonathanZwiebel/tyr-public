@@ -3,11 +3,8 @@ package accumulatortests;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.strongback.command.Command;
-import org.strongback.command.CommandTester;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
@@ -19,7 +16,6 @@ import hardware.MockRobotInput;
 
 public class ExpelBallTest {
 	
-	private CommandTester tester;
 	private Command command;
 	private AccumulatorController controller;
 	private AccumulatorSystems hardware;
@@ -34,7 +30,6 @@ public class ExpelBallTest {
 		hardware = new MockAccumulatorHardware();
 		controller = new AccumulatorController(hardware,input);
 		command = new ExpelBall(controller);
-		tester = new CommandTester(command);
 		controller.systems.getAccumulatorMotors().setSpeed(0);
 	}
 	

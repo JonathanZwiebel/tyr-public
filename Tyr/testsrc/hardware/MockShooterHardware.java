@@ -1,6 +1,5 @@
 package hardware;
 
-import org.strongback.components.Motor;
 import org.strongback.components.Solenoid;
 import org.strongback.components.TalonSRX;
 import org.strongback.mock.Mock;

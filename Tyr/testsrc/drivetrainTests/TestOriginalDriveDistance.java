@@ -22,7 +22,6 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainStat
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 
 import static com.palyrobotics.robot.RobotConstants.*;
-import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
 import hardware.MockDrivetrainHardware;
 import hardware.MockRobotInput;
@@ -37,7 +36,7 @@ public class TestOriginalDriveDistance {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3000);
 
 	@Before
 	public void beforeEach() {
@@ -63,7 +62,7 @@ public class TestOriginalDriveDistance {
 	
 	@Test
 	public void testInitialState() throws InterruptedException {
-		((MockSwitch) input.getDriveStick().getButton(DRIVING_DISTANCE_BUTTON)).setTriggered(true);
+		((MockSwitch) input.getDriveStick().getButton(0)).setTriggered(true);
 		for(int i = 0; i < CYCLE_COUNT_FOR_STATE_CHANGE_UNIT_TESTS; i++) {
 			float start = System.currentTimeMillis();
 			//drivetrain.update();

@@ -42,7 +42,7 @@ public class TestTurnAngle {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3);
 	
 	@Test
 	public void testEncoders() {

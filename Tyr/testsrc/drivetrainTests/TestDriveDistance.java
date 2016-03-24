@@ -39,7 +39,7 @@ public class TestDriveDistance {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3);
 	
 	/**
 	 * Tests the encoders to make sure they are not null.

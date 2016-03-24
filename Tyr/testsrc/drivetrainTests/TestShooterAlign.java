@@ -24,7 +24,7 @@ public class TestShooterAlign {
 	private InputSystems input;
 	private DrivetrainSystems output;
 	private DrivetrainController drivetrain;
-	private ShooterAlign shooterAllign;
+	private ShooterAlign shooterAlign;
 	private CommandTester command;
 
 	@Before
@@ -32,15 +32,15 @@ public class TestShooterAlign {
 		input = new MockRobotInput();
 		output = new MockDrivetrainHardware();
 		drivetrain = new DrivetrainController(output, input);
-		shooterAllign = new ShooterAlign(drivetrain, input.getVisionInput());
-		command = new CommandTester(shooterAllign);
+		shooterAlign = new ShooterAlign(drivetrain, null);
+		command = new CommandTester(shooterAlign);
 	}
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Rule
-	public TestRule globalTimeout = new Timeout(3000);
+	public TestRule globalTimeout = Timeout.seconds(3);
 
 	@Test
 	public void testGyroscope() {
@@ -54,7 +54,7 @@ public class TestShooterAlign {
 	@Test
 	public void testInitializedState() {
 		command.step(20);
-		shooterAllign.initialize();
+		shooterAlign.initialize();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.SHOOTER_ALIGN);
 	}
 
@@ -64,7 +64,7 @@ public class TestShooterAlign {
 	@Test
 	public void testInterruptedState() {
 		command.step(20);
-		shooterAllign.interrupted();
+		shooterAlign.interrupted();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
 
@@ -74,7 +74,7 @@ public class TestShooterAlign {
 	@Test
 	public void testEndState() {
 		command.step(20);
-		shooterAllign.end();
+		shooterAlign.end();
 		assertTrue(drivetrain.getDrivetrainState() == DrivetrainState.IDLE);
 	}
 
