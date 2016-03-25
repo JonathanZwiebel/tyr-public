@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import org.strongback.Strongback;
 import org.strongback.hardware.Hardware;
 
-import static com.palyrobotics.robot.SensorConstants.*;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
@@ -19,7 +18,6 @@ import com.palyrobotics.subsystem.breacher.BreacherController.MacroBreacherState
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
-import com.palyrobotics.subsystem.breacher.commands.CalibrateBreacher;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainConstants;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
@@ -40,8 +38,6 @@ import com.palyrobotics.xbox.Converter;
 import com.palyrobotics.xbox.MockFlightStick;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -266,10 +262,12 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
+    }
+    
     public void updateDashboard() {
     	DrivetrainState driveState = drivetrain.getDrivetrainState();
     	AccumulatorState accumulatorState = accumulator.getState();
-    	BreacherState breacherState = breacher.getBreacherState();
+    	MicroBreacherState breacherState = breacher.getMicroState();
     	GrabberState grabberState = grabber.getGrabberState();
     	ShooterState shooterControllerState = shooter.getState();
     	ShooterArmState shooterArmState = shooter.armController.state;
@@ -288,7 +286,7 @@ public class RobotController extends IterativeRobot {
  	    
  	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
  	    
- 	    SmartDashboard.putNumber("Grabber", grabberSystems.getServo().get());
+ 	    SmartDashboard.putNumber("Grabber", grabberSystems.getRightServo().get());
  	    
  	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
  	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");
@@ -459,6 +457,5 @@ public class RobotController extends IterativeRobot {
 			default:
 				break;
  	    }
->>>>>>> 8844f1f... Implemented all states, sensor values, drivetrain gear, and teleop orientation
     }
 }
