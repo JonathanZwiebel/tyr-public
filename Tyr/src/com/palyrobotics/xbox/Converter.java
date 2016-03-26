@@ -17,7 +17,8 @@ public class Converter {
 		 * Right Joystick Button -> breacher hold button
 		 * Left XBox Joystick -> leftStick
 		 * Right XBox Joystick -> rightStick
-		 * Right XBox Joystick Button -> calibrate breacher potentiometer
+		 * Right XBox Joystick Button -> breacher hold
+		 * Left XBox Joystick Button -> shooter hold
 		 * Left Bumper -> accumulate ball
 		 * Right Bumper -> close lock
 		 * Left Trigger -> grabber
@@ -67,7 +68,7 @@ public class Converter {
 		rightStick.setButton(ACCUMULATOR_INTAKE_BUTTON, xbox.getLeftBumper().isTriggered());
 		
 		leftStick.setButton(SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON, xbox.getLeftStickPressed().isTriggered());
-		rightStick.setButton(BREACHER_CALIBRATE_BUTTON, xbox.getRightStickPressed().isTriggered());
+		rightStick.setButton(BREACHER_HOLD_BUTTON, xbox.getRightStickPressed().isTriggered());
 		
 		//Maps the right stick of the xbox to the right joystick
 		rightStick.setPitch(xbox.getRightY().read() * xbox.getRightY().read() * xbox.getRightY().read());

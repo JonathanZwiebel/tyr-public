@@ -56,12 +56,7 @@ public class JoystickControl extends Command {
 			current = input.getBreacherPotentiometer().getAngle();
 			double derivative = (error - previous) * UPDATES_PER_SECOND;
  			double speed = Math.max(Math.min((PROPORTIONAL * error + DERIVATIVE * derivative), 0.3), -0.3);
- 			if(Math.abs(error) < 3) {
- 				controller.getBreacher().getMotor().setSpeed(0);
- 			}
- 			else {
- 				controller.getBreacher().getMotor().setSpeed(speed);
- 			}
+ 			controller.getBreacher().getMotor().setSpeed(speed);
  			previous = error;
  			return false;
 		}

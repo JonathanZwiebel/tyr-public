@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.strongback.Strongback;
 import org.strongback.hardware.Hardware;
 
+import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
@@ -236,6 +237,7 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_TYR;
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_TYR;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_TYR;
+    	AccumulatorConstants.ACCUMULATOR_POWER = 1;
     }
     
     public void setDericConstants() {
@@ -258,6 +260,7 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC;
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_DERIC;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_DERIC;
+    	AccumulatorConstants.ACCUMULATOR_POWER = -1;
     }
     	
     @Override
