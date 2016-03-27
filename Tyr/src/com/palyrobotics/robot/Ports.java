@@ -59,7 +59,11 @@ public class Ports {
 	public static int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE;
 	public static int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE; 
 	public static int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE;
+	public static int GRABBER_EXTEND_VALVE;
+	public static int GRABBER_RETRACT_VALVE;
 	
+	public static final int GRABBER_EXTEND_VALVE_TYR = 3;
+	public static final int GRABBER_RETRACT_VALVE_TYR = 4;
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE_TYR = 7;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE_TYR = 0;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR = 2;
@@ -67,6 +71,8 @@ public class Ports {
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR = 1; 
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_TYR = 6;
 
+	public static final int GRABBER_EXTEND_VALVE_DERIC = 6;
+	public static final int GRABBER_RETRACT_VALVE_DERIC = 7;
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE_DERIC = 0;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE_DERIC = 1;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC = 4;

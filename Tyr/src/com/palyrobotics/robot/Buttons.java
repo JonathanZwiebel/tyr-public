@@ -12,6 +12,7 @@ public class Buttons {
 	public static final int BREACHER_CALIBRATE_BUTTON = 8;
 	public static final int GRABBER_UP_BUTTON = 11;
 	public static final int GRABBER_DOWN_BUTTON = 12;
+	public static final int GRABBER_TOGGLE_BUTTON = 5;
 	
 	// Drive stick
 	public static final int DRIVETRAIN_FORWARD_ORIENTATION_BUTTON = 5;

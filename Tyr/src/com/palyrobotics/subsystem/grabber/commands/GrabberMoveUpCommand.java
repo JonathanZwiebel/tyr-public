@@ -16,8 +16,7 @@ public class GrabberMoveUpCommand extends Command{
 	
 	@Override
 	public boolean execute() {
-		grabber.getOutput().getLeftServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE);
-		grabber.getOutput().getRightServo().set(GrabberConstants.UPPER_POSITION_VOLTAGE);
+		grabber.getOutput().getGrabber().retract();
 		return true;
 	}
 

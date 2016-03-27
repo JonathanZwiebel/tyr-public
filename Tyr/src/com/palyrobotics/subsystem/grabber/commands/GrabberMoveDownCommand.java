@@ -16,8 +16,7 @@ public class GrabberMoveDownCommand extends Command{
 	
 	@Override
 	public boolean execute() {
-		grabber.getOutput().getLeftServo().set(GrabberConstants.LOWER_POSITION_VOLTAGE);
-		grabber.getOutput().getRightServo().set(GrabberConstants.LOWER_POSITION_VOLTAGE);
+		grabber.getOutput().getGrabber().extend();
 		return true;
 	}
 }

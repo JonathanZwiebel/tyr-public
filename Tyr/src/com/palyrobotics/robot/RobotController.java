@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
+import org.strongback.components.Solenoid.Direction;
 import org.strongback.hardware.Hardware;
 
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
@@ -64,6 +65,7 @@ public class RobotController extends IterativeRobot {
 	private SendableChooser robotChooser;
 	
 	private static boolean usingXBox = true;
+	private boolean extended;
 	
     @Override
     public void robotInit() {
@@ -231,6 +233,8 @@ public class RobotController extends IterativeRobot {
     	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR;
     	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR;
     	Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE  = Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_TYR;
+    	Ports.GRABBER_EXTEND_VALVE = Ports.GRABBER_EXTEND_VALVE_TYR;
+    	Ports.GRABBER_RETRACT_VALVE = Ports.GRABBER_RETRACT_VALVE_TYR;
     	SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET_TYR;
     	SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_TYR;
     	SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET_TYR;
@@ -254,6 +258,8 @@ public class RobotController extends IterativeRobot {
     	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC;
     	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC;
     	Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE  = Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC;
+    	Ports.GRABBER_EXTEND_VALVE = Ports.GRABBER_EXTEND_VALVE_DERIC;
+    	Ports.GRABBER_RETRACT_VALVE = Ports.GRABBER_RETRACT_VALVE_DERIC;
     	SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET_DERIC;
     	SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC;
     	SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET_DERIC;
@@ -289,7 +295,29 @@ public class RobotController extends IterativeRobot {
  	    
  	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
  	    
- 	    SmartDashboard.putNumber("Grabber", grabberSystems.getRightServo().get());
+ 	    if(grabber.getOutput().getGrabber().getDirection().equals(Direction.EXTENDING)) {
+ 	    	extended = true;
+ 	    }
+ 	    
+ 	    if(grabber.getOutput().getGrabber().getDirection().equals(Direction.RETRACTING)) {
+ 	    	extended = false;
+ 	    }
+ 	    
+ 	    if(!extended && grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
+ 	    	SmartDashboard.putString("Grabber", "Completely Up");
+ 	    }
+ 	    
+ 	    if(extended && grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
+	    	SmartDashboard.putString("Grabber", "Completely Down");
+	    }
+ 	    
+ 	    if(!extended && !grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
+	    	SmartDashboard.putString("Grabber", "Moving Up");
+	    }
+ 	    
+ 	    if(extended && !grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
+	    	SmartDashboard.putString("Grabber", "Moving Down");
+	    }
  	    
  	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
  	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");

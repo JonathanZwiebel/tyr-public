@@ -2,19 +2,17 @@ package com.palyrobotics.subsystem.grabber;
 
 import static com.palyrobotics.robot.Ports.*;
 
-import edu.wpi.first.wpilibj.Servo;
+import org.strongback.components.Solenoid;
+import org.strongback.components.Solenoid.Direction;
+import org.strongback.hardware.Hardware;
+
 
 public class GrabberHardware implements GrabberSystems {
-	public Servo rightServo = new Servo(RIGHT_GRABBER_SERVO_VICTOR_CHANNEL);
-	public Servo leftServo = new Servo(LEFT_GRABBER_SERVO_VICTOR_CHANNEL);
+
+	private Solenoid grabber = Hardware.Solenoids.doubleSolenoid(GRABBER_EXTEND_VALVE, GRABBER_RETRACT_VALVE, Direction.RETRACTING);
 	
 	@Override
-	public Servo getRightServo() {
-		return this.rightServo;
-	}
-	
-	@Override
-	public Servo getLeftServo() {
-		return this.leftServo;
+	public Solenoid getGrabber() {
+		return grabber;
 	}
 }

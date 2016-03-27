@@ -42,12 +42,13 @@ public class JoystickControl extends Command {
 	 * @return true, this command stops immediately
 	 */
 	public boolean execute() {
-		if (input.getSecondaryStick().getButton(Buttons.BREACHER_HOLD_BUTTON).isTriggered()) {
-			 if (this.justTriggered == false) {
+		if(input.getSecondaryStick().getButton(Buttons.BREACHER_HOLD_BUTTON).isTriggered()) {
+			 if(this.justTriggered == false) {
 				 this.holding = !holding;
 				 this.justTriggered = true;
 			 }
-		} else {
+		} 
+		else {
 			 this.justTriggered = false;
 		}
 		
