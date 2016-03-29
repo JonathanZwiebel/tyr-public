@@ -66,7 +66,7 @@ public class RobotController extends IterativeRobot {
 	
 	private static boolean usingXBox = true;
 	private boolean extended;
-	
+		
     @Override
     public void robotInit() {
     	try {
@@ -192,7 +192,7 @@ public class RobotController extends IterativeRobot {
     	shooter.update();
     	breacher.update();
     	grabber.update();
-    	
+    	    	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
 

@@ -16,7 +16,7 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	public Motor rightMotor = Motor.compose(rightFrontMotor, rightBackMotor);
 
 	// TODO: Make sure Direction.EXTENDING is a proper initialization.
-	public Solenoid solenoid = Hardware.Solenoids.doubleSolenoid(GEAR_ACTUATOR_EXTEND_VALVE, GEAR_ACTUATOR_RETRACT_VALVE,
+	public Solenoid solenoid = Hardware.Solenoids.doubleSolenoid(GRABBER_EXTEND_VALVE, GRABBER_RETRACT_VALVE,
 			Direction.EXTENDING);
 
 	@Override

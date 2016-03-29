@@ -9,7 +9,7 @@ import org.strongback.hardware.Hardware;
 
 public class GrabberHardware implements GrabberSystems {
 
-	private Solenoid grabber = Hardware.Solenoids.doubleSolenoid(GRABBER_EXTEND_VALVE, GRABBER_RETRACT_VALVE, Direction.RETRACTING);
+	private Solenoid grabber = Hardware.Solenoids.doubleSolenoid(GEAR_ACTUATOR_EXTEND_VALVE, GEAR_ACTUATOR_RETRACT_VALVE, Direction.RETRACTING);
 	
 	@Override
 	public Solenoid getGrabber() {
