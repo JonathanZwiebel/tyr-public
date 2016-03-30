@@ -1,4 +1,4 @@
-package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
+package com.palyrobotics.robot.autonomous;
 
 import org.strongback.command.Command;
 
@@ -15,6 +15,7 @@ public class CompetitionLowBarAuto extends Command {
 	private double previousRightError;
 	private double previousLeftError;
 	private double angleError;
+	private double previousAngleError;
 	private double startTime;
 	private double endTime;
 
@@ -29,7 +30,8 @@ public class CompetitionLowBarAuto extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
-		this.speedLimit = 0.5; // Default speed limit
+		this.previousAngleError = 0.0;
+		this.speedLimit = 0.3; // Default speed limit
 	}
 
 	public CompetitionLowBarAuto(DrivetrainController drivetrain, double distance, double speedLimit) {
@@ -39,6 +41,7 @@ public class CompetitionLowBarAuto extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
+		this.previousAngleError = 0.0;
 		this.speedLimit = speedLimit;
 	}
 	/**
@@ -83,17 +86,18 @@ public class CompetitionLowBarAuto extends Command {
 		System.out.println("Right encoder: " + drivetrain.getInput().getRightDriveEncoder().getAngle());
 		// Calculates angle error, trying to set it to 0.
 		angleError = 0 - drivetrain.getInput().getGyroscope().getAngle();
-		double angleDerivative = -drivetrain.getInput().getGyroscope().getRate();
+		double angleDerivative = (angleError - previousAngleError) * UPDATES_PER_SECOND;
+		previousAngleError = angleError;
 
 		// Require two separate angle speeds because they might require
 		// different pid values.
 		// Calculates the Turnspeed to be added to the movespeed, if the angle
 		// error is above the threshold.
-		double rightAngleSpeed = RIGHT_ANGLE_P_VALUE * angleError + RIGHT_ANGLE_D_VALUE * angleDerivative;
-		double leftAngleSpeed = LEFT_ANGLE_P_VALUE * angleError + LEFT_ANGLE_D_VALUE * angleDerivative;
+		double rightAngleSpeed = 0; //RIGHT_ANGLE_P_VALUE * angleError + RIGHT_ANGLE_D_VALUE * angleDerivative;
+		double leftAngleSpeed = 0; //LEFT_ANGLE_P_VALUE * angleError + LEFT_ANGLE_D_VALUE * angleDerivative;
 
 		drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed + leftAngleSpeed);
-		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed + rightAngleSpeed);
+		drivetrain.getOutput().getRightMotor().setSpeed(-rightSpeed + rightAngleSpeed);
 
 		// Stops the command if the robot is slowed down within a limit,
 		// signaling the arrival at the target.

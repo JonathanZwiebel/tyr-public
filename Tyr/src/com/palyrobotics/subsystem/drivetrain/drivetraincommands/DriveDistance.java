@@ -15,6 +15,7 @@ public class DriveDistance extends Command {
 	private double previousRightError;
 	private double previousLeftError;
 	private double angleError;
+	private double previousAngleError;
 
 	/**
 	 * Initiates the command, passing in the drivetrain for input and output and
@@ -27,6 +28,7 @@ public class DriveDistance extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
+		this.previousAngleError = 0.0;
 		this.speedLimit = 0.5;
 	}
 	
@@ -37,6 +39,7 @@ public class DriveDistance extends Command {
 		this.previousLeftError = distance;
 		this.previousRightError = distance;
 		this.angleError = 0.0;
+		this.previousAngleError = 0.0;
 		this.speedLimit = speedLimit;
 	}
 
@@ -81,7 +84,7 @@ public class DriveDistance extends Command {
 		System.out.println("Right encoder: " + drivetrain.getInput().getRightDriveEncoder().getAngle());
 		// Calculates angle error, trying to set it to 0.
 		angleError = 0 - drivetrain.getInput().getGyroscope().getAngle();
-		double angleDerivative = -drivetrain.getInput().getGyroscope().getRate();
+		double angleDerivative = (angleError - previousAngleError) * UPDATES_PER_SECOND;
 
 		// Require two separate angle speeds because they might require
 		// different pid values.

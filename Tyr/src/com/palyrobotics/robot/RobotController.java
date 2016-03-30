@@ -10,6 +10,7 @@ import org.strongback.Strongback;
 import org.strongback.hardware.Hardware;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
+import com.palyrobotics.robot.autonomous.CompetitionLowBarAuto;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
@@ -135,13 +136,15 @@ public class RobotController extends IterativeRobot {
     @Override
     public void autonomousInit() {
        	drivetrain.init();
-    	accumulator.init();
+//    	accumulator.init();
     	shooter.init();
-    	breacher.init();
-    	grabber.init();
+//    	breacher.init();
+//    	grabber.init();
         
     	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
+	    Strongback.submit(new CompetitionLowBarAuto(drivetrain, Integer.MAX_VALUE));
+
     }
     
     @Override
