@@ -75,16 +75,13 @@ public class RobotController extends IterativeRobot {
         }
         catch(Exception e) {
         	e.printStackTrace();
-        }
-
-    	//Input and SendableChooser
-    	input = new InputHardware(); 
+        } 
     	
     	chooser = new SendableChooser();
     	robotChooser = new SendableChooser();
 	   
     	//Uses a SendableChooser to determine if an XBox is being used.
-	    chooser.addDefault("XBox", input.getXBox());
+	    chooser.addDefault("XBox", 2);
 	    chooser.addObject("Joysticks", 1);
 	    
 	    robotChooser.addDefault("Tyr", "Tyr");
@@ -100,6 +97,9 @@ public class RobotController extends IterativeRobot {
     	if(robotChooser.getSelected().equals("Deric")) {
     		setDericConstants();
     	}
+    	
+    	//Input and SendableChooser
+    	input = new InputHardware();
 	    
 	    //Hardware system
     	accumulatorSystems = new AccumulatorHardware();
