@@ -296,6 +296,22 @@ public class RobotController extends IterativeRobot {
  	    
  	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
  	   
+ 	    if(shooter.lockingActuatorController.isLocked()) {
+ 	    	SmartDashboard.putString("Shooter Lock", "Locked");
+ 	    }
+ 	    
+ 	    else {
+ 	    	SmartDashboard.putString("Shooter Lock", "Unlocked");
+ 	    }
+ 	    
+ 	    if(shooter.loadingActuatorController.isFullyRetracted()) {
+ 	    	SmartDashboard.putString("Shooter Loading Actuator", "Retracted");
+ 	    }
+ 	    
+ 	    else {
+ 	    	SmartDashboard.putString("Shooter Loading Actuator", "Extended");
+ 	    }
+ 	    
  	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
  	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");
  	    }
@@ -415,9 +431,6 @@ public class RobotController extends IterativeRobot {
 				break;
 			case LOAD:
 				SmartDashboard.putString("Shooter Controller State", "Load");
-				break;
-			case TELEOP:
-				SmartDashboard.putString("Shooter Controller State", "Teleop");
 				break;
 			default:
 				break;
