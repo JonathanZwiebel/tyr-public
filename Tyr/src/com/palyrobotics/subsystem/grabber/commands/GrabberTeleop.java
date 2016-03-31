@@ -6,6 +6,9 @@ import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import static com.palyrobotics.subsystem.grabber.GrabberConstants.*;
 import com.palyrobotics.subsystem.grabber.GrabberController;
+import com.palyrobotics.subsystem.grabber.GrabberController.GrabberState;
+import com.palyrobotics.subsystem.grabber.GrabberController.MicroGrabberState;
+
 import static com.palyrobotics.robot.Buttons.*;
 
 public class GrabberTeleop extends Command {
@@ -40,10 +43,12 @@ public class GrabberTeleop extends Command {
 		
 		if(upPosition) {
 			grabber.getOutput().getGrabber().retract();
+			grabber.setMicroGrabberState(MicroGrabberState.RAISED);
 		}
 		
 		else {
 			grabber.getOutput().getGrabber().extend();
+			grabber.setMicroGrabberState(MicroGrabberState.LOWERED);
 		}
 		
 		return false;

@@ -34,6 +34,7 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorC
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 import com.palyrobotics.subsystem.grabber.GrabberController;
 import com.palyrobotics.subsystem.grabber.GrabberController.GrabberState;
+import com.palyrobotics.subsystem.grabber.GrabberController.MicroGrabberState;
 import com.palyrobotics.subsystem.grabber.GrabberHardware;
 import com.palyrobotics.subsystem.grabber.GrabberSystems;
 import com.palyrobotics.xbox.Converter;
@@ -65,7 +66,6 @@ public class RobotController extends IterativeRobot {
 	private SendableChooser robotChooser;
 	
 	private static boolean usingXBox = true;
-	private boolean extended;
 		
     @Override
     public void robotInit() {
@@ -185,14 +185,14 @@ public class RobotController extends IterativeRobot {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
     	}
     	
-    	updateDashboard();
-    	
     	drivetrain.update();
     	accumulator.update();
     	shooter.update();
     	breacher.update();
     	grabber.update();
-    	    	
+    	
+    	updateDashboard();
+    	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
 
@@ -278,6 +278,7 @@ public class RobotController extends IterativeRobot {
     	AccumulatorState accumulatorState = accumulator.getState();
     	MicroBreacherState breacherState = breacher.getMicroState();
     	GrabberState grabberState = grabber.getGrabberState();
+    	MicroGrabberState microGrabberState = grabber.getMicroGrabberState();
     	ShooterState shooterControllerState = shooter.getState();
     	ShooterArmState shooterArmState = shooter.armController.state;
     	ShooterLoadingActuatorState shooterLoadingActuatorState = shooter.loadingActuatorController.state;
@@ -294,31 +295,7 @@ public class RobotController extends IterativeRobot {
  	    SmartDashboard.putNumber("Right Encoder", input.getRightDriveEncoder().getAngle());
  	    
  	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
- 	    
- 	    if(grabber.getOutput().getGrabber().getDirection().equals(Direction.EXTENDING)) {
- 	    	extended = true;
- 	    }
- 	    
- 	    if(grabber.getOutput().getGrabber().getDirection().equals(Direction.RETRACTING)) {
- 	    	extended = false;
- 	    }
- 	    
- 	    if(!extended && grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
- 	    	SmartDashboard.putString("Grabber", "Completely Up");
- 	    }
- 	    
- 	    if(extended && grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
-	    	SmartDashboard.putString("Grabber", "Completely Down");
-	    }
- 	    
- 	    if(!extended && !grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
-	    	SmartDashboard.putString("Grabber", "Moving Up");
-	    }
- 	    
- 	    if(extended && !grabber.getOutput().getGrabber().getDirection().equals(Direction.STOPPED)) {
-	    	SmartDashboard.putString("Grabber", "Moving Down");
-	    }
- 	    
+ 	   
  	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
  	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");
  	    }
@@ -333,6 +310,17 @@ public class RobotController extends IterativeRobot {
  	    
  	    else {
  	    	SmartDashboard.putString("Drivetrain Gear", "High Gear");
+ 	    }
+ 	    
+ 	    switch(microGrabberState) {
+			case LOWERED:
+				SmartDashboard.putString("Grabber Position", "Lowered");
+				break;
+			case RAISED:
+				SmartDashboard.putString("Grabber Position", "Raised");
+				break;
+			default:
+				break;
  	    }
  	    
  	    switch(grabberState) {

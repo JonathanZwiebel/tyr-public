@@ -16,8 +16,15 @@ public class GrabberController implements Requirable {
 	
 	public enum GrabberState{
 		IDLE,
-		TELEOP
+		TELEOP,
 	}
+	
+	public enum MicroGrabberState{
+		RAISED,
+		LOWERED
+	}
+	
+	private MicroGrabberState microState = MicroGrabberState.RAISED;
 	
 	private GrabberState state;
 	
@@ -42,6 +49,18 @@ public class GrabberController implements Requirable {
 	
 	public GrabberState getGrabberState() {
 		return state;
+	}
+	
+	public void setGrabberState(GrabberState state) {
+		this.state = state;
+	}
+	
+	public MicroGrabberState getMicroGrabberState() {
+		return microState;
+	}
+	
+	public void setMicroGrabberState(MicroGrabberState state) {
+		this.microState = state;
 	}
 	
 	public void update(){
