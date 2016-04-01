@@ -21,6 +21,9 @@ import java.util.logging.Logger;
 import static com.palyrobotics.robot.SensorConstants.*;
 
 public class InputHardware implements InputSystems {
+	
+	private ControlScheme control;
+	
 	public final FlightStick driveStick = Hardware.HumanInterfaceDevices.logitechAttack3D(DRIVE_STICK_PORT);
 	public final FlightStick turnStick = Hardware.HumanInterfaceDevices.logitechAttack3D(TURN_STICK_PORT);
 	public final FlightStick secondaryStick = Hardware.HumanInterfaceDevices.logitechAttack3D(SECONDARY_STICK_PORT);
@@ -51,14 +54,14 @@ public class InputHardware implements InputSystems {
 	}
 	@Override
 	public FlightStick getShooterStick() {
-		if(RobotController.usingXBox()) {
+		if(getControlScheme().equals(ControlScheme.XBOX)) {
 			return mockLeftStick;
 		}
 		return shooterStick;
 	}
 	@Override 
 	public FlightStick getSecondaryStick() {
-		if(RobotController.usingXBox()) {
+		if(getControlScheme().equals(ControlScheme.XBOX)) {
 			return mockRightStick;
 		}
 		return secondaryStick;
@@ -130,5 +133,15 @@ public class InputHardware implements InputSystems {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public ControlScheme getControlScheme() {
+		return control;
+	}
+
+	@Override
+	public void setControlScheme(ControlScheme control) {
+		this.control = control;
 	}
 }

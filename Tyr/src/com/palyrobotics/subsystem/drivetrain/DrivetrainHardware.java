@@ -33,4 +33,5 @@ public class DrivetrainHardware implements DrivetrainSystems {
 	public Solenoid getSolenoid() {
 		return solenoid;
 	}
+
 }

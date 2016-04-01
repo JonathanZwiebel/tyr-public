@@ -31,4 +31,5 @@ public class ShooterHardware implements ShooterSystems {
 	public Solenoid getLoadingActuator() {
 		return loadingActuator;
 	}
+
 }

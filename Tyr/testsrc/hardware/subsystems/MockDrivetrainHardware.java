@@ -27,4 +27,10 @@ public class MockDrivetrainHardware implements DrivetrainSystems {
 	public Solenoid getSolenoid() {
 		return solenoid;
 	}
+
+	@Override
+	public void updateSystems() {
+		// TODO Auto-generated method stub
+		
+	}
 }

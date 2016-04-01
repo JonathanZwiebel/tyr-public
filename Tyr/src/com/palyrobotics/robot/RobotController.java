@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
-import org.strongback.components.Solenoid.Direction;
 import org.strongback.hardware.Hardware;
 
+import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
@@ -63,10 +63,7 @@ public class RobotController extends IterativeRobot {
 	private InputSystems input;
 	
 	private SendableChooser chooser;
-	private SendableChooser robotChooser;
 	
-	private static boolean usingXBox = true;
-		
     @Override
     public void robotInit() {
     	try {
@@ -78,30 +75,19 @@ public class RobotController extends IterativeRobot {
         } 
     	
     	chooser = new SendableChooser();
-    	robotChooser = new SendableChooser();
 	   
     	//Uses a SendableChooser to determine if an XBox is being used.
 	    chooser.addDefault("XBox", 2);
 	    chooser.addObject("Joysticks", 1);
-	    
-	    robotChooser.addDefault("Tyr", "Tyr");
-	    robotChooser.addObject("Deric", "Deric");
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
-	    SmartDashboard.putData("Robot Chooser", robotChooser);
 	    
-	    if(robotChooser.getSelected().equals("Tyr")) {
-    		setTyrConstants();
-    	}
-    	
-    	if(robotChooser.getSelected().equals("Deric")) {
-    		setDericConstants();
-    	}
-    	
     	//Input and SendableChooser
     	input = new InputHardware();
-	    
-	    //Hardware system
+    	
+    	setDericConstants();
+    	
+    	//Hardware system
     	accumulatorSystems = new AccumulatorHardware();
     	shooterSystems = new ShooterHardware();
     	drivetrainSystems = new DrivetrainHardware();
@@ -109,8 +95,8 @@ public class RobotController extends IterativeRobot {
     	grabberSystems = new GrabberHardware();
     	
     	//Subsystem controllers
-    	drivetrain = new DrivetrainController(drivetrainSystems, input);
     	accumulator = new AccumulatorController(accumulatorSystems, input);
+    	drivetrain = new DrivetrainController(drivetrainSystems, input);
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
@@ -144,44 +130,45 @@ public class RobotController extends IterativeRobot {
     	return logger;
     }
     
-    public static boolean usingXBox() {
-    	return usingXBox;
-    }
-    
     @Override
     public void autonomousInit() {
-    	drivetrain.init();
-    	accumulator.init();
-    	shooter.init();
-    	breacher.init();
-    	grabber.init();
-    }
-    
-    @Override
-    public void teleopInit() {
-    	Strongback.killAllCommands();
        	drivetrain.init();
     	accumulator.init();
     	shooter.init();
     	breacher.init();
     	grabber.init();
         
-    	breacher.setMacroState(MacroBreacherState.TELEOP);
+    	breacher.setMacroState(MacroBreacherState.AUTO);
     	breacher.setMicroState(MicroBreacherState.IDLE);
+    }
+    
+    @Override
+    public void teleopInit() {
+    	Strongback.killAllCommands();
     	
+    	//Set the control scheme
     	if(chooser.getSelected().equals(1)) {
-    		usingXBox = false;
+    		input.setControlScheme(ControlScheme.JOYSTICKS);
     	}
     	
     	else {
-    		usingXBox = true;
+    		input.setControlScheme(ControlScheme.XBOX);
     	}
+    	
+	    drivetrain.init();
+	    accumulator.init();
+	    shooter.init();
+	    breacher.init();
+	    grabber.init();
+    	
+	    breacher.setMacroState(MacroBreacherState.TELEOP);
+	    breacher.setMicroState(MicroBreacherState.IDLE);
     }
 
     @Override
     public void teleopPeriodic() {
     	//If we are using an xbox, convert the input from the xbox to two mockjoysticks so that it can be used with all the commands
-    	if(usingXBox) {
+    	if(input.getControlScheme().equals(ControlScheme.XBOX)) {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
     	}
     	
@@ -204,15 +191,16 @@ public class RobotController extends IterativeRobot {
 
     @Override
     public void disabledInit() {
+    	
+    	
+    	try {
+    	Strongback.disable();
     	drivetrain.disable();
     	accumulator.disable();
     	shooter.disable();
     	breacher.setMacroState(MacroBreacherState.DISABLED);
     	breacher.disable();
     	grabber.disable();
-    	
-    	try {
-    	Strongback.disable();
     	}
     	catch (Exception e) {
     		e.printStackTrace();
@@ -228,7 +216,7 @@ public class RobotController extends IterativeRobot {
     	Ports.SHOOTER_ARM_TALON_DEVICE_ID = Ports.SHOOTER_ARM_TALON_DEVICE_ID_TYR;
     	Ports.BREACHER_TALON_DEVICE_ID = Ports.BREACHER_TALON_DEVICE_ID_TYR;
     	Ports.GEAR_ACTUATOR_EXTEND_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_TYR;
-    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_EXTEND_VALVE_TYR;
+    	Ports.GEAR_ACTUATOR_RETRACT_VALVE = Ports.GEAR_ACTUATOR_RETRACT_VALVE_TYR;
     	Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR;
     	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR;
     	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR;

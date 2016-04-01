@@ -10,6 +10,7 @@ import org.strongback.components.TalonSRX;
  * @author Paly Robotics Programming Red Module
  */
 public interface ShooterSystems {	
+	
 	/**
 	 * Returns the motor that will control the shooter arm
 	 * @return the motor that controls the shooter arm

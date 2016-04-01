@@ -5,6 +5,7 @@ import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 import static com.palyrobotics.robot.Buttons.*;
 import com.palyrobotics.robot.*;
+import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberTeleop;
@@ -28,20 +29,20 @@ public class GrabberController implements Requirable {
 	
 	private GrabberState state;
 	
-	public GrabberController(GrabberSystems out, InputSystems hardware) {
+	public GrabberController(GrabberSystems out, InputSystems input) {
 		this.output = out;
-		this.robotInput = hardware;
+		this.robotInput = input;
 		reactor = Strongback.switchReactor();
 	}
 	
 	public void init(){
 		state = GrabberState.IDLE;
 		
-		if(RobotController.usingXBox()) {
+		if(robotInput.getControlScheme().equals(ControlScheme.XBOX)) {
 			Strongback.submit(new GrabberTeleop(this, robotInput));
 		}
 		
-		if(!RobotController.usingXBox()) {
+		if(robotInput.getControlScheme().equals(ControlScheme.JOYSTICKS)) {
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
 		}

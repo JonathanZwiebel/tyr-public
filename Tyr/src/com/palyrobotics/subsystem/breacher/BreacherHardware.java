@@ -13,12 +13,9 @@ import org.strongback.hardware.Hardware;
 public class BreacherHardware implements BreacherSystems {
 	private Motor motor = Hardware.Motors.talonSRX(BREACHER_TALON_DEVICE_ID);
 
-	public BreacherHardware() {
-	}
-
-
 	@Override
 	public Motor getMotor() {
 		return motor;
 	}
+
 }

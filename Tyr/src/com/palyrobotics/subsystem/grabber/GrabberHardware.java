@@ -15,4 +15,5 @@ public class GrabberHardware implements GrabberSystems {
 	public Solenoid getGrabber() {
 		return grabber;
 	}
+
 }

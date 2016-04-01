@@ -99,4 +99,14 @@ public class MockRobotInput implements InputSystems {
 		int[] a = {0,0};
 		return a;
 	}
+	@Override
+	public void setControlScheme(ControlScheme control) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public ControlScheme getControlScheme() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

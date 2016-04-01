@@ -8,12 +8,21 @@ import org.strongback.components.ui.FlightStick;
 import com.palyrobotics.xbox.XBoxController;
 
 public interface InputSystems {
+	
+	public enum ControlScheme {
+		XBOX,
+		JOYSTICKS
+	}
+	
 	public FlightStick getDriveStick();
 	public FlightStick getTurnStick();
 	public FlightStick getShooterStick();
 	public FlightStick getSecondaryStick();
 	
 	public XBoxController getXBox();
+	
+	public void setControlScheme(ControlScheme control);
+	public ControlScheme getControlScheme();
 	
 	public AngleSensor getLeftDriveEncoder();
 	public AngleSensor getRightDriveEncoder();
