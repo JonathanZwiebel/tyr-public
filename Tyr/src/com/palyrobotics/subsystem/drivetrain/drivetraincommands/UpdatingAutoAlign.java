@@ -91,15 +91,6 @@ public class UpdatingAutoAlign extends Command {
 		drivetrain.getOutput().getLeftMotor().setSpeed(-leftSpeed);
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 
-		xDisplacement = table.getNumber("xDisplacement", this.xDisplacement);
-		
-		// stops robot when target is reached and robot has slowed within
-		// tolerance range
-		if (derivative == 0.0 && Math.abs(xDisplacement) < ACCEPTABLE_PIXEL_ERROR && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) {
-			table.putBoolean("Reset", true);
-			System.out.println("Conditions met to stop UpdatingAutoAlign. ");
-			return true;
-		}
 		// Panic switch to instantly break out of the command
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
 			table.putBoolean("Reset", true);

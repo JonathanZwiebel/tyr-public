@@ -147,19 +147,6 @@ public class RobotController extends IterativeRobot {
     @Override
     public void teleopInit() {
     	Strongback.killAllCommands();
-<<<<<<< ae05207f4cb0bfdd7457c69cce1b5aa5a5a75907
-=======
-       	drivetrain.init();
-    	accumulator.init();
-    	shooter.init();
-    	breacher.init();
-    	grabber.init();
-    	
-    	input.getGyroscope().reset();
-        
-    	breacher.setMacroState(MacroBreacherState.TELEOP);
-    	breacher.setMicroState(MicroBreacherState.IDLE);
->>>>>>> Updated for the AnalogGyro
     	
     	//Set the control scheme
     	if(chooser.getSelected().equals(1)) {
