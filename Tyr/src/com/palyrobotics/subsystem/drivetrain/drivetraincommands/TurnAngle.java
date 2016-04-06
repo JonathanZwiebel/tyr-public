@@ -31,7 +31,7 @@ public class TurnAngle extends Command {
 	@Override
 	public void initialize() {
 		drivetrain.setDrivetrainState(DrivetrainState.TURNING_ANGLE);
-		drivetrain.getInput().getGyroscope().zero();
+		drivetrain.getInput().getGyroscope().reset();
 	}
 
 	/**

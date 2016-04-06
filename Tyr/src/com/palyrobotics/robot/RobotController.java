@@ -104,6 +104,8 @@ public class RobotController extends IterativeRobot {
     	//Begin logging
     	startLogging();
     	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
+    	
+    	input.getGyroscope().calibrate();
     }
     
     /**
@@ -145,6 +147,19 @@ public class RobotController extends IterativeRobot {
     @Override
     public void teleopInit() {
     	Strongback.killAllCommands();
+<<<<<<< ae05207f4cb0bfdd7457c69cce1b5aa5a5a75907
+=======
+       	drivetrain.init();
+    	accumulator.init();
+    	shooter.init();
+    	breacher.init();
+    	grabber.init();
+    	
+    	input.getGyroscope().reset();
+        
+    	breacher.setMacroState(MacroBreacherState.TELEOP);
+    	breacher.setMicroState(MicroBreacherState.IDLE);
+>>>>>>> Updated for the AnalogGyro
     	
     	//Set the control scheme
     	if(chooser.getSelected().equals(1)) {
@@ -179,6 +194,7 @@ public class RobotController extends IterativeRobot {
     	grabber.update();
     	
     	updateDashboard();
+    	System.out.println("Gyro: " + input.getGyroscope().getAngle());
     	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());

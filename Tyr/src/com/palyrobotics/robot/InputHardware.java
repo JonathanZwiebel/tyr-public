@@ -2,7 +2,6 @@
 package com.palyrobotics.robot;
 
 import org.strongback.components.AngleSensor;
-import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.hardware.Hardware;
@@ -11,6 +10,7 @@ import com.palyrobotics.xbox.MockFlightStick;
 import com.palyrobotics.xbox.XBox;
 import com.palyrobotics.xbox.XBoxController;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static com.palyrobotics.robot.Ports.*;
@@ -31,11 +31,11 @@ public class InputHardware implements InputSystems {
 
 	public final AngleSensor leftDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_LEFT_ENCODER_A_CHANNEL, DRIVE_LEFT_ENCODER_B_CHANNEL, SensorConstants.LEFT_DRIVETRAIN_DPP);
 	public final AngleSensor rightDriveEncoder = Hardware.AngleSensors.encoder(DRIVE_RIGHT_ENCODER_A_CHANNEL, DRIVE_RIGHT_ENCODER_B_CHANNEL, SensorConstants.RIGHT_DRIVETRAIN_DPP);
-	public final Gyroscope gyroscope = Hardware.AngleSensors.gyroscope(GYROSCOPE_PORT);
+	public final AnalogGyro gyroscope = new AnalogGyro(1);
 	public final ThreeAxisAccelerometer accelerometer = Hardware.Accelerometers.builtIn();
 	
 	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, BREACHER_POTENTIOMETER_DEGREE_OFFSET);
-	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(SHOOTER_ARM_POTENTIOMETER_CHANNEL, SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, SHOOTER_POTENTIOMETER_DEGREE_OFFSET);
+	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(2, SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, SHOOTER_POTENTIOMETER_DEGREE_OFFSET);
 	
 	public final XBoxController xbox = XBox.getXBox(XBOX_PORT);
 	
@@ -75,7 +75,7 @@ public class InputHardware implements InputSystems {
 		return rightDriveEncoder;
 	}
 	@Override
-	public Gyroscope getGyroscope() {
+	public AnalogGyro getGyroscope() {
 		return gyroscope;
 	}
 	@Override
