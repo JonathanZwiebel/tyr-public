@@ -51,6 +51,9 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		if (drivetrain.getDrivetrainState() != DrivetrainState.DRIVING_TELEOP) {
+			return true;
+		}
 		double forwardSpeed = TELEOP_ORIENTATION * drivetrain.getInput().getDriveStick().getPitch().read();
 		double turnSpeed = drivetrain.getInput().getTurnStick().getRoll().read();
 
@@ -80,5 +83,11 @@ public class DriveTeleop extends Command {
 	public void interrupted() {
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
+	}
+	
+	@Override
+	public void end() {
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);	
 	}
 }

@@ -30,10 +30,10 @@ public class Buttons {
 	// Shooter Stick
 	public static final int SHOOTER_ACTUATOR_TERMINATE_COMMAND_OPERATOR_STICK_BUTTON = 2;
 	public static final int SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON = 12;
-	public static final int LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON = 4;
-	public static final int LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON = 6;
-	public static final int LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON = 3;
-	public static final int LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON = 5;
-	
+	public static final int LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON = 3;
+	public static final int LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON = 5;
+	public static final int LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON = 4;
+	public static final int LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON = 6;
+	public static final int DRIVETRAIN_AUTO_ALIGN_BUTTON = 8;
 	
 }
