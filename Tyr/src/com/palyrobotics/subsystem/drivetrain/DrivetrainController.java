@@ -22,6 +22,8 @@ public class DrivetrainController implements Requirable {
 		DRIVING_DISTANCE, 
 		TURNING_ANGLE, 
 		SHOOTER_ALIGN, 
+		ALIGN_TO_GOAL,
+		MOVING_TO_GOAL,
 		DISABLED
 	}
 
@@ -54,10 +56,14 @@ public class DrivetrainController implements Requirable {
 				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
 		reactor.onTriggered(input.getTurnStick().getButton(Buttons.DRIVETRAIN_TURN_RIGHT_BUTTON),
 				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getDriveStick().getButton(10), () -> Strongback.submit(new DriveTeleop(this, 1.0f)));
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON), 
+				() -> Strongback.submit(new UpdatingAutoAlign(this)));
+		reactor.onTriggered(input.getDriveStick().getButton(10),
+				() -> Strongback.submit(new DriveTeleop(this, 1.0f)));
 	}
 
 	public void update() {
+		System.out.println(drivetrainState);
 		if (drivetrainState == DrivetrainState.IDLE) {
 			if(input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
 				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));
