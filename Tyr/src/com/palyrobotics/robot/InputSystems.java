@@ -1,11 +1,12 @@
 package com.palyrobotics.robot;
 
 import org.strongback.components.AngleSensor;
-import org.strongback.components.Gyroscope;
 import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
 
 import com.palyrobotics.xbox.XBoxController;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 public interface InputSystems {
 	
@@ -27,7 +28,7 @@ public interface InputSystems {
 	public AngleSensor getLeftDriveEncoder();
 	public AngleSensor getRightDriveEncoder();
 	
-	public Gyroscope getGyroscope();
+	public AnalogGyro getGyroscope();
 	public AngleSensor getBreacherPotentiometer();
 	public AngleSensor getShooterArmPotentiometer();
 	public ThreeAxisAccelerometer getAccelerometer();

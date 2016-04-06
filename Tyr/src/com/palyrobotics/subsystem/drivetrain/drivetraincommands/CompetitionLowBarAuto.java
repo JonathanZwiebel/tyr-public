@@ -50,7 +50,7 @@ public class CompetitionLowBarAuto extends Command {
 		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_DISTANCE);
 		drivetrain.getInput().getLeftDriveEncoder().zero();
 		drivetrain.getInput().getRightDriveEncoder().zero();
-		drivetrain.getInput().getGyroscope().zero();
+		drivetrain.getInput().getGyroscope().reset();
 		startTime = System.currentTimeMillis();
 	}
 
