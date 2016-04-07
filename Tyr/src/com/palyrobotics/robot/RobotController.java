@@ -85,7 +85,7 @@ public class RobotController extends IterativeRobot {
     	//Input and SendableChooser
     	input = new InputHardware();
     	
-    	setDericConstants();
+    	setTyrConstants();
     	
     	//Hardware system
     	accumulatorSystems = new AccumulatorHardware();
