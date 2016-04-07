@@ -64,8 +64,8 @@ public class Ports {
 	
 	public static final int GRABBER_EXTEND_VALVE_TYR = 0;
 	public static final int GRABBER_RETRACT_VALVE_TYR = 7;
-	public static final int GEAR_ACTUATOR_EXTEND_VALVE_TYR = 3;
-	public static final int GEAR_ACTUATOR_RETRACT_VALVE_TYR = 4;
+	public static final int GEAR_ACTUATOR_EXTEND_VALVE_TYR = 4;
+	public static final int GEAR_ACTUATOR_RETRACT_VALVE_TYR = 3;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR = 5;
 	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR = 1; 
