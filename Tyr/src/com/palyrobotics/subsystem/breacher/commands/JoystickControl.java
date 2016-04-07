@@ -24,7 +24,12 @@ public class JoystickControl extends Command {
 		super(controller);
 		this.controller = controller;
 		this.input = input;
-		idlePoint = input.getBreacherPotentiometer().getAngle();
+		try {
+			idlePoint = input.getBreacherPotentiometer().getAngle();
+		}
+		catch(Exception e) {
+			System.err.println("No Breacher Potentiometer");
+		}
 		current = idlePoint;
 		previous = current;
 	}
@@ -42,6 +47,7 @@ public class JoystickControl extends Command {
 	 * @return true, this command stops immediately
 	 */
 	public boolean execute() {
+		// Checks if breacher should hold position
 		if(input.getSecondaryStick().getButton(Buttons.BREACHER_HOLD_BUTTON).isTriggered()) {
 			 if(this.justTriggered == false) {
 				 this.holding = !holding;
@@ -52,19 +58,30 @@ public class JoystickControl extends Command {
 			 this.justTriggered = false;
 		}
 		
+		// PD in place if holding position
 		if(holding) {
-			error = idlePoint - input.getBreacherPotentiometer().getAngle();
-			current = input.getBreacherPotentiometer().getAngle();
-			double derivative = (error - previous) * UPDATES_PER_SECOND;
- 			double speed = Math.max(Math.min((PROPORTIONAL * error + DERIVATIVE * derivative), 0.3), -0.3);
- 			controller.getBreacher().getMotor().setSpeed(speed);
- 			previous = error;
+			// Checks that breacher pot exists
+			try {
+				error = idlePoint - input.getBreacherPotentiometer().getAngle();
+				current = input.getBreacherPotentiometer().getAngle();
+				double derivative = (error - previous) * UPDATES_PER_SECOND;
+	 			double speed = Math.max(Math.min((PROPORTIONAL * error + DERIVATIVE * derivative), 0.3), -0.3);
+	 			controller.getBreacher().getMotor().setSpeed(speed);
+	 			previous = error;
+			} catch(Exception e) {
+				this.holding = false;
+				System.err.println("No breacher potentiometer");
+			}
  			return false;
 		}
 		
 		else {
 			controller.getBreacher().getMotor().setSpeed(input.getSecondaryStick().getPitch().read());
-			idlePoint = input.getBreacherPotentiometer().getAngle();
+			try {
+				idlePoint = input.getBreacherPotentiometer().getAngle();
+			} catch(Exception e) {
+				System.err.println("No breacher potentiometer");
+			}
 			return false;
 		}
 	}

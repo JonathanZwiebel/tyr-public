@@ -34,7 +34,7 @@ public class InputHardware implements InputSystems {
 	public final AnalogGyro gyroscope = new AnalogGyro(1);
 	public final ThreeAxisAccelerometer accelerometer = Hardware.Accelerometers.builtIn();
 	
-	public final AngleSensor breacherPotentiometer = Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, BREACHER_POTENTIOMETER_DEGREE_OFFSET);
+	public final AngleSensor breacherPotentiometer = null; //Hardware.AngleSensors.potentiometer(BREACHER_POTENTIOMETER_CHANNEL, BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, BREACHER_POTENTIOMETER_DEGREE_OFFSET);
 	public final AngleSensor shooterPotentiometer = Hardware.AngleSensors.potentiometer(2, SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES, SHOOTER_POTENTIOMETER_DEGREE_OFFSET);
 	
 	public final XBoxController xbox = XBox.getXBox(XBOX_PORT);
