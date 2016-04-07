@@ -59,18 +59,9 @@ public class DriveTeleop extends Command {
 
 		double leftTargetOutput = -(forwardSpeed - turnSpeed);
 		double rightTargetOutput = (forwardSpeed + turnSpeed);
-		
-		double leftCurrentOutput = drivetrain.getOutput().getLeftMotor().getSpeed();
-		double rightCurrentOutput = drivetrain.getOutput().getRightMotor().getSpeed();
 
-		double leftError = leftTargetOutput - leftCurrentOutput;
-		double rightError = rightTargetOutput - rightCurrentOutput;
-
-		double leftDiff = Math.max(Math.min(leftError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
-		double rightDiff = Math.max(Math.min(rightError, MAX_TELEOP_ACCELERATION), -MAX_TELEOP_ACCELERATION);
-
-		drivetrain.getOutput().getLeftMotor().setSpeed(scaling * (leftCurrentOutput + leftDiff));
-		drivetrain.getOutput().getRightMotor().setSpeed(scaling * (rightCurrentOutput + rightDiff));
+		drivetrain.getOutput().getLeftMotor().setSpeed(scaling * leftTargetOutput);
+		drivetrain.getOutput().getRightMotor().setSpeed(scaling * rightTargetOutput);
 
 		return false;
 	}
