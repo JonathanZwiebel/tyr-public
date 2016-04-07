@@ -17,9 +17,4 @@ public class MockAccumulatorHardware implements AccumulatorSystems {
 	public Motor getAccumulatorMotors() {
 		return accumulatorMotors;
 	}
-	@Override
-	public void updateSystems() {
-		// TODO Auto-generated method stub
-		
-	}
 }

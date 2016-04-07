@@ -17,10 +17,4 @@ public class MockBreacherHardware implements BreacherSystems {
 	public Motor getMotor() {
 		return motor;
 	}
-
-	@Override
-	public void updateSystems() {
-		// TODO Auto-generated method stub
-		
-	}
 }

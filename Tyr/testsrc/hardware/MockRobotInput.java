@@ -14,6 +14,7 @@ import org.strongback.mock.MockThreeAxisAccelerometer;
 import com.palyrobotics.robot.InputSystems;
 import com.palyrobotics.xbox.XBoxController;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import hardware.mocks.MockFlightStick;
 import hardware.mocks.MockXBoxController;
 
@@ -27,7 +28,7 @@ public class MockRobotInput implements InputSystems {
 	
 	public final MockAngleSensor leftDriveEncoder = Mock.angleSensor();
 	public final MockAngleSensor rightDriveEncoder = Mock.angleSensor();
-	public final MockGyroscope gyroscope = Mock.gyroscope();
+	public final AnalogGyro gyroscope = null;
 	public final MockThreeAxisAccelerometer accelerometer = Mock.accelerometer3Axis();
 	public final MockDistanceSensor leftInfrared = Mock.distanceSensor();
 	public final MockDistanceSensor rightInfrared = Mock.distanceSensor();
@@ -61,7 +62,7 @@ public class MockRobotInput implements InputSystems {
 	}
 	
 	@Override
-	public Gyroscope getGyroscope() {
+	public AnalogGyro getGyroscope() {
 		return gyroscope;
 	}
 	

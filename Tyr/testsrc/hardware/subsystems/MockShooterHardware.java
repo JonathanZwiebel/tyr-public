@@ -36,10 +36,4 @@ public class MockShooterHardware implements ShooterSystems {
 	public void setPiston(Solenoid piston) {
 		p = piston;
 	}
-
-	@Override
-	public void updateSystems() {
-		// TODO Auto-generated method stub
-		
-	}
 }
