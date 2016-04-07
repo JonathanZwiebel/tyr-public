@@ -20,6 +20,7 @@ public class Buttons {
 	public static final int DRIVETRAIN_HIGH_GEAR_BUTTON = 6;
 	public static final int DRIVETRAIN_LOW_GEAR_BUTTON = 4;
 	public static final int DRIVETRAIN_THROTTLE_FORWARD_BUTTON = 1;
+	public static final int DRIVETRAIN_AUTO_ALIGN_BUTTON = 2;
 	
 	// Turn stick
 	public static final int DRIVETRAIN_TURN_LEFT_BUTTON = 3;
@@ -34,6 +35,5 @@ public class Buttons {
 	public static final int LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON = 5;
 	public static final int LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON = 4;
 	public static final int LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON = 6;
-	public static final int DRIVETRAIN_AUTO_ALIGN_BUTTON = 8;
 	
 }

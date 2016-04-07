@@ -52,10 +52,6 @@ public class DrivetrainController implements Requirable {
 				() -> TELEOP_ORIENTATION = 1.0);
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_BREACHER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = -1.0);
-		reactor.onTriggered(input.getTurnStick().getButton(Buttons.DRIVETRAIN_TURN_LEFT_BUTTON),
-				() -> Strongback.submit(new TurnAngle(this, STANDARD_TURN_ANGLE)));
-		reactor.onTriggered(input.getTurnStick().getButton(Buttons.DRIVETRAIN_TURN_RIGHT_BUTTON),
-				() -> Strongback.submit(new TurnAngle(this, -STANDARD_TURN_ANGLE)));
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON), 
 				() -> Strongback.submit(new UpdatingAutoAlign(this)));
 		reactor.onTriggered(input.getDriveStick().getButton(10),
