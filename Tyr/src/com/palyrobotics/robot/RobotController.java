@@ -277,11 +277,14 @@ public class RobotController extends IterativeRobot {
     	ShooterArmState shooterArmState = shooter.armController.state;
     	ShooterLoadingActuatorState shooterLoadingActuatorState = shooter.loadingActuatorController.state;
     	ShooterLockingActuatorState shooterLockingActuatorState = shooter.lockingActuatorController.state;
-    	
- 	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
- 	    
- 	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
- 	  
+    	try {
+	 	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
+	 	    
+	 	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
+    	}
+    	catch(Exception e) {
+    		System.err.println("No potentiometers");
+    	}
  	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
  	    
  	    SmartDashboard.putNumber("Left Encoder", input.getLeftDriveEncoder().getAngle());
