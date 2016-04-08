@@ -64,6 +64,10 @@ public class CompetitionLowBarAuto extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		endTime = System.currentTimeMillis();
+		if(endTime - startTime < 9000) {
+			return false;
+		}
 		// Calculates error based on target distance and distance already
 		// traveled.
 
@@ -110,8 +114,7 @@ public class CompetitionLowBarAuto extends Command {
 			System.out.println("force out");
 			return true;
 		}
-		endTime = System.currentTimeMillis();
-		if(endTime - startTime > 5000) {
+		if(endTime - startTime > 14000) {
 			return true;
 		}
 		return false;
