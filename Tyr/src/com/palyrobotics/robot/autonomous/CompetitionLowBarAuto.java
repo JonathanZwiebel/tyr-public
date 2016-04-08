@@ -31,7 +31,7 @@ public class CompetitionLowBarAuto extends Command {
 		this.previousRightError = distance;
 		this.angleError = 0.0;
 		this.previousAngleError = 0.0;
-		this.speedLimit = 0.3; // Default speed limit
+		this.speedLimit = 0.5; // Default speed limit
 	}
 
 	public CompetitionLowBarAuto(DrivetrainController drivetrain, double distance, double speedLimit) {
@@ -65,7 +65,7 @@ public class CompetitionLowBarAuto extends Command {
 	@Override
 	public boolean execute() {
 		endTime = System.currentTimeMillis();
-		if(endTime - startTime < 9000) {
+		if(endTime - startTime < 10000) {
 			return false;
 		}
 		// Calculates error based on target distance and distance already
