@@ -15,8 +15,6 @@ public class GrabberTeleop extends Command {
 
 	GrabberController grabber;
 	InputSystems input;
-	private boolean justTriggered;
-	private boolean upPosition;
 	
 	public GrabberTeleop(GrabberController grabber, InputSystems input) {
 		super(grabber);
@@ -30,25 +28,11 @@ public class GrabberTeleop extends Command {
 	
 	@Override
 	public boolean execute() {
-		//toggle the grabber
 		if(input.getSecondaryStick().getButton(GRABBER_TOGGLE_BUTTON).isTriggered()) {
-			 if(this.justTriggered == false) {
-				 this.upPosition = !upPosition;
-				 this.justTriggered = true;
-			 }
+			 grabber.getOutput().getGrabber().retract();
 		} 
 		else {
-			 this.justTriggered = false;
-		}
-		
-		if(upPosition) {
-			grabber.getOutput().getGrabber().retract();
-			grabber.setMicroGrabberState(MicroGrabberState.RAISED);
-		}
-		
-		else {
-			grabber.getOutput().getGrabber().extend();
-			grabber.setMicroGrabberState(MicroGrabberState.LOWERED);
+			 grabber.getOutput().getGrabber().extend();
 		}
 		
 		return false;
