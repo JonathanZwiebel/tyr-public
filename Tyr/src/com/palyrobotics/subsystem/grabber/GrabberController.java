@@ -18,58 +18,61 @@ public class GrabberController implements Requirable {
 	private GrabberSystems output;
 	private InputSystems robotInput;
 	private SwitchReactor reactor;
-	
-	public enum GrabberState{
-		IDLE,
-		TELEOP,
+
+	public enum GrabberState {
+		IDLE, TELEOP,
 	}
-	
-	public enum MicroGrabberState{
-		RAISED,
-		LOWERED
+
+	public enum MicroGrabberState {
+		RAISED, LOWERED
 	}
-	
+
 	private MicroGrabberState microState = MicroGrabberState.RAISED;
-	
+
 	private GrabberState state;
-	
+
 	public GrabberController(GrabberSystems out, InputSystems input) {
 		this.output = out;
 		this.robotInput = input;
 		reactor = Strongback.switchReactor();
 	}
-	
-	public void init(){
+
+	public void init() {
+		Logger.getLogger("Central").log(Level.INFO, "Grabber controller initalized to IDLE.");
 		state = GrabberState.IDLE;
-		
-		if(robotInput.getControlScheme().equals(ControlScheme.XBOX)) {
+
+		if (robotInput.getControlScheme().equals(ControlScheme.XBOX)) {
+			Logger.getLogger("Central").log(Level.FINE, "Grabber initialized with xbox controls.");
 			Strongback.submit(new GrabberTeleop(this, robotInput));
 		}
-		
-		if(robotInput.getControlScheme().equals(ControlScheme.JOYSTICKS)) {
-			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
-			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
+
+		if (robotInput.getControlScheme().equals(ControlScheme.JOYSTICKS)) {
+			Logger.getLogger("Central").log(Level.FINE, "Grabber initialized to joystick controls.");
+			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON),
+					() -> Strongback.submit(new GrabberMoveUpCommand(this)));
+			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON),
+					() -> Strongback.submit(new GrabberMoveDownCommand(this)));
 		}
-    	Logger.getLogger("Central").log(Level.INFO, "The GrabberController was initalized.");
+		Logger.getLogger("Central").log(Level.INFO, "The GrabberController was initalized.");
 	}
-	
+
 	public GrabberState getGrabberState() {
 		return state;
 	}
-	
+
 	public void setGrabberState(GrabberState state) {
 		this.state = state;
 	}
-	
+
 	public MicroGrabberState getMicroGrabberState() {
 		return microState;
 	}
-	
+
 	public void setMicroGrabberState(MicroGrabberState state) {
 		this.microState = state;
 	}
-	
-	public void update(){
+
+	public void update() {
 		state = GrabberState.TELEOP;
 	}
 
@@ -79,10 +82,10 @@ public class GrabberController implements Requirable {
 
 	public InputSystems getRobotInput() {
 		return robotInput;
-	}	
-	
-	public void disable(){
-		
 	}
-	
+
+	public void disable() {
+
+	}
+
 }

@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.grabber.commands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.grabber.GrabberConstants;
@@ -16,6 +19,7 @@ public class GrabberMoveUpCommand extends Command{
 	
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.INFO, "Grabber moving up.");
 		grabber.getOutput().getGrabber().retract();
 		return true;
 	}
