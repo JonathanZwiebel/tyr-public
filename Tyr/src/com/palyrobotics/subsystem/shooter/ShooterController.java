@@ -49,6 +49,9 @@ public class ShooterController implements Requirable {
 	}
 
 	public void init() {
+		if(state != null) {
+			Logger.getLogger("Central").log(Level.SEVERE, "ShooterState on init is not null. It is: " + state + ".");
+		}
 		state = ShooterState.IDLE;
 		armController.init();
 		lockingActuatorController.init();
@@ -69,6 +72,7 @@ public class ShooterController implements Requirable {
 		else if(state == ShooterState.IDLE) {
 			setState(ShooterState.TELEOP);
 		}
+
 		
 		armController.update();
 		lockingActuatorController.update();
@@ -95,10 +99,10 @@ public class ShooterController implements Requirable {
 		if(state == ShooterState.TELEOP) {
 			Strongback.submit(new FullShooterTeleopCommand(this));
 		}
+		Logger.getLogger("Central").log(Level.FINE, "Setting state to: " + state + ".");
 	}
 	
 	public ShooterState getState() {
-		Logger.getLogger("Central").log(Level.FINE, "Setting state to: " + state + ".");
 		return state;
 	}
 	
