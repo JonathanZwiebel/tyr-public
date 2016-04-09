@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -20,6 +23,7 @@ public class OriginalDriveTeleop extends Command{
 	@Override
 	public void initialize() {
 		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_TELEOP);
+		Logger.getLogger("Central").log(Level.INFO, "OriginalDriveTeleop command initialized.");
 	}
 	
 	/**
@@ -28,6 +32,10 @@ public class OriginalDriveTeleop extends Command{
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "OriginalDriveTeleop command execute method running.");
+		if (drivetrain.getDrivetrainState() != DrivetrainState.DRIVING_TELEOP) {
+			return true;
+		}
 		double forwardSpeed = drivetrain.getInput().getDriveStick().getPitch().read();
 		double turnSpeed = drivetrain.getInput().getTurnStick().getRoll().read();
 		
@@ -45,7 +53,16 @@ public class OriginalDriveTeleop extends Command{
 	 */
 	@Override
 	public void interrupted() {
+		Logger.getLogger("Central").log(Level.INFO, "OriginalDriveTeleop command interrupted.");
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+	}
+	
+	@Override
+	public void end() {
+		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
+		Logger.getLogger("Central").log(Level.INFO, "OriginalDriveTeleop command ended.");
 	}
 
 }

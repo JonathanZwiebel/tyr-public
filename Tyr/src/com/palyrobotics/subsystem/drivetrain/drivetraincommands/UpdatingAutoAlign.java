@@ -3,6 +3,9 @@ package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 import static com.palyrobotics.robot.RobotConstants.UPDATES_PER_SECOND;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -35,10 +38,12 @@ public class UpdatingAutoAlign extends Command {
 		this.previousAngle = angle;
 		this.previousError = angle;
 		drivetrain.getInput().getGyroscope().reset();
+		Logger.getLogger("Central").log(Level.INFO, "UpdatingAutoAlign command initialized.");
 		
 	}
 
 	private void zero() {
+		Logger.getLogger("Central").log(Level.INFO, "UpdatingAutoAlign zero function called.");
 		this.zeroedAngle = drivetrain.getInput().getGyroscope().getAngle();
 	}
 	
@@ -47,6 +52,7 @@ public class UpdatingAutoAlign extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "UpdatingAutoAlign execute method being called.");
 		angle = table.getNumber("SkewAngle", this.angle);
 		xDisplacement = table.getNumber("xDisplacement", this.xDisplacement);
 		
@@ -72,9 +78,6 @@ public class UpdatingAutoAlign extends Command {
 		// calculate error by using angle to distance
 		double error = angle - gyroAngle;
 
-		System.out.println("Skew angle: " + angle);
-		System.out.println("Error: " + error);
-		
 		// finds derivative with 50 updates/second update rate
 		double derivative = (error - previousError) * UPDATES_PER_SECOND;
 
@@ -85,15 +88,13 @@ public class UpdatingAutoAlign extends Command {
 		double rightSpeed = Math.max(Math.min(RIGHT_ANGLE_P_VALUE * error + RIGHT_ANGLE_D_VALUE * derivative, 0.3),
 				-0.3);
 
-		System.out.println("leftspeed: " + leftSpeed);
-		System.out.println("rightspeed: " + rightSpeed);
-		System.out.println("Gyro:" + gyroAngle);
 		drivetrain.getOutput().getLeftMotor().setSpeed(-leftSpeed);
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 
 		// Panic switch to instantly break out of the command
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
 			table.putBoolean("Reset", true);
+			Logger.getLogger("Central").log(Level.INFO, "UpdatingAutoAlign breakout switch triggered.");
 			return true;
 		}
 		return false;
@@ -103,15 +104,16 @@ public class UpdatingAutoAlign extends Command {
 	public void interrupted() {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 		this.zeroedAngle = 0.0;
+		Logger.getLogger("Central").log(Level.INFO, "UpdatingAutoAlign command interrupted.");
 	}
 
 	@Override
 	public void end() {
-		System.out.println("Interupted and End Called");
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		this.zeroedAngle = 0;
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		Logger.getLogger("Central").log(Level.INFO, "UpdatingAutoAlign command ended.");
 	}
 
 }

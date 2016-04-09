@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -18,7 +21,7 @@ public class ToggleGears extends Command {
 
 	@Override
 	public void initialize() {
-
+		Logger.getLogger("Central").log(Level.INFO, "ToggleGears command initialized.");
 	}
 
 	/**
@@ -29,6 +32,7 @@ public class ToggleGears extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "ToggleGears command execute method running.");
 		if (drivetrain.getOutput().getSolenoid().isRetracting()) {
 			drivetrain.getOutput().getSolenoid().extend();
 		} else {
@@ -39,11 +43,11 @@ public class ToggleGears extends Command {
 
 	@Override
 	public void interrupted() {
-
+		Logger.getLogger("Central").log(Level.INFO, "ToggleGears command interrupted.");
 	}
 
 	@Override
 	public void end() {
-
+		Logger.getLogger("Central").log(Level.INFO, "ToggleGears command ended.");
 	}
 }

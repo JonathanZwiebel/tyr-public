@@ -5,6 +5,10 @@ import org.strongback.command.Command;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.palyrobotics.robot.RobotConstants.*;
 
 public class DriveDistance extends Command {
@@ -49,6 +53,7 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public void initialize() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveDistance command initialized. ");
 		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_DISTANCE);
 		drivetrain.getInput().getLeftDriveEncoder().zero();
 		drivetrain.getInput().getRightDriveEncoder().zero();
@@ -62,6 +67,7 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "DriveDistance execute method running.");
 		// Calculates error based on target distance and distance already
 		// traveled.
 
@@ -117,6 +123,7 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public void interrupted() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveDistance interrupted.");
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 		System.out.println("Drive distance interrupted. ");
 	}
@@ -127,6 +134,7 @@ public class DriveDistance extends Command {
 	 */
 	@Override
 	public void end() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveDistance ended.");
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);

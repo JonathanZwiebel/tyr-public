@@ -5,6 +5,10 @@ import org.strongback.command.Command;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.palyrobotics.robot.RobotConstants.*;
 
 public class TurnAngle extends Command {
@@ -32,6 +36,7 @@ public class TurnAngle extends Command {
 	public void initialize() {
 		drivetrain.setDrivetrainState(DrivetrainState.TURNING_ANGLE);
 		drivetrain.getInput().getGyroscope().reset();
+		Logger.getLogger("Central").log(Level.INFO, "TurnAngle command initialized.");
 	}
 
 	/**
@@ -41,6 +46,7 @@ public class TurnAngle extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.INFO, "TurnAngle command execute method running.");
 		// calculate error by using angle to distance
 		double error = angle - drivetrain.getInput().getGyroscope().getAngle();
 
@@ -60,9 +66,11 @@ public class TurnAngle extends Command {
 		// stops robot when target is reached and robot has slowed within
 		// tolerance range
 		if (derivative == 0.0 && Math.abs(error) < ACCEPTABLE_ANGLE_ERROR) {
+			Logger.getLogger("Central").log(Level.INFO, "TurnAngle command stop conditions met.");
 			return true;
 		}
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
+			Logger.getLogger("Central").log(Level.INFO, "TurnAngle command breakout switch triggered.");
 			return true;
 		}
 		return false;
@@ -75,6 +83,7 @@ public class TurnAngle extends Command {
 	@Override
 	public void interrupted() {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		Logger.getLogger("Central").log(Level.INFO, "TurnAngle command interrupted.");
 	}
 
 	/**
@@ -86,5 +95,6 @@ public class TurnAngle extends Command {
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		Logger.getLogger("Central").log(Level.INFO, "TurnAngle command ended.");
 	}
 }

@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -28,6 +31,7 @@ public class DrivetrainDisable extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.INFO, "DrivetrainDisable command called and run.");
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);

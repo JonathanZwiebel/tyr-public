@@ -4,6 +4,10 @@ import org.strongback.command.Command;
 
 import static com.palyrobotics.robot.RobotConstants.*;
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import com.sun.javafx.runtime.SystemProperties;
@@ -37,6 +41,7 @@ public class MoveToGoal extends Command {
 	 */
 	@Override
 	public void initialize() {
+		Logger.getLogger("Central").log(Level.INFO, "MoveToGoal command initialized.");
 		this.table = NetworkTable.getTable("AutoAlign");
 		this.moveDistance = table.getNumber("Distance", this.moveDistance);
 		drivetrain.setDrivetrainState(DrivetrainState.MOVING_TO_GOAL);
@@ -50,6 +55,7 @@ public class MoveToGoal extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "MoveToGoal command execute method called.");
 		// Calculates error based on the target INCHES_TO_SHOOT and how far away we are from 
 		// the goal currently.
 		double leftError = moveDistance - INCHES_TO_SHOOT; 
@@ -70,11 +76,13 @@ public class MoveToGoal extends Command {
 		drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 
 		if (drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) {
+			Logger.getLogger("Central").log(Level.INFO, "MoveToGoal breakout switch triggered.");
 			return true;
 		}
 
 		if (Math.abs(leftError) < ACCEPTABLE_DISTANCE_ERROR && Math.abs(rightError) < ACCEPTABLE_DISTANCE_ERROR
 				&& leftDerivative == 0.0 && rightDerivative == 0.0) {
+			Logger.getLogger("Central").log(Level.INFO, "MoveToGoal conditions met.");
 			return true;
 		}
 		return false;
@@ -86,6 +94,7 @@ public class MoveToGoal extends Command {
 	@Override
 	public void interrupted() {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
+		Logger.getLogger("Central").log(Level.INFO, "MoveToGoal command interrupted.");
 	}
 
 	/**
@@ -96,6 +105,7 @@ public class MoveToGoal extends Command {
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 		drivetrain.getOutput().getLeftMotor().stop();
 		drivetrain.getOutput().getRightMotor().stop();
+		Logger.getLogger("Central").log(Level.INFO, "MoveToGoal command ended.");
 	}
 
 }

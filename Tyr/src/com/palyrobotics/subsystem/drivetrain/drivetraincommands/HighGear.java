@@ -1,8 +1,11 @@
 package com.palyrobotics.subsystem.drivetrain.drivetraincommands;
 
+import java.util.logging.Level;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
+import java.util.logging.Logger;
 
 public class HighGear extends Command {
 
@@ -17,7 +20,7 @@ public class HighGear extends Command {
 
 	@Override
 	public void initialize() {
-
+		Logger.getLogger("Central").log(Level.INFO, "HighGear command initialized.");
 	}
 
 	/**
@@ -27,16 +30,17 @@ public class HighGear extends Command {
 	@Override
 	public boolean execute() {
 		drivetrain.getOutput().getSolenoid().extend();
+		Logger.getLogger("Central").log(Level.INFO, "Solenoid extended.");
 		return true;
 	}
 
 	@Override
 	public void interrupted() {
-
+		Logger.getLogger("Central").log(Level.INFO, "HighGear command interrupted.");
 	}
 
 	@Override
 	public void end() {
-
+		Logger.getLogger("Central").log(Level.INFO, "HighGear command ended. ");
 	}
 }

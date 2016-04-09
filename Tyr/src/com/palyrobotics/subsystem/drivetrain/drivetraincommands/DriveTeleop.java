@@ -7,6 +7,9 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController.*;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * The class representing the teleop driving command
  */
@@ -42,6 +45,7 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public void initialize() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveTeleop command initialized.");
 		drivetrain.setDrivetrainState(DrivetrainState.DRIVING_TELEOP);
 	}
 
@@ -51,6 +55,7 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public boolean execute() {
+		Logger.getLogger("Central").log(Level.FINE, "DriveTeleop command execute method running.");
 		if (drivetrain.getDrivetrainState() != DrivetrainState.DRIVING_TELEOP) {
 			return true;
 		}
@@ -72,12 +77,14 @@ public class DriveTeleop extends Command {
 	 */
 	@Override
 	public void interrupted() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveTeleop command interrupted.");
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 	}
 	
 	@Override
 	public void end() {
+		Logger.getLogger("Central").log(Level.INFO, "DriveTeleop command ended.");
 		drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
 		drivetrain.getOutput().getRightMotor().setSpeed(0.0);	
 	}
