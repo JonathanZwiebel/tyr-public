@@ -22,26 +22,26 @@ public class StopArm extends Command {
 	@Override
 	public void initialize() {
 		controller.setMicroState(MicroBreacherState.IDLE);
-    	Logger.getLogger("Central").log(Level.INFO, "LowerArmAuto initalized.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopArm initalized.");
 	}
 
 	@Override
 	public boolean execute() {
 		controller.getBreacher().getMotor().setSpeed(0);
-    	Logger.getLogger("Central").log(Level.INFO, "LowerArmAuto is ending.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopArm is ending.");
 		return true;
 	}
 	
 	@Override
 	public void end() {
 		controller.setMicroState(MicroBreacherState.IDLE);
-    	Logger.getLogger("Central").log(Level.INFO, "LowerArmAuto ended.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopArm ended.");
 	}
 	
 	@Override
 	public void interrupted() {
 		controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
-    	Logger.getLogger("Central").log(Level.INFO, "LowerArmAuto interrupted.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopArm interrupted.");
 	}
 
 }
