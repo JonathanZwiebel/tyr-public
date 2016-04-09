@@ -46,52 +46,67 @@ public class InputHardware implements InputSystems {
 
 	@Override
 	public FlightStick getDriveStick() {
+        Logger.getLogger("Central").log(Level.INFO, "The drive stick get method was called.");
 		return driveStick;
 	}
 	@Override
 	public FlightStick getTurnStick() {
+        Logger.getLogger("Central").log(Level.INFO, "The turn stick get method was called.");
 		return turnStick;
 	}
 	@Override
 	public FlightStick getShooterStick() {
+        Logger.getLogger("Central").log(Level.INFO, "The shooter stick get method was called.");
 		if(getControlScheme().equals(ControlScheme.XBOX)) {
+	        Logger.getLogger("Central").log(Level.INFO, "The shooter stick get method is returning a mock stick.");
 			return mockLeftStick;
 		}
+        Logger.getLogger("Central").log(Level.INFO, "The shooter stick get method is returning a real stick.");
 		return shooterStick;
 	}
 	@Override 
 	public FlightStick getSecondaryStick() {
+        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method was called.");
 		if(getControlScheme().equals(ControlScheme.XBOX)) {
+	        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method is returning a mock stick.");
 			return mockRightStick;
 		}
+        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method is returning a mock stick.");
 		return secondaryStick;
 	}
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
+        Logger.getLogger("Central").log(Level.INFO, "The left drive encoder get method was called.");
 		return leftDriveEncoder;
 	}
 	@Override
 	public AngleSensor getRightDriveEncoder() {
+        Logger.getLogger("Central").log(Level.INFO, "The right drive encoder get method was called.");
 		return rightDriveEncoder;
 	}
 	@Override
 	public AnalogGyro getGyroscope() {
+        Logger.getLogger("Central").log(Level.INFO, "The gyroscope get method was called.");
 		return gyroscope;
 	}
 	@Override
 	public ThreeAxisAccelerometer getAccelerometer() {
+        Logger.getLogger("Central").log(Level.INFO, "The accelerometer get method was called.");
 		return accelerometer;
 	}
 	public AngleSensor getBreacherPotentiometer() {
+        Logger.getLogger("Central").log(Level.INFO, "The breacher potentiometer get method was called.");
 		return breacherPotentiometer;
 	}
 	@Override
 	public AngleSensor getShooterArmPotentiometer() {
+        Logger.getLogger("Central").log(Level.INFO, "The shooter arm potentiometer get method was called.");
 		return shooterPotentiometer;
 	}
 
 	@Override
 	public XBoxController getXBox() {
+        Logger.getLogger("Central").log(Level.INFO, "The XBox get method was called.");
 		return xbox;
 	}
 
@@ -108,11 +123,14 @@ public class InputHardware implements InputSystems {
 	 */
 	@Override
 	public int[] getShooterDisplacement() {
+        Logger.getLogger("Central").log(Level.INFO, "The shooter displacement get method was called.");
 		String rawData = serialPort.readString(); // read raw data from the serial port
+        Logger.getLogger("Central").log(Level.INFO, "serialPort.readString() was executed correctly and read: " + rawData);
 		return getShooterDisplacement(rawData);
 	}
 
 	public int[] getShooterDisplacement(String rawData) {
+        Logger.getLogger("Central").log(Level.INFO, "The shooter displacement get method was called.");
 		// Expected string format: 	x\ty\tw\th\r\n
 		if (rawData.length() != 0) {
 			try {
@@ -123,7 +141,7 @@ public class InputHardware implements InputSystems {
 				displacements[1] = Integer.valueOf(splitData[1]);
 				displacements[2] = Integer.valueOf(splitData[2]);
 				displacements[3] = Integer.valueOf(splitData[3].replace("\r\n","")); // strip \r\n from end of line
-				
+		        Logger.getLogger("Central").log(Level.INFO, "getShooterDisplacement try statement ran without exception");
 				return displacements;  
 			} catch (Exception e) {  // malformatted string
 		    	Logger.getLogger("Central").log(Level.WARNING, "SERIAL ERROR: Malformatted Data");
@@ -131,17 +149,20 @@ public class InputHardware implements InputSystems {
 				return null;
 			}
 		} else {
+	        Logger.getLogger("Central").log(Level.WARNING, "rawData length was 0");
 			return null;
 		}
 	}
 
 	@Override
 	public ControlScheme getControlScheme() {
+        Logger.getLogger("Central").log(Level.INFO, "The control scheme get method was called");
 		return control;
 	}
 
 	@Override
 	public void setControlScheme(ControlScheme control) {
+        Logger.getLogger("Central").log(Level.INFO, "The control scheme set method was called with: " + control);
 		this.control = control;
 	}
 }
