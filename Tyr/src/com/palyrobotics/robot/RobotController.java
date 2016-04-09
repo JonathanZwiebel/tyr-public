@@ -135,7 +135,7 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
-    	Logger.getLogger("Central").log(Level.INFO, "Autnomous init called. ");
+    	Logger.getLogger("Central").log(Level.FINE, "Autonomous init called. ");
        	drivetrain.init();
 //    	accumulator.init();
     	shooter.init();
@@ -155,8 +155,9 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void teleopInit() {
-    	Logger.getLogger("Central").log(Level.INFO, "Teleop was initialized. ");
+    	Logger.getLogger("Central").log(Level.INFO, "Start of teleopInit. ");
     	Strongback.killAllCommands();
+    	Logger.getLogger("Central").log(Level.INFO, "All Stronback commands killed. ");
     	
     	//Set the control scheme
     	if(chooser.getSelected().equals(1)) {
