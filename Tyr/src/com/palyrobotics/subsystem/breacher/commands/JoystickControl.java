@@ -8,6 +8,9 @@ import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class JoystickControl extends Command {
 	private BreacherController controller;
 	private InputSystems input;
@@ -28,7 +31,7 @@ public class JoystickControl extends Command {
 			idlePoint = input.getBreacherPotentiometer().getAngle();
 		}
 		catch(Exception e) {
-			System.err.println("No Breacher Potentiometer");
+	    	Logger.getLogger("Central").log(Level.WARNING, "No Breacher Potentiometer. " + e);
 		}
 		current = idlePoint;
 		previous = current;
@@ -38,6 +41,7 @@ public class JoystickControl extends Command {
 	public void initialize() {
 		controller.setMicroState(MicroBreacherState.JOYSTICK_CONTROL);
 		this.holding = false;
+    	Logger.getLogger("Central").log(Level.INFO, "JoystickControl initalized.");
 	}
 	
 	@Override
@@ -70,8 +74,9 @@ public class JoystickControl extends Command {
 	 			previous = error;
 			} catch(Exception e) {
 				this.holding = false;
-				System.err.println("No breacher potentiometer");
+		    	Logger.getLogger("Central").log(Level.WARNING, "No Breacher Potentiometer. " + e);
 			}
+	    	Logger.getLogger("Central").log(Level.FINE, "JoystickControl is continuing.");
  			return false;
 		}
 		
@@ -82,12 +87,19 @@ public class JoystickControl extends Command {
 			} catch(Exception e) {
 				System.err.println("No breacher potentiometer");
 			}
+	    	Logger.getLogger("Central").log(Level.FINE, "JoystickControl is continuing.");
 			return false;
 		}
+	}
+	
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "JoystickControl interrupted.");
 	}
 	
 	@Override 
 	public void end() {
 		controller.setMicroState(MicroBreacherState.JOYSTICK_CONTROL);
+    	Logger.getLogger("Central").log(Level.INFO, "JoystickControl ended.");
 	}
 }

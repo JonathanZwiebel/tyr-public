@@ -100,7 +100,6 @@ public class BreacherController implements Requirable {
 	 * The buttons and their respective actions are defined here.
 	 */
 	public void init() {
-    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was initialized.");
 		// when button 1 of the operator stick is pressed, raise the arm.
 		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
 
@@ -112,6 +111,7 @@ public class BreacherController implements Requirable {
 
 		// when button 2 of the operator stick has been released, stop the arm.
 		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
+    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was initialized.");
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class BreacherController implements Requirable {
 		if((getMicroState() == MicroBreacherState.IDLE )) {
 			Strongback.submit(new JoystickControl(this, input));
 		}
-		
+    	Logger.getLogger("Central").log(Level.FINE, "BreacherController updated.");
 	}
 
 	public BreacherSystems getBreacher() {
@@ -140,6 +140,7 @@ public class BreacherController implements Requirable {
 
 	public void disable() {
 		breacher.getMotor().setSpeed(0);
+    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was disabled.");
 	}
 
 }

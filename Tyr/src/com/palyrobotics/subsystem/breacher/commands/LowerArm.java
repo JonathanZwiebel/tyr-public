@@ -8,6 +8,9 @@ import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class LowerArm extends Command {
 
 	private BreacherController controller;
@@ -20,6 +23,7 @@ public class LowerArm extends Command {
 	@Override
 	public void initialize() {
 		controller.setMicroState(MicroBreacherState.CLOSING);
+    	Logger.getLogger("Central").log(Level.INFO, "LowerArm initalized.");
 	}
 	
 	@Override
@@ -32,21 +36,25 @@ public class LowerArm extends Command {
 		//Safety feature
 		if(controller.getInput().getShooterStick().getButton(Buttons.BREACHER_CANCEL_BUTTON).isTriggered()) {
 			controller.getBreacher().getMotor().setSpeed(0);
+	    	Logger.getLogger("Central").log(Level.INFO, "LowerArm is ending.");
 			return true;
 		}
 		
 		controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
+    	Logger.getLogger("Central").log(Level.INFO, "LowerArm is ending.");
 		return true;
 	}
 	
 	@Override
 	public void end() {
 		controller.setMicroState(MicroBreacherState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "LowerArm ended.");
 	}
 	
 	@Override
 	public void interrupted() {
 		controller.getBreacher().getMotor().setSpeed(LOWER_SPEED);
+    	Logger.getLogger("Central").log(Level.INFO, "LowerArm interrupted.");
 	}
 
 }

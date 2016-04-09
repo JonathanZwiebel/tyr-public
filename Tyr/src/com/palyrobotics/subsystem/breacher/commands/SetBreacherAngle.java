@@ -4,6 +4,9 @@ import org.strongback.command.Command;
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.breacher.BreacherController.MicroBreacherState;
@@ -38,6 +41,7 @@ public class SetBreacherAngle extends Command {
 	@Override
 	public void initialize() {
 		breacher.setMicroState(MicroBreacherState.SETTING_ANGLE);
+    	Logger.getLogger("Central").log(Level.INFO, "SetBreacherAngle initalized.");
 	}
 	
 	@Override
@@ -49,6 +53,7 @@ public class SetBreacherAngle extends Command {
 		//Safety feature
 		if(breacher.getInput().getShooterStick().getButton(Buttons.BREACHER_CANCEL_BUTTON).isTriggered()) {
 			breacher.getBreacher().getMotor().setSpeed(0);
+	    	Logger.getLogger("Central").log(Level.INFO, "SetBreacherAngle is ending.");
 			return true;
 		}
 
@@ -66,10 +71,12 @@ public class SetBreacherAngle extends Command {
 
 		if(Math.abs(error) < ACCEPTABLE_POTENTIOMETER_ERROR && Math.abs(derivative) < ACCEPTABLE_DERIVATIVE_ERROR) {
 			breacher.setMicroState(MicroBreacherState.IDLE);
+	    	Logger.getLogger("Central").log(Level.INFO, "SetBreacherAngle is ending.");
 			return true;
 		}
 
 		else {
+	    	Logger.getLogger("Central").log(Level.FINE, "SetBreacherAngle is continuing.");
 			return false;
 		}
 	}
@@ -78,11 +85,13 @@ public class SetBreacherAngle extends Command {
 	public void end() {
 		breacher.setMicroState(MicroBreacherState.IDLE);
 		breacher.getBreacher().getMotor().setSpeed(0);
+    	Logger.getLogger("Central").log(Level.INFO, "SetBreacherAngle ended.");
 	}
 	
 	@Override
 	public void interrupted() {
 		breacher.getBreacher().getMotor().setSpeed(0);
+    	Logger.getLogger("Central").log(Level.INFO, "SetBreacherAngle interrupted.");
 	}
 
 }
