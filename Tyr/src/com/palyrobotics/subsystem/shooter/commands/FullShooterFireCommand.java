@@ -23,7 +23,7 @@ public class FullShooterFireCommand extends Command {
 	
 	@Override
 	public void initialize() {
-		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand initialized.");
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterFireCommand initialized.");
 	}
 	
 	/**
@@ -38,11 +38,11 @@ public class FullShooterFireCommand extends Command {
 	@Override
 	public void end() {
 		controller.setState(ShooterState.IDLE);
-		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand ended.");
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterFireCommand ended.");
 	}
 	
 	@Override
 	public void interrupted() {
-		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand interrupted.");
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterFireCommand interrupted.");
 	}
 }
