@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.accumulator;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 import com.palyrobotics.robot.InputSystems;
@@ -23,6 +26,7 @@ public class AccumulatorController implements Requirable {
 	public void init() {
 		state = AccumulatorState.IDLE;
 		Strongback.submit(new AccumulatorTeleop(this, robotInput));
+    	Logger.getLogger("Central").log(Level.INFO, "The AccumulatorController was initalized.");
 	}
 
 	public void update() {

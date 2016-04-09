@@ -10,6 +10,9 @@ import com.palyrobotics.subsystem.drivetrain.drivetraincommands.*;
 
 import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class DrivetrainController implements Requirable {
 
 	private InputSystems input;
@@ -42,6 +45,7 @@ public class DrivetrainController implements Requirable {
 	 * TODO: Add align with new vision input that is passed in array form
 	 */
 	public void init() {
+    	Logger.getLogger("Central").log(Level.INFO, "The DrivetrainController was initialized.");
 		drivetrainState = DrivetrainState.IDLE;
 
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_HIGH_GEAR_BUTTON),

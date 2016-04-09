@@ -1,6 +1,9 @@
 package com.palyrobotics.subsystem.shooter;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
@@ -71,6 +74,7 @@ public class ShooterController implements Requirable {
 		armController.update();
 		lockingActuatorController.update();
 		loadingActuatorController.update();
+    	Logger.getLogger("Central").log(Level.INFO, "The ShooterController was initalized.");
 	}
 
 	public void disable() {

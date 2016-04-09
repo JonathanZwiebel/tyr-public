@@ -4,6 +4,10 @@ import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 import org.strongback.command.Requirable;
 import static com.palyrobotics.robot.Buttons.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.palyrobotics.robot.*;
 import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
@@ -46,6 +50,7 @@ public class GrabberController implements Requirable {
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_UP_BUTTON), () -> Strongback.submit(new GrabberMoveUpCommand(this)));
 			reactor.onTriggered(robotInput.getSecondaryStick().getButton(GRABBER_DOWN_BUTTON), () -> Strongback.submit(new GrabberMoveDownCommand(this)));
 		}
+    	Logger.getLogger("Central").log(Level.INFO, "The GrabberController was initalized.");
 	}
 	
 	public GrabberState getGrabberState() {

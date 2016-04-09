@@ -13,6 +13,9 @@ import com.palyrobotics.subsystem.breacher.commands.StopArm;
 
 import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Operates the breacher subystem
  * Has a state for the current control scheme (Teleop, auto, disabled)
@@ -97,6 +100,7 @@ public class BreacherController implements Requirable {
 	 * The buttons and their respective actions are defined here.
 	 */
 	public void init() {
+    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was initialized.");
 		// when button 1 of the operator stick is pressed, raise the arm.
 		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
 
