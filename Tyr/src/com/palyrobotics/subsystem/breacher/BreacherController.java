@@ -111,7 +111,7 @@ public class BreacherController implements Requirable {
 
 		// when button 2 of the operator stick has been released, stop the arm.
 		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
-    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was initialized.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreacherController initialized.");
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class BreacherController implements Requirable {
 
 	public void disable() {
 		breacher.getMotor().setSpeed(0);
-    	Logger.getLogger("Central").log(Level.INFO, "The BreacherController was disabled.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreacherController disabled.");
 	}
 
 }
