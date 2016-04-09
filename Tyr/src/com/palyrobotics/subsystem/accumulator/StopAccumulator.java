@@ -25,7 +25,8 @@ public class StopAccumulator extends Command{
 
 	@Override
 	public void initialize() {
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop initalized.");
+		controller.setState(AccumulatorState.DISABLED);
+    	Logger.getLogger("Central").log(Level.INFO, "StopAccumulator initalized.");
 	}
 	
 	/**
@@ -36,17 +37,17 @@ public class StopAccumulator extends Command{
 	public boolean execute() {
 		controller.systems.getAccumulatorMotors().setSpeed(0);
 		controller.setState(AccumulatorState.IDLE);
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop is ending.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopAccumulator is ending.");
 		return true;
 	}
 	
 	@Override
 	public void end() {
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop ended.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopAccumulator ended.");
 	}
 
 	@Override
 	public void interrupted() {
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop interrupted.");
+    	Logger.getLogger("Central").log(Level.INFO, "StopAccumulator interrupted.");
 	}
 }

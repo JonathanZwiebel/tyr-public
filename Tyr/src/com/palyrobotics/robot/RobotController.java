@@ -239,6 +239,33 @@ public class RobotController extends IterativeRobot {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		checkDisabledStates();
+	}
+
+	/**
+	 * Checks the states of subsystems and ensures they are disabled when they should be
+	 */
+	public void checkDisabledStates() {
+		if (drivetrain.getDrivetrainState() != DrivetrainState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"Drivetrain state is not disabled, but is: " + drivetrain.getDrivetrainState().toString());
+		}
+
+		if (accumulator.getState() != AccumulatorState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"Accumulator state is not disabled, but is: " + accumulator.getState().toString());
+		}
+
+		if (shooter.getState() != ShooterState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"Shooter state is not disabled, but is: " + shooter.getState().toString());
+		}
+
+		if (breacher.getMacroState() != MacroBreacherState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"Breacher macro state is not disabled, but is: " + breacher.getMacroState().toString());
+		}
+		// Other breacher/grabber states not included do to their macro/micro states and inconsistency
 	}
 
 	public void setTyrConstants() {

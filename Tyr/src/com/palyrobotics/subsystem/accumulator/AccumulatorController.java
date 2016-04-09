@@ -10,7 +10,7 @@ import com.palyrobotics.robot.InputSystems;
 public class AccumulatorController implements Requirable {
 
 	public enum AccumulatorState {
-		IDLE, ACCUMULATING, EJECTING, HOLDING, RELEASING
+		IDLE, ACCUMULATING, EJECTING, HOLDING, RELEASING, DISABLED
 	}
 
 	private AccumulatorState state;
