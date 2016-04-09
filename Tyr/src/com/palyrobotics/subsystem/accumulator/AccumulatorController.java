@@ -24,24 +24,28 @@ public class AccumulatorController implements Requirable {
 	}
 
 	public void init() {
+		if (state != null || state != AccumulatorState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"AccumulatorState is not null or disabled un init, but is: " + state.toString());
+		}
 		state = AccumulatorState.IDLE;
 		Strongback.submit(new AccumulatorTeleop(this, robotInput));
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorController initalized.");
+		Logger.getLogger("Central").log(Level.INFO, "AccumulatorController initalized.");
 	}
 
 	public void update() {
-    	Logger.getLogger("Central").log(Level.FINE, "AccumulatorController updated.");
+		Logger.getLogger("Central").log(Level.FINE, "AccumulatorController updated.");
 	}
 
 	public void disable() {
 		Strongback.submit(new StopAccumulator(this));
-    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorController ended.");
+		Logger.getLogger("Central").log(Level.INFO, "AccumulatorController ended.");
 	}
 
 	public void setState(AccumulatorState state) {
 		this.state = state;
 	}
-	
+
 	public AccumulatorState getState() {
 		return state;
 	}

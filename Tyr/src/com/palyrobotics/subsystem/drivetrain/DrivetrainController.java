@@ -20,14 +20,7 @@ public class DrivetrainController implements Requirable {
 	private SwitchReactor reactor;
 
 	public enum DrivetrainState {
-		IDLE, 
-		DRIVING_TELEOP, 
-		DRIVING_DISTANCE, 
-		TURNING_ANGLE, 
-		SHOOTER_ALIGN, 
-		ALIGN_TO_GOAL,
-		MOVING_TO_GOAL,
-		DISABLED
+		IDLE, DRIVING_TELEOP, DRIVING_DISTANCE, TURNING_ANGLE, SHOOTER_ALIGN, ALIGN_TO_GOAL, MOVING_TO_GOAL, DISABLED
 	}
 
 	private DrivetrainState drivetrainState;
@@ -45,7 +38,11 @@ public class DrivetrainController implements Requirable {
 	 * TODO: Add align with new vision input that is passed in array form
 	 */
 	public void init() {
-    	Logger.getLogger("Central").log(Level.INFO, "The DrivetrainController was initialized.");
+		Logger.getLogger("Central").log(Level.INFO, "The DrivetrainController was initialized.");
+		if (drivetrainState != null || drivetrainState != DrivetrainState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"DrivetrainState on init is not null or disabled, but is: " + drivetrainState.toString());
+		}
 		drivetrainState = DrivetrainState.IDLE;
 
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_HIGH_GEAR_BUTTON),
@@ -56,18 +53,16 @@ public class DrivetrainController implements Requirable {
 				() -> TELEOP_ORIENTATION = 1.0);
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_BREACHER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = -1.0);
-		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON), 
+		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON),
 				() -> Strongback.submit(new UpdatingAutoAlign(this)));
-		reactor.onTriggered(input.getDriveStick().getButton(10),
-				() -> Strongback.submit(new DriveTeleop(this, 1.0f)));
+		reactor.onTriggered(input.getDriveStick().getButton(10), () -> Strongback.submit(new DriveTeleop(this, 1.0f)));
 	}
 
 	public void update() {
 		if (drivetrainState == DrivetrainState.IDLE) {
-			if(input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
+			if (input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
 				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));
-			}
-			else if(input.getDriveStick().getButton(Buttons.DRIVETRAIN_THROTTLE_FORWARD_BUTTON).isTriggered()) {
+			} else if (input.getDriveStick().getButton(Buttons.DRIVETRAIN_THROTTLE_FORWARD_BUTTON).isTriggered()) {
 				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.THROTTLE_FORWARD_SCALING_FACTOR));
 			}
 			Strongback.submit(new DriveTeleop(this, 1.0f));

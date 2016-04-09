@@ -1,6 +1,5 @@
 package com.palyrobotics.subsystem.shooter;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,29 +14,30 @@ import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorC
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController;
 
 /**
- * The primary controller for the shooter, divided into an arm, loading actuator, and locking actuator
- * This controller will delegate the states of the three subcontrollers as well as acting as the interface
- * with the robot controller. 
+ * The primary controller for the shooter, divided into an arm, loading
+ * actuator, and locking actuator This controller will delegate the states of
+ * the three subcontrollers as well as acting as the interface with the robot
+ * controller.
  * 
  * @author Paly Robotics Programming Red Module
  */
 public class ShooterController implements Requirable {
 	public ShooterSystems systems;
 	public InputSystems input;
-	
-	private ShooterState state;	
-	
+
+	private ShooterState state;
+
 	public ShooterArmController armController;
 	public ShooterLockingActuatorController lockingActuatorController;
 	public ShooterLoadingActuatorController loadingActuatorController;
-	
+
 	public enum ShooterState {
 		IDLE, // The initial state of the shooter
 		TELEOP, // Standard teleop controls
 		FIRE, // A fire sequence that will go from loaded to fired
-		LOAD, // A loading sequence that will retract the arm and fill the loading actuator
-		HOLD,
-		DISABLED // The disabled state
+		LOAD, // A loading sequence that will retract the arm and fill the
+				// loading actuator
+		HOLD, DISABLED // The disabled state
 	}
 
 	public ShooterController(ShooterSystems systems, InputSystems input) {
@@ -49,31 +49,34 @@ public class ShooterController implements Requirable {
 	}
 
 	public void init() {
-		if(state != null) {
-			Logger.getLogger("Central").log(Level.SEVERE, "ShooterState on init is not null. It is: " + state + ".");
+		if (state != null || state != ShooterState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"ShooterState on init is not null or disabled. It is: " + state.toString() + ".");
 		}
 		state = ShooterState.IDLE;
 		armController.init();
 		lockingActuatorController.init();
-		loadingActuatorController.init();   
+		loadingActuatorController.init();
 		Logger.getLogger("Central").log(Level.INFO, "ShooterController initialized.");
 	}
-	
+
 	/**
-	 * Calls all of the subcontroller updates and will set the state to TELEOP if currently IDLE
+	 * Calls all of the subcontroller updates and will set the state to TELEOP
+	 * if currently IDLE
 	 */
 	public void update() {
-		// Technically the setting of the shooter state should be completely delegated to the robotController
-		// TODO[Major]: Revise this by standardizing with the other command structures
-		
-		if(state != ShooterState.HOLD && input.getShooterStick().getButton(Buttons.SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON).isTriggered()) {
+		// Technically the setting of the shooter state should be completely
+		// delegated to the robotController
+		// TODO[Major]: Revise this by standardizing with the other command
+		// structures
+
+		if (state != ShooterState.HOLD
+				&& input.getShooterStick().getButton(Buttons.SHOOTER_ARM_HOLD_OPERATOR_STICK_BUTTON).isTriggered()) {
 			setState(ShooterState.HOLD);
-		}
-		else if(state == ShooterState.IDLE) {
+		} else if (state == ShooterState.IDLE) {
 			setState(ShooterState.TELEOP);
 		}
 
-		
 		armController.update();
 		lockingActuatorController.update();
 		loadingActuatorController.update();
@@ -87,33 +90,35 @@ public class ShooterController implements Requirable {
 		loadingActuatorController.disable();
 		Logger.getLogger("Central").log(Level.INFO, "ShooterController disabled.");
 	}
-	
+
 	/**
 	 * Sets the shooter state, calling commands as appropriate
-	 * @param state incoming ShooterState
+	 * 
+	 * @param state
+	 *            incoming ShooterState
 	 */
-	public void setState(ShooterState state, float ... args) {
-		if(state != ShooterState.DISABLED) {
+	public void setState(ShooterState state, float... args) {
+		if (state != ShooterState.DISABLED) {
 			this.state = state;
 		}
-		if(state == ShooterState.TELEOP) {
+		if (state == ShooterState.TELEOP) {
 			Strongback.submit(new FullShooterTeleopCommand(this));
 		}
 		Logger.getLogger("Central").log(Level.FINE, "Setting state to: " + state + ".");
 	}
-	
+
 	public ShooterState getState() {
 		return state;
 	}
-	
+
 	public ShooterArmController getShooterArmController() {
 		return armController;
 	}
-	
+
 	public ShooterLockingActuatorController getShooterLockingActuatorController() {
 		return lockingActuatorController;
 	}
-	
+
 	public ShooterLoadingActuatorController getShooterLoadingActuatorController() {
 		return loadingActuatorController;
 	}

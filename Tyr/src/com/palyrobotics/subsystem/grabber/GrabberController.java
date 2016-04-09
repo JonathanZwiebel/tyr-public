@@ -39,6 +39,10 @@ public class GrabberController implements Requirable {
 
 	public void init() {
 		Logger.getLogger("Central").log(Level.INFO, "Grabber controller initalized to IDLE.");
+		if (state != null || state != GrabberState.IDLE) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"GrabberState is not null or idle on init, but is: " + state.toString());
+		}
 		state = GrabberState.IDLE;
 
 		if (robotInput.getControlScheme().equals(ControlScheme.XBOX)) {

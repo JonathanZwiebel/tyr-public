@@ -11,15 +11,13 @@ import com.palyrobotics.subsystem.breacher.commands.LowerArm;
 import com.palyrobotics.subsystem.breacher.commands.RaiseArm;
 import com.palyrobotics.subsystem.breacher.commands.StopArm;
 
-import static com.palyrobotics.subsystem.breacher.BreacherConstants.*;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Operates the breacher subystem
- * Has a state for the current control scheme (Teleop, auto, disabled)
- * Another state representing the current action performed
+ * Operates the breacher subystem Has a state for the current control scheme
+ * (Teleop, auto, disabled) Another state representing the current action
+ * performed
  */
 public class BreacherController implements Requirable {
 
@@ -27,7 +25,7 @@ public class BreacherController implements Requirable {
 	private BreacherSystems breacher;
 
 	private InputSystems input;
-	
+
 	private SwitchReactor reactor;
 
 	/**
@@ -36,14 +34,16 @@ public class BreacherController implements Requirable {
 	public enum MacroBreacherState {
 		TELEOP, AUTO, DISABLED
 	}
+
 	protected MacroBreacherState macroBreacherState;
-	
+
 	/**
 	 * Current operation being performed
 	 */
 	public enum MicroBreacherState {
 		BOUNCING, IDLE, OPENING, CLOSING, SETTING_ANGLE, JOYSTICK_CONTROL
 	}
+
 	protected MicroBreacherState microBreacherState;
 
 	public BreacherController(BreacherSystems breacher, InputSystems input) {
@@ -53,11 +53,12 @@ public class BreacherController implements Requirable {
 	}
 
 	/**
-	 * Changes the breacher's macro or general state
-	 * This state is for general things such as teleop, autonomous, etc.
+	 * Changes the breacher's macro or general state This state is for general
+	 * things such as teleop, autonomous, etc.
 	 * 
-	 * @param state the state to change to
-	 *            
+	 * @param state
+	 *            the state to change to
+	 * 
 	 * @return true if state change acknowledged
 	 */
 	public boolean setMacroState(MacroBreacherState state) {
@@ -75,17 +76,18 @@ public class BreacherController implements Requirable {
 	}
 
 	/**
-	 * Changes the breacher's micro or specific state
-	 * This state is for more specific things, such as raising or lowering.
+	 * Changes the breacher's micro or specific state This state is for more
+	 * specific things, such as raising or lowering.
 	 * 
-	 * @param state the desired state
+	 * @param state
+	 *            the desired state
 	 * @return True when state change occurred
 	 */
 	public boolean setMicroState(MicroBreacherState state) {
 		this.microBreacherState = state;
 		return true;
 	}
-	
+
 	/**
 	 * Gets the breacher's specific state
 	 * 
@@ -94,24 +96,32 @@ public class BreacherController implements Requirable {
 	public MicroBreacherState getMicroState() {
 		return microBreacherState;
 	}
-	
+
 	/**
-	 * Initializes this breacher controller.
-	 * The buttons and their respective actions are defined here.
+	 * Initializes this breacher controller. The buttons and their respective
+	 * actions are defined here.
 	 */
 	public void init() {
+		if (macroBreacherState != null || macroBreacherState != MacroBreacherState.DISABLED) {
+			Logger.getLogger("Central").log(Level.SEVERE,
+					"MacroBreacherState is not null or disabled on init, but is: " + macroBreacherState.toString());
+		}
 		// when button 1 of the operator stick is pressed, raise the arm.
-		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new RaiseArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON),
+				() -> Strongback.submit(new RaiseArm(this)));
 
 		// when button 1 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON), () -> Strongback.submit(new StopArm(this)));
+		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_RAISE_BUTTON),
+				() -> Strongback.submit(new StopArm(this)));
 
 		// when button 2 of the operator stick is pressed, lower the arm.
-		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new LowerArm(this)));
+		reactor.whileTriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON),
+				() -> Strongback.submit(new LowerArm(this)));
 
 		// when button 2 of the operator stick has been released, stop the arm.
-		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON), () -> Strongback.submit(new StopArm(this)));
-    	Logger.getLogger("Central").log(Level.INFO, "BreacherController initialized.");
+		reactor.onUntriggered(input.getSecondaryStick().getButton(Buttons.BREACHER_LOWER_BUTTON),
+				() -> Strongback.submit(new StopArm(this)));
+		Logger.getLogger("Central").log(Level.INFO, "BreacherController initialized.");
 	}
 
 	/**
@@ -119,11 +129,11 @@ public class BreacherController implements Requirable {
 	 * 
 	 * Stops the breacher from moving too far in either direction.
 	 */
-	public void update() {		
-		if((getMicroState() == MicroBreacherState.IDLE )) {
+	public void update() {
+		if ((getMicroState() == MicroBreacherState.IDLE)) {
 			Strongback.submit(new JoystickControl(this, input));
 		}
-    	Logger.getLogger("Central").log(Level.FINE, "BreacherController updated.");
+		Logger.getLogger("Central").log(Level.FINE, "BreacherController updated.");
 	}
 
 	public BreacherSystems getBreacher() {
@@ -140,7 +150,7 @@ public class BreacherController implements Requirable {
 
 	public void disable() {
 		breacher.getMotor().setSpeed(0);
-    	Logger.getLogger("Central").log(Level.INFO, "BreacherController disabled.");
+		Logger.getLogger("Central").log(Level.INFO, "BreacherController disabled.");
 	}
 
 }
