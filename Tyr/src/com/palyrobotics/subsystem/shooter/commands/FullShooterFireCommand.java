@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.commands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.shooter.ShooterController;
@@ -18,6 +21,11 @@ public class FullShooterFireCommand extends Command {
 		this.controller = controller;
 	}
 	
+	@Override
+	public void initialize() {
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand initialized.");
+	}
+	
 	/**
 	 * Will create a queue of states that should be set relating to shooter items
 	 */
@@ -30,5 +38,11 @@ public class FullShooterFireCommand extends Command {
 	@Override
 	public void end() {
 		controller.setState(ShooterState.IDLE);
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand interrupted.");
 	}
 }

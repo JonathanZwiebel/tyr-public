@@ -4,15 +4,15 @@ import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
 import org.strongback.command.Command;
 import org.strongback.command.Requirable;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 import org.strongback.SwitchReactor;
 
 import com.palyrobotics.subsystem.shooter.ShooterController;
-import com.palyrobotics.subsystem.shooter.subcontrollers.*;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorRetractCommand;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLockCommand;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
+
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
@@ -47,6 +47,7 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 	@Override
 	public void initialize() {
 		controller.armController.setState(ShooterArmController.ShooterArmState.TELEOP);
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand initialized.");
 	}
 	
 	/**
@@ -74,6 +75,17 @@ public class FullShooterTeleopCommand extends Command implements Requirable {
 		else if(input.getShooterStick().getButton(Buttons.LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON).isTriggered()) {
 			controller.lockingActuatorController.setState(ShooterLockingActuatorState.UNLOCK);
 		}
+		Logger.getLogger("Central").log(Level.FINE, "FullShooterTeleopCommand is continuing.");
  		return false;
+	}
+	
+	@Override
+	public void end() {
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+		Logger.getLogger("Central").log(Level.INFO, "FullShooterTeleopCommand interrupted.");
 	}
 }

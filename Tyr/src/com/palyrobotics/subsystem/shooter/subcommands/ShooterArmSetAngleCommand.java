@@ -38,6 +38,7 @@ public class ShooterArmSetAngleCommand extends Command {
 	@Override
 	public void initialize() {
 		previousError = targetAngle - armEncoder.getAngle();
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmSetAngleCommand initalized.");
 	}
 	
 	/**
@@ -53,6 +54,7 @@ public class ShooterArmSetAngleCommand extends Command {
 		Logger.getLogger("Central").log(Level.INFO, "Angle: " + angle);
 		
 		if(Math.abs(error) < ShooterConstants.ARM_PROPORTIONAL_ME && Math.abs(derivative) < ShooterConstants.ARM_DERIVATIVE_ME) {
+	    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmSetAngleCommand is ending.");
 			return true;
 		} 
 		else {
@@ -60,13 +62,14 @@ public class ShooterArmSetAngleCommand extends Command {
 			double limitedSpeed = Math.min(Math.max(rawSpeed, -ShooterConstants.SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT), ShooterConstants.SHOOTER_ARM_SET_ANGLE_SPEED_LIMIT);
 			controller.systems.getArmMotor().setSpeed(limitedSpeed);
 			previousError = error;
+	    	Logger.getLogger("Central").log(Level.FINE, "ShooterArmSetAngleCommand is continuing.");
 			return false;
 		}
 	}
 	
 	@Override
 	public void interrupted() { 
-    	Logger.getLogger("Central").log(Level.WARNING, "ShooterSetArmAngleCommand interrupted");
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterSetArmAngleCommand interrupted");
 	}
 	
 	/**
@@ -75,5 +78,6 @@ public class ShooterArmSetAngleCommand extends Command {
 	@Override
 	public void end() {
 		controller.armController.setState(ShooterArmController.ShooterArmState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmSetAngleCommand ended.");
 	}
 }

@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcontrollers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.Strongback;
 import org.strongback.command.Requirable;
 
@@ -32,14 +35,16 @@ public class ShooterLockingActuatorController implements Requirable {
 	
 	public void init() {
 		state = ShooterLockingActuatorState.IDLE;
+		Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorController initialized.");
 	}
 	
 	public void update() {
-		
+		Logger.getLogger("Central").log(Level.FINE, "ShooterLockingActuatorController updated.");
 	}
 	
 	public void disable() {
 		state = ShooterLockingActuatorState.DISABLED;
+		Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorController disabled.");
 	}
 	
 	/**

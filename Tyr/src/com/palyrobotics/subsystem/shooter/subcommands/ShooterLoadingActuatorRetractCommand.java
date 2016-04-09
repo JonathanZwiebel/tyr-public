@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
-import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
@@ -24,6 +23,11 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 		this.piston = controller.systems.getLoadingActuator();
 	}
 	
+	@Override
+	public void initialize() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorRetractCommand initalized.");
+	}
+	
 	/**
 	 * If the loading actuator is retracted, the command will end, otherwise it will
 	 * retract
@@ -31,7 +35,7 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	@Override
 	public boolean execute() {		
 		piston.retract();
-		Logger.getLogger("Central").log(Level.INFO, "Loading Retract");
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorRetractCommand is ending.");
 		return true;
 	}
 	
@@ -41,5 +45,11 @@ public class ShooterLoadingActuatorRetractCommand extends Command {
 	@Override
 	public void end() {
 		controller.loadingActuatorController.setState(ShooterLoadingActuatorState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorRetractCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorRetractCommand interrupted.");
 	}
 }

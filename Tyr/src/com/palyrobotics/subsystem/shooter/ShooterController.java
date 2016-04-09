@@ -9,8 +9,6 @@ import org.strongback.command.Requirable;
 
 import com.palyrobotics.robot.Buttons;
 import com.palyrobotics.robot.InputSystems;
-import com.palyrobotics.subsystem.shooter.commands.FullShooterFireCommand;
-import com.palyrobotics.subsystem.shooter.commands.FullShooterLoadCommand;
 import com.palyrobotics.subsystem.shooter.commands.FullShooterTeleopCommand;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController;
@@ -54,7 +52,8 @@ public class ShooterController implements Requirable {
 		state = ShooterState.IDLE;
 		armController.init();
 		lockingActuatorController.init();
-		loadingActuatorController.init();   	
+		loadingActuatorController.init();   
+		Logger.getLogger("Central").log(Level.INFO, "ShooterController initialized.");
 	}
 	
 	/**
@@ -74,7 +73,7 @@ public class ShooterController implements Requirable {
 		armController.update();
 		lockingActuatorController.update();
 		loadingActuatorController.update();
-    	Logger.getLogger("Central").log(Level.INFO, "The ShooterController was initalized.");
+		Logger.getLogger("Central").log(Level.FINE, "ShooterController updated.");
 	}
 
 	public void disable() {
@@ -82,6 +81,7 @@ public class ShooterController implements Requirable {
 		armController.disable();
 		lockingActuatorController.disable();
 		loadingActuatorController.disable();
+		Logger.getLogger("Central").log(Level.INFO, "ShooterController disabled.");
 	}
 	
 	/**
@@ -98,6 +98,7 @@ public class ShooterController implements Requirable {
 	}
 	
 	public ShooterState getState() {
+		Logger.getLogger("Central").log(Level.FINE, "Setting state to: " + state + ".");
 		return state;
 	}
 	

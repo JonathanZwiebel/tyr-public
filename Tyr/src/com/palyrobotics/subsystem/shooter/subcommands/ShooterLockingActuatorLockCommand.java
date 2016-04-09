@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
-import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 
@@ -24,7 +23,12 @@ public class ShooterLockingActuatorLockCommand extends Command {
 		this.controller = controller;
 		latch = controller.systems.getLockingActuator();
 	}
-
+	
+	@Override
+	public void initialize() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorLockCommand initalized.");
+	}
+	
 	/**
 	 * If the locking actuator is locked, the command will end, otherwise it will
 	 * attempt the lock by extending
@@ -32,7 +36,7 @@ public class ShooterLockingActuatorLockCommand extends Command {
 	@Override
 	public boolean execute() {
 		latch.extend();
-		Logger.getLogger("Central").log(Level.INFO, "Locking latch lock");
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorLockCommand is ending.");
 		return true;
 	}
 	
@@ -42,5 +46,11 @@ public class ShooterLockingActuatorLockCommand extends Command {
 	@Override
 	public void end() {
 		controller.lockingActuatorController.setState(ShooterLockingActuatorState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorLockCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLockingActuatorLockCommand interrupted.");
 	}
 }

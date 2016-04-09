@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import org.strongback.command.Command;
 import org.strongback.components.Solenoid;
 
-import com.palyrobotics.subsystem.shooter.ShooterConstants;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
 
@@ -24,13 +23,18 @@ public class ShooterLoadingActuatorExtendCommand extends Command {
 		this.piston = controller.systems.getLoadingActuator();
 	}
 	
+	@Override
+	public void initialize() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorExtendCommand initalized.");
+	}
+	
 	/**
 	 * If the loading actuator is extended end the command, otherwise extend
 	 */
 	@Override
 	public boolean execute() {				
 		piston.extend();
-		Logger.getLogger("Central").log(Level.INFO, "Loader Extend");
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorExtendCommand is ending.");
 		return true;
 	}
 	
@@ -40,5 +44,11 @@ public class ShooterLoadingActuatorExtendCommand extends Command {
 	@Override
 	public void end() {
 		controller.loadingActuatorController.setState(ShooterLoadingActuatorState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorExtendCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorExtendCommand interrupted.");
 	}
 }

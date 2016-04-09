@@ -1,6 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
-import org.strongback.Strongback;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 import org.strongback.components.Motor;
 
@@ -32,11 +34,17 @@ public class ShooterArmTeleopCommand extends Command {
 		
 		motor.setSpeed(pitch * ShooterConstants.SHOOTER_ARM_TELEOP_SCALING_FACTOR);
 		
+    	Logger.getLogger("Central").log(Level.FINE, "ShooterArmTeleopCommand is continuing.");
 		return false;
 	}
 	
 	@Override
 	public void interrupted() {
-		Strongback.logger().info("The command ShooterArmTeleopCommand was interrupted");
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmTeleopCommand interrupted.");
+	}
+	
+	@Override
+	public void end() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmTeleopCommand ended.");
 	}
 }

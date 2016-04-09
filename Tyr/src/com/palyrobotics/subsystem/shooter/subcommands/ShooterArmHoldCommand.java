@@ -1,5 +1,8 @@
 package com.palyrobotics.subsystem.shooter.subcommands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.strongback.command.Command;
 
 import com.palyrobotics.robot.InputSystems;
@@ -19,9 +22,11 @@ public class ShooterArmHoldCommand extends Command {
 		this.input = controller.input;
 	}
 
-	public void init() {
+	@Override
+	public void initialize() {
 		this.previousAngle = input.getBreacherPotentiometer().getAngle();
 		this.previousError = 0;
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmHoldCommand initalized.");
 	}
 	
 	@Override
@@ -34,7 +39,17 @@ public class ShooterArmHoldCommand extends Command {
 		
 		controller.systems.getArmMotor().setSpeed(limitedSpeed);
 		this.previousError = error;
-	
+    	Logger.getLogger("Central").log(Level.FINE, "ShooterArmHoldCommand is continuing.");
 		return false;
+	}
+	
+	@Override
+	public void end() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmHoldCommand ended.");
+	}
+	
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "ShooterArmHoldCommand interrupted.");
 	}
 }

@@ -35,14 +35,17 @@ public class ShooterLoadingActuatorController implements Requirable {
 	
 	public void init() {
 		state = ShooterLoadingActuatorState.IDLE;
+		Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorController initialized.");
 	}
 	
 	public void update() {
-		Logger.getLogger("Central").log(Level.INFO, "Shooter Loading Actuator isRetracted: " + isRetracted);
+		Logger.getLogger("Central").log(Level.FINE, "Shooter Loading Actuator isRetracted: " + isRetracted);
+		Logger.getLogger("Central").log(Level.FINE, "ShooterLoadingActuatorController updated.");
 	}
 	
 	public void disable() {
-		state = ShooterLoadingActuatorState.DISABLED;		
+		state = ShooterLoadingActuatorState.DISABLED;
+		Logger.getLogger("Central").log(Level.INFO, "ShooterLoadingActuatorController disabled.");
 	}
 	
 	/**
