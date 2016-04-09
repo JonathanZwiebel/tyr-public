@@ -62,4 +62,8 @@ public class ShooterArmController implements Requirable {
 			Strongback.submit(new ShooterArmHoldCommand(parent));
 		}
 	}
+	
+	public ShooterArmState getState() {
+		return state;
+	}
 }

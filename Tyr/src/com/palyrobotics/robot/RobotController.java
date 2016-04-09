@@ -135,6 +135,7 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
+    	Logger.getLogger("Central").log(Level.INFO, "Autnomous init called. ");
        	drivetrain.init();
 //    	accumulator.init();
     	shooter.init();
@@ -148,16 +149,24 @@ public class RobotController extends IterativeRobot {
     }
     
     @Override
+    public void autonomousPeriodic() {
+    	Logger.getLogger("Central").log(Level.INFO, "Autonomous periodic being called. ");
+    }
+    
+    @Override
     public void teleopInit() {
+    	Logger.getLogger("Central").log(Level.INFO, "Teleop was initialized. ");
     	Strongback.killAllCommands();
     	
     	//Set the control scheme
     	if(chooser.getSelected().equals(1)) {
     		input.setControlScheme(ControlScheme.JOYSTICKS);
+    		Logger.getLogger("Central").log(Level.INFO, "Using joystick control scheme. ");
     	}
     	
     	else {
     		input.setControlScheme(ControlScheme.XBOX);
+    		Logger.getLogger("Central").log(Level.INFO, "Using xbox control scheme. ");
     	}
     	
 	    drivetrain.init();
@@ -172,6 +181,7 @@ public class RobotController extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
+    	Logger.getLogger("Central").log(Level.FINE, "teleopPeriodic called");
     	//If we are using an xbox, convert the input from the xbox to two mockjoysticks so that it can be used with all the commands
     	if(input.getControlScheme().equals(ControlScheme.XBOX)) {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
@@ -186,18 +196,29 @@ public class RobotController extends IterativeRobot {
     	updateDashboard();
     	System.out.println("Gyro: " + input.getGyroscope().getAngle());
     	
-    	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
-    	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
+    	Logger.getLogger("Central").log(Level.FINE, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
+    	Logger.getLogger("Central").log(Level.FINE, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
 
-    	Logger.getLogger("Central").log(Level.INFO, "Gyroscope: " + input.getGyroscope().getAngle());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());
+    	Logger.getLogger("Central").log(Level.FINE, "Gyroscope: " + input.getGyroscope().getAngle());
+    	Logger.getLogger("Central").log(Level.FINE, "Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
+    	Logger.getLogger("Central").log(Level.FINE, "Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
+    	Logger.getLogger("Central").log(Level.FINE, "Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());
+    	
+    	//State logging
+    	Logger.getLogger("Central").log(Level.FINE, "Drivetrain state: " + drivetrain.getDrivetrainState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Accumulator state: " + accumulator.getState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Shooter state: " + shooter.getState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Shooter arm controller state: " + shooter.getShooterArmController().getState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Shooter loading actuator state: " + shooter.getShooterLoadingActuatorController().getState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Shooter locking actuator state: " + shooter.getShooterLockingActuatorController().getState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Breacher macro state: " + breacher.getMacroState().toString());
+    	Logger.getLogger("Central").log(Level.FINE, "Breacher micro state: " + breacher.getMicroState().toString());
+    	
     }
 
     @Override
     public void disabledInit() {
-    	
+    	Logger.getLogger("Central").log(Level.INFO, "Disabled init called. ");
     	
     	try {
     	Strongback.disable();
@@ -214,6 +235,7 @@ public class RobotController extends IterativeRobot {
     }
     
     public void setTyrConstants() {
+    	Logger.getLogger("Central").log(Level.INFO, "Constants set for Tyr. ");
     	RobotConstants.NAME = "Tyr";
     	Ports.LEFT_BACK_TALON_DEVICE_ID = Ports.LEFT_BACK_TALON_DEVICE_ID_TYR;
     	Ports.LEFT_FRONT_TALON_DEVICE_ID = Ports.LEFT_FRONT_TALON_DEVICE_ID_TYR;
@@ -239,6 +261,7 @@ public class RobotController extends IterativeRobot {
     }
     
     public void setDericConstants() {
+    	Logger.getLogger("Central").log(Level.INFO, "Constants set for Deric. ");
     	RobotConstants.NAME = "Deric";	
     	Ports.LEFT_BACK_TALON_DEVICE_ID = Ports.LEFT_BACK_TALON_DEVICE_ID_DERIC;
     	Ports.LEFT_FRONT_TALON_DEVICE_ID = Ports.LEFT_FRONT_TALON_DEVICE_ID_DERIC;
@@ -265,9 +288,11 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
+    	Logger.getLogger("Central").log(Level.INFO, "Disabled periodic being called. ");
     }
     
     public void updateDashboard() {
+    	Logger.getLogger("Central").log(Level.FINE, "Dashboard updated. ");
     	DrivetrainState driveState = drivetrain.getDrivetrainState();
     	AccumulatorState accumulatorState = accumulator.getState();
     	MicroBreacherState breacherState = breacher.getMicroState();

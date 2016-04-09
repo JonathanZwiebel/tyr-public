@@ -100,4 +100,16 @@ public class ShooterController implements Requirable {
 	public ShooterState getState() {
 		return state;
 	}
+	
+	public ShooterArmController getShooterArmController() {
+		return armController;
+	}
+	
+	public ShooterLockingActuatorController getShooterLockingActuatorController() {
+		return lockingActuatorController;
+	}
+	
+	public ShooterLoadingActuatorController getShooterLoadingActuatorController() {
+		return loadingActuatorController;
+	}
 }

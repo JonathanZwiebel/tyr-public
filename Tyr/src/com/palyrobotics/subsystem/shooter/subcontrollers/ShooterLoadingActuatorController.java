@@ -67,4 +67,8 @@ public class ShooterLoadingActuatorController implements Requirable {
 	public boolean isFullyRetracted() {
 		 return isRetracted;
 	}
+	
+	public ShooterLoadingActuatorState getState() {
+		return state;
+	}
 }

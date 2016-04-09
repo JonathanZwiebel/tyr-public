@@ -64,5 +64,9 @@ public class ShooterLockingActuatorController implements Requirable {
 	public boolean isLocked() {
 		return !isRetracted;
 	}
+	
+	public ShooterLockingActuatorState getState() {
+		return state;
+	}
 }
  
