@@ -71,7 +71,7 @@ public class InputHardware implements InputSystems {
 	        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method is returning a mock stick.");
 			return mockRightStick;
 		}
-        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method is returning a mock stick.");
+        Logger.getLogger("Central").log(Level.INFO, "The secondary stick get method is returning a real stick.");
 		return secondaryStick;
 	}
 	@Override
@@ -162,7 +162,7 @@ public class InputHardware implements InputSystems {
 
 	@Override
 	public void setControlScheme(ControlScheme control) {
-        Logger.getLogger("Central").log(Level.INFO, "The control scheme set method was called with: " + control);
+        Logger.getLogger("Central").log(Level.INFO, "The control scheme set method was called with: " + control.toString());
 		this.control = control;
 	}
 }
