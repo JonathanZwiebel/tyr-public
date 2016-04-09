@@ -26,14 +26,16 @@ public class AccumulatorController implements Requirable {
 	public void init() {
 		state = AccumulatorState.IDLE;
 		Strongback.submit(new AccumulatorTeleop(this, robotInput));
-    	Logger.getLogger("Central").log(Level.INFO, "The AccumulatorController was initalized.");
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorController initalized.");
 	}
 
 	public void update() {
+    	Logger.getLogger("Central").log(Level.FINE, "AccumulatorController updated.");
 	}
 
 	public void disable() {
 		Strongback.submit(new StopAccumulator(this));
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorController ended.");
 	}
 
 	public void setState(AccumulatorState state) {

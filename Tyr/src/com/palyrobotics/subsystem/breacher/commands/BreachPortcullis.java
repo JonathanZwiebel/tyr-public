@@ -20,17 +20,17 @@ public class BreachPortcullis extends Command{
 	@Override
 	public void initialize() {
 		controller.setMicroState(MicroBreacherState.OPENING);
-    	Logger.getLogger("Central").log(Level.INFO, "BreachPorcullis initalized.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreachPortcullis initalized.");
 	}
 	
 	@Override
 	public boolean execute() {
 		if(controller.getInput().getBreacherPotentiometer().getAngle() < OPEN_BREACHER_ANGLE) {
 			controller.getBreacher().getMotor().setSpeed(RAISE_SPEED);
-	    	Logger.getLogger("Central").log(Level.FINE, "BreachPorcullis is continuing.");
+	    	Logger.getLogger("Central").log(Level.FINE, "BreachPortcullis is continuing.");
 			return false;
 		}
-    	Logger.getLogger("Central").log(Level.INFO, "BreachPorcullis is ending.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreachPortcullis is ending.");
 		return true;
 	}
 	
@@ -38,13 +38,13 @@ public class BreachPortcullis extends Command{
 	 public void interrupted() {
 		controller.setMicroState(MicroBreacherState.IDLE);
 		controller.getBreacher().getMotor().setSpeed(0.0);
-    	Logger.getLogger("Central").log(Level.INFO, "BreachPorcullis interrupted.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreachPortcullis interrupted.");
 	}
 	
 	@Override
 	public void end() {
 		controller.setMicroState(MicroBreacherState.IDLE);
 		controller.getBreacher().getMotor().setSpeed(0.0);
-    	Logger.getLogger("Central").log(Level.INFO, "BreachPorcullis ended.");
+    	Logger.getLogger("Central").log(Level.INFO, "BreachPortcullis ended.");
 	}
 }

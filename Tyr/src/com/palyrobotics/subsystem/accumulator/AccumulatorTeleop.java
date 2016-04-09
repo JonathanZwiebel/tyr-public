@@ -7,6 +7,9 @@ import com.palyrobotics.robot.InputSystems;
 
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Command that sets up switch reactors to submit commands during teleop
  * Should be called once at the beginning of teleop
@@ -27,6 +30,11 @@ public class AccumulatorTeleop extends Command {
 		this.input = input;
 	}
 	
+	@Override
+	public void initialize() {
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop initalized.");
+	}
+	
 	/**
 	 * Execute method for the AccumulatorTeleop command
 	 * Sets up switch reactors for teleop
@@ -44,7 +52,17 @@ public class AccumulatorTeleop extends Command {
 		else {
 			controller.systems.getAccumulatorMotors().setSpeed(0.0);
 		}
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop is ending.");
 		return false;
 	}
+	
+	@Override
+	public void end() {
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop ended.");
+	}
 
+	@Override
+	public void interrupted() {
+    	Logger.getLogger("Central").log(Level.INFO, "AccumulatorTeleop interrupted.");
+	}
 }

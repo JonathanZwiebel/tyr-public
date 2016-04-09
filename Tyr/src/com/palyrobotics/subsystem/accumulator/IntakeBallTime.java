@@ -2,6 +2,10 @@ package com.palyrobotics.subsystem.accumulator;
 
 import org.strongback.command.Command;
 import static com.palyrobotics.subsystem.accumulator.AccumulatorConstants.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 
 /**
@@ -29,6 +33,7 @@ public class IntakeBallTime extends Command{
 	public void initialize() {
 		this.begin = System.currentTimeMillis();
 		controller.setState(AccumulatorState.ACCUMULATING);
+    	Logger.getLogger("Central").log(Level.INFO, "IntakeBallTime initalized.");
 	}
 	
 	/**
@@ -42,8 +47,10 @@ public class IntakeBallTime extends Command{
 		//Runs the motors so they expel the ball for EXPEL_TIME seconds
 		if (System.currentTimeMillis() - begin < EXPEL_TIME){
 			controller.systems.getAccumulatorMotors().setSpeed(-ACCUMULATOR_POWER);
+	    	Logger.getLogger("Central").log(Level.FINE, "IntakeBallTime is continuing.");
 			return false;
 		}
+    	Logger.getLogger("Central").log(Level.INFO, "IntakeBallTime is ending.");
 		return true;
 	}
 	
@@ -55,6 +62,7 @@ public class IntakeBallTime extends Command{
 	public void interrupted() {
 		controller.systems.getAccumulatorMotors().setSpeed(0);
 		controller.setState(AccumulatorState.IDLE);
+    	Logger.getLogger("Central").log(Level.INFO, "IntakeBallTime ended.");
 	}
 	
 	public void end() {
