@@ -37,4 +37,11 @@ public class DrivetrainConstants {
 	public static final float THROTTLE_FORWARD_SCALING_FACTOR = 10.0f;
 	
 	public static final double INCHES_TO_SHOOT = 200.0;
+
+	public static final double LEFT_DRIVE_P = 0.1;
+	public static final double RIGHT_DRIVE_P = 0.1;
+
+	public static final double LEFT_DRIVE_D = 0.01;
+	public static final double RIGHT_DRIVE_D = 0.01;
+
 }
