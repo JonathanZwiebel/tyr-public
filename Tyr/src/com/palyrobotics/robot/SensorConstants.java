@@ -20,7 +20,7 @@ public class SensorConstants {
 	public static final float BREACHER_POTENTIOMETER_DEGREE_OFFSET_DERIC = -3425;
 	public static final float SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC = 2400;
 	public static final float SHOOTER_POTENTIOMETER_DEGREE_OFFSET_DERIC = -175;
-	public static final double LEFT_DRIVETRAIN_DPP_DERIC = -0.183621; // why is this negative 
-	public static final double RIGHT_DRIVETRAIN_DPP_DERIC = 0.185684;
 
+	public static final double LEFT_DRIVETRAIN_DPP_DERIC = -0.183621;
+	public static final double RIGHT_DRIVETRAIN_DPP_DERIC = -.185684;
 }

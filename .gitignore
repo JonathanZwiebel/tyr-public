@@ -22,6 +22,7 @@
 
 # IntelliJ specific #
 *.idea
+*.iml
 
 # FRC Deploy #
 sysProps.xml

@@ -11,6 +11,7 @@ import org.strongback.hardware.Hardware;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.robot.autonomous.CompetitionLowBarAuto;
+import com.palyrobotics.robot.autonomous.GenericTurnAngle;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
@@ -82,11 +83,11 @@ public class RobotController extends IterativeRobot {
 	    chooser.addObject("Joysticks", 1);
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
-	    
-    	//Input and SendableChooser
-    	input = new InputHardware();
+	   
+	    setDericConstants();
     	
-    	setTyrConstants();
+	    //Input and SendableChooser
+    	input = new InputHardware();
     	
     	//Hardware system
     	accumulatorSystems = new AccumulatorHardware();
@@ -137,13 +138,13 @@ public class RobotController extends IterativeRobot {
     public void autonomousInit() {
        	drivetrain.init();
 //    	accumulator.init();
-    	shooter.init();
+//    	shooter.init();
 //    	breacher.init();
 //    	grabber.init();
         
-    	breacher.setMacroState(MacroBreacherState.AUTO);
-    	breacher.setMicroState(MicroBreacherState.IDLE);
-	    Strongback.submit(new CompetitionLowBarAuto(drivetrain, Integer.MAX_VALUE));
+//    	breacher.setMacroState(MacroBreacherState.AUTO);
+//    	breacher.setMicroState(MicroBreacherState.IDLE);
+	    Strongback.submit(new GenericTurnAngle(drivetrain, 90));
 
     }
     
@@ -184,7 +185,6 @@ public class RobotController extends IterativeRobot {
     	grabber.update();
     	
     	updateDashboard();
-    	System.out.println("Gyro: " + input.getGyroscope().getAngle());
     	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
@@ -198,15 +198,14 @@ public class RobotController extends IterativeRobot {
     @Override
     public void disabledInit() {
     	
-    	
     	try {
-    	Strongback.disable();
-    	drivetrain.disable();
-    	accumulator.disable();
-    	shooter.disable();
-    	breacher.setMacroState(MacroBreacherState.DISABLED);
-    	breacher.disable();
-    	grabber.disable();
+	    	Strongback.disable();
+	    	drivetrain.disable();
+	    	accumulator.disable();
+	    	shooter.disable();
+	    	breacher.setMacroState(MacroBreacherState.DISABLED);
+	    	breacher.disable();
+	    	grabber.disable();
     	}
     	catch (Exception e) {
     		e.printStackTrace();
@@ -235,6 +234,7 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_TYR;
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_TYR;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_TYR;
+    	DrivetrainConstants.DEGREE_TO_DISTANCE = DrivetrainConstants.TYR_DEGREE_TO_DISTANCE;
     	AccumulatorConstants.ACCUMULATOR_POWER = 1;
     }
     
@@ -260,6 +260,7 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.SHOOTER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC;
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_DERIC;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_DERIC;
+    	DrivetrainConstants.DEGREE_TO_DISTANCE = DrivetrainConstants.DERIC_DEGREE_TO_DISTANCE;
     	AccumulatorConstants.ACCUMULATOR_POWER = -1;
     }
     	
