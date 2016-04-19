@@ -261,7 +261,7 @@ public class RobotController extends IterativeRobot {
     	SensorConstants.LEFT_DRIVETRAIN_DPP = SensorConstants.LEFT_DRIVETRAIN_DPP_DERIC;
     	SensorConstants.RIGHT_DRIVETRAIN_DPP = SensorConstants.RIGHT_DRIVETRAIN_DPP_DERIC;
     	DrivetrainConstants.DEGREE_TO_DISTANCE = DrivetrainConstants.DERIC_DEGREE_TO_DISTANCE;
-    	AccumulatorConstants.ACCUMULATOR_POWER = -1;
+    	AccumulatorConstants.ACCUMULATOR_POWER = 1;
     }
     	
     @Override

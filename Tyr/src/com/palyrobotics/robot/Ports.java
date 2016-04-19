@@ -75,10 +75,10 @@ public class Ports {
 	public static final int GRABBER_RETRACT_VALVE_DERIC = 7;
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE_DERIC = 0;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE_DERIC = 1;
-	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC = 5;
-	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC = 4;
-	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC = 2; 
-	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC = 3;
+	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC = 4;
+	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC = 5;
+	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC = 3; 
+	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC = 2;
 	
 	// Serial
 	public static final SerialPort.Port VISION_PORT = SerialPort.Port.kMXP;
