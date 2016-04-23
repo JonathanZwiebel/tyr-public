@@ -30,9 +30,11 @@ public class GrabberTeleop extends Command {
 	public boolean execute() {
 		if(input.getSecondaryStick().getButton(GRABBER_TOGGLE_BUTTON).isTriggered()) {
 			 grabber.getOutput().getGrabber().retract();
+			 grabber.setMicroGrabberState(MicroGrabberState.RAISED);
 		} 
 		else {
 			 grabber.getOutput().getGrabber().extend();
+			 grabber.setMicroGrabberState(MicroGrabberState.LOWERED);
 		}
 		
 		return false;

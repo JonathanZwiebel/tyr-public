@@ -42,7 +42,9 @@ import com.palyrobotics.subsystem.grabber.GrabberSystems;
 import com.palyrobotics.xbox.Converter;
 import com.palyrobotics.xbox.MockFlightStick;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -65,6 +67,8 @@ public class RobotController extends IterativeRobot {
 	private InputSystems input;
 	
 	private SendableChooser chooser;
+	
+	private NetworkTable table;
 	
     @Override
     public void robotInit() {
@@ -108,6 +112,7 @@ public class RobotController extends IterativeRobot {
     	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
     	
     	input.getGyroscope().calibrate();
+    	this.table = NetworkTable.getTable("AutoAlign");
     }
     
     /**
@@ -178,13 +183,15 @@ public class RobotController extends IterativeRobot {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
     	}
     	
+    	updateDashboard();
+    	
     	drivetrain.update();
     	accumulator.update();
     	shooter.update();
     	breacher.update();
     	grabber.update();
     	
-    	updateDashboard();
+    	
     	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
@@ -269,223 +276,42 @@ public class RobotController extends IterativeRobot {
     }
     
     public void updateDashboard() {
-    	DrivetrainState driveState = drivetrain.getDrivetrainState();
-    	AccumulatorState accumulatorState = accumulator.getState();
-    	MicroBreacherState breacherState = breacher.getMicroState();
-    	GrabberState grabberState = grabber.getGrabberState();
-    	MicroGrabberState microGrabberState = grabber.getMicroGrabberState();
-    	ShooterState shooterControllerState = shooter.getState();
-    	ShooterArmState shooterArmState = shooter.armController.state;
-    	ShooterLoadingActuatorState shooterLoadingActuatorState = shooter.loadingActuatorController.state;
-    	ShooterLockingActuatorState shooterLockingActuatorState = shooter.lockingActuatorController.state;
-    	try {
-	 	    SmartDashboard.putNumber("Shooter Potentiometer", input.getShooterArmPotentiometer().getAngle());
-	 	    
-	 	    SmartDashboard.putNumber("Breacher Potentiometer", input.getBreacherPotentiometer().getAngle());
+    	
+    	if(Math.abs(table.getNumber("xDisplacement", 1000)) < DrivetrainConstants.ACCEPTABLE_ANGLE_ERROR) {
+    		SmartDashboard.putBoolean("Aligned", true);
     	}
-    	catch(Exception e) {
-    		System.err.println("No potentiometers");
+    	else {
+    		SmartDashboard.putBoolean("Aligned", false);
     	}
+    	
+    	if(input.getSecondaryStick().getPitch().read() <= 0 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.loadingActuatorController.isFullyRetracted()) {
+    		SmartDashboard.putBoolean("Ready to Accumulate", true);
+    	}
+    	else {
+    		SmartDashboard.putBoolean("Ready to Accumulate", false);
+    	}
+    	
+    	if(input.getSecondaryStick().getPitch().read() > 0 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.lockingActuatorController.isLocked() && shooter.loadingActuatorController.isFullyRetracted()) {
+    		SmartDashboard.putBoolean("Ready to Shoot", true);
+    	}
+    	else {
+    		SmartDashboard.putBoolean("Ready to Shoot", false);
+    	}
+    	
  	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
  	    
- 	    SmartDashboard.putNumber("Left Encoder", input.getLeftDriveEncoder().getAngle());
- 	    
- 	    SmartDashboard.putNumber("Right Encoder", input.getRightDriveEncoder().getAngle());
- 	    
- 	    SmartDashboard.putNumber("Gyro", input.getGyroscope().getAngle());
- 	   
- 	    if(shooter.lockingActuatorController.isLocked()) {
- 	    	SmartDashboard.putString("Shooter Lock", "Locked");
- 	    }
- 	    
- 	    else {
- 	    	SmartDashboard.putString("Shooter Lock", "Unlocked");
- 	    }
- 	    
- 	    if(shooter.loadingActuatorController.isFullyRetracted()) {
- 	    	SmartDashboard.putString("Shooter Loading Actuator", "Retracted");
- 	    }
- 	    
- 	    else {
- 	    	SmartDashboard.putString("Shooter Loading Actuator", "Extended");
- 	    }
- 	    
  	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
- 	    	SmartDashboard.putString("Drivetrain Orientation", "Shooter Forward");
+ 	    	SmartDashboard.putString("Drivetrain Orientation", "ORIENTATION FORWARD");
  	    }
- 	    
  	    else {
- 	    	SmartDashboard.putString("Drivetrain Orientation", "Breacher Forward");
+ 	    	SmartDashboard.putString("Drivetrain Orientation", "ORIENTATION BACKWARD");
  	    }
  	    
  	    if(drivetrain.getOutput().getSolenoid().isRetracting()) {
- 	    	SmartDashboard.putString("Drivetrain Gear", "Low Gear");
+ 	    	SmartDashboard.putString("Drivetrain Gear", "GEAR: LOW");
  	    }
- 	    
  	    else {
- 	    	SmartDashboard.putString("Drivetrain Gear", "High Gear");
- 	    }
- 	    
- 	    switch(microGrabberState) {
-			case LOWERED:
-				SmartDashboard.putString("Grabber Position", "Lowered");
-				break;
-			case RAISED:
-				SmartDashboard.putString("Grabber Position", "Raised");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(grabberState) {
-			case IDLE:
-				SmartDashboard.putString("Grabber State", "Idle");
-				break;
-			case TELEOP:
-				SmartDashboard.putString("Grabber State", "Teleop");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(breacherState) {
-			case BOUNCING:
-				SmartDashboard.putString("Breacher State", "Bouncing");
-				break;
-			case CLOSING:
-				SmartDashboard.putString("Breacher State", "Closing");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Breacher State", "Idle");
-				break;
-			case JOYSTICK_CONTROL:
-				SmartDashboard.putString("Breacher State", "Teleop");
-				break;
-			case OPENING:
-				SmartDashboard.putString("Breacher State", "Opening");
-				break;
-			case SETTING_ANGLE:
-				SmartDashboard.putString("Breacher State", "Setting Angle");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(accumulatorState) {
-			case ACCUMULATING:
-				SmartDashboard.putString("Accumulator State", "Accumulating");
-				break;
-			case EJECTING:
-				SmartDashboard.putString("Accumulator State", "Ejecting");
-				break;
-			case HOLDING:
-				SmartDashboard.putString("Accumulator State", "Holding");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Accumulator State", "Idle");
-				break;
-			case RELEASING:
-				SmartDashboard.putString("Accumulator State", "Releasing");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(driveState) {
-			case DISABLED:
-				SmartDashboard.putString("Drivetrain State", "Disabled");
-				break;
-			case DRIVING_DISTANCE:
-				SmartDashboard.putString("Drivetrain State", "Driving Distance");
-				break;
-			case DRIVING_TELEOP:
-				SmartDashboard.putString("Drivetrain State", "Driving Teleop");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Drivetrain State", "Idle");
-				break;
-			case SHOOTER_ALIGN:
-				SmartDashboard.putString("Drivetrain State", "Shooter Align");
-				break;
-			case TURNING_ANGLE:
-				SmartDashboard.putString("Drivetrain State", "Turning Angle");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(shooterControllerState) {
-			case DISABLED:
-				SmartDashboard.putString("Shooter Controller State", "Disabled");
-				break;
-			case FIRE:
-				SmartDashboard.putString("Shooter Controller State", "Fire");
-				break;
-			case HOLD:
-				SmartDashboard.putString("Shooter Controller State", "Hold");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Shooter Controller State", "Idle");
-				break;
-			case LOAD:
-				SmartDashboard.putString("Shooter Controller State", "Load");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(shooterArmState) {
-			case DISABLED:
-				SmartDashboard.putString("Shooter Arm State", "Disabled");
-				break;
-			case HOLD:
-				SmartDashboard.putString("Shooter Arm State", "Hold");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Shooter Arm State", "Idle");
-				break;
-			case SET_ANGLE:
-				SmartDashboard.putString("Shooter Arm State", "Set Angle");
-				break;
-			case TELEOP:
-				SmartDashboard.putString("Shooter Arm State", "Teleop");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(shooterLoadingActuatorState) {
-			case DISABLED:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Disabled");
-				break;
-			case EXTEND:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Extend");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Idle");
-				break;
-			case RETRACT:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Retract");
-				break;
-			default:
-				break;
- 	    }
- 	    
- 	    switch(shooterLockingActuatorState) {
-			case DISABLED:
-				SmartDashboard.putString("Shooter Locking Actuator State", "Disabled");
-				break;
-			case IDLE:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Idle");
-				break;
-			case LOCK:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Lock");
-				break;
-			case UNLOCK:
-				SmartDashboard.putString("Shooter Loading Actuator State", "Unlock");
-				break;
-			default:
-				break;
+ 	    	SmartDashboard.putString("Drivetrain Gear", "GEAR: HIGH");
  	    }
     }
 }
