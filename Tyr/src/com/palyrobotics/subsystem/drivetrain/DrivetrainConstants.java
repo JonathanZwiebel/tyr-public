@@ -45,7 +45,7 @@ public class DrivetrainConstants {
 	public static final double PIXELS_PER_DEGREE = 1.0; 
 	public static final double PIXELS_PER_DISTANCE = 48.394 - 6;
 	public static final double PIXEL_DISTANCE_ADJUSTMENT = 25;
-	public static final int SUCCESSIVE_GAP_TIME = 50;
+	public static final int SUCCESSIVE_GAP_TIME = 60;
 	
 	public static final double INCHES_TO_SHOOT = 200.0;
 

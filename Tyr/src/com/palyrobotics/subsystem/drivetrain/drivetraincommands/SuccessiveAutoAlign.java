@@ -79,6 +79,8 @@ public class SuccessiveAutoAlign extends Command {
 			if (Math.abs(error) > ACCEPTABLE_PIXEL_ERROR) {
 				return false;
 			} else {
+				drivetrain.getOutput().getLeftMotor().setSpeed(0.0);
+				drivetrain.getOutput().getRightMotor().setSpeed(0.0);
 				turningAngle = false;
 			}
 		} else {

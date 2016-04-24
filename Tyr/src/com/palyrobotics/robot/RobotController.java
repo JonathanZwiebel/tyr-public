@@ -11,6 +11,7 @@ import org.strongback.hardware.Hardware;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.robot.autonomous.CompetitionLowBarAuto;
+import com.palyrobotics.robot.autonomous.CompetitionTwentyPointAuto;
 import com.palyrobotics.robot.autonomous.GenericTurnAngle;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
@@ -149,7 +150,7 @@ public class RobotController extends IterativeRobot {
         
 //    	breacher.setMacroState(MacroBreacherState.AUTO);
 //    	breacher.setMicroState(MicroBreacherState.IDLE);
-	    Strongback.submit(new GenericTurnAngle(drivetrain, 90));
+	    Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber));
 
     }
     
