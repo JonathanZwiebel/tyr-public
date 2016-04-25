@@ -283,15 +283,15 @@ public class RobotController extends IterativeRobot {
     	else {
     		SmartDashboard.putBoolean("Aligned", false);
     	}
-    	
-    	if(input.getSecondaryStick().getPitch().read() <= 0 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.loadingActuatorController.isFullyRetracted()) {
+
+    	if(input.getShooterStick().getPitch().read() <= 0.0010476112365722656 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.loadingActuatorController.isFullyRetracted()) {
     		SmartDashboard.putBoolean("Ready to Accumulate", true);
     	}
     	else {
     		SmartDashboard.putBoolean("Ready to Accumulate", false);
     	}
     	
-    	if(input.getSecondaryStick().getPitch().read() > 0 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.lockingActuatorController.isLocked() && shooter.loadingActuatorController.isFullyRetracted()) {
+    	if(input.getShooterStick().getPitch().read() > 0.0010476112365722656 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.lockingActuatorController.isLocked() && !shooter.loadingActuatorController.isFullyRetracted()) {
     		SmartDashboard.putBoolean("Ready to Shoot", true);
     	}
     	else {
