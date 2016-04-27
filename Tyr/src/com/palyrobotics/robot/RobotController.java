@@ -89,7 +89,7 @@ public class RobotController extends IterativeRobot {
 	    	
 	    SmartDashboard.putData("Control Scheme", chooser);
 	   
-	    setDericConstants();
+	    setTyrConstants();
     	
 	    //Input and SendableChooser
     	input = new InputHardware();
