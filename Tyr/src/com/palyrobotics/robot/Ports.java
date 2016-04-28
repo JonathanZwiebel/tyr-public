@@ -12,10 +12,10 @@ public class Ports {
 	public static final int XBOX_PORT = 4;
 	
 	// Digital Input Output - roboRIO
-	public static final int DRIVE_LEFT_ENCODER_A_CHANNEL = 0;
-	public static final int DRIVE_LEFT_ENCODER_B_CHANNEL = 1;
-	public static final int DRIVE_RIGHT_ENCODER_A_CHANNEL = 2;
-	public static final int DRIVE_RIGHT_ENCODER_B_CHANNEL = 3;
+	public static final int DRIVE_LEFT_ENCODER_A_CHANNEL = 2;
+	public static final int DRIVE_LEFT_ENCODER_B_CHANNEL = 3;
+	public static final int DRIVE_RIGHT_ENCODER_A_CHANNEL = 0;
+	public static final int DRIVE_RIGHT_ENCODER_B_CHANNEL = 1;
 	
 	// Bus - Serial Peripheral Interface
 	public static final Port GYROSCOPE_PORT = Port.kOnboardCS0;
@@ -53,26 +53,26 @@ public class Ports {
 	public static final int SHOOTER_ARM_POTENTIOMETER_CHANNEL = 1;
 	
 	// Valve - Pneumatics Control Module
-	public static int GEAR_ACTUATOR_EXTEND_VALVE;
-	public static int GEAR_ACTUATOR_RETRACT_VALVE;
+	public static int GRABBER_EXTEND_VALVE;
+	public static int GRABBER_RETRACT_VALVE;
 	public static int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE;
 	public static int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE;
 	public static int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE; 
 	public static int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE;
-	public static int GRABBER_EXTEND_VALVE;
-	public static int GRABBER_RETRACT_VALVE;
+	public static int DRIVETRAIN_EXTEND_VALVE;
+	public static int DRIVETRAIN_RETRACT_VALVE;
 	
-	public static final int GRABBER_EXTEND_VALVE_TYR = 0;
-	public static final int GRABBER_RETRACT_VALVE_TYR = 7;
-	public static final int GEAR_ACTUATOR_EXTEND_VALVE_TYR = 4;
-	public static final int GEAR_ACTUATOR_RETRACT_VALVE_TYR = 3;
+	public static final int DRIVETRAIN_EXTEND_VALVE_TYR = 0;
+	public static final int DRIVETRAIN_RETRACT_VALVE_TYR = 7;
+	public static final int GRABBER_EXTEND_VALVE_TYR = 4;
+	public static final int GRABBER_RETRACT_VALVE_TYR = 3;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_TYR = 5;
 	public static final int SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_TYR = 2;
 	public static final int SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_TYR = 1; 
 	public static final int SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_TYR = 6;
 
-	public static final int GRABBER_EXTEND_VALVE_DERIC = 6;
-	public static final int GRABBER_RETRACT_VALVE_DERIC = 7;
+	public static final int DRIVETRAIN_EXTEND_VALVE_DERIC = 6;
+	public static final int DRIVERAIN_RETRACT_VALVE_DERIC = 7;
 	public static final int GEAR_ACTUATOR_EXTEND_VALVE_DERIC = 0;
 	public static final int GEAR_ACTUATOR_RETRACT_VALVE_DERIC = 1;
 	public static final int SHOOTER_LOADING_ACTUATOR_EXTEND_VALVE_DERIC = 4;
