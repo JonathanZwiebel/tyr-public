@@ -61,8 +61,7 @@ public class SingleAutoAlign extends Command {
 			table.putBoolean("Reset", true);
 			return true;
 		}
-		double encoderDisplacement = PIXELS_PER_DISTANCE * (drivetrain.getInput().getLeftDriveEncoder().getAngle()
-				- drivetrain.getInput().getRightDriveEncoder().getAngle()) / 2;
+		double encoderDisplacement = PIXELS_PER_DISTANCE * (drivetrain.getInput().getLeftDriveEncoder().getAngle());
 
 		double error = xDisplacement - encoderDisplacement;
 		double derivative = (error - previousError) * UPDATES_PER_SECOND;

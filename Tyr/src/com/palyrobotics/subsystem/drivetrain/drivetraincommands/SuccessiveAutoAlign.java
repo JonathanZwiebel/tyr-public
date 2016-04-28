@@ -60,8 +60,7 @@ public class SuccessiveAutoAlign extends Command {
 		}
 		
 		if (turningAngle) {
-			double encoderDisplacement = PIXELS_PER_DISTANCE * (drivetrain.getInput().getLeftDriveEncoder().getAngle()
-					- drivetrain.getInput().getRightDriveEncoder().getAngle()) / 2;
+			double encoderDisplacement = PIXELS_PER_DISTANCE * (drivetrain.getInput().getLeftDriveEncoder().getAngle());
 			
 			double error = xdisplacement - encoderDisplacement;
 			double derivative = (error - previousError) * UPDATES_PER_SECOND;
