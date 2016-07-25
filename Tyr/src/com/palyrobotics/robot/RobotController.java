@@ -51,6 +51,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotController extends IterativeRobot {
+	private DriverStation ds;
+	
+	private Dashboard dashboard;
+	
 	private DrivetrainController drivetrain;
 	private DrivetrainSystems drivetrainSystems;
 
@@ -108,6 +112,9 @@ public class RobotController extends IterativeRobot {
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
+    	ds = DriverStation.getInstance();
+    	dashboard = new Dashboard(ds);
+    	dashboard.initDashboard();
     	
     	//Begin logging
     	startLogging();
@@ -185,6 +192,7 @@ public class RobotController extends IterativeRobot {
     	}
     	
     	updateDashboard();
+    	dashboard.updateDashboard();
     	
     	drivetrain.update();
     	accumulator.update();
