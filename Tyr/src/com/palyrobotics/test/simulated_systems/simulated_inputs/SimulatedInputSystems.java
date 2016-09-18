@@ -5,7 +5,10 @@ import org.strongback.components.ThreeAxisAccelerometer;
 import org.strongback.components.ui.FlightStick;
 
 import com.palyrobotics.robot.InputSystems;
+import com.palyrobotics.test.simulated_systems.simulated_components.SimulatedEncoder;
 import com.palyrobotics.test.simulated_systems.simulated_components.SimulatedFlightStick;
+import com.palyrobotics.test.simulated_systems.simulated_components.SimulatedGyroscope;
+import com.palyrobotics.test.simulated_systems.simulated_components.SimulatedXBoxController;
 import com.palyrobotics.xbox.XBoxController;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -16,8 +19,15 @@ public class SimulatedInputSystems implements InputSystems {
 	private FlightStick driveStick = new SimulatedFlightStick();
 	private FlightStick turnStick = new SimulatedFlightStick();
 	
+	private XBoxController xbox = new SimulatedXBoxController();
+	
 	private FlightStick shooterStick = new SimulatedFlightStick();
 	private FlightStick secondaryStick = new SimulatedFlightStick();
+	
+	private AngleSensor leftDriveEncoder = new SimulatedEncoder();
+	private AngleSensor rightDriveEncoder = new SimulatedEncoder();
+	
+	private AnalogGyro gyroscope = new SimulatedGyroscope();
 	
 	@Override
 	public FlightStick getDriveStick() {
@@ -41,8 +51,7 @@ public class SimulatedInputSystems implements InputSystems {
 
 	@Override
 	public XBoxController getXBox() {
-		// TODO Auto-generated method stub
-		return null;
+		return xbox;
 	}
 
 	@Override
@@ -59,20 +68,17 @@ public class SimulatedInputSystems implements InputSystems {
 
 	@Override
 	public AngleSensor getLeftDriveEncoder() {
-		// TODO Auto-generated method stub
-		return null;
+		return leftDriveEncoder;
 	}
 
 	@Override
 	public AngleSensor getRightDriveEncoder() {
-		// TODO Auto-generated method stub
-		return null;
+		return rightDriveEncoder;
 	}
 
 	@Override
 	public AnalogGyro getGyroscope() {
-		// TODO Auto-generated method stub
-		return null;
+		return gyroscope;
 	}
 
 	@Override

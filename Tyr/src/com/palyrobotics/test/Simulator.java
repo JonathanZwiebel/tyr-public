@@ -23,7 +23,7 @@ public class Simulator {
 		
 		simulation.init();
 		simulation.testInit();
-				
+		
 		while(time < simulation.getTotalTime()) {
 			updates ++;
 			time += 1.0 / SimulatorConstants.UPDATES_PER_SECOND;
