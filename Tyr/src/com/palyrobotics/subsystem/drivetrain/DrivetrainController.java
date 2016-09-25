@@ -24,6 +24,7 @@ public class DrivetrainController implements Requirable {
 		SHOOTER_ALIGN, 
 		ALIGN_TO_GOAL,
 		MOVING_TO_GOAL,
+		DRIVING_C_TELEOP,
 		DISABLED
 	}
 
@@ -55,18 +56,18 @@ public class DrivetrainController implements Requirable {
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON), 
 				() -> Strongback.submit(new SuccessiveAutoAlign(this, 0.33)));
 		reactor.onTriggered(input.getDriveStick().getButton(10),
-				() -> Strongback.submit(new DriveTeleop(this, 1.0f)));
+				() -> Strongback.submit(new ChezyDriveTeleop(this, 1.0f)));
 	}
 
 	public void update() {
 		if (drivetrainState == DrivetrainState.IDLE) {
 			if(input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
-				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));
+				Strongback.submit(new ChezyDriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));
 			}
 			else if(input.getDriveStick().getButton(Buttons.DRIVETRAIN_THROTTLE_FORWARD_BUTTON).isTriggered()) {
-				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.THROTTLE_FORWARD_SCALING_FACTOR));
+				Strongback.submit(new ChezyDriveTeleop(this, DrivetrainConstants.THROTTLE_FORWARD_SCALING_FACTOR));
 			}
-			Strongback.submit(new DriveTeleop(this, 1.0f));
+			Strongback.submit(new ChezyDriveTeleop(this, 1.0f));
 		}
 	}
 
