@@ -28,7 +28,7 @@ public class JoystickControl extends Command {
 			idlePoint = input.getBreacherPotentiometer().getAngle();
 		}
 		catch(Exception e) {
-			System.err.println("No Breacher Potentiometer");
+			
 		}
 		current = idlePoint;
 		previous = current;
@@ -70,7 +70,6 @@ public class JoystickControl extends Command {
 	 			previous = error;
 			} catch(Exception e) {
 				this.holding = false;
-				System.err.println("No breacher potentiometer");
 			}
  			return false;
 		}
@@ -80,7 +79,6 @@ public class JoystickControl extends Command {
 			try {
 				idlePoint = input.getBreacherPotentiometer().getAngle();
 			} catch(Exception e) {
-				System.err.println("No breacher potentiometer");
 			}
 			return false;
 		}
