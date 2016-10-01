@@ -4,7 +4,6 @@ import org.strongback.command.Command;
 
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
-import com.sun.istack.internal.logging.Logger;
 
 public class GenericDriveAuto extends Command{
 
