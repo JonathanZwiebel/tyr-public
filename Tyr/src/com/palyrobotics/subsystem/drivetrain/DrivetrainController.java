@@ -59,7 +59,6 @@ public class DrivetrainController implements Requirable {
 	}
 
 	public void update() {
-		System.out.println(drivetrainState);
 		if (drivetrainState == DrivetrainState.IDLE) {
 			if(input.getTurnStick().getButton(Buttons.DRIVETRAIN_PRECISION_TURNING_BUTTON).isTriggered()) {
 				Strongback.submit(new DriveTeleop(this, DrivetrainConstants.PRECISION_TURNING_SCALING_FACTOR));

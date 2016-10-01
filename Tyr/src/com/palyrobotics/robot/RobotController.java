@@ -111,7 +111,6 @@ public class RobotController extends IterativeRobot {
     	
     	//Begin logging
     	startLogging();
-    	Logger.getLogger("Central").log(Level.INFO, "The RobotController was initialized.");
     	
     	input.getGyroscope().calibrate();
     	this.table = NetworkTable.getTable("AutoAlign");
@@ -197,12 +196,7 @@ public class RobotController extends IterativeRobot {
     	
     	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
     	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
-
-    	Logger.getLogger("Central").log(Level.INFO, "Gyroscope: " + input.getGyroscope().getAngle());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer X: " + input.getAccelerometer().getXDirection().getAcceleration());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Y: " + input.getAccelerometer().getYDirection().getAcceleration());
-    	Logger.getLogger("Central").log(Level.INFO, "Accelerometer Z: " + input.getAccelerometer().getZDirection().getAcceleration());
-    }
+   }
 
     @Override
     public void disabledInit() {
