@@ -13,7 +13,7 @@ import static com.palyrobotics.subsystem.drivetrain.DrivetrainConstants.*;
 public class ChezyDriveTeleop extends Command {
 	private DrivetrainController drivetrain;
 	private double old_wheel, quick_stop_acc;
-	private final double DEADBAND = 0.2f;
+	private final double DEADBAND = 0.02f;
 	
 	private final int QUICK_TURN_BUTTON = 0;
 
@@ -49,10 +49,9 @@ public class ChezyDriveTeleop extends Command {
 		double neg_inertia = wheel - old_wheel;
 		old_wheel = wheel;
 
-		wheel_non_linear = 0.5f;
-		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel);
-		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel);
-		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel);
+		wheel_non_linear = 0.6f;
+		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel) / Math.sin(Math.PI / 2.0 * wheel_non_linear);
+		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel) / Math.sin(Math.PI / 2.0 * wheel_non_linear);
 
 		double left_PWM, right_PWM, over_power;
 		double sensitivity;
@@ -62,18 +61,8 @@ public class ChezyDriveTeleop extends Command {
 		double neg_inertia_acc = 0.0;
 		double neg_inertia_k;
 		
-		if(wheel * neg_inertia > 0) {
-			neg_inertia_k = 2.5;
-		}
-		else {
-			if(Math.abs(wheel) > 0.65) {
-				neg_inertia_k = 5.0;
-			}
-			else {
-				neg_inertia_k = 3.0;
-			}
-		}
-		sensitivity = 0.85;
+		neg_inertia_k = 4.0;
+		sensitivity = 0.75;
 		
 		double neg_inertia_power = neg_inertia * neg_inertia_k;
 		neg_inertia_acc += neg_inertia_power;
