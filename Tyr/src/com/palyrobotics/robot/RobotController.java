@@ -7,16 +7,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.strongback.Strongback;
-import org.strongback.hardware.Hardware;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.robot.autonomous.CompetitionLowBarAuto;
 import com.palyrobotics.robot.autonomous.CompetitionTwentyPointAuto;
 import com.palyrobotics.robot.autonomous.GenericDriveAuto;
-import com.palyrobotics.robot.autonomous.GenericTurnAngle;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
-import com.palyrobotics.subsystem.accumulator.AccumulatorController.AccumulatorState;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
 import com.palyrobotics.subsystem.accumulator.AccumulatorSystems;
 import com.palyrobotics.subsystem.breacher.BreacherController;
@@ -26,19 +23,12 @@ import com.palyrobotics.subsystem.breacher.BreacherHardware;
 import com.palyrobotics.subsystem.breacher.BreacherSystems;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainConstants;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
-import com.palyrobotics.subsystem.drivetrain.DrivetrainController.DrivetrainState;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainHardware;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainSystems;
 import com.palyrobotics.subsystem.shooter.ShooterController;
-import com.palyrobotics.subsystem.shooter.ShooterController.ShooterState;
 import com.palyrobotics.subsystem.shooter.ShooterHardware;
 import com.palyrobotics.subsystem.shooter.ShooterSystems;
-import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterArmController.ShooterArmState;
-import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLoadingActuatorController.ShooterLoadingActuatorState;
-import com.palyrobotics.subsystem.shooter.subcontrollers.ShooterLockingActuatorController.ShooterLockingActuatorState;
 import com.palyrobotics.subsystem.grabber.GrabberController;
-import com.palyrobotics.subsystem.grabber.GrabberController.GrabberState;
-import com.palyrobotics.subsystem.grabber.GrabberController.MicroGrabberState;
 import com.palyrobotics.subsystem.grabber.GrabberHardware;
 import com.palyrobotics.subsystem.grabber.GrabberSystems;
 import com.palyrobotics.xbox.Converter;
@@ -47,8 +37,6 @@ import com.palyrobotics.xbox.MockFlightStick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotController extends IterativeRobot {
 	private DriverStation ds;
@@ -72,9 +60,9 @@ public class RobotController extends IterativeRobot {
 	
 	private InputSystems input;
 	
-	private SendableChooser chooser;
+	private NetworkTable robotTable;
 	
-	private NetworkTable table;
+	private String autoPath;
 	
     @Override
     public void robotInit() {
@@ -85,14 +73,6 @@ public class RobotController extends IterativeRobot {
         catch(Exception e) {
         	e.printStackTrace();
         } 
-    	
-    	chooser = new SendableChooser();
-	   
-    	//Uses a SendableChooser to determine if an XBox is being used.
-	    chooser.addDefault("XBox", 2);
-	    chooser.addObject("Joysticks", 1);
-	    	
-	    SmartDashboard.putData("Control Scheme", chooser);
 	   
 	    setTyrConstants();
     	
@@ -112,6 +92,8 @@ public class RobotController extends IterativeRobot {
     	shooter = new ShooterController(shooterSystems, input);
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
+    	
+    	robotTable = NetworkTable.getTable("RobotTable");
     	ds = DriverStation.getInstance();
     	dashboard = new Dashboard(ds, accumulator, drivetrain, shooter, breacher, grabber);
     	dashboard.initDashboard();
@@ -120,7 +102,6 @@ public class RobotController extends IterativeRobot {
     	startLogging();
     	
     	input.getGyroscope().calibrate();
-    	this.table = NetworkTable.getTable("AutoAlign");
     }
     
     /**
@@ -149,16 +130,22 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
+    	autoPath = robotTable.getString("autopath", "none");
        	drivetrain.init();
-//    	accumulator.init();
-//    	shooter.init();
-//    	breacher.init();
-//    	grabber.init();
-        
-//    	breacher.setMacroState(MacroBreacherState.AUTO);
-//    	breacher.setMicroState(MicroBreacherState.IDLE);
-	    Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
 
+       	switch(autoPath) {
+       	case "20pt":
+       		Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
+       		break;
+       	case "lowbar":
+       		Strongback.submit(new CompetitionLowBarAuto(drivetrain, 100, 0.5));
+       		break;
+       	case "drive":
+       		Strongback.submit(new GenericDriveAuto(drivetrain, true, 5, 100, 0.5));
+       		break;
+       	case "none":
+       		break;
+       	}
     }
     
     @Override
@@ -166,13 +153,7 @@ public class RobotController extends IterativeRobot {
     	Strongback.killAllCommands();
     	
     	//Set the control scheme
-    	if(chooser.getSelected().equals(1)) {
-    		input.setControlScheme(ControlScheme.JOYSTICKS);
-    	}
-    	
-    	else {
-    		input.setControlScheme(ControlScheme.XBOX);
-    	}
+    	input.setControlScheme(ControlScheme.XBOX);
     	
 	    drivetrain.init();
 	    accumulator.init();
@@ -191,7 +172,7 @@ public class RobotController extends IterativeRobot {
     		Converter.convert(input.getXBox(), (MockFlightStick)input.getShooterStick(), (MockFlightStick)input.getSecondaryStick());
     	}
     	
-    	updateDashboard();
+    	//updateDashboard();
     	dashboard.updateDashboard();
     	
     	drivetrain.update();
@@ -277,45 +258,5 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
-    }
-    
-    public void updateDashboard() {
-    	
-    	if(Math.abs(table.getNumber("xDisplacement", 1000)) < DrivetrainConstants.ACCEPTABLE_ANGLE_ERROR) {
-    		SmartDashboard.putBoolean("Aligned", true);
-    	}
-    	else {
-    		SmartDashboard.putBoolean("Aligned", false);
-    	}
-
-    	if(input.getShooterStick().getPitch().read() <= 0.0010476112365722656 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.loadingActuatorController.isFullyRetracted()) {
-    		SmartDashboard.putBoolean("Ready to Accumulate", true);
-    	}
-    	else {
-    		SmartDashboard.putBoolean("Ready to Accumulate", false);
-    	}
-    	
-    	if(input.getShooterStick().getPitch().read() > 0.0010476112365722656 && grabber.getMicroGrabberState().equals(MicroGrabberState.RAISED) && shooter.lockingActuatorController.isLocked() && !shooter.loadingActuatorController.isFullyRetracted()) {
-    		SmartDashboard.putBoolean("Ready to Shoot", true);
-    	}
-    	else {
-    		SmartDashboard.putBoolean("Ready to Shoot", false);
-    	}
-    	
- 	    SmartDashboard.putBoolean("Compressor status", Hardware.pneumaticsModule().compressorRunningSwitch().isTriggered());
- 	    
- 	    if(DrivetrainConstants.TELEOP_ORIENTATION == 1) {
- 	    	SmartDashboard.putString("Drivetrain Orientation", "ORIENTATION FORWARD");
- 	    }
- 	    else {
- 	    	SmartDashboard.putString("Drivetrain Orientation", "ORIENTATION BACKWARD");
- 	    }
- 	    
- 	    if(drivetrain.getOutput().getSolenoid().isRetracting()) {
- 	    	SmartDashboard.putString("Drivetrain Gear", "GEAR: LOW");
- 	    }
- 	    else {
- 	    	SmartDashboard.putString("Drivetrain Gear", "GEAR: HIGH");
- 	    }
     }
 }
