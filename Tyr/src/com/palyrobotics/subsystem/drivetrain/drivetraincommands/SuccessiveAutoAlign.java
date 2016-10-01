@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class SuccessiveAutoAlign extends Command {
 
 	private double speedLimit;
-	private double xDisplacement;
+	private double xdisplacement;
 	private double previousError;
 	private boolean turningAngle;
 	private double counter;
@@ -21,7 +21,7 @@ public class SuccessiveAutoAlign extends Command {
 
 	/**
 	 * This command creates turn angle commands that are called repeatedly until
-	 * the desired xDisplacement is met. 
+	 * the desired xdisplacement is met. 
 	 * @param drivetrain to receive input and send output to.
 	 */
 	public SuccessiveAutoAlign(DrivetrainController drivetrain) {
@@ -43,8 +43,8 @@ public class SuccessiveAutoAlign extends Command {
 
 	@Override
 	public void initialize() {
-		this.table = NetworkTable.getTable("AutoAlign");
-		this.xDisplacement = table.getNumber("xDisplacement", this.xDisplacement);
+		this.table = NetworkTable.getTable("visiondata");
+		this.xdisplacement = table.getNumber("xdisplacement", this.xdisplacement);
 		this.previousError = 0.0;
 		this.turningAngle = true;
 		drivetrain.setDrivetrainState(DrivetrainState.ALIGN_TO_GOAL);
@@ -64,7 +64,7 @@ public class SuccessiveAutoAlign extends Command {
 			double encoderDisplacement = PIXELS_PER_DISTANCE * (drivetrain.getInput().getLeftDriveEncoder().getAngle()
 					- drivetrain.getInput().getRightDriveEncoder().getAngle()) / 2;
 			
-			double error = xDisplacement - encoderDisplacement;
+			double error = xdisplacement - encoderDisplacement;
 			double derivative = (error - previousError) * UPDATES_PER_SECOND;
 			previousError = error;
 
@@ -88,7 +88,7 @@ public class SuccessiveAutoAlign extends Command {
 		}
 		
 		if (!checkDisplacement() && !turningAngle && counter >= SUCCESSIVE_GAP_TIME) {
-			xDisplacement = table.getNumber("xDisplacement", this.xDisplacement);
+			xdisplacement = table.getNumber("xdisplacement", this.xdisplacement);
 			drivetrain.getInput().getLeftDriveEncoder().zero();
 			drivetrain.getInput().getRightDriveEncoder().zero();
 			previousError = 0.0;
@@ -104,11 +104,11 @@ public class SuccessiveAutoAlign extends Command {
 	}
 
 	/**
-	 * Checks to see if the xDisplacement is in an acceptable range. Returns
+	 * Checks to see if the xdisplacement is in an acceptable range. Returns
 	 * true if acceptable, and false if not. 
 	 */
 	public boolean checkDisplacement() {
-		double tempDisplacement = table.getNumber("xDisplacement", this.xDisplacement);
+		double tempDisplacement = table.getNumber("xdisplacement", this.xdisplacement);
 		if (Math.abs(tempDisplacement) < ACCEPTABLE_PIXEL_ERROR) {
 			return true;
 		} else {
