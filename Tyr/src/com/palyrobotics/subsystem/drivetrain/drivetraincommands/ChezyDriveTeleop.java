@@ -15,7 +15,7 @@ public class ChezyDriveTeleop extends Command {
 	private double old_wheel, quick_stop_acc;
 	private final double DEADBAND = 0.02f;
 	
-	private final int QUICK_TURN_BUTTON = 0;
+	private final int QUICK_TURN_BUTTON = 1;
 
 	public ChezyDriveTeleop(DrivetrainController drivetrain, float scaling) {
 		super(drivetrain);
@@ -52,7 +52,9 @@ public class ChezyDriveTeleop extends Command {
 		wheel_non_linear = 0.6f;
 		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel) / Math.sin(Math.PI / 2.0 * wheel_non_linear);
 		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel) / Math.sin(Math.PI / 2.0 * wheel_non_linear);
+		wheel = Math.sin(Math.PI / 2.0 * wheel_non_linear * wheel) / Math.sin(Math.PI / 2.0 * wheel_non_linear);
 
+		
 		double left_PWM, right_PWM, over_power;
 		double sensitivity;
 		double angular_power;
@@ -120,8 +122,8 @@ public class ChezyDriveTeleop extends Command {
 			left_PWM += over_power * (-1.0 - right_PWM);
 			right_PWM = -1.0;
 		}
-		drivetrain.getOutput().getLeftMotor().setSpeed(left_PWM);
-		drivetrain.getOutput().getRightMotor().setSpeed(right_PWM);
+		drivetrain.getOutput().getLeftMotor().setSpeed(-right_PWM); // Negative right PWM to left motor is correct
+		drivetrain.getOutput().getRightMotor().setSpeed(left_PWM); // Positive left PWM to right motor is correct
 		return false;
 	}
 
