@@ -33,16 +33,13 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new GenericTurnAngle(drive, 45, 1.0f, 2.0f),
 				new GenericDriveAuto(drive,true, 1, 0.5f),
 				new SuccessiveAutoAlign(drive, 0.33f),
-				simultaneously(
-						sequentially(
-								new GrabberMoveUpCommand(grabber), 
-								new ShooterLoadingActuatorExtendCommand(shooter),
-								new CompetitionTwentyPointAuto.WaitFor(2.0f),
-								new ShooterLockingActuatorUnlockCommand(shooter)		
-								)
-						),
-						new ShooterUp(shooter,TIME_TO_SHOOT)
-				);
+				new ShooterUp(shooter),
+				new GrabberMoveUpCommand(grabber), 
+				new ShooterLoadingActuatorExtendCommand(shooter),
+				new CompetitionTwentyPointAuto.WaitFor(2.0f),
+				new ShooterLockingActuatorUnlockCommand(shooter),
+				new ShooterDown(shooter)
+		);
 		
 	}
 	
@@ -51,16 +48,14 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 		final double UP_SPEED = .6;
 		private ShooterController shooter;
 		private double endTime = 0.0;
-		final double seconds;
 		
-		public ShooterUp(ShooterController shooter, float seconds) {
+		public ShooterUp(ShooterController shooter) {
 			this.shooter = shooter;
-			this.seconds = seconds;
 		}
 		
 		@Override
 		public void initialize() {
-			endTime = System.currentTimeMillis() + seconds * 1000;				
+			endTime = System.currentTimeMillis() + 100;				
 		}
 
 		@Override
@@ -71,10 +66,28 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 			
 			return false;
 		}
+	}
+	
+
+	public class ShooterDown extends Command {
+		
+		final double UP_SPEED = .6;
+		private ShooterController shooter;
+		private double endTime = 0.0;
+		
+		public ShooterDown(ShooterController shooter) {
+			this.shooter = shooter;
+		}
 		
 		@Override
-		public void end() {
-			shooter.systems.getArmMotor().setSpeed(0.0);
+		public void initialize() {
+			endTime = System.currentTimeMillis() + 100;				
+		}
+
+		@Override
+		public boolean execute() {
+			shooter.systems.getArmMotor().setSpeed(0);
+			return false;
 		}
 	}
 	
