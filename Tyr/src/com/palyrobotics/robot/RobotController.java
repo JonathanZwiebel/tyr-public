@@ -150,7 +150,7 @@ public class RobotController extends IterativeRobot {
         
 //    	breacher.setMacroState(MacroBreacherState.AUTO);
 //    	breacher.setMicroState(MicroBreacherState.IDLE);
-	    Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber));
+	    Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
 
     }
     
