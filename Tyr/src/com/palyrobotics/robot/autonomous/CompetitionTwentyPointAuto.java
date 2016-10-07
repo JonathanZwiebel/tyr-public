@@ -23,23 +23,24 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new GenericDriveAuto(drive,true, 2, 0.5f),
 				new GenericDriveAutoDifferential(drive,true, 4, Integer.MAX_VALUE, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
-				new IntakeInHold(intake),
-				new CompetitionTwentyPointAuto.WaitFor(0.25f),
 				new ShooterUpHold(shooter),
+				new IntakeInHold(intake),
+//				new CompetitionTwentyPointAuto.WaitFor(.15f),
 				new CompetitionTwentyPointAuto.WaitFor(0.5f),
 				new IntakeDeadHold(intake),
 				new ShooterLoadingActuatorRetractCommand(shooter), // Right now this an extension
 				new CompetitionTwentyPointAuto.WaitFor(0.75f),
-				new GrabberMoveUpCommand(grabber), 
+				new GrabberUpInterior(grabber), 
 				new CompetitionTwentyPointAuto.WaitFor(0.75f), 
 				new ShooterLockingActuatorLockCommand(shooter), // Right now this is an unlock command
-				new ShooterDeadHold(shooter)
+				new CompetitionTwentyPointAuto.WaitFor(2f)
+//				new ShooterDeadHold(shooter)
 		);
 		
 	}
 	
 	public class ShooterUpHold extends Command {
-		final double UP_SPEED = 0.85;
+		final double UP_SPEED = 0.971 * 1 / 2;
 		private ShooterController shooter;
 		
 		public ShooterUpHold(ShooterController shooter) {
@@ -92,6 +93,20 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 		@Override
 		public boolean execute() {
 			intake.systems.getAccumulatorMotors().setSpeed(-1.0f);
+			return true;
+		}
+	}
+	
+	public class GrabberUpInterior extends Command {
+		private GrabberController grabber;
+		
+		public GrabberUpInterior(GrabberController grabber) {
+			this.grabber = grabber;
+		}
+
+		@Override
+		public boolean execute() {
+			grabber.getOutput().getGrabber().retract();
 			return true;
 		}
 	}

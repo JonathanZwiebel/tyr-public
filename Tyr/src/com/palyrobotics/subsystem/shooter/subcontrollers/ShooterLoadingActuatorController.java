@@ -31,6 +31,7 @@ public class ShooterLoadingActuatorController implements Requirable {
 	public ShooterLoadingActuatorController(ShooterController parent) {
 		this.parent = parent;
 		isRetracted = false;
+		state = null;
 	}
 	
 	public void init() {

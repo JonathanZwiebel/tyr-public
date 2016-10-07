@@ -28,6 +28,7 @@ public class ShooterLockingActuatorController implements Requirable {
 	public ShooterLockingActuatorController(ShooterController parent) {
 		this.parent = parent;
 		isRetracted = false;
+		state = null;
 	}
 	
 	public void init() {
