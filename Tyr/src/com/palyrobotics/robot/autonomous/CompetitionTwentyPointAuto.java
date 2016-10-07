@@ -10,6 +10,7 @@ import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorRetractCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLockCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
@@ -32,11 +33,11 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new GenericDriveAutoDifferential(drive,true, 3, Integer.MAX_VALUE, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUp(shooter),
-				new ShooterLoadingActuatorExtendCommand(shooter),
+				new ShooterLoadingActuatorRetractCommand(shooter), // Right now this an extension
 				new CompetitionTwentyPointAuto.WaitFor(0.75f),
 				new GrabberMoveUpCommand(grabber), 
-				new CompetitionTwentyPointAuto.WaitFor(0.75f),
-				new ShooterLockingActuatorLockCommand(shooter),
+				new CompetitionTwentyPointAuto.WaitFor(0.75f), 
+				new ShooterLockingActuatorLockCommand(shooter), // Right now this is an unlock command
 				new ShooterDown(shooter)
 		);
 		
