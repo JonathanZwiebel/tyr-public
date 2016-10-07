@@ -10,6 +10,7 @@ import com.palyrobotics.subsystem.grabber.commands.GrabberMoveDownCommand;
 import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLockCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -27,17 +28,15 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 			GrabberController grabber) {
 		
 		sequentially(
-				new GenericDriveAuto(drive,true, 3, 0.5f),
-				new GenericDriveAutoDifferential(drive,true, 2, Integer.MAX_VALUE, 0.7f, 0.2f),
-				new CompetitionTwentyPointAuto.WaitFor(0.25f),
-				new GenericTurnAngle(drive, 45, 1.0f, 2.0f),
 				new GenericDriveAuto(drive,true, 1, 0.5f),
+				new GenericDriveAutoDifferential(drive,true, 3, Integer.MAX_VALUE, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUp(shooter),
-				new GrabberMoveUpCommand(grabber), 
 				new ShooterLoadingActuatorExtendCommand(shooter),
-				new CompetitionTwentyPointAuto.WaitFor(2.0f),
-				new ShooterLockingActuatorUnlockCommand(shooter),
+				new CompetitionTwentyPointAuto.WaitFor(0.75f),
+				new GrabberMoveUpCommand(grabber), 
+				new CompetitionTwentyPointAuto.WaitFor(0.75f),
+				new ShooterLockingActuatorLockCommand(shooter),
 				new ShooterDown(shooter)
 		);
 		
@@ -45,7 +44,7 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 	
 	public class ShooterUp extends Command {
 		
-		final double UP_SPEED = .6;
+		final double UP_SPEED = 0.8;
 		private ShooterController shooter;
 		private double endTime = 0.0;
 		
@@ -59,19 +58,16 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 		}
 
 		@Override
-		public boolean execute() {
-			if (endTime < System.currentTimeMillis()) return true;
-			
+		public boolean execute() {			
 			shooter.systems.getArmMotor().setSpeed(UP_SPEED);
-			
-			return false;
+			return true;
 		}
 	}
 	
 
 	public class ShooterDown extends Command {
 		
-		final double UP_SPEED = .6;
+		final double UP_SPEED = 0.8;
 		private ShooterController shooter;
 		private double endTime = 0.0;
 		
@@ -87,7 +83,7 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 		@Override
 		public boolean execute() {
 			shooter.systems.getArmMotor().setSpeed(0);
-			return false;
+			return true;
 		}
 	}
 	
