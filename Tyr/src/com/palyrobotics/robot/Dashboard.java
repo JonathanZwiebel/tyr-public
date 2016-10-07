@@ -156,6 +156,8 @@ public class Dashboard {
 		case ALIGN_TO_GOAL:
 			table.putString("drivetrainstate", "Align to goal");
 			break;
+		case DRIVING_C_TELEOP:
+			table.putString("drivetrainstate", "Chezy Drive");
 		case DISABLED:
 			table.putString("drivetrainstate", "Disabled");
 		}
