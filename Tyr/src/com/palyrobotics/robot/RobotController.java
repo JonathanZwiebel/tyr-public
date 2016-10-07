@@ -113,7 +113,7 @@ public class RobotController extends IterativeRobot {
     	breacher = new BreacherController(breacherSystems, input);
     	grabber = new GrabberController(grabberSystems, input);
     	ds = DriverStation.getInstance();
-    	dashboard = new Dashboard(ds);
+    	dashboard = new Dashboard(ds, accumulator, drivetrain, shooter, breacher, grabber);
     	dashboard.initDashboard();
     	
     	//Begin logging
