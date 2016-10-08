@@ -24,8 +24,8 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new GenericDriveAutoDifferential(drive,true, 4, Integer.MAX_VALUE, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUpHold(shooter),
+				new CompetitionTwentyPointAuto.WaitFor(0.1f),
 				new IntakeInHold(intake),
-//				new CompetitionTwentyPointAuto.WaitFor(.15f),
 				new CompetitionTwentyPointAuto.WaitFor(0.5f),
 				new IntakeDeadHold(intake),
 				new ShooterLoadingActuatorRetractCommand(shooter), // Right now this an extension
@@ -33,8 +33,8 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new GrabberUpInterior(grabber), 
 				new CompetitionTwentyPointAuto.WaitFor(0.75f), 
 				new ShooterLockingActuatorLockCommand(shooter), // Right now this is an unlock command
-				new CompetitionTwentyPointAuto.WaitFor(2f)
-//				new ShooterDeadHold(shooter)
+				new CompetitionTwentyPointAuto.WaitFor(2f),
+				new ShooterDeadHold(shooter)
 		);
 		
 	}
