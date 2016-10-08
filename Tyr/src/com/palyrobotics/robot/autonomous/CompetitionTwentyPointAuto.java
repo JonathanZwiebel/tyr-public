@@ -20,8 +20,12 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 			GrabberController grabber, AccumulatorController intake) {
 		
 		sequentially(
+				new ShooterDownHold(shooter),
+				new CompetitionTwentyPointAuto.WaitFor(0.5f),
+				new ShooterDeadHold(shooter),
 				new GenericDriveAuto(drive,true, 2, 0.5f),
-				new GenericDriveAutoDifferential(drive,true, 4, Integer.MAX_VALUE, 0.5f, 0.2f),
+				new GenericDriveAuto(drive, true, 1, 0.35f),
+				new GenericDriveAutoDifferential(drive,true, 5, Integer.MAX_VALUE, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUpHold(shooter),
 				new CompetitionTwentyPointAuto.WaitFor(0.1f),
@@ -50,6 +54,21 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 		@Override
 		public boolean execute() {			
 			shooter.systems.getArmMotor().setSpeed(UP_SPEED);
+			return true;
+		}
+	}
+	
+	public class ShooterDownHold extends Command {
+		final double UP_SPEED = 0.971 * 254 / 330;
+		private ShooterController shooter;
+		
+		public ShooterDownHold(ShooterController shooter) {
+			this.shooter = shooter;
+		}
+
+		@Override
+		public boolean execute() {			
+			shooter.systems.getArmMotor().setSpeed(-UP_SPEED);
 			return true;
 		}
 	}
