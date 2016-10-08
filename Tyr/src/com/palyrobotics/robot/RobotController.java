@@ -130,7 +130,7 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
-    	autoPath = robotTable.getString("autopath", "none");
+    	autoPath = robotTable.getString("autopath", "20pt");
        	drivetrain.init();
 
        	switch(autoPath) {
