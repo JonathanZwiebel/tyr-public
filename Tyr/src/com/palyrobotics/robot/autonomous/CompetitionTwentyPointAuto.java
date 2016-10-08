@@ -40,7 +40,7 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 	}
 	
 	public class ShooterUpHold extends Command {
-		final double UP_SPEED = 0.971 * 1 / 2;
+		final double UP_SPEED = 0.971 * 254 / 330;
 		private ShooterController shooter;
 		
 		public ShooterUpHold(ShooterController shooter) {
