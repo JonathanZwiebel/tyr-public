@@ -55,6 +55,7 @@ public class SuccessiveAutoAlign extends Command {
 
 	@Override
 	public boolean execute() {
+		System.out.print("Auto Align in execute");
 		if(drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) { // Hard breakout
 			table.putBoolean("Reset", true);
 			return true;
