@@ -111,6 +111,11 @@ public class Dashboard {
 		updateBreacherMicroState();
 		updateGrabberMacroState();
 		updateGrabberMicroState();
+		
+		table.putString("pvaluehandshake", Double.toString(table.getNumber("pvalue", -1)));
+		table.putString("ivaluehandshake", Double.toString(table.getNumber("ivalue", -1)));
+		table.putString("dvaluehandshake", Double.toString(table.getNumber("dvalue", -1)));
+		table.putString("autopathhandshake", table.getString("autopath", "None"));
 
 	}
 
@@ -158,6 +163,10 @@ public class Dashboard {
 			break;
 		case DRIVING_C_TELEOP:
 			table.putString("drivetrainstate", "Chezy Drive");
+		case MOVING_TO_GOAL:
+			table.putString("drivetrainstate", "Move to goal");
+		case SHOOTER_ALIGN:
+			table.putString("drivetrainstate", "Shooter Align");
 		case DISABLED:
 			table.putString("drivetrainstate", "Disabled");
 		}

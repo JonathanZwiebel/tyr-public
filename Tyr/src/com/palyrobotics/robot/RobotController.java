@@ -258,5 +258,6 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
+    	dashboard.updateDashboard();
     }
 }
