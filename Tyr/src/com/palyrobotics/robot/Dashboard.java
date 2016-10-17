@@ -108,8 +108,8 @@ public class Dashboard {
 		updateDrivetrainState();
 		updateShooterState();
 		updateBreacherMacroState();
-		updateBreacherMicroState();
-		updateGrabberMacroState();
+		//updateBreacherMicroState();
+		//updateGrabberMacroState();
 		updateGrabberMicroState();
 		
 		table.putString("pvaluehandshake", Double.toString(table.getNumber("pvalue", -1)));
