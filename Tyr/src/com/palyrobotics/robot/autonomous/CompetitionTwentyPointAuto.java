@@ -7,10 +7,9 @@ import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.drivetrain.drivetraincommands.SuccessiveAutoAlign;
 import com.palyrobotics.subsystem.grabber.GrabberController;
-import com.palyrobotics.subsystem.grabber.commands.GrabberMoveUpCommand;
 import com.palyrobotics.subsystem.shooter.ShooterController;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorRetractCommand;
-import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorLockCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
+import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -32,11 +31,11 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new IntakeInHold(intake),
 				new CompetitionTwentyPointAuto.WaitFor(0.5f),
 				new IntakeDeadHold(intake),
-				new ShooterLoadingActuatorRetractCommand(shooter), // Right now this an extension
+				new ShooterLoadingActuatorExtendCommand(shooter),
 				new CompetitionTwentyPointAuto.WaitFor(0.75f),
 				new GrabberUpInterior(grabber), 
 				new CompetitionTwentyPointAuto.WaitFor(0.75f), 
-				new ShooterLockingActuatorLockCommand(shooter), // Right now this is an unlock command
+				new ShooterLockingActuatorUnlockCommand(shooter),
 				new CompetitionTwentyPointAuto.WaitFor(2f),
 				new ShooterDeadHold(shooter)
 		);
