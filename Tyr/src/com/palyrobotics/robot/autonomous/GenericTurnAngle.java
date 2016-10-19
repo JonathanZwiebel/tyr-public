@@ -19,9 +19,6 @@ public class GenericTurnAngle extends Command {
 	//The maximum speed to go
 	private double maxSpeed;
 	
-	//The maximum running time in seconds
-	private double maxTime;
-	
 	//The starting positions of each side
 	private double startLeftPosition;
 	private double startRightPosition;
