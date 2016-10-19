@@ -11,32 +11,29 @@ import com.palyrobotics.subsystem.shooter.ShooterController;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLoadingActuatorExtendCommand;
 import com.palyrobotics.subsystem.shooter.subcommands.ShooterLockingActuatorUnlockCommand;
 
-import edu.wpi.first.wpilibj.Timer;
-
-
 public class CompetitionTwentyPointAuto extends CommandGroup{
 	public CompetitionTwentyPointAuto(DrivetrainController drive, ShooterController shooter,
 			GrabberController grabber, AccumulatorController intake) {
 		
 		sequentially(
 				new ShooterDownHold(shooter),
-				new CompetitionTwentyPointAuto.WaitFor(0.5f),
+				new CompetitionTwentyPointAuto.WaitFor(500),
 				new ShooterDeadHold(shooter),
-				new GenericDriveAuto(drive,true, 2, 0.5f),
-				new GenericDriveAuto(drive, true, 1, 0.35f),
-				new GenericDriveAutoDifferential(drive,true, 5, 0.5f, 0.2f),
+				new GenericDriveAuto(drive,true, 2000, 0.5f),
+				new GenericDriveAuto(drive, true, 1000, 0.35f),
+				new GenericDriveAutoDifferential(drive,true, 2000, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUpHold(shooter),
-				new CompetitionTwentyPointAuto.WaitFor(0.1f),
+				new CompetitionTwentyPointAuto.WaitFor(100),
 				new IntakeInHold(intake),
-				new CompetitionTwentyPointAuto.WaitFor(0.5f),
+				new CompetitionTwentyPointAuto.WaitFor(500),
 				new IntakeDeadHold(intake),
 				new ShooterLoadingActuatorExtendCommand(shooter),
-				new CompetitionTwentyPointAuto.WaitFor(0.75f),
+				new CompetitionTwentyPointAuto.WaitFor(750),
 				new GrabberUpInterior(grabber), 
-				new CompetitionTwentyPointAuto.WaitFor(0.75f), 
+				new CompetitionTwentyPointAuto.WaitFor(750), 
 				new ShooterLockingActuatorUnlockCommand(shooter),
-				new CompetitionTwentyPointAuto.WaitFor(2f),
+				new CompetitionTwentyPointAuto.WaitFor(2000),
 				new ShooterDeadHold(shooter)
 		);
 		
@@ -71,7 +68,6 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 			return true;
 		}
 	}
-	
 
 	public class ShooterDeadHold extends Command {
 		private ShooterController shooter;
@@ -130,21 +126,21 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 	}
 	
 	public class WaitFor extends Command {
-		private double seconds;
+		private double driveTime;
 		private double endTime;
 		
 		@Override
 		public void initialize() {
-			endTime = Timer.getFPGATimestamp() + seconds;
+			endTime = System.currentTimeMillis() + driveTime;
 		}
 		
-		public WaitFor(float seconds) {
-			this.seconds = seconds;
+		public WaitFor(float driveTime) {
+			this.driveTime = driveTime;
 		}
 		
 		@Override
 		public boolean execute() {
-			return endTime < Timer.getFPGATimestamp();			
+			return endTime < System.currentTimeMillis();			
 		}		
 	}
 }
