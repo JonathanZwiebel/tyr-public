@@ -9,9 +9,7 @@ import java.util.logging.Logger;
 import org.strongback.Strongback;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
-import com.palyrobotics.robot.autonomous.CompetitionLowBarAuto;
 import com.palyrobotics.robot.autonomous.CompetitionTwentyPointAuto;
-import com.palyrobotics.robot.autonomous.GenericDriveAuto;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
@@ -137,12 +135,6 @@ public class RobotController extends IterativeRobot {
        	case "20pt":
        		Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
        		break;
-       	case "lowbar":
-       		Strongback.submit(new CompetitionLowBarAuto(drivetrain, 100, 0.5));
-       		break;
-       	case "drive":
-       		Strongback.submit(new GenericDriveAuto(drivetrain, true, 5, 100, 0.5));
-       		break;
        	case "none":
        		break;
        	}
@@ -244,8 +236,6 @@ public class RobotController extends IterativeRobot {
     	Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE = Ports.SHOOTER_LOADING_ACTUATOR_RETRACT_VALVE_DERIC;
     	Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE = Ports.SHOOTER_LOCKING_ACTUATOR_EXTEND_VALVE_DERIC;
     	Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE  = Ports.SHOOTER_LOCKING_ACTUATOR_RETRACT_VALVE_DERIC;
-//    	Ports.DRIVETRAIN_EXTEND_VALVE = Ports.GRABBER_EXTEND_VALVE_DERIC;
-//    	Ports.DRIVETRAIN_RETRACT_VALVE = Ports.DRIVERAIN_RETRACT_VALVE_DERIC;
     	SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.BREACHER_POTENTIOMETER_DEGREE_OFFSET_DERIC;
     	SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES = SensorConstants.BREACHER_POTENTIOMETER_FULL_VOLTAGE_RANGE_TO_DEGREES_DERIC;
     	SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET = SensorConstants.SHOOTER_POTENTIOMETER_DEGREE_OFFSET_DERIC;

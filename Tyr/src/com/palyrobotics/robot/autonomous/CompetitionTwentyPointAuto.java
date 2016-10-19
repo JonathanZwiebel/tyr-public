@@ -25,7 +25,7 @@ public class CompetitionTwentyPointAuto extends CommandGroup{
 				new ShooterDeadHold(shooter),
 				new GenericDriveAuto(drive,true, 2, 0.5f),
 				new GenericDriveAuto(drive, true, 1, 0.35f),
-				new GenericDriveAutoDifferential(drive,true, 5, Integer.MAX_VALUE, 0.5f, 0.2f),
+				new GenericDriveAutoDifferential(drive,true, 5, 0.5f, 0.2f),
 				new SuccessiveAutoAlign(drive, 0.33f),
 				new ShooterUpHold(shooter),
 				new CompetitionTwentyPointAuto.WaitFor(0.1f),

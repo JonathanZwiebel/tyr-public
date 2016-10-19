@@ -31,7 +31,8 @@ public class GenericTurnAngle extends Command {
 	private double targetRightPosition;
 	
 	//The time at which this command began
-	private double startTime;
+	private double driveTime;
+	private double endTime;
 	
 	//The errors of the encoders
 	private double leftError;
@@ -42,35 +43,19 @@ public class GenericTurnAngle extends Command {
 	private double lastRightError;
 	
 	/**
-	 * Creates a GenericTurnAngle command that turns a specified angle with no maximum speed or running time.
-	 * Works best with angles between -180 and 180 degrees.
-	 * 
-	 * @param drivetrain the drivetrain that is turning
-	 * @param angle the desired angle to turn. Turning clockwise is considered to be a positive angle.
-	 */
-	public GenericTurnAngle(DrivetrainController drivetrain, double angle) {
-		super(drivetrain);
-		this.drivetrain = drivetrain;
-		this.angle = angle;
-		this.maxSpeed = Double.MAX_VALUE;
-		this.maxTime = Double.MAX_VALUE;
-	}
-	
-	/**
 	 * Creates a GenericTurnAngle command that turns a specified angle, with a maximum speed and maximum running time.
 	 * Works best with angles between -180 and 180 degrees.
 	 * 
 	 * @param drivetrain the drivetrain that is turning
 	 * @param angle the desired angle to turn. Turning right is considered positive angle.
 	 * @param maxSpeed the maximum allowed speed, should be between 0 and 1.
-	 * @param maxTime the maximum running time in seconds.
 	 */
-	public GenericTurnAngle(DrivetrainController drivetrain, double angle, double maxSpeed, double maxTime) {
+	public GenericTurnAngle(DrivetrainController drivetrain, double angle, double maxSpeed, double driveTime) {
 		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.angle = angle;
 		this.maxSpeed = maxSpeed;
-		this.maxTime = maxTime;
+		this.driveTime = driveTime;
 	}
 	
 	/**
@@ -79,6 +64,8 @@ public class GenericTurnAngle extends Command {
 	 */
 	@Override
 	public void initialize() {
+		this.endTime = driveTime + System.currentTimeMillis();
+		
 		//Set the drivetrain state to TURNING_ANGLE
 		drivetrain.setDrivetrainState(DrivetrainState.TURNING_ANGLE);
 		
@@ -93,9 +80,6 @@ public class GenericTurnAngle extends Command {
 		//Set the last error for use in the first cycle of execute()
 		lastLeftError = targetLeftPosition - startLeftPosition;
 		lastRightError = targetRightPosition - startRightPosition;
-		
-		//Set the start time to use for the maximum time limit
-		startTime = System.currentTimeMillis();
 	}
 	
 	/**
@@ -105,9 +89,8 @@ public class GenericTurnAngle extends Command {
 	 */
 	@Override
 	public boolean execute() {
-		
 		//If the max time has been reached, end the command
-		if((System.currentTimeMillis() - startTime)/1000 > maxTime) {
+		if(System.currentTimeMillis() > endTime) {
 			return true;
 		}
 
@@ -148,5 +131,4 @@ public class GenericTurnAngle extends Command {
 		drivetrain.getOutput().getRightMotor().setSpeed(0);
 		drivetrain.setDrivetrainState(DrivetrainState.IDLE);
 	}
-
 }
