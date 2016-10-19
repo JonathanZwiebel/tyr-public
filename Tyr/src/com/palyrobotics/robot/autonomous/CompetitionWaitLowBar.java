@@ -7,12 +7,13 @@ import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
 import com.palyrobotics.subsystem.shooter.ShooterController;
 
 
-public class CompetitionLowBar extends CommandGroup{
-	public CompetitionLowBar(DrivetrainController drive, ShooterController shooter) {
+public class CompetitionWaitLowBar extends CommandGroup{
+	public CompetitionWaitLowBar(DrivetrainController drive, ShooterController shooter) {
 		sequentially(
 				new ShooterDownHold(shooter),
-				new CompetitionLowBar.WaitFor(500),
+				new CompetitionWaitLowBar.WaitFor(500),
 				new ShooterDeadHold(shooter),
+				new CompetitionWaitLowBar.WaitFor(9000),
 				new GenericDriveAuto(drive,true, 4000, 0.4f)
 		);
 	}
