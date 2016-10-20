@@ -9,7 +9,13 @@ import java.util.logging.Logger;
 import org.strongback.Strongback;
 
 import com.palyrobotics.robot.InputSystems.ControlScheme;
+import com.palyrobotics.robot.autonomous.CompetitionBD;
+import com.palyrobotics.robot.autonomous.CompetitionBackTouch;
+import com.palyrobotics.robot.autonomous.CompetitionLowBar;
 import com.palyrobotics.robot.autonomous.CompetitionTwentyPointAuto;
+import com.palyrobotics.robot.autonomous.CompetitionWaitBD;
+import com.palyrobotics.robot.autonomous.CompetitionWaitBackTouch;
+import com.palyrobotics.robot.autonomous.CompetitionWaitLowBar;
 import com.palyrobotics.subsystem.accumulator.AccumulatorConstants;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.accumulator.AccumulatorHardware;
@@ -128,10 +134,28 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
-    	autoPath = robotTable.getString("autopath", "20pt");
+    	autoPath = robotTable.getString("autopath", "waitbd");
        	drivetrain.init();
 
        	switch(autoPath) {
+       	case "lowbar":
+       		Strongback.submit(new CompetitionLowBar(drivetrain, shooter));
+       		break;
+       	case "waitlowbar":
+       		Strongback.submit(new CompetitionWaitLowBar(drivetrain, shooter));
+       		break;
+       	case "bd":
+       		Strongback.submit(new CompetitionBD(drivetrain, shooter));
+       		break;
+       	case "waitbd":
+       		Strongback.submit(new CompetitionWaitBD(drivetrain, shooter));
+       		break;
+       	case "backtouch":
+       		Strongback.submit(new CompetitionBackTouch(drivetrain, shooter));;
+       		break;
+       	case "waitbacktouch":
+       		Strongback.submit(new CompetitionWaitBackTouch(drivetrain, shooter));
+       		break;
        	case "20pt":
        		Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
        		break;
