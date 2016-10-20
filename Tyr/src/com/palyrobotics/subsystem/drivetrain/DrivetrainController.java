@@ -54,7 +54,7 @@ public class DrivetrainController implements Requirable {
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_BREACHER_ORIENTATION_BUTTON),
 				() -> TELEOP_ORIENTATION = -1.0);
 		reactor.onTriggered(input.getDriveStick().getButton(Buttons.DRIVETRAIN_AUTO_ALIGN_BUTTON), 
-				() -> Strongback.submit(new SuccessiveAutoAlign(this, 0.33)));
+				() -> Strongback.submit(new SuccessiveAutoAlign(this, 0.33, Integer.MAX_VALUE)));
 		reactor.onTriggered(input.getDriveStick().getButton(10),
 				() -> Strongback.submit(new ChezyDriveTeleop(this, 1.0f)));
 	}

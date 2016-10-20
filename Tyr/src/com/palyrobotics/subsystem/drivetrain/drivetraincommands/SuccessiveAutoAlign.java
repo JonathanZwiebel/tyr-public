@@ -11,34 +11,26 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class SuccessiveAutoAlign extends Command {
 
-	private double speedLimit;
+	private final double speedLimit;
 	private double xdisplacement;
 	private double previousError;
 	private boolean turningAngle;
 	private double counter;
+	private final int timeLimit;
+	private double endTime;
 	private NetworkTable table;
 	private DrivetrainController drivetrain;
-
-	/**
-	 * This command creates turn angle commands that are called repeatedly until
-	 * the desired xdisplacement is met. 
-	 * @param drivetrain to receive input and send output to.
-	 */
-	public SuccessiveAutoAlign(DrivetrainController drivetrain) {
-		super(drivetrain);
-		this.drivetrain = drivetrain;
-		this.speedLimit = 1.0;
-	}
 
 	/**
 	 * Overloaded constructor to allow for a speed limit while turning. 
 	 * @param drivetrain to receive input and send output to.
 	 * @param speed limit of the drivetrain. 
 	 */
-	public SuccessiveAutoAlign(DrivetrainController drivetrain, double speedLimit) {
+	public SuccessiveAutoAlign(DrivetrainController drivetrain, double speedLimit, int timeLimit) {
 		super(drivetrain);
 		this.drivetrain = drivetrain;
 		this.speedLimit = speedLimit;
+		this.timeLimit = timeLimit;
 	}
 
 	@Override
@@ -51,10 +43,16 @@ public class SuccessiveAutoAlign extends Command {
 		drivetrain.getInput().getLeftDriveEncoder().zero();
 		drivetrain.getInput().getRightDriveEncoder().zero();
 		counter = 0.0;
+		endTime = System.currentTimeMillis() + timeLimit;
 	}
 
 	@Override
 	public boolean execute() {
+		if(endTime < System.currentTimeMillis()) {
+			System.out.println("SAA Timeout with endTime : " + endTime);
+			return true;
+		}
+		
 		System.out.print("Auto Align in execute");
 		if(drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) { // Hard breakout
 			table.putBoolean("Reset", true);
