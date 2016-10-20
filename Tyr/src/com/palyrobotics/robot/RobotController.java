@@ -69,6 +69,21 @@ public class RobotController extends IterativeRobot {
 	
 	private String autoPath;
 	
+	protected enum autonomousPaths {
+		LOWBAR,
+		WAITLOWBAR,
+		BD,
+		WAITBD,
+		BACKTOUCH,
+		WAITBACKTOUCH,
+		TWENTYPT, //cant call it 20pt lol
+		MOAT20PT,
+		WRONG, 
+		NONE
+	}
+	
+	private autonomousPaths behavior_manager;
+	
     @Override
     public void robotInit() {
     	try {
@@ -100,7 +115,9 @@ public class RobotController extends IterativeRobot {
     	
     	robotTable = NetworkTable.getTable("RobotTable");
     	ds = DriverStation.getInstance();
-    	dashboard = new Dashboard(ds, accumulator, drivetrain, shooter, breacher, grabber);
+    	behavior_manager = autonomousPaths.NONE;
+    	
+    	dashboard = new Dashboard(ds, accumulator, drivetrain, shooter, breacher, grabber, behavior_manager);
     	dashboard.initDashboard();
     	
     	//Begin logging
@@ -135,37 +152,39 @@ public class RobotController extends IterativeRobot {
     
     @Override
     public void autonomousInit() {
-    	autoPath = robotTable.getString("autopath", "waitbd");
-    	
-       	drivetrain.init();
-
-       	switch(autoPath) {
-       	case "lowbar":
-       		Strongback.submit(new CompetitionLowBar(drivetrain, shooter));
-       		break;
-       	case "waitlowbar":
-       		Strongback.submit(new CompetitionWaitLowBar(drivetrain, shooter));
-       		break;
-       	case "bd":
-       		Strongback.submit(new CompetitionBD(drivetrain, shooter));
-       		break;
-       	case "waitbd":
-       		Strongback.submit(new CompetitionWaitBD(drivetrain, shooter));
-       		break;
-       	case "backtouch":
-       		Strongback.submit(new CompetitionBackTouch(drivetrain, shooter));;
-       		break;
-       	case "waitbacktouch":
-       		Strongback.submit(new CompetitionWaitBackTouch(drivetrain, shooter));
-       		break;
-       	case "20pt":
-       		Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
-       		break;
-       	case "moat20pt":
-       		Strongback.submit(new CompetitionMoatTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
-       		break;
-       	case "none":
-       		break;
+       	switch(behavior_manager) {
+		case BACKTOUCH:
+			Strongback.submit(new CompetitionBackTouch(drivetrain, shooter));
+			break;
+		case BD:
+			Strongback.submit(new CompetitionBD(drivetrain, shooter));
+			break;
+		case LOWBAR:
+			Strongback.submit(new CompetitionLowBar(drivetrain, shooter));
+			break;
+		case MOAT20PT:
+			Strongback.submit(new CompetitionMoatTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
+			break;
+		case NONE:
+			//no auto :(
+			break;
+		case TWENTYPT:
+			Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
+			break;
+		case WAITBACKTOUCH:
+			Strongback.submit(new CompetitionWaitBackTouch(drivetrain, shooter));
+			break;
+		case WAITBD:
+			Strongback.submit(new CompetitionWaitBD(drivetrain, shooter));
+			break;
+		case WAITLOWBAR:
+			Strongback.submit(new CompetitionWaitLowBar(drivetrain, shooter));
+			break;
+		case WRONG:
+			//happens if you enter an invalid auto path :(
+			break;
+		default:
+			break;
        	}
     }
     
@@ -277,6 +296,40 @@ public class RobotController extends IterativeRobot {
     	
     @Override
     public void disabledPeriodic() {
+    	autoPath = robotTable.getString("autopath", "none");
+       	switch(autoPath) {
+       	case "lowbar":
+       		behavior_manager = autonomousPaths.LOWBAR;
+       		break;
+       	case "waitlowbar":
+       		behavior_manager = autonomousPaths.WAITLOWBAR;
+       		break;
+       	case "bd":
+       		behavior_manager = autonomousPaths.BD;
+       		break;
+       	case "waitbd":
+       		behavior_manager = autonomousPaths.WAITBD;
+       		break;
+       	case "backtouch":
+       		behavior_manager = autonomousPaths.BACKTOUCH;
+       		break;
+       	case "waitbacktouch":
+       		behavior_manager = autonomousPaths.WAITBACKTOUCH;
+       		break;
+       	case "20pt":
+       		behavior_manager = autonomousPaths.TWENTYPT;
+       		break;
+       	case "moat20pt":
+       		behavior_manager = autonomousPaths.MOAT20PT;
+       		break;
+       	case "none":
+       		behavior_manager = autonomousPaths.NONE;
+       		break;
+       	default:
+       		behavior_manager = autonomousPaths.WRONG;
+       		break;
+       	}
+       	
     	dashboard.updateDashboard();
     }
 }

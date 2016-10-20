@@ -1,5 +1,6 @@
 package com.palyrobotics.robot;
 
+import com.palyrobotics.robot.RobotController.autonomousPaths;
 import com.palyrobotics.subsystem.accumulator.AccumulatorController;
 import com.palyrobotics.subsystem.breacher.BreacherController;
 import com.palyrobotics.subsystem.drivetrain.DrivetrainController;
@@ -18,9 +19,10 @@ public class Dashboard {
 	private ShooterController shooter;
 	private BreacherController breacher;
 	private GrabberController grabber;
+	private autonomousPaths behavior_manager;
 
 	public Dashboard(DriverStation driverstation, AccumulatorController accumulator, DrivetrainController drivetrain,
-			ShooterController shooter, BreacherController breacher, GrabberController grabber) {
+			ShooterController shooter, BreacherController breacher, GrabberController grabber, autonomousPaths behavior_manager) {
 		table = NetworkTable.getTable("RobotTable");
 		this.ds = driverstation;
 		this.accumulator = accumulator;
@@ -29,6 +31,7 @@ public class Dashboard {
 		this.breacher = breacher;
 		this.grabber = grabber;
 		this.checkingAlliance = true;
+		this.behavior_manager = behavior_manager;
 	}
 
 	/**
@@ -115,7 +118,7 @@ public class Dashboard {
 		table.putString("pvaluehandshake", Double.toString(table.getNumber("pvalue", -1)));
 		table.putString("ivaluehandshake", Double.toString(table.getNumber("ivalue", -1)));
 		table.putString("dvaluehandshake", Double.toString(table.getNumber("dvalue", -1)));
-		table.putString("autopathhandshake", table.getString("autopath", "None"));
+		table.putString("autopathhandshake", behavior_manager.toString());
 
 	}
 
