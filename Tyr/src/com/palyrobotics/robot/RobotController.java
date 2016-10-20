@@ -12,6 +12,7 @@ import com.palyrobotics.robot.InputSystems.ControlScheme;
 import com.palyrobotics.robot.autonomous.CompetitionBD;
 import com.palyrobotics.robot.autonomous.CompetitionBackTouch;
 import com.palyrobotics.robot.autonomous.CompetitionLowBar;
+import com.palyrobotics.robot.autonomous.CompetitionMoatTwentyPointAuto;
 import com.palyrobotics.robot.autonomous.CompetitionTwentyPointAuto;
 import com.palyrobotics.robot.autonomous.CompetitionWaitBD;
 import com.palyrobotics.robot.autonomous.CompetitionWaitBackTouch;
@@ -135,6 +136,7 @@ public class RobotController extends IterativeRobot {
     @Override
     public void autonomousInit() {
     	autoPath = robotTable.getString("autopath", "waitbd");
+    	
        	drivetrain.init();
 
        	switch(autoPath) {
@@ -158,6 +160,9 @@ public class RobotController extends IterativeRobot {
        		break;
        	case "20pt":
        		Strongback.submit(new CompetitionTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
+       		break;
+       	case "moat20pt":
+       		Strongback.submit(new CompetitionMoatTwentyPointAuto(drivetrain, shooter, grabber, accumulator));
        		break;
        	case "none":
        		break;
