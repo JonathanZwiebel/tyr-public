@@ -57,16 +57,16 @@ public class Converter {
 		leftStick.setYaw(xbox.getLeftTrigger().read());
 		
 		//Maps a to the extend actuator button of the left joystick
-		leftStick.setButton(LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON, xbox.getB().isTriggered());
+		leftStick.setButton(LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON, xbox.getB().isTriggered());
 		
 		//Maps b to the retract actuator button of the left joystick 
-		leftStick.setButton(LOADING_ACTUATOR_RETRACT_OPERATOR_STICK_BUTTON, xbox.getX().isTriggered());
+		leftStick.setButton(LOADING_ACTUATOR_EXTEND_OPERATOR_STICK_BUTTON, xbox.getX().isTriggered());
 		
 		//Maps the right trigger to the firing button of the left joystick
-		leftStick.setButton(LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON, xbox.getA().isTriggered());
+		leftStick.setButton(LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON, xbox.getA().isTriggered());
 		
 		//Maps the right bumper to the unlock actuator button of the left joystick
-		leftStick.setButton(LOCKING_ACTUATOR_LOCK_OPERATOR_STICK_BUTTON, xbox.getY().isTriggered());
+		leftStick.setButton(LOCKING_ACTUATOR_UNLOCK_OPERATOR_STICK_BUTTON, xbox.getY().isTriggered());
 				
 		//Maps the left bumper to the grabber toggle button of the right joystick
 		rightStick.setButton(GRABBER_TOGGLE_BUTTON, xbox.getLeftBumper().isTriggered());
