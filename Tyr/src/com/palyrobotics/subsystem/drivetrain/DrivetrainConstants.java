@@ -41,7 +41,7 @@ public class DrivetrainConstants {
 	//Constants for turning angle with encoders
 	public static double DEGREE_TO_DISTANCE;
 	public static final double DERIC_DEGREE_TO_DISTANCE = 0.20145115;
-	public static final double TYR_DEGREE_TO_DISTANCE = 0;
+	public static final double TYR_DEGREE_TO_DISTANCE = 0.20145115;
 	public static final double PIXELS_PER_DEGREE = 1.0; 
 	public static final double PIXELS_PER_DISTANCE = 48.394 - 6;
 	public static final double PIXEL_DISTANCE_ADJUSTMENT = 25;
