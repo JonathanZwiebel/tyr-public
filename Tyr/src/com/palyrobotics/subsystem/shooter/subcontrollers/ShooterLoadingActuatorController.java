@@ -39,7 +39,7 @@ public class ShooterLoadingActuatorController implements Requirable {
 	}
 	
 	public void update() {
-		Logger.getLogger("Central").log(Level.INFO, "Shooter Loading Actuator isRetracted: " + isRetracted);
+		//Logger.getLogger("Central").log(Level.INFO, "Shooter Loading Actuator isRetracted: " + isRetracted);
 	}
 	
 	public void disable() {

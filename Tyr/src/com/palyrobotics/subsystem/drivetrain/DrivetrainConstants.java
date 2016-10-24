@@ -21,8 +21,8 @@ public class DrivetrainConstants {
 	public static final double LEFT_ANGLE_D_VALUE = 0.0175;
 
 	// PD values for shooter allign.
-	public static final double RIGHT_SHOOTER_P_VALUE = 0.045;
-	public static final double LEFT_SHOOTER_P_VALUE = 0.045;
+	public static final double RIGHT_SHOOTER_P_VALUE = 0.15;
+	public static final double LEFT_SHOOTER_P_VALUE = 0.15;
 	public static final double RIGHT_SHOOTER_D_VALUE = 0.00;
 	public static final double LEFT_SHOOTER_D_VALUE = 0.00;
 	

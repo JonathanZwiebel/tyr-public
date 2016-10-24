@@ -53,7 +53,7 @@ public class SuccessiveAutoAlign extends Command {
 			return true;
 		}
 		
-		System.out.print("Auto Align in execute");
+		//System.out.print("Auto Align in execute");
 		if(drivetrain.getInput().getDriveStick().getTrigger().isTriggered()) { // Hard breakout
 			table.putBoolean("Reset", true);
 			return true;
@@ -64,6 +64,8 @@ public class SuccessiveAutoAlign extends Command {
 					- drivetrain.getInput().getRightDriveEncoder().getAngle()) / 2;
 			
 			double error = xdisplacement - encoderDisplacement;
+			System.out.println("displacement: " + this.xdisplacement);
+			System.out.println("error: " + error);
 			double derivative = (error - previousError) * UPDATES_PER_SECOND;
 			previousError = error;
 
@@ -71,7 +73,7 @@ public class SuccessiveAutoAlign extends Command {
 					Math.max(LEFT_SHOOTER_P_VALUE * error + LEFT_SHOOTER_D_VALUE * derivative, -speedLimit), speedLimit);
 			double rightSpeed = Math.min(
 					Math.max(RIGHT_SHOOTER_P_VALUE * error + RIGHT_SHOOTER_D_VALUE * derivative, -speedLimit), speedLimit);
-
+			System.out.println("leftspeed: " + leftSpeed);
 			drivetrain.getOutput().getLeftMotor().setSpeed(leftSpeed);
 			drivetrain.getOutput().getRightMotor().setSpeed(rightSpeed);
 

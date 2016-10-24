@@ -195,7 +195,7 @@ public class RobotController extends IterativeRobot {
     	
     	//updateDashboard();
     	dashboard.updateDashboard();
-    	
+    	System.out.println("gyro: " + input.getGyroscope().getAngle());
     	drivetrain.update();
     	accumulator.update();
     	shooter.update();
@@ -203,9 +203,10 @@ public class RobotController extends IterativeRobot {
     	grabber.update();
     	
     	
-    	
-    	Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
-    	Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
+    	System.out.println("left enc: " + input.getLeftDriveEncoder().getAngle());
+    	System.out.println("right enc: " + input.getRightDriveEncoder().getAngle());
+    	//Logger.getLogger("Central").log(Level.INFO, "Left Encoder: " + input.getLeftDriveEncoder().getAngle());
+    	//Logger.getLogger("Central").log(Level.INFO, "Right Encoder: " + input.getRightDriveEncoder().getAngle());
    }
 
     @Override
